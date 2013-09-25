@@ -4,8 +4,8 @@ Appium Android library for RobotFramework
 Introduction
 ------------
 
-AppiumAndroidLibrary is an Android testing library for `RobotFramework
-<http://code.google.com/p/robotframework/>`_.
+AppiumAndroidLibrary is an Android testing library for `RobotFramework <http://code.google.com/p/robotframework/>`_.
+
 It uses `Appium <http://appium.io/>`_ to communicate with Android application 
 similar to how `Selenium WebDriver <http://seleniumhq.org/projects/webdriver/>`_ talks
 to web browser.
