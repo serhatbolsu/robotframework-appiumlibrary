@@ -95,7 +95,7 @@ class _ElementKeywords(KeywordGroup):
                        tap_count='1', startX='0.0', startY='0.0'):
         """ Slide seek bar """
         driver = self._current_application()
-        element = _find_element_by_tag_name('seekBar', id_or_name)
+        element = self._find_element_by_tag_name('seekBar', id_or_name)
         args = {'startX':float(startX), 'startY':float(startY),
                 'endX':float(endX), 'endY':float(endY),
                 'tapCount':int(tap_count), 'element':element.id, 'duration':1}
