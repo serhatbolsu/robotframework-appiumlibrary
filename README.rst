@@ -44,4 +44,5 @@ For how to use Appium please refer to `Appium Documentation <http://appium.io/ge
 Documentation
 -------------
 
-The keyword documentation could be found at `Keyword Documentation <https://github.com/frankbp/robotframework-appiumandroidlibrary/blob/master/doc/AppimuAndroidLibrary.html>`_
+The keyword documentation could be found at `Keyword Documentation 
+<http://htmlpreview.github.io/?https://github.com/frankbp/robotframework-appiumandroidlibrary/blob/master/doc/AppimuAndroidLibrary.html>`_
