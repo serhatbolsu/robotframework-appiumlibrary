@@ -12,57 +12,58 @@ class _ElementKeywords(KeywordGroup):
 
     # Public, element lookups
 
-    def current_frame_contains(self, text, loglevel='INFO'):
-        """Verifies that current frame contains `text`.
-
-        See `Page Should Contain ` for explanation about `loglevel` argument.
-        """
-        if not self._is_text_present(text):
-            self.log_source(loglevel)
-            raise AssertionError("Page should have contained text '%s' "
-                                 "but did not" % text)
-        self._info("Current page contains text '%s'." % text)
-
     def click_button(self, id_or_name):
+        """ Click button """
         self._click_element_by_tag_name('Button', id_or_name)
 
     def click_radio_button(self, id_or_name):
+        """ Click radio button """
         self._click_element_by_tag_name('radioButton', id_or_name)
 
     def click_check_box(self, id_or_name):
+        """ Click checkbox """
         self._click_element_by_tag_name('checkBox', id_or_name)
 
     def click_toggle_button(self, id_or_name):
+        """ Click toggle button """
         self._click_element_by_tag_name('toggleButton', id_or_name)
 
     def click_text_view(self, id_or_name):
+        """ Click text view """
         self._click_element_by_tag_name('textView', id_or_name)
 
     def click_spinner(self, id_or_name):
+        """ Click spinner """
         self._click_element_by_tag_name('spinner', id_or_name)
 
     def click_checked_text_view(self, id_or_name):
+        """ Click checked text view """
         self._click_element_by_tag_name('checkedTextView', id_or_name)
 
     def click_image_button(self, id_or_name):
+        """ Click image button """
         self._click_element_by_tag_name('imageButton', id_or_name)
 
     def input_text(self, text):
+        """ Input text """
         textfields = self._find_elements_by_tag_name("editText")
         textfields[0].send_keys(text)
 
     def long_press(self, tag_name, id_or_name):
+        """ Long press the element """
         driver = self._current_application()
         element = self._find_element_by_tag_name(tag_name, id_or_name)
         long_press = TouchActions(driver).long_press(element)
         long_press.perform()
 
     def reset_application(self):
+        """ Reset application """
         driver = self._current_application()
         driver.execute_script('mobile: reset')
 
     def scroll_screen(self, endX, endY, duration='1',
                       tap_count= '1', startX='0.5', startY='0.5'):
+        """ Scroll screen """
         driver = self._current_application()
         args = {'startX':float(startX), 'startY':float(startY),
                 'startX':float(endX), 'startY':float(endY),
@@ -71,6 +72,7 @@ class _ElementKeywords(KeywordGroup):
 
     def scroll_element(self, tag_name, id_or_name,
                    endX, endY, duration='1', tap_count= '1', startX='0.5', startY='0.5'):
+        """ Scroll element """
         driver = self._current_application()
         element = self._find_element_by_tag_name(tag_name, id_or_name)
         args = {'startX':float(startX), 'startY':float(startY),
@@ -81,6 +83,7 @@ class _ElementKeywords(KeywordGroup):
 
     def slide_rating_bar(self, id_or_name, endX, endY,
                      tap_count='1', startX='0.0', startY='0.0'):
+        """ Slide rating bar """
         driver = self._current_application()
         element = self._find_element_by_tag_name('ratingBar', id_or_name)
         args = {'startX':float(startX), 'startY':float(startY),
@@ -90,6 +93,7 @@ class _ElementKeywords(KeywordGroup):
 
     def slide_seek_bar(self, id_or_name, endX, endY,
                        tap_count='1', startX='0.0', startY='0.0'):
+        """ Slide seek bar """
         driver = self._current_application()
         element = _find_element_by_tag_name('seekBar', id_or_name)
         args = {'startX':float(startX), 'startY':float(startY),

@@ -24,6 +24,16 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def open_application(self, remote_url, device, app, app_package, app_activity, alias=None):
         """Opens a new application to given Appium server.
+
+        | Option     | Man. | Description |
+        | remote_url | Yes  | Appium server url |
+        | device     | Yes  | Device id |
+        | app        | Yes  | Android application |
+        | app_package | Yes | Android application package name |
+        | app_activity | Yes | Android application activity name |
+
+        Examples:
+        | Open Application | http://localhost:4723/wd/hub | emulator:5554 | OrangeDemoApp.apk | com.test.orangedemo | .MainActivity |
         """
         desired_caps = {}
         desired_caps['device'] = device
@@ -39,7 +49,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         
         return self._cache.register(application, alias)
 
-    def go_back(self):
+    def _go_back(self):
         """Simulates the user clicking the "back" button on their browser."""
         self._current_application().back()
 
