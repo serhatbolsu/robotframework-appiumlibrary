@@ -6,14 +6,14 @@ execfile(os.path.join(THIS_DIR, 'version.py'))
 
 __version__ = VERSION
 
-class AppiumAndroidLibrary(
+class AppiumLibrary(
     _LoggingKeywords, 
     _RunOnFailureKeywords, 
     _ElementKeywords, 
     _ScreenshotKeywords,
     _ApplicationManagementKeywords,
 ):
-    """AppiumAndroidLibrary is a Android testing library for Robot Framework.
+    """AppiumLibrary is a Android testing library for Robot Framework.
 
     """
 
@@ -21,7 +21,7 @@ class AppiumAndroidLibrary(
     ROBOT_LIBRARY_VERSION = VERSION
 
     def __init__(self, run_on_failure='Capture Page Screenshot'):
-        """AppiumAndroidLibrary can be imported with optional arguments.
+        """AppiumLibrary can be imported with optional arguments.
 
         `run_on_failure` specifies the name of a keyword (from any available
         libraries) to execute when a Selenium2Library keyword fails. By default
@@ -31,8 +31,8 @@ class AppiumAndroidLibrary(
         functionality.
 
         Examples:
-        | Library | AppiumAndroidLibrary | run_on_failure=Nothing | # Sets default timeout to 10 seconds and does nothing on failure           |
+        | Library | AppiumLibrary | run_on_failure=Nothing | # Sets default timeout to 10 seconds and does nothing on failure           |
         """
-        for base in AppiumAndroidLibrary.__bases__:
+        for base in AppiumLibrary.__bases__:
             base.__init__(self)
         self.register_keyword_to_run_on_failure(run_on_failure)

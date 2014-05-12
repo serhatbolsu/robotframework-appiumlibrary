@@ -1,8 +1,8 @@
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.touch_actions import TouchActions
-from AppiumAndroidLibrary import utils
-from AppiumAndroidLibrary.locators import ElementFinder
+from AppiumLibrary import utils
+from AppiumLibrary.locators import ElementFinder
 from keywordgroup import KeywordGroup
 
 class _ElementKeywords(KeywordGroup):

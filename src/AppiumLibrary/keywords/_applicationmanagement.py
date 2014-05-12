@@ -2,7 +2,7 @@ import os
 import robot
 from robot.errors import DataError
 from selenium import webdriver
-from AppiumAndroidLibrary.utils import ApplicationCache
+from AppiumLibrary.utils import ApplicationCache
 from keywordgroup import KeywordGroup
 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -22,22 +22,23 @@ class _ApplicationManagementKeywords(KeywordGroup):
                         % self._cache.current.session_id)
             self._cache.close()
 
-    def open_application(self, remote_url, device, app, app_package, app_activity, alias=None):
+    def open_application(self, remote_url, device, version, app, app_package, app_activity, alias=None):
         """Opens a new application to given Appium server.
 
         | Option     | Man. | Description |
         | remote_url | Yes  | Appium server url |
         | device     | Yes  | Device id |
+        | version    | Yes  | sdk version |
         | app        | Yes  | Android application |
-        | app_package | Yes | Android application package name |
-        | app_activity | Yes | Android application activity name |
+        | app_package | no | Android application package name |
+        | app_activity | no | Android application activity name |
 
         Examples:
         | Open Application | http://localhost:4723/wd/hub | emulator:5554 | OrangeDemoApp.apk | com.test.orangedemo | .MainActivity |
         """
         desired_caps = {}
         desired_caps['device'] = device
-        desired_caps['version'] = '4.2'
+        desired_caps['version'] = version
         desired_caps['app'] = app
         desired_caps['app-package'] = app_package
         desired_caps['app-activity'] = app_activity
