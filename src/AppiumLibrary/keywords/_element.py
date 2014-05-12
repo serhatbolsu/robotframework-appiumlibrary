@@ -11,6 +11,9 @@ class _ElementKeywords(KeywordGroup):
         self._element_finder = ElementFinder()
 
     # Public, element lookups
+    def click_element_by_name(self, name):
+        """ Click element by name """
+        self._click_element_by_name(name)
 
     def click_button(self, id_or_name):
         """ Click button """
@@ -143,7 +146,7 @@ class _ElementKeywords(KeywordGroup):
         except Exception, e:
             raise Exception, 'Cannot click the %s element "%s"' % (tag_name, id_or_name)
 
-    def _click_element_by_name(name):
+    def _click_element_by_name(self, name):
         driver = self._current_application()
         try:
             element = driver.find_element_by_name(name)
