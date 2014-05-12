@@ -1,4 +1,4 @@
-Appium Android library for RobotFramework
+Appium library for RobotFramework
 ==================================================
 
 Introduction
