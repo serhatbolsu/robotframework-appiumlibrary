@@ -22,14 +22,14 @@ class _ApplicationManagementKeywords(KeywordGroup):
                         % self._cache.current.session_id)
             self._cache.close()
 
-    def open_application(self, remote_url, device, version, app, app_package, app_activity, alias=None):
+    def open_application(self, remote_url, device, version, app, app_package=None, app_activity=None, alias=None):
         """Opens a new application to given Appium server.
 
         | Option     | Man. | Description |
         | remote_url | Yes  | Appium server url |
         | device     | Yes  | Device id |
         | version    | Yes  | sdk version |
-        | app        | Yes  | Android application |
+        | app        | Yes  | Android/iOS application |
         | app_package | no | Android application package name |
         | app_activity | no | Android application activity name |
 
@@ -37,6 +37,9 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | Open Application | http://localhost:4723/wd/hub | emulator:5554 | OrangeDemoApp.apk | com.test.orangedemo | .MainActivity |
         """
         desired_caps = {}
+        desired_caps['browserName'] = ''
+        #TODO get platform
+        desired_caps['platform'] = 'Mac'
         desired_caps['device'] = device
         desired_caps['version'] = version
         desired_caps['app'] = app

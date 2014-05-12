@@ -1,4 +1,4 @@
-from AppiumAndroidLibrary import utils
+from AppiumLibrary import utils
 from robot.api import logger
 
 class ElementFinder(object):
