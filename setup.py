@@ -12,7 +12,9 @@ execfile(join(dirname(__file__), 'src', 'AppiumLibrary', 'version.py'))
 
 DESCRIPTION = """
 appiumlibrary is a app testing library for Robot Framework
-that leverages the appium libraries.
+that leverages the appium(https://github.com/appium/appium) libraries.
+Appium is an open source, cross-platform test automation tool for native, hybrid and mobile web apps,
+tested on simulators (iOS, FirefoxOS), emulators (Android), and real devices (iOS, Android, FirefoxOS).
 """[1:-1]
 
 setup(name         = 'robotframework-appiumlibrary',
