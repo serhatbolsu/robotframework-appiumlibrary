@@ -36,9 +36,9 @@ setup(name         = 'robotframework-appiumlibrary',
                      ],
       install_requires = [
                             'decorator >= 3.3.2',
-                            'selenium >= 2.32.0',
                             'robotframework >= 2.6.0',
-                            'docutils >= 0.8.1'
+                            'docutils >= 0.8.1',
+                            'Appium-Python-Client >= 0.5'
                          ],
       py_modules=['ez_setup'],
       package_dir  = {'' : 'src'},
