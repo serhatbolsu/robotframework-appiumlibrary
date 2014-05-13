@@ -51,4 +51,4 @@ Documentation
 -------------
 
 The keyword documentation could be found at `Keyword Documentation 
-<http://htmlpreview.github.io/?https://github.com/jollychang/robotframework-appiumlibrary/blob/master/doc/AppimuLibrary.html>`_
+<http://jollychang.github.io/robotframework-appiumlibrary/doc/AppimuLibrary.html>`_
