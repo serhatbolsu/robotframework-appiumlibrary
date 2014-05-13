@@ -13,7 +13,7 @@ class AppiumLibrary(
     _ScreenshotKeywords,
     _ApplicationManagementKeywords,
 ):
-    """AppiumLibrary is a Android testing library for Robot Framework.
+    """AppiumLibrary is a App testing library for Robot Framework.
 
     """
 
