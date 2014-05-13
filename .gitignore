@@ -33,3 +33,9 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+VENV
+log.html
+output.xml
+report.html
+selenium-screenshot-*.png
+demo/test_doubandaily.txt
