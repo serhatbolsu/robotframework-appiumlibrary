@@ -14,7 +14,13 @@ to web browser.
 Installation
 ------------
 
+Using ``pip``
+'''''''''''''
 
+The recommended installation method is using
+`pip <http://pip-installer.org>`__::
+
+    pip install robotframework-appiumlibrary
 
 
 Directory Layout
