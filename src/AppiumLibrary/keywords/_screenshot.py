@@ -14,7 +14,7 @@ class _ScreenshotKeywords(KeywordGroup):
 
         `filename` argument specifies the name of the file to write the
         screenshot into. If no `filename` is given, the screenshot is saved into file
-        `selenium-screenshot-<counter>.png` under the directory where
+        `appium-screenshot-<counter>.png` under the directory where
         the Robot Framework log file is written into. The `filename` is
         also considered relative to the same directory, if it is not
         given in absolute format.
@@ -39,7 +39,7 @@ class _ScreenshotKeywords(KeywordGroup):
     def _get_screenshot_paths(self, filename):
         if not filename:
             self._screenshot_index += 1
-            filename = 'selenium-screenshot-%d.png' % self._screenshot_index
+            filename = 'appium-screenshot-%d.png' % self._screenshot_index
         else:
             filename = filename.replace('/', os.sep)
         logdir = self._get_log_dir()

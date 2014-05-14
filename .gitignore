@@ -37,5 +37,5 @@ VENV
 log.html
 output.xml
 report.html
-selenium-screenshot-*.png
+*-screenshot-*.png
 demo/test_doubandaily.txt
