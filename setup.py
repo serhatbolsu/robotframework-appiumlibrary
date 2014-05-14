@@ -10,17 +10,10 @@ from setuptools import setup
 
 execfile(join(dirname(__file__), 'src', 'AppiumLibrary', 'version.py'))
 
-DESCRIPTION = """
-appiumlibrary is a app testing library for Robot Framework
-that leverages the appium(https://github.com/appium/appium) libraries.
-Appium is an open source, cross-platform test automation tool for native, hybrid and mobile web apps,
-tested on simulators (iOS, FirefoxOS), emulators (Android), and real devices (iOS, Android, FirefoxOS).
-"""[1:-1]
-
 setup(name         = 'robotframework-appiumlibrary',
       version      = VERSION,
       description  = 'app testing library for Robot Framework',
-      long_description = DESCRIPTION,
+      long_description = open(join(dirname(__file__), 'README.rst')).read(),
       author       = 'William Zhang, Xie Lieping',
       author_email = '<jollychang@gmail.com>, <frankbp@gmail.com>',
       url          = 'https://github.com/jollychang/robotframework-appiumlibrary',
@@ -38,7 +31,8 @@ setup(name         = 'robotframework-appiumlibrary',
                             'decorator >= 3.3.2',
                             'robotframework >= 2.6.0',
                             'docutils >= 0.8.1',
-                            'Appium-Python-Client >= 0.5'
+                            'Appium-Python-Client >= 0.5',
+                            'pytest >= 2.5.2'
                          ],
       py_modules=['ez_setup'],
       package_dir  = {'' : 'src'},
