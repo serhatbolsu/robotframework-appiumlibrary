@@ -1,4 +1,4 @@
-from appium.webdriver.common.touch_actions import TouchAction
+from appium.webdriver.common.touch_action import TouchAction
 from AppiumLibrary import utils
 from AppiumLibrary.locators import ElementFinder
 from keywordgroup import KeywordGroup
