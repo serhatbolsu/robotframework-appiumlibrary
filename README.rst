@@ -55,3 +55,6 @@ The keyword documentation could be found at `Keyword Documentation
 
 .. image:: https://travis-ci.org/jollychang/robotframework-appiumlibrary.svg?branch=master
     :target: https://travis-ci.org/jollychang/robotframework-appiumlibrary
+    
+.. image:: https://pledgie.com/campaigns/25326.png
+    :target: https://pledgie.com/campaigns/25326
