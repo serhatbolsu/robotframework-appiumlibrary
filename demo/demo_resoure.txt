@@ -3,12 +3,14 @@ Library         AppiumLibrary
 
 
 *** Variables ***
-${APPIUM_URL}  http://localhost:4723/wd/hub 
-${SDK_VERSION}  7.0
-${APP_DEVICE}  iPhone Simulator
-${APP}  /Users/jollychang/Library/Developer/Xcode/DerivedData/DoubanDaily-byivcesjoachqbfgppyqsmrwjqjo/Build/Products/Debug-iphonesimulator/xxxxx.app
+${REMOTE_URL}  http://localhost:4723/wd/hub 
+${PLATFORM_NAME}  iOS
+${PLATFORM_VERSION}  7.0
+${DEVICE_NAME}  iPhone Simulator
+${APP}  YOUR.app
 
 *** Keywords ***
 TestStart
     [Documentation]  just demo
-    Open Application  ${APPIUM_URL}  ${APP_DEVICE}  ${SDK_VERSION}  ${APP} 
+    Open Application  ${REMOTE_URL}  ${PLATFORM_NAME}  ${PLATFORM_VERSION}  ${DEVICE_NAME}  ${APP}
+    Capture Page Screenshot

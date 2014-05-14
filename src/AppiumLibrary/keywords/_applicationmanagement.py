@@ -22,27 +22,29 @@ class _ApplicationManagementKeywords(KeywordGroup):
                         % self._cache.current.session_id)
             self._cache.close()
 
-    def open_application(self, remote_url, device, version, app, app_package=None, app_activity=None, alias=None):
+    def open_application(self, remote_url, platform_name, platform_version, device_name, app, automation_name=None, app_package=None, app_activity=None, alias=None):
         """Opens a new application to given Appium server.
 
-        | Option     | Man. | Description |
-        | remote_url | Yes  | Appium server url |
-        | device     | Yes  | Device id |
-        | version    | Yes  | sdk version |
-        | app        | Yes  | Android/iOS application |
-        | app_package | no | Android application package name |
-        | app_activity | no | Android application activity name |
+        | Option            | Man. | Description |
+        | remote_url        | Yes  | Appium server url |
+        | platform_name     | Yes  | platform name, either "iOS" or "Android" |
+        | platform_version  | Yes  | platform version, the mobile OS version you want |
+        | device_name       | Yes  | Device name, the kind of device you want, like "iPhone Simulator" |        
+        | app               | Yes  | Android/iOS application path |
+        | automation_name   | no   | "Selendroid" if you want to use Selendroid, otherwise, this can be omitted |
+        | app_package       | no   | Android application package name |
+        | app_activity      | no   | Android application activity name |
 
         Examples:
-        | Open Application | http://localhost:4723/wd/hub | emulator:5554 | OrangeDemoApp.apk | com.test.orangedemo | .MainActivity |
+        | Open Application | http://localhost:4723/wd/hub | Android Emulator | OrangeDemoApp.apk | com.test.orangedemo | .MainActivity |
         """
         desired_caps = {}
-        desired_caps['browserName'] = ''
-        #TODO get platform
-        desired_caps['platform'] = 'Mac'
-        desired_caps['device'] = device
-        desired_caps['version'] = version
+        desired_caps['platformName'] = platform_name
+        desired_caps['platformVersion'] = platform_version
+        desired_caps['deviceName'] = device_name
         desired_caps['app'] = app
+        desired_caps['automationName'] = automation_name
+        # desired_caps['browserName'] = ''
         desired_caps['app-package'] = app_package
         desired_caps['app-activity'] = app_activity
         desired_caps['takesScreenshot'] = 'true'
