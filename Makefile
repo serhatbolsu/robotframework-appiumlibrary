@@ -12,3 +12,11 @@ pypi_upload:clean_pyc
 
 clean_pyc:
 	find . -iname "*.pyc" -delete
+
+andriod_demo:
+	pybot ./demo/test_andriod_demo.txt
+
+ios_demo:
+	pybot ./demo/test_ios_demo.txt
+
+demo:andriod_demo ios_demo

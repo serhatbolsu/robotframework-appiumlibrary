@@ -36,7 +36,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | app_activity      | no   | Android application activity name |
 
         Examples:
-        | Open Application | http://localhost:4723/wd/hub | Android Emulator | OrangeDemoApp.apk | com.test.orangedemo | .MainActivity |
+        | Open Application | http://localhost:4723/wd/hub | iOS | 7.0 | iPhone Simulator | your.app |
+        | Open Application | http://localhost:4723/wd/hub | Android | 4.2 | emulator:5554 | OrangeDemoApp.apk | Selendroid | com.test.orangedemo | .MainActivity |
         """
         desired_caps = {}
         desired_caps['platformName'] = platform_name
@@ -45,8 +46,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
         desired_caps['app'] = app
         desired_caps['automationName'] = automation_name
         # desired_caps['browserName'] = ''
-        desired_caps['app-package'] = app_package
-        desired_caps['app-activity'] = app_activity
+        desired_caps['appPackage'] = app_package
+        desired_caps['androidActivity'] = app_activity
         desired_caps['takesScreenshot'] = 'true'
     
         application = webdriver.Remote(str(remote_url), desired_caps)
