@@ -52,3 +52,6 @@ Documentation
 
 The keyword documentation could be found at `Keyword Documentation 
 <http://jollychang.github.io/robotframework-appiumlibrary/doc/AppimuLibrary.html>`_
+
+.. image:: https://travis-ci.org/jollychang/robotframework-appiumlibrary.svg?branch=master
+    :target: https://travis-ci.org/jollychang/robotframework-appiumlibrary
