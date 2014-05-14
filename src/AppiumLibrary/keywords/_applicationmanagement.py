@@ -25,15 +25,15 @@ class _ApplicationManagementKeywords(KeywordGroup):
     def open_application(self, remote_url, platform_name, platform_version, device_name, app, automation_name=None, app_package=None, app_activity=None, alias=None):
         """Opens a new application to given Appium server.
 
-        | Option            | Man. | Description |
-        | remote_url        | Yes  | Appium server url |
-        | platform_name     | Yes  | platform name, either "iOS" or "Android" |
-        | platform_version  | Yes  | platform version, the mobile OS version you want |
-        | device_name       | Yes  | Device name, the kind of device you want, like "iPhone Simulator" |        
-        | app               | Yes  | Android/iOS application path |
-        | automation_name   | no   | "Selendroid" if you want to use Selendroid, otherwise, this can be omitted |
-        | app_package       | no   | Android application package name |
-        | app_activity      | no   | Android application activity name |
+        | *Option*          | *Man.* | *Description* |
+        | remote_url        | Yes    | Appium server url |
+        | platform_name     | Yes    | platform name, either "iOS" or "Android" |
+        | platform_version  | Yes    | platform version, the mobile OS version you want |
+        | device_name       | Yes    | Device name, the kind of device you want, like "iPhone Simulator" |        
+        | app               | Yes    | Android/iOS application path |
+        | automation_name   | no     | "Selendroid" if you want to use Selendroid, otherwise, this can be omitted |
+        | app_package       | no     | Android application package name |
+        | app_activity      | no     | Android application activity name |
 
         Examples:
         | Open Application | http://localhost:4723/wd/hub | iOS | 7.0 | iPhone Simulator | your.app |
