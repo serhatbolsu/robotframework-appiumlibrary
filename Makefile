@@ -20,3 +20,11 @@ ios_demo:
 	pybot ./demo/test_ios_demo.txt
 
 demo:andriod_demo ios_demo
+
+unittest:
+	py.test tests
+
+test:unittest
+
+version:
+	cat src/AppiumLibrary/version.py
