@@ -1,6 +1,4 @@
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.touch_actions import TouchActions
+from appium.webdriver.common.touch_actions import TouchAction
 from AppiumLibrary import utils
 from AppiumLibrary.locators import ElementFinder
 from keywordgroup import KeywordGroup
@@ -56,7 +54,7 @@ class _ElementKeywords(KeywordGroup):
         """ Long press the element """
         driver = self._current_application()
         element = self._find_element_by_tag_name(tag_name, id_or_name)
-        long_press = TouchActions(driver).long_press(element)
+        long_press = TouchAction(driver).long_press(element)
         long_press.perform()
 
     def reset_application(self):

@@ -1,7 +1,7 @@
 import os
 import robot
 from robot.errors import DataError
-from selenium import webdriver
+from appium import webdriver
 from AppiumLibrary.utils import ApplicationCache
 from keywordgroup import KeywordGroup
 
