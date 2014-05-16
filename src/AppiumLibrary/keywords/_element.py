@@ -9,9 +9,14 @@ class _ElementKeywords(KeywordGroup):
         self._element_finder = ElementFinder()
 
     # Public, element lookups
-    def click_element_by_name(self, name):
-        """ Click element by name """
-        self._click_element_by_name(name)
+    def click_element(self, locator):
+        """Click element identified by `locator`.
+
+        Key attributes for arbitrary elements are `id` and `name`. See
+        `introduction` for details about locating elements.
+        """
+        # self._info("Clicking element '%s'." % locator)
+        self._element_find(locator, True, True).click()        
 
     def click_button(self, id_or_name):
         """ Click button """
@@ -155,3 +160,13 @@ class _ElementKeywords(KeywordGroup):
             element.click()
         except Exception, e:
             raise Exception, 'Cannot click the element with name "%s"' % name
+
+    def _element_find(self, locator, first_only, required, tag=None):
+        application = self._current_application()
+        elements = self._element_finder.find(application, locator, tag)
+        if required and len(elements) == 0:
+            raise ValueError("Element locator '" + locator + "' did not match any elements.")
+        if first_only:
+            if len(elements) == 0: return None
+            return elements[0]
+        return elements
