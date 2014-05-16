@@ -79,4 +79,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
             desired_capabilities[key.strip()] = value.strip()
 
         return desired_capabilities
+
+    def get_source(self):
+        """Returns the entire source of the current page."""
+        return self._current_application().page_source
     
