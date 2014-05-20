@@ -107,7 +107,32 @@ class _ElementKeywords(KeywordGroup):
                 'tapCount':int(tap_count), 'element':element.id, 'duration':1}
         driver.execute_script('mobile: flick', args)
 
-    
+    def page_should_contain(self, text, loglevel='INFO'):
+        """Verifies that current page contains `text`.
+
+        If this keyword fails, it automatically logs the page source
+        using the log level specified with the optional `loglevel` argument.
+        Giving `NONE` as level disables logging.
+        """
+        if not text in self.log_source(loglevel):
+            self.log_source(loglevel)
+            raise AssertionError("Page should have contained text '%s' "
+                                 "but did not" % text)
+        self._info("Current page contains text '%s'." % text)
+
+    def page_should_not_contain(self, text, loglevel='INFO'):
+        """Verifies that current page not contains `text`.
+
+        If this keyword fails, it automatically logs the page source
+        using the log level specified with the optional `loglevel` argument.
+        Giving `NONE` as level disables logging.
+        """
+        if text in self.log_source(loglevel):
+            self.log_source(loglevel)
+            raise AssertionError("Page should not have contained text '%s' "
+                                 "but did not" % text)
+        self._info("Current page does not contains text '%s'." % text)
+
     # Private
 
     def _find_elements_by_tag_name(self, tag_name):

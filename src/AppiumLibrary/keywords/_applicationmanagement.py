@@ -84,3 +84,13 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """Returns the entire source of the current page."""
         return self._current_application().page_source
     
+
+    def log_source(self, loglevel='INFO'):
+        """Logs and returns the entire html source of the current page or frame.
+
+        The `loglevel` argument defines the used log level. Valid log levels are
+        `WARN`, `INFO` (default), `DEBUG`, `TRACE` and `NONE` (no logging).
+        """
+        source = self.get_source()
+        self._log(source, loglevel.upper())
+        return source
