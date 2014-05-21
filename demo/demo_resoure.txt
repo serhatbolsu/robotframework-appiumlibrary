@@ -1,5 +1,5 @@
 *** Settings ***
-Library         AppiumLibrary  
+Library         AppiumLibrary  run_on_failure=Log Source
 
 
 *** Variables ***
