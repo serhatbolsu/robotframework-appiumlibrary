@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 import robot
 from robot.errors import DataError

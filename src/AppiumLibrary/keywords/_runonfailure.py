@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from robot.libraries import BuiltIn
 from keywordgroup import KeywordGroup
 

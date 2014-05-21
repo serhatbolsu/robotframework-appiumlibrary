@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from AppiumLibrary import utils
 from robot.api import logger
 
