@@ -22,7 +22,8 @@ class _ElementKeywords(KeywordGroup):
 
     def click_button(self, id_or_name):
         """ Click button """
-        self._click_element_by_class_name('UIAButton', id_or_name)
+        if self._is_ios():
+            self._click_element_by_class_name('UIAButton', id_or_name)
 
 
     def input_text(self, text):
