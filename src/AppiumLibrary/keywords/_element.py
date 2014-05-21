@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from appium.webdriver.common.touch_action import TouchAction
 from AppiumLibrary import utils
 from AppiumLibrary.locators import ElementFinder
@@ -15,8 +17,13 @@ class _ElementKeywords(KeywordGroup):
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
         """
-        # self._info("Clicking element '%s'." % locator)
+        self._info("Clicking element '%s'." % locator)
         self._element_find(locator, True, True).click()        
+
+    def click_button(self, id_or_name):
+        """ Click button """
+        self._click_element_by_class_name('UIAButton', id_or_name)
+
 
     def input_text(self, text):
         """ Input text """
@@ -120,6 +127,40 @@ class _ElementKeywords(KeywordGroup):
             element.click()
         except Exception, e:
             raise Exception, 'Cannot click the element with name "%s"' % name
+
+    def _find_elements_by_class_name(self, class_name):
+        driver = self._current_application()
+        elements = driver.find_elements_by_class_name(class_name)
+        return elements
+
+    def _find_element_by_class_name(self, class_name, id_or_name):
+        elements = self._find_elements_by_class_name(class_name)
+    
+        if self._is_id(id_or_name):
+            try:
+                index = int(id_or_name.split('=')[-1])
+                element = elements[index]
+            except IndexError, TypeError:
+                raise Exception, 'Cannot find the element with index "%s"' % id_or_name
+        else:
+            found = False
+            for element in elements:
+                self._info("'%s'." % element.text)
+                if element.text == id_or_name:
+                    found = True
+                    break
+            if not found:
+                raise Exception, 'Cannot find the element with name "%s"' % id_or_name
+
+        return element
+
+    def _click_element_by_class_name(self, class_name, id_or_name):
+        element = self._find_element_by_class_name(class_name, id_or_name)
+        self._info("Clicking element '%s'." % element.text)
+        try:
+            element.click()
+        except Exception, e:
+            raise Exception, 'Cannot click the %s element "%s"' % (class_name, id_or_name)
 
     def _element_find(self, locator, first_only, required, tag=None):
         application = self._current_application()
