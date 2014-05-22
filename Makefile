@@ -22,7 +22,7 @@ ios_demo:
 demo:andriod_demo ios_demo
 
 unittest:
-	VENV/bin/py.test -s tests 
+	py.test -s tests 
 
 test:unittest
 
