@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 import robot
 from robot.errors import DataError
@@ -79,6 +81,20 @@ class _ApplicationManagementKeywords(KeywordGroup):
             desired_capabilities[key.strip()] = value.strip()
 
         return desired_capabilities
+
+    def _is_platform(self, platform):
+        try:
+            platformName = self._current_application().desired_capabilities['desired']['platformName']
+        except Exception, e:
+            raise Exception, e    
+                
+        return platform == platformName.lower()
+
+    def _is_ios(self):
+        return self._is_platform('ios')
+
+    def _is_andriod(self):
+        return self._is_platform('android')
 
     def get_source(self):
         """Returns the entire source of the current page."""

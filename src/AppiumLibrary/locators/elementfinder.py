@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from AppiumLibrary import utils
 from robot.api import logger
 
@@ -9,12 +11,8 @@ class ElementFinder(object):
             'id': self._find_by_id,
             'name': self._find_by_name,
             'xpath': self._find_by_xpath,
-            'dom': self._find_by_dom,
-            'link': self._find_by_link_text,
-            'css': self._find_by_css_selector,
-            'jquery': self._find_by_sizzle_selector,
-            'sizzle': self._find_by_sizzle_selector,
-            'tag': self._find_by_tag_name,
+            'class': self._find_by_class_name,
+            'accessibility_id': self._find_element_by_accessibility_id,
             None: self._find_by_default
         }
 
@@ -79,6 +77,17 @@ class ElementFinder(object):
         return self._filter_elements(
             browser.find_elements_by_tag_name(criteria),
             tag, constraints)
+
+    def _find_by_class_name(self, browser, criteria, tag, constraints):
+        return self._filter_elements(
+            browser.find_elements_by_class_name(criteria),
+            tag, constraints)
+
+    def _find_element_by_accessibility_id(self, browser, criteria, tag, constraints):
+        return self._filter_elements(
+            browser.find_element_by_accessibility_id(criteria),
+            tag, constraints)
+
 
     def _find_by_default(self, browser, criteria, tag, constraints):
         if criteria.startswith('//'):

@@ -39,3 +39,5 @@ output.xml
 report.html
 *-screenshot-*.png
 demo/test_doubandaily.txt
+
+run.sh

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 from keywords import *
 
@@ -14,6 +16,33 @@ class AppiumLibrary(
     _ApplicationManagementKeywords,
 ):
     """AppiumLibrary is a App testing library for Robot Framework.
+
+    *Locating elements*
+
+    All keywords in AppiumLibrary that need to find an element on the app
+    take an argument, `locator`. By default, when a locator value is provided,
+    it is matched against the key attributes of the particular element type.
+    For example, `id` and `name` are key attributes to all elements, and
+    locating elements is easy using just the `id` as a `locator`. For example::
+
+    Click Element  my_element
+
+    Appium additionally supports some of the _Mobile JSON Wire Protocol_
+    (https://code.google.com/p/selenium/source/browse/spec-draft.md?repo=mobile) locator strategies
+    It is also possible to specify the approach AppiumLibrary should take
+    to find an element by specifying a lookup strategy with a locator
+    prefix. Supported strategies are:
+
+    | *Strategy*        | *Example*                                                      | *Description*                     |
+    | identifier        | Click Element `|` identifier=my_element                        | Matches by @id or @name attribute |
+    | id                | Click Element `|` id=my_element                                | Matches by @id attribute          |
+    | name              | Click Element `|` name=my_element                              | Matches by @name attribute        |
+    | xpath             | Click Element `|` xpath=//UIATableView/UIATableCell/UIAButton  | Matches with arbitrary XPath      |
+    | class             | Click Element `|` class=UIAPickerWheel                         | Matches by class                  |
+    | accessibility_id  | Click Element `|` accessibility_id=t                           |  Accessibility options utilize.   |
+
+
+
 
     """
 
