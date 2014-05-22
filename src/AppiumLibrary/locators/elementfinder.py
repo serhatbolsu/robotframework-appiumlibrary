@@ -11,11 +11,6 @@ class ElementFinder(object):
             'id': self._find_by_id,
             'name': self._find_by_name,
             'xpath': self._find_by_xpath,
-            'dom': self._find_by_dom,
-            'link': self._find_by_link_text,
-            'css': self._find_by_css_selector,
-            'jquery': self._find_by_sizzle_selector,
-            'sizzle': self._find_by_sizzle_selector,
             'class': self._find_by_class_name,
             'accessibility_id': self._find_element_by_accessibility_id,
             None: self._find_by_default
