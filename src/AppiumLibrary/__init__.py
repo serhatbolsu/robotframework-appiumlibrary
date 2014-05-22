@@ -33,13 +33,13 @@ class AppiumLibrary(
     to find an element by specifying a lookup strategy with a locator
     prefix. Supported strategies are:
 
-    | *Strategy*        | *Example*                                                     | *Description*                     |
-    | identifier        | Click Element `|` identifier=my_element                       | Matches by @id or @name attribute |
-    | id                | Click Element `|` id=my_element                               | Matches by @id attribute          |
-    | name              | Click Element `|` name=my_element                             | Matches by @name attribute        |
-    | xpath             | Click Element `|` xpath=//UIATableView/UIATableCell/UIAButton | Matches with arbitrary XPath      |
-    | class             | Click Element `|` class=UIAPickerWheel                        | Matches by class                  |
-    | accessibility_id  | Click Element `|` class=loginbutton                           |  Accessibility options utilize.   |
+    | *Strategy*        | *Example*                                                      | *Description*                     |
+    | identifier        | Click Element `|` identifier=my_element                        | Matches by @id or @name attribute |
+    | id                | Click Element `|` id=my_element                                | Matches by @id attribute          |
+    | name              | Click Element `|` name=my_element                              | Matches by @name attribute        |
+    | xpath             | Click Element `|` xpath=//UIATableView/UIATableCell/UIAButton  | Matches with arbitrary XPath      |
+    | class             | Click Element `|` class=UIAPickerWheel                         | Matches by class                  |
+    | accessibility_id  | Click Element `|` accessibility_id=t                           |  Accessibility options utilize.   |
 
 
 
