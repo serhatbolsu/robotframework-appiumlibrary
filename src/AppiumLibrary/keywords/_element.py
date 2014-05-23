@@ -25,11 +25,21 @@ class _ElementKeywords(KeywordGroup):
         if self._is_ios():
             self._click_element_by_class_name('UIAButton', id_or_name)
 
+    def input_text(self, id_or_name, text):
+        """ Input text identified by `locator`.
+        Key attributes for arbitrary elements are `id` and `name`. See
+        `introduction` for details about locating elements.
+        Examples:
+        | Input text | id=0            | my_id |
+        | Input text | login_textfiled | my_id |
+        """
+        if self._is_ios():
+            self._element_input_text_by_class_name("UIATextField", id_or_name, text)
 
-    def input_text(self, text):
-        """ Input text """
-        textfields = self._find_elements_by_tag_name("editText")
-        textfields[0].send_keys(text)
+    def input_password(self, id_or_name, text):
+        """ Input secure text """
+        if self._is_ios():
+            self._element_input_text_by_class_name("UIASecureTextField", id_or_name, text)
 
     def long_press(self, locator):
         """ Long press the element """
@@ -162,6 +172,28 @@ class _ElementKeywords(KeywordGroup):
             element.click()
         except Exception, e:
             raise Exception, 'Cannot click the %s element "%s"' % (class_name, id_or_name)
+
+    def _element_input_text_by_class_name(self, class_name, id_or_name, text):
+        element = self._find_element_by_class_name(class_name, id_or_name)
+        self._info("input text in element as '%s'." % element.text)
+        try:
+            element.send_keys(text)
+        except Exception, e:
+            raise Exception, 'Cannot input text "%s" for the %s element "%s"' % (text, class_name, id_or_name)
+
+
+
+        driver = self._current_application()
+        try:
+            element = driver._find_element_by_class_name(name)
+        except Exception, e:
+            raise Exception, e
+    
+        try:
+            element.click()
+        except Exception, e:
+            raise Exception, 'Cannot click the element with name "%s"' % name
+
 
     def _element_find(self, locator, first_only, required, tag=None):
         application = self._current_application()
