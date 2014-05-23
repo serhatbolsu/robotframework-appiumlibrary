@@ -1,12 +1,11 @@
 Appium library for RobotFramework
 ==================================================
 
+.. image:: https://badge.fury.io/py/robotframework-appiumlibrary.svg
+    :target: http://badge.fury.io/py/robotframework-appiumlibrary
+    
 .. image:: https://travis-ci.org/jollychang/robotframework-appiumlibrary.svg?branch=master
     :target: https://travis-ci.org/jollychang/robotframework-appiumlibrary
-
-.. image:: https://pypip.in/v/robotframework-appiumlibrary/badge.png
-    :target: https://crate.io/packages/robotframework-appiumlibrary/
-    :alt: Latest PyPI version
 
 .. image:: https://pypip.in/d/robotframework-appiumlibrary/badge.png
     :target: https://crate.io/packages/robotframework-appiumlibrary/
