@@ -3,7 +3,7 @@ Appium library for RobotFramework
 
 .. image:: https://badge.fury.io/py/robotframework-appiumlibrary.svg
     :target: http://badge.fury.io/py/robotframework-appiumlibrary
-    
+
 .. image:: https://travis-ci.org/jollychang/robotframework-appiumlibrary.svg?branch=master
     :target: https://travis-ci.org/jollychang/robotframework-appiumlibrary
 
@@ -23,6 +23,7 @@ It uses `Appium <http://appium.io/>`_ to communicate with Android application
 similar to how `Selenium WebDriver <http://seleniumhq.org/projects/webdriver/>`_ talks
 to web browser.
 
+AppiumLibrary is based on  `appiumandroidlibrary by frankbp <https://github.com/frankbp/robotframework-appiumandroidlibrary>`_.
 
 Installation
 ------------
