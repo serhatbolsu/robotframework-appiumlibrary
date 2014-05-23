@@ -174,25 +174,16 @@ class _ElementKeywords(KeywordGroup):
             raise Exception, 'Cannot click the %s element "%s"' % (class_name, id_or_name)
 
     def _element_input_text_by_class_name(self, class_name, id_or_name, text):
-        element = self._find_element_by_class_name(class_name, id_or_name)
+        try:
+            element = self._find_element_by_class_name(class_name, id_or_name)
+        except Exception, e:
+            raise Exception, e
+
         self._info("input text in element as '%s'." % element.text)
         try:
             element.send_keys(text)
         except Exception, e:
             raise Exception, 'Cannot input text "%s" for the %s element "%s"' % (text, class_name, id_or_name)
-
-
-
-        driver = self._current_application()
-        try:
-            element = driver._find_element_by_class_name(name)
-        except Exception, e:
-            raise Exception, e
-    
-        try:
-            element.click()
-        except Exception, e:
-            raise Exception, 'Cannot click the element with name "%s"' % name
 
 
     def _element_find(self, locator, first_only, required, tag=None):
