@@ -1,19 +1,6 @@
 Appium library for RobotFramework
 ==================================================
 
-.. image:: https://badge.fury.io/py/robotframework-appiumlibrary.svg
-    :target: http://badge.fury.io/py/robotframework-appiumlibrary
-
-.. image:: https://travis-ci.org/jollychang/robotframework-appiumlibrary.svg?branch=master
-    :target: https://travis-ci.org/jollychang/robotframework-appiumlibrary
-
-.. image:: https://pypip.in/d/robotframework-appiumlibrary/badge.png
-    :target: https://crate.io/packages/robotframework-appiumlibrary/
-    :alt: Number of PyPI downloads
-
-.. image:: https://pledgie.com/campaigns/25326.png
-    :target: https://pledgie.com/campaigns/25326
-
 Introduction
 ------------
 
@@ -66,3 +53,17 @@ Documentation
 
 The keyword documentation could be found at `Keyword Documentation 
 <http://jollychang.github.io/robotframework-appiumlibrary/doc/AppimuLibrary.html>`_
+
+.. image:: https://pypip.in/v/robotframework-appiumlibrary/badge.png
+    :target: https://crate.io/packages/robotframework-appiumlibrary/
+    :alt: Latest PyPI version
+
+.. image:: https://travis-ci.org/jollychang/robotframework-appiumlibrary.svg?branch=master
+    :target: https://travis-ci.org/jollychang/robotframework-appiumlibrary
+
+.. image:: https://pypip.in/d/robotframework-appiumlibrary/badge.png
+    :target: https://crate.io/packages/robotframework-appiumlibrary/
+    :alt: Number of PyPI downloads
+
+.. image:: https://pledgie.com/campaigns/25326.png
+    :target: https://pledgie.com/campaigns/25326
