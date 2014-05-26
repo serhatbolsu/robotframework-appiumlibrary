@@ -22,8 +22,11 @@ class _ElementKeywords(KeywordGroup):
 
     def click_button(self, id_or_name):
         """ Click button """
-        if self._is_ios():
-            self._click_element_by_class_name('UIAButton', id_or_name)
+        _platform_class_dict = {'ios':'UIAButton',
+                                   'android': 'android.widget.Button'}
+        if self._is_support_platform(_platform_class_dict):
+            class_name = self._get_class(_platform_class_dict)
+            self._click_element_by_class_name(class_name, id_or_name)
 
     def input_text(self, id_or_name, text):
         """ Input text identified by `locator`.
@@ -33,13 +36,19 @@ class _ElementKeywords(KeywordGroup):
         | Input text | id=0            | my_id |
         | Input text | login_textfiled | my_id |
         """
-        if self._is_ios():
-            self._element_input_text_by_class_name("UIATextField", id_or_name, text)
+        _platform_class_dict = {'ios':'UIATextField',
+                                   'android': 'android.widget.EditText'}
+        if self._is_support_platform(_platform_class_dict):
+            class_name = self._get_class(_platform_class_dict)
+            self._element_input_text_by_class_name(class_name, id_or_name, text)
 
     def input_password(self, id_or_name, text):
         """ Input secure text """
-        if self._is_ios():
-            self._element_input_text_by_class_name("UIASecureTextField", id_or_name, text)
+        _platform_class_dict = {'ios':'UIASecureTextField',
+                                   'android': 'android.widget.EditText'}
+        if self._is_support_platform(_platform_class_dict):
+            class_name = self._get_class(_platform_class_dict)
+            self._element_input_text_by_class_name(class_name, id_or_name, text)
 
     def long_press(self, locator):
         """ Long press the element """
@@ -164,6 +173,12 @@ class _ElementKeywords(KeywordGroup):
                 raise Exception, 'Cannot find the element with name "%s"' % id_or_name
 
         return element
+
+    def _get_class(self, platform_class_dict):
+        return platform_class_dict.get(self._get_platform())        
+
+    def _is_support_platform(self, platform_class_dict):
+        return platform_class_dict.has_key(self._get_platform())
 
     def _click_element_by_class_name(self, class_name, id_or_name):
         element = self._find_element_by_class_name(class_name, id_or_name)
