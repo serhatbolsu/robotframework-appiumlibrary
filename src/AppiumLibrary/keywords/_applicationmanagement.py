@@ -82,13 +82,16 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
         return desired_capabilities
 
-    def _is_platform(self, platform):
+    def _get_platform(self):
         try:
             platformName = self._current_application().desired_capabilities['desired']['platformName']
         except Exception, e:
-            raise Exception, e    
-                
-        return platform == platformName.lower()
+            raise Exception, e
+        return platformName.lower()
+
+    def _is_platform(self, platform):
+        platformName = self._get_platform()
+        return platform.lower() == platformName
 
     def _is_ios(self):
         return self._is_platform('ios')
