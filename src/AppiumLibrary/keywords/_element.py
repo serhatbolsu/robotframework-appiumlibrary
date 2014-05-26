@@ -174,11 +174,11 @@ class _ElementKeywords(KeywordGroup):
 
         return element
 
-    def _get_class(self._platform_class_dict):
-        return _platform_class_dict.get(self._get_platform())        
+    def _get_class(self, platform_class_dict):
+        return platform_class_dict.get(self._get_platform())        
 
-    def _is_support_platform(self, _platform_class_dict):
-        return _platform_class_dict.has_key(self._get_platform())
+    def _is_support_platform(self, platform_class_dict):
+        return platform_class_dict.has_key(self._get_platform())
 
     def _click_element_by_class_name(self, class_name, id_or_name):
         element = self._find_element_by_class_name(class_name, id_or_name)
