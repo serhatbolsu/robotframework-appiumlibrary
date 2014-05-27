@@ -210,3 +210,6 @@ class _ElementKeywords(KeywordGroup):
             if len(elements) == 0: return None
             return elements[0]
         return elements
+
+    def _is_text_present(self, text):
+        return text in self.get_source()
