@@ -14,6 +14,7 @@ class AppiumLibrary(
     _ElementKeywords, 
     _ScreenshotKeywords,
     _ApplicationManagementKeywords,
+    _WaitingKeywords,
 ):
     """AppiumLibrary is a App testing library for Robot Framework.
 
