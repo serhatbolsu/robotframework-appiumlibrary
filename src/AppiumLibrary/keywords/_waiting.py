@@ -20,6 +20,7 @@ class _WaitingKeywords(KeywordGroup):
         """
         if not error:
             error = "Text '%s' did not appear in <TIMEOUT>" % text
+            self.log_source()
         self._wait_until(timeout, error, self._is_text_present, text)
         
     # Private
