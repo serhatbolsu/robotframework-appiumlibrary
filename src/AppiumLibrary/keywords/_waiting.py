@@ -20,7 +20,6 @@ class _WaitingKeywords(KeywordGroup):
         """
         if not error:
             error = "Text '%s' did not appear in <TIMEOUT>" % text
-            self.log_source()
         self._wait_until(timeout, error, self._is_text_present, text)
         
     # Private
@@ -38,6 +37,7 @@ class _WaitingKeywords(KeywordGroup):
             timeout_error = wait_func(*args)
             if not timeout_error: return
             if time.time() > maxtime:
+                self.log_source()
                 raise AssertionError(timeout_error)
             time.sleep(0.2)
 
