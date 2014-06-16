@@ -14,6 +14,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def __init__(self):
         self._cache = ApplicationCache()
+        self._timeout_in_secs = float(5)
 
     # Public, open and close
 
@@ -110,6 +111,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         The `loglevel` argument defines the used log level. Valid log levels are
         `WARN`, `INFO` (default), `DEBUG`, `TRACE` and `NONE` (no logging).
         """
-        source = self.get_source()
+        source = self._current_application().page_source
         self._log(source, loglevel.upper())
         return source
