@@ -37,6 +37,7 @@ class _WaitingKeywords(KeywordGroup):
             timeout_error = wait_func(*args)
             if not timeout_error: return
             if time.time() > maxtime:
+                self.log_source()
                 raise AssertionError(timeout_error)
             time.sleep(0.2)
 
