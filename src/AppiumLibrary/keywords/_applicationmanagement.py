@@ -59,6 +59,25 @@ class _ApplicationManagementKeywords(KeywordGroup):
         
         return self._cache.register(application, alias)
 
+
+    def get_source(self):
+        """Returns the entire source of the current page."""
+        return self._current_application().page_source    
+
+    def log_source(self, loglevel='INFO'):
+        """Logs and returns the entire html source of the current page or frame.
+
+        The `loglevel` argument defines the used log level. Valid log levels are
+        `WARN`, `INFO` (default), `DEBUG`, `TRACE` and `NONE` (no logging).
+        """
+        source = self._current_application().page_source
+        self._log(source, loglevel.upper())
+        return source
+
+    def go_back(self):
+        """Goes one step backward in the browser history."""
+        self._go_back()
+
     def _go_back(self):
         """Simulates the user clicking the "back" button on their browser."""
         self._current_application().back()
@@ -99,18 +118,3 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def _is_andriod(self):
         return self._is_platform('android')
-
-    def get_source(self):
-        """Returns the entire source of the current page."""
-        return self._current_application().page_source
-    
-
-    def log_source(self, loglevel='INFO'):
-        """Logs and returns the entire html source of the current page or frame.
-
-        The `loglevel` argument defines the used log level. Valid log levels are
-        `WARN`, `INFO` (default), `DEBUG`, `TRACE` and `NONE` (no logging).
-        """
-        source = self._current_application().page_source
-        self._log(source, loglevel.upper())
-        return source
