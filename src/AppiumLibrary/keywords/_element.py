@@ -102,7 +102,7 @@ class _ElementKeywords(KeywordGroup):
     #             'tapCount':int(tap_count), 'element':element.id, 'duration':1}
     #     driver.execute_script('mobile: flick', args)
 
-    def page_should_contain(self, text, loglevel='INFO'):
+    def page_should_contain_text(self, text, loglevel='INFO'):
         """Verifies that current page contains `text`.
 
         If this keyword fails, it automatically logs the page source
@@ -115,7 +115,7 @@ class _ElementKeywords(KeywordGroup):
                                  "but did not" % text)
         self._info("Current page contains text '%s'." % text)
 
-    def page_should_not_contain(self, text, loglevel='INFO'):
+    def page_should_not_contain_text(self, text, loglevel='INFO'):
         """Verifies that current page not contains `text`.
 
         If this keyword fails, it automatically logs the page source
@@ -127,6 +127,65 @@ class _ElementKeywords(KeywordGroup):
             raise AssertionError("Page should not have contained text '%s' "
                                  "but did not" % text)
         self._info("Current page does not contains text '%s'." % text)
+
+    def page_should_contain_element(self, locator, loglevel='INFO'):
+        """Verifies that current page contains `locator` element.
+
+        If this keyword fails, it automatically logs the page source
+        using the log level specified with the optional `loglevel` argument.
+        Givin
+        """        
+        if not self._is_element_present(locator):
+            self.log_source(loglevel)
+            raise AssertionError("Page should have contained element '%s' "
+                                 "but did not" % locator)            
+        self._info("Current page contains element '%s'." % locator)
+
+    def page_should_not_contain_element(self, locator, loglevel='INFO'):
+        """Verifies that current page not contains `locator` element.
+
+        If this keyword fails, it automatically logs the page source
+        using the log level specified with the optional `loglevel` argument.
+        Givin
+        """   
+        if self._is_element_present(locator):
+            self.log_source(loglevel)
+            raise AssertionError("Page should not have contained element '%s' "
+                                 "but did not" % locator)            
+        self._info("Current page not contains element '%s'." % locator)
+
+    def element_should_be_disabled(self, locator):
+        """Verifies that element identified with locator is disabled.
+
+        Key attributes for arbitrary elements are `id` and `name`. See
+        `introduction` for details about locating elements.        
+        """
+        if self._element_find(locator, True, True).is_enabled():
+            self.log_source(loglevel)
+            raise AssertionError("Element '%s' should be disabled "
+                                 "but did not" % locator)      
+        self._info("Element '%s' is disabled ." % locator)
+
+    def element_should_be_enabled(self, locator):
+        """Verifies that element identified with locator is enabled.
+
+        Key attributes for arbitrary elements are `id` and `name`. See
+        `introduction` for details about locating elements.        
+        """
+        if not self._element_find(locator, True, True).is_enabled():
+            self.log_source(loglevel)
+            raise AssertionError("Element '%s' should be enabled "
+                                 "but did not" % locator)      
+        self._info("Element '%s' is enabled ." % locator)
+
+
+    def element_name_should_be(self, locator, expected):
+        element = self._element_find(locator, True, True)
+        if expected != element.get_attribute('name'):
+            raise AssertionError("Element '%s' name should be '%s' "
+                                 "but it is '%s'." % (locator, expected, element.get_attribute('name'))) 
+        self._info("Element '%s' name is '%s' " % (locator, expected))
+
 
     # Private
     
@@ -213,3 +272,8 @@ class _ElementKeywords(KeywordGroup):
 
     def _is_text_present(self, text):
         return text in self.get_source()
+
+    def _is_element_present(self, locator):
+        application = self._current_application()
+        elements = self._element_finder.find(application, locator, None)
+        return len(elements) > 0
