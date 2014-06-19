@@ -1,7 +1,7 @@
 .PHONY: help
 
 help:
-	@echo targes: generate_doc, 
+	@echo targes: version, generate_doc, pypi_upload, clean_pyc, andriod_demo, ios_demo, demo, unittest, test
 
 generate_doc: 
 	VENV/bin/python -m robot.libdoc ./src/AppiumLibrary/ ./doc/AppimuLibrary.html
@@ -9,6 +9,7 @@ generate_doc:
 pypi_upload:clean_pyc
 	rm -rf src/robotframework_appiumlibrary.egg-info/
 	VENV/bin/python setup.py sdist upload
+	@echo https://pypi.python.org/pypi/robotframework-appiumlibrary/
 
 clean_pyc:
 	find . -iname "*.pyc" -delete
