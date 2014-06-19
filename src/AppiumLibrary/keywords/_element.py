@@ -179,6 +179,13 @@ class _ElementKeywords(KeywordGroup):
         self._info("Element '%s' is enabled ." % locator)
 
 
+    def element_name_should_be(self, locator, expected):
+        element = self._element_find(locator, True, True)
+        if expected != element.get_attribute('name'):
+            raise AssertionError("Element '%s' name should be '%s' "
+                                 "but did not" % (locator, expected)) 
+        self._info("Element '%s' name is '%s' " % (locator, expected))
+
 
     # Private
     
