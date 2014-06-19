@@ -154,6 +154,31 @@ class _ElementKeywords(KeywordGroup):
                                  "but did not" % locator)            
         self._info("Current page not contains element '%s'." % locator)
 
+    def element_should_be_disabled(self, locator):
+        """Verifies that element identified with locator is disabled.
+
+        Key attributes for arbitrary elements are `id` and `name`. See
+        `introduction` for details about locating elements.        
+        """
+        if self._element_find(locator, True, True).is_enabled():
+            self.log_source(loglevel)
+            raise AssertionError("Element '%s' should be disabled "
+                                 "but did not" % locator)      
+        self._info("Element '%s' is disabled ." % locator)
+
+    def element_should_be_enabled(self, locator):
+        """Verifies that element identified with locator is enabled.
+
+        Key attributes for arbitrary elements are `id` and `name`. See
+        `introduction` for details about locating elements.        
+        """
+        if not self._element_find(locator, True, True).is_enabled():
+            self.log_source(loglevel)
+            raise AssertionError("Element '%s' should be enabled "
+                                 "but did not" % locator)      
+        self._info("Element '%s' is enabled ." % locator)
+
+
 
     # Private
     
