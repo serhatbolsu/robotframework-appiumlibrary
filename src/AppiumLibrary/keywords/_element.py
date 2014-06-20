@@ -62,45 +62,35 @@ class _ElementKeywords(KeywordGroup):
         driver = self._current_application()
         driver.execute_script('mobile: reset')
 
-    def scroll_screen(self, endX, endY, duration='1',
-                      tap_count= '1', startX='0.5', startY='0.5'):
-        """ Scroll screen """
+    def swipe(self, start_x, start_y, end_x, end_y, duration=1000):
+        """
+        Swipe from one point to another point, for an optional duration.
+        """
         driver = self._current_application()
-        args = {'startX':float(startX), 'startY':float(startY),
-                'startX':float(endX), 'startY':float(endY),
-                'tapCount':int(tap_count), 'duration':int(duration)}
-        driver.execute_script('mobile: swipe', args)
+        driver.swipe(self, start_x, start_y, end_x, end_y, duration)
 
-    def scroll_element(self, locator, endX, endY, 
-                    duration='1', tap_count= '1', startX='0.5', startY='0.5'):
-        """ Scroll element """
+    def scroll(self, start_locator, end_locator):
+        """
+        Scrolls from one element to another
+        Key attributes for arbitrary elements are `id` and `name`. See
+        `introduction` for details about locating elements.
+        """
+        el1 = self._element_find(start_locator, True, True)
+        el2 = self._element_find(end_locator, True, True)
         driver = self._current_application()
-        element = self._element_find(locator, True, True)
-        args = {'startX':float(startX), 'startY':float(startY),
-                'startX':float(endX), 'startY':float(endY),
-                'tapCount':int(tap_count), 'duration':int(duration),
-                'element':element.ref}
-        driver.execute_script('mobile: swipe', args)
+        driver.scroll(el1, el2)
 
-    # def slide_rating_bar(self, locator, endX, endY,
-    #                  tap_count='1', startX='0.0', startY='0.0'):
-    #     """ Slide rating bar """
-    #     driver = self._current_application()
-    #     element = self._find_element_by_tag_name('ratingBar', id_or_name)
-    #     args = {'startX':float(startX), 'startY':float(startY),
-    #             'endX':float(endX), 'endY':float(endY),
-    #             'tapCount':int(tap_count), 'element':element.id, 'duration':1}
-    #     driver.execute_script('mobile: flick', args)
+    def hide_keyboard(self):
+        """
+        Hides the software keyboard on the device, using the specified key to
+        press. If no key name is given, the keyboard is closed by moving focus
+        from the text field. iOS only.
+        """
+        if not self._is_ios():
+            raise EnvironmentError("Hide Keyword only support for iOS .")
+        driver = self._current_application()
+        driver.hide_keyboard()
 
-    # def slide_seek_bar(self, id_or_name, endX, endY,
-    #                    tap_count='1', startX='0.0', startY='0.0'):
-    #     """ Slide seek bar """
-    #     driver = self._current_application()
-    #     element = self._find_element_by_tag_name('seekBar', id_or_name)
-    #     args = {'startX':float(startX), 'startY':float(startY),
-    #             'endX':float(endX), 'endY':float(endY),
-    #             'tapCount':int(tap_count), 'element':element.id, 'duration':1}
-    #     driver.execute_script('mobile: flick', args)
 
     def page_should_contain_text(self, text, loglevel='INFO'):
         """Verifies that current page contains `text`.

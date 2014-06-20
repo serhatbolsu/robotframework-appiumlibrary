@@ -1,6 +1,16 @@
 History
 =======
 
+
+1.0.11
+----------------
+add keywords as below:
+
+- Swipe
+- Scroll
+- Hide Keyword(iOS only)
+- 
+
 1.0.10
 ----------------
 
