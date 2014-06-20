@@ -50,35 +50,11 @@ class _ElementKeywords(KeywordGroup):
             class_name = self._get_class(_platform_class_dict)
             self._element_input_text_by_class_name(class_name, id_or_name, text)
 
-    def long_press(self, locator):
-        """ Long press the element """
-        driver = self._current_application()
-        element = self._element_find(locator, True, True)
-        long_press = TouchAction(driver).long_press(element)
-        long_press.perform()
 
     def reset_application(self):
         """ Reset application """
         driver = self._current_application()
         driver.execute_script('mobile: reset')
-
-    def swipe(self, start_x, start_y, end_x, end_y, duration=1000):
-        """
-        Swipe from one point to another point, for an optional duration.
-        """
-        driver = self._current_application()
-        driver.swipe(self, start_x, start_y, end_x, end_y, duration)
-
-    def scroll(self, start_locator, end_locator):
-        """
-        Scrolls from one element to another
-        Key attributes for arbitrary elements are `id` and `name`. See
-        `introduction` for details about locating elements.
-        """
-        el1 = self._element_find(start_locator, True, True)
-        el2 = self._element_find(end_locator, True, True)
-        driver = self._current_application()
-        driver.scroll(el1, el2)
 
     def hide_keyboard(self):
         """

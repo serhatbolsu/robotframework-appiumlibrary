@@ -6,10 +6,11 @@ History
 ----------------
 add keywords as below:
 
+- Zoom
+- Pinch
 - Swipe
 - Scroll
 - Hide Keyword(iOS only)
-- 
 
 1.0.10
 ----------------

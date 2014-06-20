@@ -6,6 +6,7 @@ from _element import _ElementKeywords
 from _screenshot import _ScreenshotKeywords
 from _applicationmanagement import _ApplicationManagementKeywords
 from _waiting import _WaitingKeywords
+from _touch import _TouchKeywords
 
 __all__ = ["_LoggingKeywords",
            "_RunOnFailureKeywords",
@@ -13,4 +14,5 @@ __all__ = ["_LoggingKeywords",
            "_ScreenshotKeywords",
            "_ApplicationManagementKeywords",
            "_WaitingKeywords",
+           "_TouchKeywords",
           ]
