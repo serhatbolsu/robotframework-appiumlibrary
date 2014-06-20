@@ -78,6 +78,20 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """Goes one step backward in the browser history."""
         self._go_back()
 
+    def lock(self):
+        """
+        Lock the device
+        """
+        self._current_application().lock()
+
+    def shake(self):
+        """
+        Shake the device
+        """
+        self._current_application().shake()
+
+    # Private
+
     def _go_back(self):
         """Simulates the user clicking the "back" button on their browser."""
         self._current_application().back()

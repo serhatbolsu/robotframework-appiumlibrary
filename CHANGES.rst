@@ -10,6 +10,8 @@ add keywords as below:
 - Pinch
 - Swipe
 - Scroll
+- Lock
+- Shake
 - Hide Keyword(iOS only)
 
 1.0.10
