@@ -10,7 +10,8 @@ class _TouchKeywords(KeywordGroup):
     def __init__(self):
         self._element_finder = ElementFinder()
 
-    def zoom(self, locator, percent=200%, steps=1):
+    # Public, element lookups
+    def zoom(self, locator, percent="200%", steps=1):
         """
         Zooms in on an element a certain amount.
         """
@@ -18,7 +19,7 @@ class _TouchKeywords(KeywordGroup):
         element = self._element_find(locator, True, True)
         driver.zoom(element=element, percent=percent, steps=steps)
 
-    def pinch(self, locator, percent=200%, steps=1):
+    def pinch(self, locator, percent="200%", steps=1):
         """
         Pinch in on an element a certain amount.
         """
