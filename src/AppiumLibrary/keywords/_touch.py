@@ -32,7 +32,7 @@ class _TouchKeywords(KeywordGroup):
         Swipe from one point to another point, for an optional duration.
         """
         driver = self._current_application()
-        driver.swipe(self, start_x, start_y, end_x, end_y, duration)
+        driver.swipe(start_x, start_y, end_x, end_y, duration)
 
     def scroll(self, start_locator, end_locator):
         """
