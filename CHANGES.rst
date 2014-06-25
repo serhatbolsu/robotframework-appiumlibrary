@@ -2,6 +2,10 @@ History
 =======
 
 
+1.0.12
+----------------
+fix swipe
+
 1.0.11
 ----------------
 add keywords as below:
