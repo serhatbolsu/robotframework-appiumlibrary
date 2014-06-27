@@ -2,6 +2,14 @@ History
 =======
 
 
+1.0.13
+----------------
+add keywords as below:
+
+- Get current context
+- Get contexts
+- Switch to context
+
 1.0.12
 ----------------
 fix swipe
