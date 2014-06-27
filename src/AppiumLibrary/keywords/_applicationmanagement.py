@@ -90,6 +90,19 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         self._current_application().shake()
 
+    def get_current_context(self):
+        """Get current context."""
+        return self._current_application().current_context
+
+    def get_contexts(self):
+        """Get available contexts."""
+        print self._current_application().contexts
+        return self._current_application().contexts
+
+    def switch_to_context(self, context_name):
+        """Switch to a new context"""
+        self._current_application().switch_to.context(context_name)
+
     # Private
 
     def _go_back(self):
