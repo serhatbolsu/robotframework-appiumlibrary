@@ -10,7 +10,7 @@ It uses `Appium <http://appium.io/>`_ (version 1.x) to communicate with Android 
 similar to how `Selenium WebDriver <http://seleniumhq.org/projects/webdriver/>`_ talks
 to web browser.
 
-AppiumLibrary is based on  `appiumandroidlibrary by frankbp <https://github.com/frankbp/robotframework-appiumandroidlibrary>`_.
+AppiumLibrary fork from  `appiumandroidlibrary by frankbp <https://github.com/frankbp/robotframework-appiumandroidlibrary>`_.
 
 Installation
 ------------
