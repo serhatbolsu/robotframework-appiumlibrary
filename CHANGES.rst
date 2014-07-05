@@ -2,6 +2,10 @@ History
 =======
 
 
+1.0.14
+----------------
+fix "Locating elements by accessibility_id"
+
 1.0.13
 ----------------
 add keywords as below:
