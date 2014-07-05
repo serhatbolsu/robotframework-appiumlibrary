@@ -84,9 +84,8 @@ class ElementFinder(object):
             tag, constraints)
 
     def _find_element_by_accessibility_id(self, browser, criteria, tag, constraints):
-        return self._filter_elements(
-            browser.find_element_by_accessibility_id(criteria),
-            tag, constraints)
+        elements = browser.find_elements_by_accessibility_id(criteria)
+        return elements
 
 
     def _find_by_default(self, browser, criteria, tag, constraints):

@@ -1,0 +1,11 @@
+*** Settings ***
+Documentation   demo for android_contacts(https://github.com/appium/appium/blob/master/sample-code/examples/python/android_contacts.py)
+Force Tags      demo
+Resource        demo/demo_resoure.txt
+
+
+*** Test Cases ***
+test_demo
+    [Tags]  regression
+    Open Application  http://localhost:4723/wd/hub  Android  4.2.2  emulator:5555  /Users/jollychang/tmp/appium/sample-code/apps/ContactManager/ContactManager.apk  app_package=com.example.android.contactmanager  app_activity=.ContactManager 
+    click element  accessibility_id=Add Contact
