@@ -29,24 +29,22 @@ class _ElementKeywords(KeywordGroup):
             self._click_element_by_class_name(class_name, index_or_name)
 
     def input_text(self, locator, text):
-        """ Input text identified by `locator`.
-        Key attributes for arbitrary elements are `index` and `name`. See
-        `introduction` for details about locating elements.
-        Examples:
-        | Input text | index=0            | element_index |
-        | Input text | login_textfiled | element_name |
+        """Types the given `text` into text field identified by `locator`.
+
+        See `introduction` for details about locating elements.
         """
+        self._info("Typing text '%s' into text field '%s'" % (text, locator))
         self._element_input_text_by_locator(locator, text)
 
+    def input_password(self, locator, text):
+        """Types the given password into text field identified by `locator`.
 
-    def input_password(self, index_or_name, text):
-        """ Input secure text """
-        _platform_class_dict = {'ios':'UIASecureTextField',
-                                   'android': 'android.widget.EditText'}
-        if self._is_support_platform(_platform_class_dict):
-            class_name = self._get_class(_platform_class_dict)
-            self._element_input_text_by_class_name(class_name, index_or_name, text)
-
+        Difference between this keyword and `Input Text` is that this keyword
+        does not log the given password. See `introduction` for details about
+        locating elements.
+        """
+        self._info("Typing password into text field '%s'" % locator)
+        self._element_input_text_by_locator(locator, text)
 
     def reset_application(self):
         """ Reset application """
