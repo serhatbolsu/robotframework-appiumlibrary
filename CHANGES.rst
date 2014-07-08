@@ -1,6 +1,11 @@
 History
 =======
 
+1.0.15
+----------------
+- replace _is_id by _is_index, id is keep same as `find_elements_by_id <http://selenium-python.readthedocs.org/en/latest/api.html#selenium.webdriver.remote.webdriver.WebDriver.find_elements_by_id>`_.
+- Change Location Strategy of "Input text" and "Input Password", not only index and name.
+- update demo demo/test_android_contacts.txt
 
 1.0.14
 ----------------
