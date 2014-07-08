@@ -14,7 +14,7 @@ class _ElementKeywords(KeywordGroup):
     def click_element(self, locator):
         """Click element identified by `locator`.
 
-        Key attributes for arbitrary elements are `id` and `name`. See
+        Key attributes for arbitrary elements are `index` and `name`. See
         `introduction` for details about locating elements.
         """
         self._info("Clicking element '%s'." % locator)
@@ -30,17 +30,14 @@ class _ElementKeywords(KeywordGroup):
 
     def input_text(self, index_or_name, text):
         """ Input text identified by `locator`.
-        Key attributes for arbitrary elements are `id` and `name`. See
+        Key attributes for arbitrary elements are `index` and `name`. See
         `introduction` for details about locating elements.
         Examples:
-        | Input text | id=0            | my_id |
-        | Input text | login_textfiled | my_id |
+        | Input text | index=0            | element_index |
+        | Input text | login_textfiled | element_name |
         """
-        _platform_class_dict = {'ios':'UIATextField',
-                                   'android': 'android.widget.EditText'}
-        if self._is_support_platform(_platform_class_dict):
-            class_name = self._get_class(_platform_class_dict)
-            self._element_input_text_by_class_name(class_name, index_or_name, text)
+        self._element_input_text_by_locator(locator, text)
+
 
     def input_password(self, index_or_name, text):
         """ Input secure text """
@@ -212,6 +209,13 @@ class _ElementKeywords(KeywordGroup):
             element.click()
         except Exception, e:
             raise Exception, 'Cannot click the %s element "%s"' % (class_name, index_or_name)
+
+    def _element_input_text_by_locator(self, locator, text):
+        try:
+            element = self._element_find(locator, True, True)
+            element.send_keys(text)
+        except Exception, e:
+            raise e
 
     def _element_input_text_by_class_name(self, class_name, index_or_name, text):
         try:
