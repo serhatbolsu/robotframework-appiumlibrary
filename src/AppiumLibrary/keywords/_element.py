@@ -28,7 +28,7 @@ class _ElementKeywords(KeywordGroup):
             class_name = self._get_class(_platform_class_dict)
             self._click_element_by_class_name(class_name, index_or_name)
 
-    def input_text(self, index_or_name, text):
+    def input_text(self, locator, text):
         """ Input text identified by `locator`.
         Key attributes for arbitrary elements are `index` and `name`. See
         `introduction` for details about locating elements.
