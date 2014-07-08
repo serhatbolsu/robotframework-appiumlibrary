@@ -20,15 +20,15 @@ class _ElementKeywords(KeywordGroup):
         self._info("Clicking element '%s'." % locator)
         self._element_find(locator, True, True).click()        
 
-    def click_button(self, id_or_name):
+    def click_button(self, index_or_name):
         """ Click button """
         _platform_class_dict = {'ios':'UIAButton',
                                    'android': 'android.widget.Button'}
         if self._is_support_platform(_platform_class_dict):
             class_name = self._get_class(_platform_class_dict)
-            self._click_element_by_class_name(class_name, id_or_name)
+            self._click_element_by_class_name(class_name, index_or_name)
 
-    def input_text(self, id_or_name, text):
+    def input_text(self, index_or_name, text):
         """ Input text identified by `locator`.
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
@@ -40,15 +40,15 @@ class _ElementKeywords(KeywordGroup):
                                    'android': 'android.widget.EditText'}
         if self._is_support_platform(_platform_class_dict):
             class_name = self._get_class(_platform_class_dict)
-            self._element_input_text_by_class_name(class_name, id_or_name, text)
+            self._element_input_text_by_class_name(class_name, index_or_name, text)
 
-    def input_password(self, id_or_name, text):
+    def input_password(self, index_or_name, text):
         """ Input secure text """
         _platform_class_dict = {'ios':'UIASecureTextField',
                                    'android': 'android.widget.EditText'}
         if self._is_support_platform(_platform_class_dict):
             class_name = self._get_class(_platform_class_dict)
-            self._element_input_text_by_class_name(class_name, id_or_name, text)
+            self._element_input_text_by_class_name(class_name, index_or_name, text)
 
 
     def reset_application(self):
@@ -155,8 +155,8 @@ class _ElementKeywords(KeywordGroup):
 
     # Private
     
-    def _is_id(self, id_or_name):
-        if id_or_name.startswith('id='):
+    def _is_index(self, index_or_name):
+        if index_or_name.startswith('index='):
             return True
         else:
             return False
@@ -178,24 +178,24 @@ class _ElementKeywords(KeywordGroup):
         elements = driver.find_elements_by_class_name(class_name)
         return elements
 
-    def _find_element_by_class_name(self, class_name, id_or_name):
+    def _find_element_by_class_name(self, class_name, index_or_name):
         elements = self._find_elements_by_class_name(class_name)
     
-        if self._is_id(id_or_name):
+        if self._is_index(index_or_name):
             try:
-                index = int(id_or_name.split('=')[-1])
+                index = int(index_or_name.split('=')[-1])
                 element = elements[index]
             except IndexError, TypeError:
-                raise Exception, 'Cannot find the element with index "%s"' % id_or_name
+                raise Exception, 'Cannot find the element with index "%s"' % index_or_name
         else:
             found = False
             for element in elements:
                 self._info("'%s'." % element.text)
-                if element.text == id_or_name:
+                if element.text == index_or_name:
                     found = True
                     break
             if not found:
-                raise Exception, 'Cannot find the element with name "%s"' % id_or_name
+                raise Exception, 'Cannot find the element with name "%s"' % index_or_name
 
         return element
 
@@ -205,17 +205,17 @@ class _ElementKeywords(KeywordGroup):
     def _is_support_platform(self, platform_class_dict):
         return platform_class_dict.has_key(self._get_platform())
 
-    def _click_element_by_class_name(self, class_name, id_or_name):
-        element = self._find_element_by_class_name(class_name, id_or_name)
+    def _click_element_by_class_name(self, class_name, index_or_name):
+        element = self._find_element_by_class_name(class_name, index_or_name)
         self._info("Clicking element '%s'." % element.text)
         try:
             element.click()
         except Exception, e:
-            raise Exception, 'Cannot click the %s element "%s"' % (class_name, id_or_name)
+            raise Exception, 'Cannot click the %s element "%s"' % (class_name, index_or_name)
 
-    def _element_input_text_by_class_name(self, class_name, id_or_name, text):
+    def _element_input_text_by_class_name(self, class_name, index_or_name, text):
         try:
-            element = self._find_element_by_class_name(class_name, id_or_name)
+            element = self._find_element_by_class_name(class_name, index_or_name)
         except Exception, e:
             raise Exception, e
 
@@ -223,7 +223,7 @@ class _ElementKeywords(KeywordGroup):
         try:
             element.send_keys(text)
         except Exception, e:
-            raise Exception, 'Cannot input text "%s" for the %s element "%s"' % (text, class_name, id_or_name)
+            raise Exception, 'Cannot input text "%s" for the %s element "%s"' % (text, class_name, index_or_name)
 
 
     def _element_find(self, locator, first_only, required, tag=None):
