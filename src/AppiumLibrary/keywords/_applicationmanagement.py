@@ -25,7 +25,11 @@ class _ApplicationManagementKeywords(KeywordGroup):
                         % self._cache.current.session_id)
             self._cache.close()
 
-    def open_application(self, remote_url, platform_name, platform_version, device_name, app, automation_name=None, app_package=None, app_activity=None, alias=None):
+    def open_application(
+            self, remote_url, platform_name,
+            platform_version, device_name, app,
+            automation_name=None, app_package=None, app_activity=None,
+            alias=None, bundleid=None, udid=None):
         """Opens a new application to given Appium server.
 
         | *Option*          | *Man.* | *Description* |
@@ -37,21 +41,25 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | automation_name   | no     | "Selendroid" if you want to use Selendroid, otherwise, this can be omitted |
         | app_package       | no     | Android application package name |
         | app_activity      | no     | Android application activity name |
+        | alias             | no     | alias |
+        | bundleid          | no     | iOS bundle ID  (e.g. com.yourCompany.yourApp). |
+        | udid              | no     | UDID for iOS mobile device |
 
         Examples:
         | Open Application | http://localhost:4723/wd/hub | iOS | 7.0 | iPhone Simulator | your.app |
         | Open Application | http://localhost:4723/wd/hub | Android | 4.2 | emulator:5554 | OrangeDemoApp.apk | Selendroid | com.test.orangedemo | .MainActivity |
         """
         desired_caps = {}
+        desired_caps['takesScreenshot'] = 'true'
         desired_caps['platformName'] = platform_name
         desired_caps['platformVersion'] = platform_version
         desired_caps['deviceName'] = device_name
         desired_caps['app'] = app
         desired_caps['automationName'] = automation_name
-        # desired_caps['browserName'] = ''
         desired_caps['appPackage'] = app_package
         desired_caps['androidActivity'] = app_activity
-        desired_caps['takesScreenshot'] = 'true'
+        desired_caps['bundleid'] = bundleid
+        desired_caps['udid'] = udid
     
         application = webdriver.Remote(str(remote_url), desired_caps)
         
@@ -83,6 +91,13 @@ class _ApplicationManagementKeywords(KeywordGroup):
         Lock the device
         """
         self._current_application().lock()
+
+    def background_app(self, seconds=5):
+        """
+        Puts the application in the background on the device for a certain
+        duration.
+        """
+        self._current_application().background_app(seconds)
 
     def shake(self):
         """

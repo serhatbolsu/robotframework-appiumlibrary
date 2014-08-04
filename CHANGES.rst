@@ -1,6 +1,12 @@
 History
 =======
 
+1.0.16
+----------------
+- add udid and bundleid
+- add background_app
+- fix Resetting an application
+
 1.0.15
 ----------------
 - replace _is_id by _is_index, id is keep same as `find_elements_by_id <http://selenium-python.readthedocs.org/en/latest/api.html#selenium.webdriver.remote.webdriver.WebDriver.find_elements_by_id>`_.
