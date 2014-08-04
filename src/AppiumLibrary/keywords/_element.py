@@ -49,7 +49,7 @@ class _ElementKeywords(KeywordGroup):
     def reset_application(self):
         """ Reset application """
         driver = self._current_application()
-        driver.execute_script('mobile: reset')
+        driver.reset()
 
     def hide_keyboard(self):
         """
@@ -61,7 +61,6 @@ class _ElementKeywords(KeywordGroup):
             raise EnvironmentError("Hide Keyword only support for iOS .")
         driver = self._current_application()
         driver.hide_keyboard()
-
 
     def page_should_contain_text(self, text, loglevel='INFO'):
         """Verifies that current page contains `text`.

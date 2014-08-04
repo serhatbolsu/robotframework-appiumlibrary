@@ -29,7 +29,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
             self, remote_url, platform_name,
             platform_version, device_name, app,
             automation_name=None, app_package=None, app_activity=None,
-            bundleid=None, udid=none):
+            alias=None, bundleid=None, udid=None):
         """Opens a new application to given Appium server.
 
         | *Option*          | *Man.* | *Description* |
@@ -41,6 +41,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | automation_name   | no     | "Selendroid" if you want to use Selendroid, otherwise, this can be omitted |
         | app_package       | no     | Android application package name |
         | app_activity      | no     | Android application activity name |
+        | alias             | no     | alias |
         | bundleid          | no     | iOS bundle ID  (e.g. com.yourCompany.yourApp). |
         | udid              | no     | UDID for iOS mobile device |
 

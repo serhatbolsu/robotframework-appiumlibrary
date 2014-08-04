@@ -8,3 +8,4 @@ Resource        demo/demo_resoure.txt
 test_demo
     [Tags]  regression
     TestStart
+    Reset Application
