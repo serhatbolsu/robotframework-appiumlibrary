@@ -54,6 +54,11 @@ Documentation
 The keyword documentation could be found at `Keyword Documentation 
 <http://jollychang.github.io/robotframework-appiumlibrary/doc/AppimuLibrary.html>`_
 
+Contributing
+-------------
+Fork the project, make a change, and send a pull request!
+
+
 .. image:: https://pypip.in/v/robotframework-appiumlibrary/badge.png
     :target: https://pypi.python.org/pypi/robotframework-appiumlibrary/
     :alt: Latest PyPI version
