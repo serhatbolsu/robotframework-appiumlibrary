@@ -36,11 +36,13 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | remote_url        | Yes    | Appium server url |
         | platform_name     | Yes    | platform name, either "iOS" or "Android" |
         | platform_version  | Yes    | platform version, the mobile OS version you want |
-        | device_name       | Yes    | Device name, the kind of device you want, like "iPhone Simulator" |        
+        | device_name       | Yes    | Device name, the kind of device you want, like "iPhone Simulator" |
         | app               | Yes    | Android/iOS application path |
         | automation_name   | no     | "Selendroid" if you want to use Selendroid, otherwise, this can be omitted |
         | app_package       | no     | Android application package name |
+        | app_wait_package  | no     | Java package of the Android app you want to wait for |
         | app_activity      | no     | Android application activity name |
+        | app_wait_activity | no     | Activity name for the Android activity you want to wait for |
         | alias             | no     | alias |
         | bundleid          | no     | iOS bundle ID  (e.g. com.yourCompany.yourApp). |
         | udid              | no     | UDID for iOS mobile device |
@@ -57,7 +59,9 @@ class _ApplicationManagementKeywords(KeywordGroup):
         desired_caps['app'] = app
         desired_caps['automationName'] = automation_name
         desired_caps['appPackage'] = app_package
+        desired_caps['appWaitPackage'] = app_wait_package
         desired_caps['androidActivity'] = app_activity
+        desired_caps['appWaitActivity'] = app_wait_activity
         desired_caps['bundleid'] = bundleid
         desired_caps['udid'] = udid
     
