@@ -29,7 +29,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
             self, remote_url, platform_name,
             platform_version, device_name, app,
             automation_name=None, app_package=None, app_activity=None,
-            alias=None, bundleid=None, udid=None):
+            app_wait_package=None, app_wait_activity=None, alias=None, 
+            bundleid=None, udid=None):
         """Opens a new application to given Appium server.
 
         | *Option*          | *Man.* | *Description* |
@@ -40,8 +41,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | app               | Yes    | Android/iOS application path |
         | automation_name   | no     | "Selendroid" if you want to use Selendroid, otherwise, this can be omitted |
         | app_package       | no     | Android application package name |
-        | app_wait_package  | no     | Java package of the Android app you want to wait for |
         | app_activity      | no     | Android application activity name |
+        | app_wait_package  | no     | Java package of the Android app you want to wait for |        
         | app_wait_activity | no     | Activity name for the Android activity you want to wait for |
         | alias             | no     | alias |
         | bundleid          | no     | iOS bundle ID  (e.g. com.yourCompany.yourApp). |
