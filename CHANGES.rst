@@ -1,5 +1,8 @@
 History
 =======
+1.0.17
+----------------
+- support app_wait_package and app_wait_activity
 
 1.0.16
 ----------------
