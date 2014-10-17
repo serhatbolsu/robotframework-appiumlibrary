@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import robot
-from robot.errors import DataError
 from appium import webdriver
 from AppiumLibrary.utils import ApplicationCache
 from keywordgroup import KeywordGroup
@@ -20,10 +18,22 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def close_application(self):
         """Closes the current application."""
-        if self._cache.current:
-            self._debug('Closing application with session id %s'
-                        % self._cache.current.session_id)
-            self._cache.close()
+        self._debug('Closing application with session id %s' % self._current_application().session_id)
+        self._cache.close()
+
+    def close_all_applications(self):
+        """Closes all open applications.
+
+        This keyword is meant to be used in test or suite teardown to
+        make sure all the applications are closed before the test execution
+        finishes.
+
+        After this keyword, the application indices returned by `Open Application`
+        are reset and start from `1`.
+        """
+
+        self._debug('Closing all applications')
+        self._cache.close_all()
 
     def open_application(
             self, remote_url, platform_name,
@@ -72,6 +82,31 @@ class _ApplicationManagementKeywords(KeywordGroup):
         
         return self._cache.register(application, alias)
 
+    def switch_application(self, index_or_alias):
+        """Switches the active application by index or alias.
+
+        `index_or_alias` is either application index (an integer) or alias
+        (a string). Index is got as the return value of `Open Application`.
+
+        This keyword returns the index of the previous active application,
+        which can be used to switch back to that application later.
+
+        Example:
+        | ${appium1}=              | Open Application  | http://localhost:4723/wd/hub                   | iOS | 7.0 | iPhone Simulator | your.app | alias=MyApp1 |
+        | ${appium2}=              | Open Application  | http://localhost:4755/wd/hub                   | iOS | 7.0 | iPhone Simulator | your.app | alias=MyApp2 |
+        | Click Element            | sendHello         | # Executed on appium running at localhost:4755 |
+        | Switch Connection        | ${appium1}        | # Switch using index                           |
+        | Click Element            | ackHello          | # Executed on appium running at localhost:4723 |
+        | Switch Connection        | MyApp2            | # Switch using alias                           |
+        | Page Should Contain Text | ackHello Received | # Executed on appium running at localhost:4755 |
+
+        """
+        old_index = self._cache.current_index
+        if index_or_alias is None:
+            self.close_connection()
+        else:
+            self._cache.switch(index_or_alias)
+        return old_index
 
     def get_source(self):
         """Returns the entire source of the current page."""
@@ -89,7 +124,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def go_back(self):
         """Goes one step backward in the browser history."""
-        self._go_back()
+        self._current_application().back()
 
     def lock(self):
         """
@@ -124,10 +159,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         self._current_application().switch_to.context(context_name)
 
     # Private
-
-    def _go_back(self):
-        """Simulates the user clicking the "back" button on their browser."""
-        self._current_application().back()
 
     def _current_application(self):
         if not self._cache.current:
