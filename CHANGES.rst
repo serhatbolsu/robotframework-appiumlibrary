@@ -1,5 +1,10 @@
 History
 =======
+1.0.18
+----------------
+- `added tap functionality to keyword by shadeimi <https://github.com/jollychang/robotframework-appiumlibrary/pull/14>`_
+- `Support for multiple appium connections by yahman72 <https://github.com/jollychang/robotframework-appiumlibrary/pull/13>`_
+
 1.0.17
 ----------------
 - support app_wait_package and app_wait_activity
