@@ -14,9 +14,7 @@ class _WaitingKeywords(KeywordGroup):
 
         `error` can be used to override the default error message.
 
-        See also `Wait Until Page Contains Element`, `Wait For Condition`,
-        `Wait Until Element Is Visible` and BuiltIn keyword `Wait Until
-        Keyword Succeeds`.
+        See also BuiltIn keyword `Wait Until Keyword Succeeds`.
         """
         if not error:
             error = "Text '%s' did not appear in <TIMEOUT>" % text
