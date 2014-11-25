@@ -56,7 +56,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | app_wait_activity | no     | Activity name for the Android activity you want to wait for |
         | alias             | no     | alias |
         | bundleid          | no     | iOS bundle ID  (e.g. com.yourCompany.yourApp). |
-        | udid              | no     | UDID for iOS mobile device |
+        | udid              | no     | UDID for iOS and android mobile device |
 
         Examples:
         | Open Application | http://localhost:4723/wd/hub | iOS | 7.0 | iPhone Simulator | your.app |
@@ -74,7 +74,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
         desired_caps['androidActivity'] = app_activity
         desired_caps['appWaitActivity'] = app_wait_activity
         desired_caps['bundleid'] = bundleid
-        desired_caps['udid'] = udid
+        if udid:
+            desired_caps['udid'] = udid
     
         application = webdriver.Remote(str(remote_url), desired_caps)
         
