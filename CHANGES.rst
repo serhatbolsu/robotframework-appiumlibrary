@@ -1,5 +1,10 @@
 History
 =======
+1.0.19
+----------------
+- `Open Application Keyword udid argument issues <https://github.com/jollychang/robotframework-appiumlibrary/pull/17>`_
+- `Update Wait Until Page Contains Element Keyword documentation <https://github.com/jollychang/robotframework-appiumlibrary/pull/16>`_
+
 1.0.18
 ----------------
 - `added tap functionality to keyword by shadeimi <https://github.com/jollychang/robotframework-appiumlibrary/pull/14>`_
