@@ -49,14 +49,15 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | platform_version    | Yes    | platform version, the mobile OS version you want |
         | device_name         | Yes    | Device name, the kind of device you want, like "iPhone Simulator" |
         | app                 | Yes    | Android/iOS application path |
-        | automation_name     | no     | "Selendroid" if you want to use Selendroid, otherwise, this can be omitted |
+        | appium-version      | no     | appium-version for saucelabs |
         | app_package         | no     | Android application package name |
         | app_activity        | no     | Android application activity name |
-        | app_wait_package    | no     | Java package of the Android app you want to wait for |        
+        | app_wait_package    | no     | Java package of the Android app you want to wait for |
         | app_wait_activity   | no     | Activity name for the Android activity you want to wait for |
-        | new_command_timeout | no     | How long (in seconds) Appium will wait for a new command from the client before assuming the client quit and ending the session |
         | alias               | no     | alias |
         | bundleid            | no     | iOS bundle ID  (e.g. com.yourCompany.yourApp). |
+        | automation_name     | no     | "Selendroid" if you want to use Selendroid, otherwise, this can be omitted |
+        | new_command_timeout | no     | How long (in seconds) Appium will wait for a new command from the client before assuming the client quit and ending the session |
         | udid                | no     | UDID for iOS and android mobile device |
 
         Examples:
@@ -78,6 +79,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
         desired_caps['bundleid'] = bundleid
         if udid:
             desired_caps['udid'] = udid
+        if appium-version:
+            desired_caps['appium-version'] = appium-version
     
         application = webdriver.Remote(str(remote_url), desired_caps)
         
