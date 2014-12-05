@@ -1,5 +1,10 @@
 History
 =======
+1.0.20
+----------------
+- `send desired capabilities to saucelabs <https://github.com/jollychang/robotframework-appiumlibrary/issues/20>`_
+_ `Added desired Capability newCommandTimeout <https://github.com/jollychang/robotframework-appiumlibrary/pull/19>`_
+
 1.0.19
 ----------------
 - `Open Application Keyword udid argument issues <https://github.com/jollychang/robotframework-appiumlibrary/pull/17>`_
