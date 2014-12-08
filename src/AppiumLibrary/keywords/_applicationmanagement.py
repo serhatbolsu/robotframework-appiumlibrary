@@ -49,7 +49,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | platform_version    | Yes    | platform version, the mobile OS version you want |
         | device_name         | Yes    | Device name, the kind of device you want, like "iPhone Simulator" |
         | app                 | Yes    | Android/iOS application path |
-        | appium-version      | no     | appium-version for saucelabs |
         | app_package         | no     | Android application package name |
         | app_activity        | no     | Android application activity name |
         | app_wait_package    | no     | Java package of the Android app you want to wait for |
@@ -79,8 +78,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         desired_caps['bundleid'] = bundleid
         if udid:
             desired_caps['udid'] = udid
-        if appium-version:
-            desired_caps['appium-version'] = appium-version
+
     
         application = webdriver.Remote(str(remote_url), desired_caps)
         
