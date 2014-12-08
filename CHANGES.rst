@@ -1,5 +1,9 @@
 History
 =======
+1.0.21
+----------------
+- `Do not support appium version for saucelabs`
+
 1.0.20
 ----------------
 - `send desired capabilities to saucelabs <https://github.com/jollychang/robotframework-appiumlibrary/issues/20>`_
