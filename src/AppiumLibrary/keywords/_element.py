@@ -11,6 +11,14 @@ class _ElementKeywords(KeywordGroup):
         self._element_finder = ElementFinder()
 
     # Public, element lookups
+    def clear_text(self, locator):
+        """Clears the text field identified by `locator`.
+
+        See `introduction` for details about locating elements.
+        """
+        self._info("Clear text field '%s'" % (locator))
+        self._element_clear_text_by_locator(locator)
+
     def click_element(self, locator):
         """Click element identified by `locator`.
 
@@ -45,6 +53,14 @@ class _ElementKeywords(KeywordGroup):
         """
         self._info("Typing password into text field '%s'" % locator)
         self._element_input_text_by_locator(locator, text)
+
+    def input_value(self, locator, text):
+        """Sets the given value into text field identified by `locator`. Different from input text which uses send_keys, input value makes use of set_value
+
+        See `introduction` for details about locating elements.
+        """
+        self._info("Setting text '%s' into text field '%s'" % (text, locator))
+        self._element_input_value_by_locator(locator, text)
 
     def reset_application(self):
         """ Reset application """
@@ -207,6 +223,13 @@ class _ElementKeywords(KeywordGroup):
         except Exception, e:
             raise Exception, 'Cannot click the %s element "%s"' % (class_name, index_or_name)
 
+    def _element_clear_text_by_locator(self, locator):
+        try:
+            element = self._element_find(locator, True, True)
+            element.clear()
+        except Exception, e:
+            raise e
+
     def _element_input_text_by_locator(self, locator, text):
         try:
             element = self._element_find(locator, True, True)
@@ -226,6 +249,12 @@ class _ElementKeywords(KeywordGroup):
         except Exception, e:
             raise Exception, 'Cannot input text "%s" for the %s element "%s"' % (text, class_name, index_or_name)
 
+    def _element_input_value_by_locator(self, locator, text):
+        try:
+            element = self._element_find(locator, True, True)
+            element.set_value(text)
+        except Exception, e:
+            raise e
 
     def _element_find(self, locator, first_only, required, tag=None):
         application = self._current_application()
