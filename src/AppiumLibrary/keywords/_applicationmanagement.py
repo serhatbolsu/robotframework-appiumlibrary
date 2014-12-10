@@ -39,24 +39,25 @@ class _ApplicationManagementKeywords(KeywordGroup):
             self, remote_url, platform_name,
             platform_version, device_name, app,
             automation_name=None, app_package=None, app_activity=None,
-            app_wait_package=None, app_wait_activity=None, alias=None, 
-            bundleid=None, udid=None):
+            app_wait_package=None, app_wait_activity=None, new_command_timeout=60,
+            alias=None, bundleid=None, udid=None):
         """Opens a new application to given Appium server.
 
-        | *Option*          | *Man.* | *Description* |
-        | remote_url        | Yes    | Appium server url |
-        | platform_name     | Yes    | platform name, either "iOS" or "Android" |
-        | platform_version  | Yes    | platform version, the mobile OS version you want |
-        | device_name       | Yes    | Device name, the kind of device you want, like "iPhone Simulator" |
-        | app               | Yes    | Android/iOS application path |
-        | automation_name   | no     | "Selendroid" if you want to use Selendroid, otherwise, this can be omitted |
-        | app_package       | no     | Android application package name |
-        | app_activity      | no     | Android application activity name |
-        | app_wait_package  | no     | Java package of the Android app you want to wait for |        
-        | app_wait_activity | no     | Activity name for the Android activity you want to wait for |
-        | alias             | no     | alias |
-        | bundleid          | no     | iOS bundle ID  (e.g. com.yourCompany.yourApp). |
-        | udid              | no     | UDID for iOS and android mobile device |
+        | *Option*            | *Man.* | *Description* |
+        | remote_url          | Yes    | Appium server url |
+        | platform_name       | Yes    | platform name, either "iOS" or "Android" |
+        | platform_version    | Yes    | platform version, the mobile OS version you want |
+        | device_name         | Yes    | Device name, the kind of device you want, like "iPhone Simulator" |
+        | app                 | Yes    | Android/iOS application path |
+        | app_package         | no     | Android application package name |
+        | app_activity        | no     | Android application activity name |
+        | app_wait_package    | no     | Java package of the Android app you want to wait for |
+        | app_wait_activity   | no     | Activity name for the Android activity you want to wait for |
+        | alias               | no     | alias |
+        | bundleid            | no     | iOS bundle ID  (e.g. com.yourCompany.yourApp). |
+        | automation_name     | no     | "Selendroid" if you want to use Selendroid, otherwise, this can be omitted |
+        | new_command_timeout | no     | How long (in seconds) Appium will wait for a new command from the client before assuming the client quit and ending the session |
+        | udid                | no     | UDID for iOS and android mobile device |
 
         Examples:
         | Open Application | http://localhost:4723/wd/hub | iOS | 7.0 | iPhone Simulator | your.app |
@@ -83,6 +84,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
             desired_caps['bundleid'] = bundleid
         if udid:
             desired_caps['udid'] = udid
+        desired_caps['newCommandTimeout'] = new_command_timeout
     
         application = webdriver.Remote(str(remote_url), desired_caps)
         
@@ -103,9 +105,9 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | ${appium1}=              | Open Application  | http://localhost:4723/wd/hub                   | iOS | 7.0 | iPhone Simulator | your.app | alias=MyApp1 |
         | ${appium2}=              | Open Application  | http://localhost:4755/wd/hub                   | iOS | 7.0 | iPhone Simulator | your.app | alias=MyApp2 |
         | Click Element            | sendHello         | # Executed on appium running at localhost:4755 |
-        | Switch Connection        | ${appium1}        | # Switch using index                           |
+        | Switch Application       | ${appium1}        | # Switch using index                           |
         | Click Element            | ackHello          | # Executed on appium running at localhost:4723 |
-        | Switch Connection        | MyApp2            | # Switch using alias                           |
+        | Switch Application       | MyApp2            | # Switch using alias                           |
         | Page Should Contain Text | ackHello Received | # Executed on appium running at localhost:4755 |
 
         """

@@ -7,7 +7,7 @@ Resource        demo/demo_resoure.txt
 *** Test Cases ***
 test_demo
     [Tags]  regression
-    Open Application  http://localhost:4723/wd/hub  Android  4.2.2  emulator:5554  /Users/jollychang/tmp/robotframework-appiumlibrary/demo/demoapp/OrangeDemoApp.apk  Selendroid  com.test.orangedemo  .MainActivity |
+    Open Application  http://localhost:4723/wd/hub  Android  4.2.2  emulator:5554  ${CURDIR}/demoapp/OrangeDemoApp.apk  Selendroid  com.test.orangedemo  .MainActivity |
 
 
 
