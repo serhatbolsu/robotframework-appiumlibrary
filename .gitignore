@@ -41,3 +41,5 @@ report.html
 demo/test_doubandaily.txt
 htmlcov/
 run.sh
+# for eclipse
+.settings

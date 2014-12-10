@@ -1,8 +1,8 @@
 import unittest
-import os
 import mock
 import appium
 from AppiumLibrary.keywords import _ApplicationManagementKeywords
+from webdriverremotemock import WebdriverRemoteMock
 
 class ApplicationManagementKeywordsTests(unittest.TestCase): 
 
@@ -20,7 +20,8 @@ class ApplicationManagementKeywordsTests(unittest.TestCase):
 
     def test_open_application_register_sucessful(self):
         am = _ApplicationManagementKeywords()
-        appium.webdriver.Remote = mock.Mock()
+        #appium.webdriver.Remote = mock.Mock()
+        appium.webdriver.Remote = WebdriverRemoteMock
         am._debug = mock.Mock()
 
         self.assertFalse(am._cache.current)

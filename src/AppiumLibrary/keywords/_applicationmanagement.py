@@ -68,17 +68,23 @@ class _ApplicationManagementKeywords(KeywordGroup):
         desired_caps['platformName'] = platform_name
         desired_caps['platformVersion'] = platform_version
         desired_caps['deviceName'] = device_name
-        desired_caps['app'] = app
-        desired_caps['automationName'] = automation_name
-        desired_caps['appPackage'] = app_package
-        desired_caps['appWaitPackage'] = app_wait_package
-        desired_caps['androidActivity'] = app_activity
-        desired_caps['appWaitActivity'] = app_wait_activity
-        desired_caps['newCommandTimeout'] = new_command_timeout
-        desired_caps['bundleid'] = bundleid
+        if app:
+            desired_caps['app'] = app
+        if automation_name:
+            desired_caps['automationName'] = automation_name
+        if app_package:
+            desired_caps['appPackage'] = app_package
+        if app_wait_package:
+            desired_caps['appWaitPackage'] = app_wait_package
+        if app_activity:
+            desired_caps['androidActivity'] = app_activity
+        if app_wait_activity:
+            desired_caps['appWaitActivity'] = app_wait_activity
+        if bundleid:
+            desired_caps['bundleid'] = bundleid
         if udid:
             desired_caps['udid'] = udid
-
+        desired_caps['newCommandTimeout'] = new_command_timeout
     
         application = webdriver.Remote(str(remote_url), desired_caps)
         
