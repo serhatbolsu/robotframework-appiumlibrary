@@ -1,5 +1,13 @@
 History
 =======
+1.1.0
+----------------
+- `Andoid Keyevents feature <https://github.com/jollychang/robotframework-appiumlibrary/pull/25>`_
+- Additional updates to open_application()'s optional parameter handling
+- add coverage and mock for unittest
+1.0.22
+----------------
+- `update doc for switch_application <https://github.com/jollychang/robotframework-appiumlibrary/pull/13>`_
 1.0.21
 ----------------
 - `Do not support appium version for saucelabs`
