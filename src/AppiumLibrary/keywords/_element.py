@@ -55,7 +55,7 @@ class _ElementKeywords(KeywordGroup):
         self._element_input_text_by_locator(locator, text)
 
     def input_value(self, locator, text):
-        """Sets the given value into text field identified by `locator`. Different from input text which uses send_keys, input value makes use of set_value
+        """Sets the given value into text field identified by `locator`. This is an IOS only keyword, input value makes use of set_value
 
         See `introduction` for details about locating elements.
         """
