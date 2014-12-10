@@ -99,9 +99,9 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | ${appium1}=              | Open Application  | http://localhost:4723/wd/hub                   | iOS | 7.0 | iPhone Simulator | your.app | alias=MyApp1 |
         | ${appium2}=              | Open Application  | http://localhost:4755/wd/hub                   | iOS | 7.0 | iPhone Simulator | your.app | alias=MyApp2 |
         | Click Element            | sendHello         | # Executed on appium running at localhost:4755 |
-        | Switch Connection        | ${appium1}        | # Switch using index                           |
+        | Switch Application       | ${appium1}        | # Switch using index                           |
         | Click Element            | ackHello          | # Executed on appium running at localhost:4723 |
-        | Switch Connection        | MyApp2            | # Switch using alias                           |
+        | Switch Application       | MyApp2            | # Switch using alias                           |
         | Page Should Contain Text | ackHello Received | # Executed on appium running at localhost:4755 |
 
         """
