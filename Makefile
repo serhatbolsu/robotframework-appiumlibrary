@@ -27,5 +27,8 @@ unittest:
 
 test:unittest
 
+coverage:
+	py.test --cov AppiumLibrary --cov-report=html tests
+
 version:
 	cat src/AppiumLibrary/version.py
