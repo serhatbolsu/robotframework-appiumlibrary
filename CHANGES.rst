@@ -1,5 +1,10 @@
 History
 =======
+1.2.0
+----------------
+- Open Application support all Appium server, iOS, Android capabilities
+- fix switch appication and add testcase
+
 1.1.0
 ----------------
 - `Andoid Keyevents feature <https://github.com/jollychang/robotframework-appiumlibrary/pull/25>`_
