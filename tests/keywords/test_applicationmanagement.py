@@ -23,7 +23,6 @@ class ApplicationManagementKeywordsTests(unittest.TestCase):
         #appium.webdriver.Remote = mock.Mock()
         appium.webdriver.Remote = WebdriverRemoteMock
         am._debug = mock.Mock()
-
         self.assertFalse(am._cache.current)
-        am.open_application('remote_url', '', '', '', '', '')
+        am.open_application('remote_url')
         self.assertTrue(am._cache.current)

@@ -7,8 +7,4 @@ Resource        demo/demo_resoure.txt
 *** Test Cases ***
 test_demo
     [Tags]  regression
-    Open Application  http://localhost:4723/wd/hub  Android  4.2.2  emulator:5554  ${CURDIR}/demoapp/OrangeDemoApp.apk  Selendroid  com.test.orangedemo  .MainActivity |
-
-
-
-
+    Open Application  http://localhost:4723/wd/hub  platformName=Android  platformVersion=4.2.2  deviceName=192.168.56.101:5555  app=${CURDIR}/demoapp/OrangeDemoApp.apk  automationName=appium  appPackage=com.netease.qa.orangedemo  appActivity=MainActivity

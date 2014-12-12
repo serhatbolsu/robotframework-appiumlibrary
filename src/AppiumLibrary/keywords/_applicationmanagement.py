@@ -35,62 +35,20 @@ class _ApplicationManagementKeywords(KeywordGroup):
         self._debug('Closing all applications')
         self._cache.close_all()
 
-    def open_application(
-            self, remote_url, platform_name,
-            platform_version, device_name, app,
-            automation_name=None, app_package=None, app_activity=None,
-            app_wait_package=None, app_wait_activity=None, new_command_timeout=60,
-            alias=None, bundleid=None, udid=None, no_reset=False):
+    def open_application(self, remote_url, alias=None,  **kwargs):
         """Opens a new application to given Appium server.
-
-        | *Option*            | *Man.* | *Description* |
+        Capabilities of appium server, Android and iOS, 
+        Please check http://appium.io/slate/en/master/?python#appium-server-capabilities
+        | *Option*            | *Man.* | *Description*     |
         | remote_url          | Yes    | Appium server url |
-        | platform_name       | Yes    | platform name, either "iOS" or "Android" |
-        | platform_version    | Yes    | platform version, the mobile OS version you want |
-        | device_name         | Yes    | Device name, the kind of device you want, like "iPhone Simulator" |
-        | app                 | Yes    | Android/iOS application path |
-        | app_package         | no     | Android application package name |
-        | app_activity        | no     | Android application activity name |
-        | app_wait_package    | no     | Java package of the Android app you want to wait for |
-        | app_wait_activity   | no     | Activity name for the Android activity you want to wait for |
-        | alias               | no     | alias |
-        | bundleid            | no     | iOS bundle ID  (e.g. com.yourCompany.yourApp). |
-        | automation_name     | no     | "Selendroid" if you want to use Selendroid, otherwise, this can be omitted |
-        | new_command_timeout | no     | How long (in seconds) Appium will wait for a new command from the client before assuming the client quit and ending the session |
-        | udid                | no     | UDID for iOS and android mobile device |
-        | no_reset            | no     | if True, Don’t reset app state before this session. Default false |
+        | alias               | no     | alias             |
 
         Examples:
-        | Open Application | http://localhost:4723/wd/hub | iOS | 7.0 | iPhone Simulator | your.app |
-        | Open Application | http://localhost:4723/wd/hub | Android | 4.2 | emulator:5554 | OrangeDemoApp.apk | Selendroid | com.test.orangedemo | .MainActivity |
+        | Open Application | http://localhost:4723/wd/hub | alias=Myapp1         | platformName=iOS      | platformVersion=7.0            | deviceName='iPhone Simulator'           | app=your.app                         |
+        | Open Application | http://localhost:4723/wd/hub | platformName=Android | platformVersion=4.2.2 | deviceName=192.168.56.101:5555 | app=${CURDIR}/demoapp/OrangeDemoApp.apk | appPackage=com.netease.qa.orangedemo | appActivity=MainActivity |
         """
-        desired_caps = {}
-        desired_caps['takesScreenshot'] = 'true'
-        desired_caps['platformName'] = platform_name
-        desired_caps['platformVersion'] = platform_version
-        desired_caps['deviceName'] = device_name
-        if app:
-            desired_caps['app'] = app
-        if automation_name:
-            desired_caps['automationName'] = automation_name
-        if app_package:
-            desired_caps['appPackage'] = app_package
-        if app_wait_package:
-            desired_caps['appWaitPackage'] = app_wait_package
-        if app_activity:
-            desired_caps['androidActivity'] = app_activity
-        if app_wait_activity:
-            desired_caps['appWaitActivity'] = app_wait_activity
-        if bundleid:
-            desired_caps['bundleid'] = bundleid
-        if udid:
-            desired_caps['udid'] = udid
-        if no_reset:
-            desired_caps['noReset'] = no_reset
-        desired_caps['newCommandTimeout'] = new_command_timeout
-    
+        desired_caps = kwargs
         application = webdriver.Remote(str(remote_url), desired_caps)
-        
         self._debug('Opened application with session id %s' % application.session_id)
         
         return self._cache.register(application, alias)
@@ -105,8 +63,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
         which can be used to switch back to that application later.
 
         Example:
-        | ${appium1}=              | Open Application  | http://localhost:4723/wd/hub                   | iOS | 7.0 | iPhone Simulator | your.app | alias=MyApp1 |
-        | ${appium2}=              | Open Application  | http://localhost:4755/wd/hub                   | iOS | 7.0 | iPhone Simulator | your.app | alias=MyApp2 |
+        | ${appium1}=              | Open Application  | http://localhost:4723/wd/hub                   | alias=MyApp1 | platformName=iOS | platformVersion=7.0 | deviceName='iPhone Simulator' | app=your.app |
+        | ${appium2}=              | Open Application  | http://localhost:4755/wd/hub                   | alias=MyApp2 | platformName=iOS | platformVersion=7.0 | deviceName='iPhone Simulator' | app=your.app |
         | Click Element            | sendHello         | # Executed on appium running at localhost:4755 |
         | Switch Application       | ${appium1}        | # Switch using index                           |
         | Click Element            | ackHello          | # Executed on appium running at localhost:4723 |
