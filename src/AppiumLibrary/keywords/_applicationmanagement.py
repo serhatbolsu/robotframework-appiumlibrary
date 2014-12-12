@@ -40,7 +40,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
             platform_version, device_name, app,
             automation_name=None, app_package=None, app_activity=None,
             app_wait_package=None, app_wait_activity=None, new_command_timeout=60,
-            alias=None, bundleid=None, udid=None):
+            alias=None, bundleid=None, udid=None, no_reset=False):
         """Opens a new application to given Appium server.
 
         | *Option*            | *Man.* | *Description* |
@@ -58,6 +58,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | automation_name     | no     | "Selendroid" if you want to use Selendroid, otherwise, this can be omitted |
         | new_command_timeout | no     | How long (in seconds) Appium will wait for a new command from the client before assuming the client quit and ending the session |
         | udid                | no     | UDID for iOS and android mobile device |
+        | no_reset            | no     | if True, Don’t reset app state before this session. Default false |
 
         Examples:
         | Open Application | http://localhost:4723/wd/hub | iOS | 7.0 | iPhone Simulator | your.app |
@@ -84,6 +85,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
             desired_caps['bundleid'] = bundleid
         if udid:
             desired_caps['udid'] = udid
+        if no_reset:
+            desired_caps['noReset'] = no_reset
         desired_caps['newCommandTimeout'] = new_command_timeout
     
         application = webdriver.Remote(str(remote_url), desired_caps)
