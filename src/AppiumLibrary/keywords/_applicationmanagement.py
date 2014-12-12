@@ -74,7 +74,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         old_index = self._cache.current_index
         if index_or_alias is None:
-            self.close_connection()
+            self._cache.close()
         else:
             self._cache.switch(index_or_alias)
         return old_index
