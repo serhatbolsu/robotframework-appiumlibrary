@@ -13,6 +13,7 @@ pypi_upload:clean_pyc
 
 clean_pyc:
 	find . -iname "*.pyc" -delete
+	find . -iname "__pycache__" | xargs rm -rf {} \;
 
 andriod_demo:
 	VENV/bin/pybot ./demo/test_andriod_demo.txt
