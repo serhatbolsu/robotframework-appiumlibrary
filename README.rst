@@ -24,11 +24,11 @@ The recommended installation method is using
     pip install robotframework-appiumlibrary
 
 Using ``setup.py``
-'''''''''''''''''''''
+''''''''''''''''''
 
 setup.py
 
-.. code-block::
+::
 
     git clone https://github.com/jollychang/robotframework-appiumlibrary.git
     cd robotframework-appiumlibrary
