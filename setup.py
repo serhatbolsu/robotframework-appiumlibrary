@@ -27,7 +27,6 @@ setup(name         = 'robotframework-appiumlibrary',
                         "Programming Language :: Python",
                         "Topic :: Software Development :: Testing"
                      ],
-      dependency_links = ['https://github.com/jollychang/pytest-pythonpath/tarball/append_to_insert#egg=pytest-pythonpath-0.4'],
       install_requires = [
                             'decorator >= 3.3.2',
                             'robotframework >= 2.6.0',
