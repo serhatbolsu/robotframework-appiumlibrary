@@ -2,7 +2,6 @@
 
 from keywordgroup import KeywordGroup
 from appium.webdriver.connectiontype import ConnectionType
-from time import sleep
 
 class _AndroidUtilsKeywords(KeywordGroup):
 
@@ -13,7 +12,7 @@ class _AndroidUtilsKeywords(KeywordGroup):
         See `set network connection status` for more details. 
         """
         driver = self._current_application()
-        return driver.network_connection()
+        return driver.network_connection
 
     def set_network_connection_status(self, connectionStatus):
         """Sets the network connection Status.
