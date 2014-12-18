@@ -1,5 +1,8 @@
 History
 =======
+1.2.2
+----------------
+- fix pytest-pythonpath dependence 
 1.2.0
 ----------------
 - Open Application support all Appium server, iOS, Android capabilities
