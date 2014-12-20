@@ -136,21 +136,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
             raise RuntimeError('No application is open')
         return self._cache.current
 
-    def _parse_capabilities_string(self, capabilities_string):
-        '''parses the string based desired_capabilities which should be in the form
-        key1:val1,key2:val2
-        '''
-        desired_capabilities = {}
-
-        if not capabilities_string:
-            return desired_capabilities
-
-        for cap in capabilities_string.split(","):
-            (key, value) = cap.split(":")
-            desired_capabilities[key.strip()] = value.strip()
-
-        return desired_capabilities
-
     def _get_platform(self):
         try:
             platformName = self._current_application().desired_capabilities['desired']['platformName']
