@@ -6,7 +6,7 @@ help:
 generate_doc: 
 	VENV/bin/python -m robot.libdoc ./src/AppiumLibrary/ ./doc/AppimuLibrary.html
 
-update:_github
+update_github:
 	version=`python -c "import sys;sys.path.insert(0,'src');import AppiumLibrary;print AppiumLibrary.__version__"`
 	git tag $version
 	git push origin $version
