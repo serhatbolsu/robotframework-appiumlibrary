@@ -2,6 +2,7 @@ import logging
 import sys
 import unittest
 import mock
+import base64
 
 logger = logging.getLogger()
 stream_handler = logging.StreamHandler(sys.stdout)
@@ -16,6 +17,7 @@ class WebdriverRemoteMock(mock.Mock, unittest.TestCase):
         self._appiumUrl = command_executor
         self._desCapa = desired_capabilities
         self._dead = False
+        self._myData = ''
         #logger.debug(desired_capabilities)
         for key in desired_capabilities:
             self.assertNotEqual(desired_capabilities[key], None, 'Null value in desired capabilities')
@@ -34,6 +36,16 @@ class WebdriverRemoteMock(mock.Mock, unittest.TestCase):
         if self._dead:
             raise RuntimeError('Application has been closed')
 
+    def pull_file(self, path, decode=False):
+        theFile = self._myData
+        if decode:
+            theFile = base64.b64decode(theFile)
+        return theFile
 
+    def push_file(self, path, data, encode=False):
+        if encode:
+            self._myData = base64.b64decode(data)
+        else:
+            self._myData = data
 
     

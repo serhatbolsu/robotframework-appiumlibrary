@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import base64
 
 from keywordgroup import KeywordGroup
 from appium.webdriver.connectiontype import ConnectionType
@@ -30,35 +31,44 @@ class _AndroidUtilsKeywords(KeywordGroup):
         connType = ConnectionType(int(connectionStatus))
         return driver.set_network_connection(connType)
 
-    def pull_file(self, path):
-        """Retrieves the file at `path`. Returns the file's content encoded as
-        Base64.
+    def pull_file(self, path, decode=False):
+        """Retrieves the file at `path` and return it's content.
 		Android only.
 
         :Args:
          - path - the path to the file on the device
-        """
+         - decode - True/False decode the data (base64) before returning it (default=False)        
+         """
         driver = self._current_application()
-        return driver.pull_file(path)
+        theFile = driver.pull_file(path)
+        if decode:
+            theFile = base64.b64decode(theFile)
+        return theFile
 
-    def pull_folder(self, path):
-        """Retrieves a folder at `path`. Returns the folder's contents zipped
-        and encoded as Base64.
+    def pull_folder(self, path, decode=False):
+        """Retrieves a folder at `path`. Returns the folder's contents zipped.
 		Android only.
 
         :Args:
          - path - the path to the folder on the device
+         - decode - True/False decode the data (base64) before returning it (default=False)        
         """
         driver = self._current_application()
-        return driver.pull_folder(path)
+        theFolder = driver.pull_folder(path)
+        if decode:
+            theFolder = base64.b64decode(theFolder)
+        return theFolder
 
-    def push_file(self, path, base64data):
-        """Puts the data, encoded as Base64, in the file specified as `path`.
+    def push_file(self, path, data, encode=False):
+        """Puts the data in the file specified as `path`.
 		Android only.
 
         :Args:
          - path - the path on the device
-         - base64data - data, encoded as Base64, to be written to the file
+         - data - data to be written to the file
+         - encode - True/False encode the data as base64 before writing it to the file (default=False)
         """
         driver = self._current_application()
-        driver.push_file(path, base64data)
+        if encode:
+            data = base64.b64encode(data)
+        driver.push_file(path, data)
