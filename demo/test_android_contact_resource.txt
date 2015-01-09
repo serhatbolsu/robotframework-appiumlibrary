@@ -11,7 +11,7 @@ ${APP}            /Users/jollychang/tmp/appium/sample-code/apps/ContactManager/C
 *** Keywords ***
 add new contact
     [Arguments]    ${contact_name}    ${contact_phone}    ${contact_email}
-    Open Application    ${REMOTE_URL}    ${PLATFORM_NAME}    ${PLATFORM_VERSION}    ${DEVICE_NAME}    ${APP}
+    Open Application  ${REMOTE_URL}  platformName=platformVersion=4.2.2  deviceName=192.168.56.101:5555  app=${CURDIR}/demoapp/OrangeDemoApp.apk  automationName=appium  appPackage=com.netease.qa.orangedemo  appActivity=MainActivity
     Click Element    accessibility_id=Add Contact
     Input Text    id=com.example.android.contactmanager:id/contactNameEditText    ${contact_name}
     Input Text    id=com.example.android.contactmanager:id/contactPhoneEditText    ${contact_phone}

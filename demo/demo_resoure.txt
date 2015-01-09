@@ -4,13 +4,9 @@ Library         AppiumLibrary  run_on_failure=Log Source
 
 *** Variables ***
 ${REMOTE_URL}  http://localhost:4723/wd/hub 
-${PLATFORM_NAME}  iOS
-${PLATFORM_VERSION}  7.0
-${DEVICE_NAME}  iPhone Simulator
-${APP}  YOUR.app
 
 *** Keywords ***
 TestStart
     [Documentation]  just demo
-    Open Application  ${REMOTE_URL}  ${PLATFORM_NAME}  ${PLATFORM_VERSION}  ${DEVICE_NAME}  ${APP}
+    Open Application  ${REMOTE_URL}  platformName=platformVersion=4.2.2  deviceName=192.168.56.101:5555  app=${CURDIR}/demoapp/OrangeDemoApp.apk  automationName=appium  appPackage=com.netease.qa.orangedemo  appActivity=MainActivity
     Capture Page Screenshot
