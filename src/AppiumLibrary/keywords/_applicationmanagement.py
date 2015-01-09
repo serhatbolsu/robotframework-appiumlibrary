@@ -128,6 +128,16 @@ class _ApplicationManagementKeywords(KeywordGroup):
     def switch_to_context(self, context_name):
         """Switch to a new context"""
         self._current_application().switch_to.context(context_name)
+        
+    def go_to_url(self, url):
+        """
+        Opens URL in default web browser. 
+        
+        Example:
+        | Open Application  | http://localhost:4755/wd/hub | platformName=iOS | platformVersion=7.0 | deviceName='iPhone Simulator' | browserName=Safari |
+        | Go To URL         | http://m.webapp.com          |
+        """
+        self._current_application().get(url)
 
     # Private
 
