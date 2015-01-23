@@ -1,5 +1,10 @@
 History
 =======
+1.2.4
+----------------
+- fix sauceclient dependence 
+- Added keyword "Go To URL"
+- update demo for new Open Application argument
 1.2.2
 ----------------
 - fix pytest-pythonpath dependence 
