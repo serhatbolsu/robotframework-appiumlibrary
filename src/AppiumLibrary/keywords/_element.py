@@ -73,8 +73,6 @@ class _ElementKeywords(KeywordGroup):
         press. If no key name is given, the keyboard is closed by moving focus
         from the text field. iOS only.
         """
-        if not self._is_ios():
-            raise EnvironmentError("Hide Keyword only support for iOS .")
         driver = self._current_application()
         driver.hide_keyboard()
 
