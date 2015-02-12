@@ -1,5 +1,9 @@
 History
 =======
+1.2.5
+----------------
+- `Droid Utils: new file/folder handling methods <https://github.com/jollychang/robotframework-appiumlibrary/pull/31>`_
+- Hide Keyboard for Android
 1.2.4
 ----------------
 - fix sauceclient dependence 
