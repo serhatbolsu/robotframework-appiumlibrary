@@ -1,5 +1,9 @@
 History
 =======
+1.2.6
+----------------
+- limit version of robotframework
+- `Adding new wait keywords  <https://github.com/jollychang/robotframework-appiumlibrary/pull/51>`
 1.2.5
 ----------------
 - `Droid Utils: new file/folder handling methods <https://github.com/jollychang/robotframework-appiumlibrary/pull/31>`_
