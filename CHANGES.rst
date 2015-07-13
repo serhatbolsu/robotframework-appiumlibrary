@@ -1,5 +1,8 @@
 History
 =======
+1.2.7
+----------------
+- `Update BuiltIn library reference for RF 2.9 compatibility  <https://github.com/jollychang/robotframework-appiumlibrary/pull/52>`
 1.2.6
 ----------------
 - limit version of robotframework
