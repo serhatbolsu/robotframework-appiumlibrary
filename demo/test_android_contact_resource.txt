@@ -6,12 +6,12 @@ ${REMOTE_URL}     http://localhost:4723/wd/hub
 ${PLATFORM_NAME}    Android
 ${PLATFORM_VERSION}    4.2.2
 ${DEVICE_NAME}    Android Emulator
-${APP}            /Users/jollychang/tmp/appium/sample-code/apps/ContactManager/ContactManager.apk
+${APP}            ${CURDIR}/demoapp/ContactManager.apk
 
 *** Keywords ***
 add new contact
     [Arguments]    ${contact_name}    ${contact_phone}    ${contact_email}
-    Open Application  ${REMOTE_URL}  platformName=platformVersion=4.2.2  deviceName=192.168.56.101:5555  app=${CURDIR}/demoapp/OrangeDemoApp.apk  automationName=appium  appPackage=com.netease.qa.orangedemo  appActivity=MainActivity
+    Open Application  ${REMOTE_URL}  platformName=Android  platformVersion=${PLATFORM_VERSION}  deviceName=192.168.58.101:5555  app=${APP}  automationName=appium  appPackage=com.example.android.contactmanager
     Click Element    accessibility_id=Add Contact
     Input Text    id=com.example.android.contactmanager:id/contactNameEditText    ${contact_name}
     Input Text    id=com.example.android.contactmanager:id/contactPhoneEditText    ${contact_phone}
