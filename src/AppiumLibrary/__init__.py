@@ -43,7 +43,9 @@ class AppiumLibrary(
     | name              | Click Element `|` name=my_element                              | Matches by @name attribute        |
     | xpath             | Click Element `|` xpath=//UIATableView/UIATableCell/UIAButton  | Matches with arbitrary XPath      |
     | class             | Click Element `|` class=UIAPickerWheel                         | Matches by class                  |
-    | accessibility_id  | Click Element `|` accessibility_id=t                           |  Accessibility options utilize.   |
+    | accessibility_id  | Click Element `|` accessibility_id=t                           | Accessibility options utilize.    |
+    | android           | Click Element `|` android=new UiSelector().description('Apps') | Matches by Android UI Automator   |
+    | ios               | Click Element `|` ios=.buttons().withName('Apps')              | Matches by iOS UI Automation      |
 
 
 
