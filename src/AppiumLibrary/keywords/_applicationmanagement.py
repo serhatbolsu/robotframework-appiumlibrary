@@ -85,8 +85,11 @@ class _ApplicationManagementKeywords(KeywordGroup):
         driver.reset()
 
     def remove_application(self, application_id):
-        """ Removes application
-        Uninstall the application that is identified with application id
+        """ Removes the application that is identified with an application id
+
+        Example:
+        | Remove Application |  com.netease.qa.orangedemo |
+
         """
         driver = self._current_application()
         driver.remove_app(application_id)
