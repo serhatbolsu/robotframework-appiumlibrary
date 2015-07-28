@@ -1,5 +1,11 @@
 History
 =======
+1.3.1
+----------------
+- `Remove Application keyword added   <https://github.com/jollychang/robotframework-appiumlibrary/pull/56>`
+1.3.0
+----------------
+- `Add iOS UI Automation and Android UI Automator locator strategies.  <https://github.com/jollychang/robotframework-appiumlibrary/pull/55>`
 1.2.7
 ----------------
 - `Update BuiltIn library reference for RF 2.9 compatibility  <https://github.com/jollychang/robotframework-appiumlibrary/pull/52>`
