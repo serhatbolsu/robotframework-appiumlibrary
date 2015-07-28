@@ -79,6 +79,21 @@ class _ApplicationManagementKeywords(KeywordGroup):
             self._cache.switch(index_or_alias)
         return old_index
 
+    def reset_application(self):
+        """ Reset application """
+        driver = self._current_application()
+        driver.reset()
+
+    def remove_application(self, application_id):
+        """ Removes the application that is identified with an application id
+
+        Example:
+        | Remove Application |  com.netease.qa.orangedemo |
+
+        """
+        driver = self._current_application()
+        driver.remove_app(application_id)
+
     def get_source(self):
         """Returns the entire source of the current page."""
         return self._current_application().page_source    

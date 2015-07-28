@@ -62,11 +62,6 @@ class _ElementKeywords(KeywordGroup):
         self._info("Setting text '%s' into text field '%s'" % (text, locator))
         self._element_input_value_by_locator(locator, text)
 
-    def reset_application(self):
-        """ Reset application """
-        driver = self._current_application()
-        driver.reset()
-
     def hide_keyboard(self):
         """
         Hides the software keyboard on the device, using the specified key to

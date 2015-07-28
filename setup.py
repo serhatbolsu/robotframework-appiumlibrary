@@ -29,7 +29,7 @@ setup(name         = 'robotframework-appiumlibrary',
                      ],
       install_requires = [
                             'decorator >= 3.3.2',
-                            'robotframework >= 2.6.0, <= 2.8.7',
+                            'robotframework >= 2.6.0',
                             'docutils >= 0.8.1',
                             'Appium-Python-Client >= 0.5',
                             'mock >= 1.0.1',
