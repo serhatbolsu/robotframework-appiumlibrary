@@ -73,14 +73,14 @@ Contributing
 Fork the project, make a change, and send a pull request!
 
 
-.. image:: https://pypip.in/v/robotframework-appiumlibrary/badge.png
+.. image:: https://img.shields.io/pypi/v/robotframework-appiumlibrary.svg
     :target: https://pypi.python.org/pypi/robotframework-appiumlibrary/
     :alt: Latest PyPI version
 
 .. image:: https://travis-ci.org/jollychang/robotframework-appiumlibrary.svg?branch=master
     :target: https://travis-ci.org/jollychang/robotframework-appiumlibrary
 
-.. image:: https://pypip.in/d/robotframework-appiumlibrary/badge.png
+.. image:: https://img.shields.io/pypi/dm/robotframework-appiumlibrary.svg
     :target: https://pypi.python.org/pypi/robotframework-appiumlibrary/
     :alt: Number of PyPI downloads
 
