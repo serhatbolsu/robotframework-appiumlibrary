@@ -15,6 +15,7 @@ class ElementFinder(object):
             'accessibility_id': self._find_element_by_accessibility_id,
             'android': self._find_by_android,
             'ios': self._find_by_ios,
+            'css': self._find_by_css_selector,
             None: self._find_by_default
         }
 

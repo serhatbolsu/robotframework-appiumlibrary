@@ -46,7 +46,7 @@ class AppiumLibrary(
     | accessibility_id  | Click Element `|` accessibility_id=t                           | Accessibility options utilize.    |
     | android           | Click Element `|` android=new UiSelector().description('Apps') | Matches by Android UI Automator   |
     | ios               | Click Element `|` ios=.buttons().withName('Apps')              | Matches by iOS UI Automation      |
-
+    | css               | Click Element `|` css=.green_button                            | Matches by css in webview         |
 
 
 
