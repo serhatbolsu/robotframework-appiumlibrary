@@ -131,6 +131,19 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         self._current_application().shake()
 
+                
+    def portrait(self):
+        """
+        Set the device orientation to PORTRAIT
+        """
+        self._rotate ('PORTRAIT')
+        
+    def landscape(self):
+        """
+        Set the device orientation to LANSCAPE
+        """
+        self._rotate ('LANDSCAPE')
+        
     def get_current_context(self):
         """Get current context."""
         return self._current_application().current_context
@@ -177,3 +190,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def _is_andriod(self):
         return self._is_platform('android')
+    
+    def _rotate(self, orientation):
+        driver = self._current_application()
+        driver.orientation = orientation
+    
