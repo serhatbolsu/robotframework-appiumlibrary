@@ -156,6 +156,33 @@ class _ElementKeywords(KeywordGroup):
         self._info("Element '%s' name is '%s' " % (locator, expected))
 
 
+    def get_element_attribute(self, locator, attribute):
+        """Get element attribute using given attribute: name, value,...
+        
+        Example:
+
+        |Get Element Attribute| locator | name |
+        or
+        |Get Element Attribute| locator | value |
+        """
+        element = self._element_find(locator, True, True)
+        try: 
+            return element.get_attribute(attribute)
+        except:
+            raise AssertionError("Element '%s' could not be found or "
+                                 "attribute '%s' is not valid." % (locator, attribute))
+        self._info("Element '%s' attribute is '%s' " % (locator, attribute))
+
+
+    def element_value_should_be(self, locator, expected):
+        element = self._element_find(locator, True, True)
+        if expected != element.get_attribute('value'):
+            raise AssertionError("Element '%s' value should be '%s' "
+                                 "but it is '%s'." % (locator, expected, element.get_attribute('value'))) 
+        self._info("Element '%s' value is '%s' " % (locator, expected))
+
+
+
     # Private
     
     def _is_index(self, index_or_name):
