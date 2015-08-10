@@ -1,5 +1,13 @@
 History
 =======
+1.3.3
+----------------
+- `'get element attribute' and 'element value should be' keywords added   <https://github.com/jollychang/robotframework-appiumlibrary/pull/61>`
+- `Add Screen Orientation change <https://github.com/jollychang/robotframework-appiumlibrary/pull/60>`
+1.3.2
+----------------
+- `support css selector in web view   <https://github.com/jollychang/robotframework-appiumlibrary/pull/59>`
+- `Selenium selector fix   <https://github.com/jollychang/robotframework-appiumlibrary/pull/58>`
 1.3.1
 ----------------
 - `Remove Application keyword added   <https://github.com/jollychang/robotframework-appiumlibrary/pull/56>`
