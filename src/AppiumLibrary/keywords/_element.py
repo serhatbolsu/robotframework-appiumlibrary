@@ -5,8 +5,8 @@ from AppiumLibrary import utils
 from AppiumLibrary.locators import ElementFinder
 from keywordgroup import KeywordGroup
 
-class _ElementKeywords(KeywordGroup):
 
+class _ElementKeywords(KeywordGroup):
     def __init__(self):
         self._element_finder = ElementFinder()
 
@@ -26,12 +26,12 @@ class _ElementKeywords(KeywordGroup):
         `introduction` for details about locating elements.
         """
         self._info("Clicking element '%s'." % locator)
-        self._element_find(locator, True, True).click()        
+        self._element_find(locator, True, True).click()
 
     def click_button(self, index_or_name):
         """ Click button """
-        _platform_class_dict = {'ios':'UIAButton',
-                                   'android': 'android.widget.Button'}
+        _platform_class_dict = {'ios': 'UIAButton',
+                                'android': 'android.widget.Button'}
         if self._is_support_platform(_platform_class_dict):
             class_name = self._get_class(_platform_class_dict)
             self._click_element_by_class_name(class_name, index_or_name)
@@ -62,14 +62,12 @@ class _ElementKeywords(KeywordGroup):
         self._info("Setting text '%s' into text field '%s'" % (text, locator))
         self._element_input_value_by_locator(locator, text)
 
-    def hide_keyboard(self):
-        """
-        Hides the software keyboard on the device, using the specified key to
-        press. If no key name is given, the keyboard is closed by moving focus
-        from the text field. iOS only.
+    def hide_keyboard(self, key_name):
+        """Hides the software keyboard on the device. (optional) In iOS, use `key_name` to press
+        a particular key, ex. `Done`. In Android, no parameters are used.
         """
         driver = self._current_application()
-        driver.hide_keyboard()
+        driver.hide_keyboard(key_name)
 
     def page_should_contain_text(self, text, loglevel='INFO'):
         """Verifies that current page contains `text`.
@@ -78,7 +76,7 @@ class _ElementKeywords(KeywordGroup):
         using the log level specified with the optional `loglevel` argument.
         Giving `NONE` as level disables logging.
         """
-        if not text in self.log_source(loglevel):
+        if text not in self.log_source(loglevel):
             self.log_source(loglevel)
             raise AssertionError("Page should have contained text '%s' "
                                  "but did not" % text)
@@ -103,11 +101,11 @@ class _ElementKeywords(KeywordGroup):
         If this keyword fails, it automatically logs the page source
         using the log level specified with the optional `loglevel` argument.
         Givin
-        """        
+        """
         if not self._is_element_present(locator):
             self.log_source(loglevel)
             raise AssertionError("Page should have contained element '%s' "
-                                 "but did not" % locator)            
+                                 "but did not" % locator)
         self._info("Current page contains element '%s'." % locator)
 
     def page_should_not_contain_element(self, locator, loglevel='INFO'):
@@ -116,11 +114,11 @@ class _ElementKeywords(KeywordGroup):
         If this keyword fails, it automatically logs the page source
         using the log level specified with the optional `loglevel` argument.
         Givin
-        """   
+        """
         if self._is_element_present(locator):
             self.log_source(loglevel)
             raise AssertionError("Page should not have contained element '%s' "
-                                 "but did not" % locator)            
+                                 "but did not" % locator)
         self._info("Current page not contains element '%s'." % locator)
 
     def element_should_be_disabled(self, locator, loglevel='INFO'):
@@ -132,7 +130,7 @@ class _ElementKeywords(KeywordGroup):
         if self._element_find(locator, True, True).is_enabled():
             self.log_source(loglevel)
             raise AssertionError("Element '%s' should be disabled "
-                                 "but did not" % locator)      
+                                 "but did not" % locator)
         self._info("Element '%s' is disabled ." % locator)
 
     def element_should_be_enabled(self, locator, loglevel='INFO'):
@@ -144,17 +142,15 @@ class _ElementKeywords(KeywordGroup):
         if not self._element_find(locator, True, True).is_enabled():
             self.log_source(loglevel)
             raise AssertionError("Element '%s' should be enabled "
-                                 "but did not" % locator)      
+                                 "but did not" % locator)
         self._info("Element '%s' is enabled ." % locator)
-
 
     def element_name_should_be(self, locator, expected):
         element = self._element_find(locator, True, True)
         if expected != element.get_attribute('name'):
             raise AssertionError("Element '%s' name should be '%s' "
-                                 "but it is '%s'." % (locator, expected, element.get_attribute('name'))) 
+                                 "but it is '%s'." % (locator, expected, element.get_attribute('name')))
         self._info("Element '%s' name is '%s' " % (locator, expected))
-
 
     def get_element_attribute(self, locator, attribute):
         """Get element attribute using given attribute: name, value,...
@@ -166,25 +162,22 @@ class _ElementKeywords(KeywordGroup):
         |Get Element Attribute| locator | value |
         """
         element = self._element_find(locator, True, True)
-        try: 
+        try:
             return element.get_attribute(attribute)
         except:
             raise AssertionError("Element '%s' could not be found or "
                                  "attribute '%s' is not valid." % (locator, attribute))
         self._info("Element '%s' attribute is '%s' " % (locator, attribute))
 
-
     def element_value_should_be(self, locator, expected):
         element = self._element_find(locator, True, True)
         if expected != element.get_attribute('value'):
             raise AssertionError("Element '%s' value should be '%s' "
-                                 "but it is '%s'." % (locator, expected, element.get_attribute('value'))) 
+                                 "but it is '%s'." % (locator, expected, element.get_attribute('value')))
         self._info("Element '%s' value is '%s' " % (locator, expected))
 
-
-
     # Private
-    
+
     def _is_index(self, index_or_name):
         if index_or_name.startswith('index='):
             return True
@@ -197,7 +190,7 @@ class _ElementKeywords(KeywordGroup):
             element = driver.find_element_by_name(name)
         except Exception, e:
             raise Exception, e
-    
+
         try:
             element.click()
         except Exception, e:
@@ -210,12 +203,12 @@ class _ElementKeywords(KeywordGroup):
 
     def _find_element_by_class_name(self, class_name, index_or_name):
         elements = self._find_elements_by_class_name(class_name)
-    
+
         if self._is_index(index_or_name):
             try:
                 index = int(index_or_name.split('=')[-1])
                 element = elements[index]
-            except IndexError, TypeError:
+            except (IndexError, TypeError):
                 raise Exception, 'Cannot find the element with index "%s"' % index_or_name
         else:
             found = False
@@ -230,7 +223,7 @@ class _ElementKeywords(KeywordGroup):
         return element
 
     def _get_class(self, platform_class_dict):
-        return platform_class_dict.get(self._get_platform())        
+        return platform_class_dict.get(self._get_platform())
 
     def _is_support_platform(self, platform_class_dict):
         return platform_class_dict.has_key(self._get_platform())
