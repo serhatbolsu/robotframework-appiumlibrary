@@ -1,5 +1,8 @@
 History
 =======
+1.3.4
+----------------
+- `hide_keyboard_set_selenium_final  <https://github.com/jollychang/robotframework-appiumlibrary/pull/68>`
 1.3.3
 ----------------
 - `'get element attribute' and 'element value should be' keywords added   <https://github.com/jollychang/robotframework-appiumlibrary/pull/61>`
