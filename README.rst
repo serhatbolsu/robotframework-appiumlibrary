@@ -72,6 +72,13 @@ Contributing
 -------------
 Fork the project, make a change, and send a pull request!
 
+Project Contributors
+--------------------
+* `William Zhang <https://github.com/jollychang>`_
+* `Xie Lieping <https://github.com/frankbp>`_
+* `Jari Nurminen <https://github.com/yahman72>`_
+* `Serhat Bolsu <https://github.com/serhatbolsu>`_
+
 
 .. image:: https://img.shields.io/pypi/v/robotframework-appiumlibrary.svg
     :target: https://pypi.python.org/pypi/robotframework-appiumlibrary/
