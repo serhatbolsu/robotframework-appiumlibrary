@@ -37,7 +37,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def open_application(self, remote_url, alias=None, **kwargs):
         """Opens a new application to given Appium server.
-        Capabilities of appium server, Android and iOS, 
+        Capabilities of appium server, Android and iOS,
         Please check http://appium.io/slate/en/master/?python#appium-server-capabilities
         | *Option*            | *Man.* | *Description*     |
         | remote_url          | Yes    | Appium server url |
@@ -185,8 +185,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def go_to_url(self, url):
         """
-        Opens URL in default web browser. 
-        
+        Opens URL in default web browser.
+
         Example:
         | Open Application  | http://localhost:4755/wd/hub | platformName=iOS | platformVersion=7.0 | deviceName='iPhone Simulator' | browserName=Safari |
         | Go To URL         | http://m.webapp.com          |

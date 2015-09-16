@@ -18,5 +18,4 @@ __all__ = ["_LoggingKeywords",
            "_WaitingKeywords",
            "_TouchKeywords",
            "_KeyeventKeywords",
-		   "_AndroidUtilsKeywords",
-          ]
+           "_AndroidUtilsKeywords"]
