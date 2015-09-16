@@ -62,7 +62,7 @@ class _ElementKeywords(KeywordGroup):
         self._info("Setting text '%s' into text field '%s'" % (text, locator))
         self._element_input_value_by_locator(locator, text)
 
-    def hide_keyboard(self, key_name):
+    def hide_keyboard(self, key_name=None):
         """Hides the software keyboard on the device. (optional) In iOS, use `key_name` to press
         a particular key, ex. `Done`. In Android, no parameters are used.
         """
