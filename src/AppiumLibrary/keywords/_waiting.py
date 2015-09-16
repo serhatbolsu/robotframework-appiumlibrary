@@ -13,9 +13,9 @@ class _WaitingKeywords(KeywordGroup):
 
         `error` can be used to override the default error message.
 
-        See also `Wait Until Page Does Not Contain`, 
+        See also `Wait Until Page Does Not Contain`,
         `Wait Until Page Contains Element`,
-        `Wait Until Page Does Not Contain Element` and  
+        `Wait Until Page Does Not Contain Element` and
         BuiltIn keyword `Wait Until Keyword Succeeds`.
         """
         if not error:
@@ -31,9 +31,9 @@ class _WaitingKeywords(KeywordGroup):
 
         `error` can be used to override the default error message.
 
-        See also `Wait Until Page Contains`, 
+        See also `Wait Until Page Contains`,
         `Wait Until Page Contains Element`,
-        `Wait Until Page Does Not Contain Element` and 
+        `Wait Until Page Does Not Contain Element` and
         BuiltIn keyword `Wait Until Keyword Succeeds`.
         """
 
@@ -55,9 +55,9 @@ class _WaitingKeywords(KeywordGroup):
 
         `error` can be used to override the default error message.
 
-        See also `Wait Until Page Contains`, 
+        See also `Wait Until Page Contains`,
         `Wait Until Page Does Not Contain`
-        `Wait Until Page Does Not Contain Element` 
+        `Wait Until Page Does Not Contain Element`
         and BuiltIn keyword `Wait Until Keyword Succeeds`.
         """
         if not error:
@@ -73,9 +73,9 @@ class _WaitingKeywords(KeywordGroup):
 
         `error` can be used to override the default error message.
 
-        See also `Wait Until Page Contains`, 
-        `Wait Until Page Does Not Contain`, 
-        `Wait Until Page Contains Element` and 
+        See also `Wait Until Page Contains`,
+        `Wait Until Page Does Not Contain`,
+        `Wait Until Page Contains Element` and
         BuiltIn keyword `Wait Until Keyword Succeeds`.
         """
 
@@ -103,7 +103,8 @@ class _WaitingKeywords(KeywordGroup):
         maxtime = time.time() + timeout
         while True:
             timeout_error = wait_func(*args)
-            if not timeout_error: return
+            if not timeout_error:
+                return
             if time.time() > maxtime:
                 self.log_source()
                 raise AssertionError(timeout_error)

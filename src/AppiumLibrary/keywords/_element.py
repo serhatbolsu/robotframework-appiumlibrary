@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from appium.webdriver.common.touch_action import TouchAction
-from AppiumLibrary import utils
 from AppiumLibrary.locators import ElementFinder
 from keywordgroup import KeywordGroup
 
@@ -154,7 +152,7 @@ class _ElementKeywords(KeywordGroup):
 
     def get_element_attribute(self, locator, attribute):
         """Get element attribute using given attribute: name, value,...
-        
+
         Example:
 
         |Get Element Attribute| locator | name |

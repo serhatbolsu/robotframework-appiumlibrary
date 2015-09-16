@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from appium.webdriver.common.touch_action import TouchAction
-from AppiumLibrary import utils
 from AppiumLibrary.locators import ElementFinder
 from keywordgroup import KeywordGroup
+
 
 class _TouchKeywords(KeywordGroup):
 
@@ -50,7 +50,7 @@ class _TouchKeywords(KeywordGroup):
         driver = self._current_application()
         element = self._element_find(locator, True, True)
         long_press = TouchAction(driver).long_press(element)
-        long_press.perform() 
+        long_press.perform()
 
     def tap(self, locator):
         """ Tap on element """

@@ -1,4 +1,3 @@
-import os
 from applicationcache import ApplicationCache
 
 __all__ = [
