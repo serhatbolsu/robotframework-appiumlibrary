@@ -2,9 +2,8 @@ import time
 import robot
 from keywordgroup import KeywordGroup
 
+
 class _WaitingKeywords(KeywordGroup):
-
-
     def wait_until_page_contains(self, text, timeout=None, error=None):
         """Waits until `text` appears on current page.
 
@@ -37,14 +36,16 @@ class _WaitingKeywords(KeywordGroup):
         `Wait Until Page Does Not Contain Element` and 
         BuiltIn keyword `Wait Until Keyword Succeeds`.
         """
+
         def check_present():
             present = self._is_text_present(text)
             if not present:
                 return
             else:
                 return error or "Text '%s' did not disappear in %s" % (text, self._format_timeout(timeout))
+
         self._wait_until_no_error(timeout, check_present)
-		
+
     def wait_until_page_contains_element(self, locator, timeout=None, error=None):
         """Waits until element specified with `locator` appears on current page.
 
@@ -77,20 +78,24 @@ class _WaitingKeywords(KeywordGroup):
         `Wait Until Page Contains Element` and 
         BuiltIn keyword `Wait Until Keyword Succeeds`.
         """
+
         def check_present():
             present = self._is_element_present(locator)
             if not present:
                 return
             else:
                 return error or "Element '%s' did not disappear in %s" % (locator, self._format_timeout(timeout))
+
         self._wait_until_no_error(timeout, check_present)
-        
+
     # Private
 
     def _wait_until(self, timeout, error, function, *args):
         error = error.replace('<TIMEOUT>', self._format_timeout(timeout))
+
         def wait_func():
             return None if function(*args) else error
+
         self._wait_until_no_error(timeout, wait_func)
 
     def _wait_until_no_error(self, timeout, wait_func, *args):
