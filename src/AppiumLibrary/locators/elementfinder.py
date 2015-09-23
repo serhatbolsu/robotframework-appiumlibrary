@@ -3,6 +3,7 @@
 from AppiumLibrary import utils
 from robot.api import logger
 
+
 class ElementFinder(object):
 
     def __init__(self):
@@ -13,6 +14,9 @@ class ElementFinder(object):
             'xpath': self._find_by_xpath,
             'class': self._find_by_class_name,
             'accessibility_id': self._find_element_by_accessibility_id,
+            'android': self._find_by_android,
+            'ios': self._find_by_ios,
+            'css': self._find_by_css_selector,
             None: self._find_by_default
         }
 
@@ -87,6 +91,17 @@ class ElementFinder(object):
         elements = browser.find_elements_by_accessibility_id(criteria)
         return elements
 
+    def _find_by_android(self, browser, criteria, tag, constraints):
+        """Find element matches by UI Automator."""
+        return self._filter_elements(
+            browser.find_elements_by_android_uiautomator(criteria),
+            tag, constraints)
+
+    def _find_by_ios(self, browser, criteria, tag, constraints):
+        """Find element matches by UI Automation."""
+        return self._filter_elements(
+            browser.find_elements_by_ios_uiautomation(criteria),
+            tag, constraints)
 
     def _find_by_default(self, browser, criteria, tag, constraints):
         if criteria.startswith('//'):
@@ -122,7 +137,8 @@ class ElementFinder(object):
     }
 
     def _get_tag_and_constraints(self, tag):
-        if tag is None: return None, {}
+        if tag is None:
+            return None, {}
 
         tag = tag.lower()
         constraints = {}
@@ -156,7 +172,8 @@ class ElementFinder(object):
 
     def _filter_elements(self, elements, tag, constraints):
         elements = self._normalize_result(elements)
-        if tag is None: return elements
+        if tag is None:
+            return elements
         return filter(
             lambda element: self._element_matches(element, tag, constraints),
             elements)

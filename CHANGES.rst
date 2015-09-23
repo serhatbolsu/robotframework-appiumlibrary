@@ -1,5 +1,33 @@
 History
 =======
+1.3.4
+----------------
+- `hide_keyboard_set_selenium_final  <https://github.com/jollychang/robotframework-appiumlibrary/pull/68>`
+1.3.3
+----------------
+- `'get element attribute' and 'element value should be' keywords added   <https://github.com/jollychang/robotframework-appiumlibrary/pull/61>`
+- `Add Screen Orientation change <https://github.com/jollychang/robotframework-appiumlibrary/pull/60>`
+1.3.2
+----------------
+- `support css selector in web view   <https://github.com/jollychang/robotframework-appiumlibrary/pull/59>`
+- `Selenium selector fix   <https://github.com/jollychang/robotframework-appiumlibrary/pull/58>`
+1.3.1
+----------------
+- `Remove Application keyword added   <https://github.com/jollychang/robotframework-appiumlibrary/pull/56>`
+1.3.0
+----------------
+- `Add iOS UI Automation and Android UI Automator locator strategies.  <https://github.com/jollychang/robotframework-appiumlibrary/pull/55>`
+1.2.7
+----------------
+- `Update BuiltIn library reference for RF 2.9 compatibility  <https://github.com/jollychang/robotframework-appiumlibrary/pull/52>`
+1.2.6
+----------------
+- limit version of robotframework
+- `Adding new wait keywords  <https://github.com/jollychang/robotframework-appiumlibrary/pull/51>`
+1.2.5
+----------------
+- `Droid Utils: new file/folder handling methods <https://github.com/jollychang/robotframework-appiumlibrary/pull/31>`_
+- Hide Keyboard for Android
 1.2.4
 ----------------
 - fix sauceclient dependence 

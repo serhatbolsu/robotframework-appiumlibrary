@@ -1,5 +1,6 @@
 from robot.utils import ConnectionCache
 
+
 class ApplicationCache(ConnectionCache):
 
     def __init__(self):
@@ -16,7 +17,7 @@ class ApplicationCache(ConnectionCache):
             if application not in self._closed:
                 open_applications.append(application)
         return open_applications
-    
+
     def close(self):
         if self.current:
             application = self.current

@@ -5,6 +5,7 @@ from keywordgroup import KeywordGroup
 
 BUILTIN = BuiltIn.BuiltIn()
 
+
 class _RunOnFailureKeywords(KeywordGroup):
 
     def __init__(self):
@@ -48,7 +49,7 @@ class _RunOnFailureKeywords(KeywordGroup):
         self._info('%s will be run on failure.' % new_keyword_text)
 
         return old_keyword_text
-    
+
     # Private
 
     def _run_on_failure(self):

@@ -2,22 +2,21 @@
 
 import os
 from keywords import *
-
-THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-execfile(os.path.join(THIS_DIR, 'version.py'))
+from version import VERSION
 
 __version__ = VERSION
 
+
 class AppiumLibrary(
-    _LoggingKeywords, 
-    _RunOnFailureKeywords, 
-    _ElementKeywords, 
+    _LoggingKeywords,
+    _RunOnFailureKeywords,
+    _ElementKeywords,
     _ScreenshotKeywords,
     _ApplicationManagementKeywords,
     _WaitingKeywords,
     _TouchKeywords,
     _KeyeventKeywords,
-	_AndroidUtilsKeywords,
+    _AndroidUtilsKeywords,
 ):
     """AppiumLibrary is a App testing library for Robot Framework.
 
@@ -27,9 +26,9 @@ class AppiumLibrary(
     take an argument, `locator`. By default, when a locator value is provided,
     it is matched against the key attributes of the particular element type.
     For example, `id` and `name` are key attributes to all elements, and
-    locating elements is easy using just the `id` as a `locator`. For example::
+    locating elements is easy using just the `id` as a `locator`. For example:
 
-    Click Element  my_element
+    ``Click Element  my_element``
 
     Appium additionally supports some of the _Mobile JSON Wire Protocol_
     (https://code.google.com/p/selenium/source/browse/spec-draft.md?repo=mobile) locator strategies
@@ -43,8 +42,10 @@ class AppiumLibrary(
     | name              | Click Element `|` name=my_element                              | Matches by @name attribute        |
     | xpath             | Click Element `|` xpath=//UIATableView/UIATableCell/UIAButton  | Matches with arbitrary XPath      |
     | class             | Click Element `|` class=UIAPickerWheel                         | Matches by class                  |
-    | accessibility_id  | Click Element `|` accessibility_id=t                           |  Accessibility options utilize.   |
-
+    | accessibility_id  | Click Element `|` accessibility_id=t                           | Accessibility options utilize.    |
+    | android           | Click Element `|` android=new UiSelector().description('Apps') | Matches by Android UI Automator   |
+    | ios               | Click Element `|` ios=.buttons().withName('Apps')              | Matches by iOS UI Automation      |
+    | css               | Click Element `|` css=.green_button                            | Matches by css in webview         |
 
 
 
@@ -53,8 +54,11 @@ class AppiumLibrary(
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
     ROBOT_LIBRARY_VERSION = VERSION
 
-    def __init__(self, run_on_failure='Capture Page Screenshot'):
+    def __init__(self, timeout=5, run_on_failure='Capture Page Screenshot'):
         """AppiumLibrary can be imported with optional arguments.
+
+        `timeout` is the default timeout used to wait for all waiting actions.
+        It can be later set with `Set Appium Timeout`.
 
         `run_on_failure` specifies the name of a keyword (from any available
         libraries) to execute when a AppiumLibrary keyword fails. By default
@@ -64,8 +68,10 @@ class AppiumLibrary(
         functionality.
 
         Examples:
-        | Library | AppiumLibrary | run_on_failure=No Operation | # Sets default timeout to 10 seconds and does nothing on failure           |
+        | Library | AppiumLibrary | 10 | # Sets default timeout to 10 seconds                                                                             |
+        | Library | AppiumLibrary | timeout=10 | run_on_failure=No Operation | # Sets default timeout to 10 seconds and does nothing on failure           |
         """
         for base in AppiumLibrary.__bases__:
             base.__init__(self)
+        self.set_appium_timeout(timeout)
         self.register_keyword_to_run_on_failure(run_on_failure)

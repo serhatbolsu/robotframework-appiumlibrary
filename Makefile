@@ -4,7 +4,7 @@ help:
 	@echo targes: version, generate_doc, pypi_upload, clean_pyc, andriod_demo, ios_demo, demo, unittest, test
 
 generate_doc: 
-	VENV/bin/python -m robot.libdoc ./src/AppiumLibrary/ ./doc/AppimuLibrary.html
+	VENV/bin/python -m robot.libdoc ./src/AppiumLibrary/ ./doc/AppiumLibrary.html
 
 update_github:
 	version=`python -c "import sys;sys.path.insert(0,'src');import AppiumLibrary;print AppiumLibrary.__version__"`

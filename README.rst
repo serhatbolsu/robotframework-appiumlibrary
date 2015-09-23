@@ -10,7 +10,10 @@ It uses `Appium <http://appium.io/>`_ (version 1.x) to communicate with Android 
 similar to how `Selenium WebDriver <http://seleniumhq.org/projects/webdriver/>`_ talks
 to web browser.
 
-AppiumLibrary is modeled after (and forked from)  `appiumandroidlibrary <https://github.com/frankbp/robotframework-appiumandroidlibrary>`_,  but re-implemented to use appium 1.X technologies.
+AppiumLibrary is modeled after (and forked from)  `appiumandroidlibrary <https://github.com/frankbp/robotframework-appiumandroidlibrary>`_,  but re-implemented to use appium 1.X technologies.   
+
+It support Python 2.x only.
+
 
 Installation
 ------------
@@ -63,21 +66,28 @@ Documentation
 -------------
 
 The keyword documentation could be found at `Keyword Documentation 
-<http://jollychang.github.io/robotframework-appiumlibrary/doc/AppimuLibrary.html>`_
+<http://jollychang.github.io/robotframework-appiumlibrary/doc/AppiumLibrary.html>`_
 
 Contributing
 -------------
 Fork the project, make a change, and send a pull request!
 
+Project Contributors
+--------------------
+* `William Zhang <https://github.com/jollychang>`_
+* `Xie Lieping <https://github.com/frankbp>`_
+* `Jari Nurminen <https://github.com/yahman72>`_
+* `Serhat Bolsu <https://github.com/serhatbolsu>`_
 
-.. image:: https://pypip.in/v/robotframework-appiumlibrary/badge.png
+
+.. image:: https://img.shields.io/pypi/v/robotframework-appiumlibrary.svg
     :target: https://pypi.python.org/pypi/robotframework-appiumlibrary/
     :alt: Latest PyPI version
 
 .. image:: https://travis-ci.org/jollychang/robotframework-appiumlibrary.svg?branch=master
     :target: https://travis-ci.org/jollychang/robotframework-appiumlibrary
 
-.. image:: https://pypip.in/d/robotframework-appiumlibrary/badge.png
+.. image:: https://img.shields.io/pypi/dm/robotframework-appiumlibrary.svg
     :target: https://pypi.python.org/pypi/robotframework-appiumlibrary/
     :alt: Number of PyPI downloads
 
