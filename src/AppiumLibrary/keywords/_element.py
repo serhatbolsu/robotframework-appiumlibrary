@@ -160,6 +160,24 @@ class _ElementKeywords(KeywordGroup):
                                  "but it is '%s'." % (locator, expected, element.get_attribute('name'))) 
         self._info("Element '%s' name is '%s' " % (locator, expected))
 
+    def element_attribute_should_be(self, locator, attr_name, expected):
+        elements = self._element_find(locator, False, True)
+        if len(elements) > 1:
+            self._info("CAUTION: '%s' matched %s elements - using the first element only" % (locator, len(elements)))
+        if expected != elements[0].get_attribute(attr_name):
+            raise AssertionError("Element '%s' attribute '%s' should have been '%s' "
+                                 "but it was '%s'." % (locator, attr_name, expected, element.get_attribute('name')))
+        self._info("Element '%s' attribute '%s' is '%s' " % (locator, attr_name, expected))
+
+    def get_element_attribute(self, locator, attr_name):
+        elements = self._element_find(locator, False, True)
+        if len(elements) > 1:
+            self._info("CAUTION: '%s' matched %s elements - using the first element only" % (locator, len(elements)))
+        return elements.get_attribute(attr_name)
+
+    def get_elements(self, locator, first_element_only=False, fail_on_error=True):
+        return self._element_find(locator, first_element_only, fail_on_error)
+
 
     # Private
     
