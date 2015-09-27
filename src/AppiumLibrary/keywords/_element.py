@@ -174,6 +174,28 @@ class _ElementKeywords(KeywordGroup):
                                  "but it is '%s'." % (locator, expected, element.get_attribute('value')))
         self._info("Element '%s' value is '%s' " % (locator, expected))
 
+    def get_element_location(self, locator):
+        """Get element location
+
+        Key attributes for arbitrary elements are `id` and `name`. See
+        `introduction` for details about locating elements. 
+        """
+        element = self._element_find(locator, True, True)
+        element_location = element.location
+        self._info("Element '%s' location: %s " % (locator, element_location))
+        return element_location
+
+    def get_element_size(self, locator):
+        """Get element size
+
+        Key attributes for arbitrary elements are `id` and `name`. See
+        `introduction` for details about locating elements. 
+        """
+        element = self._element_find(locator, True, True)
+        element_size = element.size
+        self._info("Element '%s' size: %s " % (locator, element_size))
+        return element_size
+
     # Private
 
     def _is_index(self, index_or_name):
