@@ -3,11 +3,12 @@
 from AppiumLibrary.locators import ElementFinder
 from keywordgroup import KeywordGroup
 from robot.libraries.BuiltIn import BuiltIn
-
+import ast
 
 class _ElementKeywords(KeywordGroup):
     def __init__(self):
         self._element_finder = ElementFinder()
+        self._bi = BuiltIn()
 
     # Public, element lookups
     def clear_text(self, locator):
@@ -158,43 +159,107 @@ class _ElementKeywords(KeywordGroup):
                                  "but it is '%s'." % (locator, expected, element.get_attribute('value')))
         self._info("Element '%s' value is '%s' " % (locator, expected))
 
-    def element_attribute_should_match(self, locator, attr_name, match_pattern, regexp = False):
+    def element_attribute_should_match(self, locator, attr_name, match_pattern, regexp=False):
+        """Verify that an attribute of an element matches the expected criteria.
+
+        The element is identified by _locator_. See `introduction` for details
+        about locating elements. If more than one element matches, the first element is selected.
+
+        The _attr_name_ is the name of the attribute within the selected element.
+
+        The _match_pattern_ is used for the matching, if the match_pattern is
+        - boolean or 'True'/'true'/'False'/'false' String then a boolean match is applied
+        - any other string is cause a string match
+
+        The _regexp_ defines whether the string match is done using regular expressions (i.e. BuiltIn Library's
+        [http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Should%20Match%20Regexp|Should
+        Match Regexp] or string pattern match (i.e. BuiltIn Library's
+        [http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Should%20Match|Should
+        Match])
+
+
+        Examples:
+
+        | Element Attribute Should Match | xpath = //*[contains(@text,'foo')] | text | *foobar |
+        | Element Attribute Should Match | xpath = //*[contains(@text,'foo')] | text | f.*ar | regexp = True |
+        | Element Attribute Should Match | xpath = //*[contains(@text,'foo')] | enabled | True |
+
+        | 1. is a string pattern match i.e. the 'text' attribute should end with the string 'foobar'
+        | 2. is a regular expression match i.e. the regexp 'f.*ar' should be within the 'text' attribute
+        | 3. is a boolead match i.e. the 'enabled' attribute should be True
+
+
+        _*NOTE: *_
+        On Android the supported attribute names are hard-coded in the
+        [https://github.com/appium/appium/blob/master/lib/devices/android/bootstrap/src/io/appium/android/bootstrap/AndroidElement.java|AndroidElement]
+        Class's getBoolAttribute() and getStringAttribute() methods.
+        Currently supported (appium v1.4.11):
+        _contentDescription, text, className, resourceId, enabled, checkable, checked, clickable, focusable, focused, longClickable, scrollable, selected, displayed_
+
+
+        _*NOTE: *_
+        Some attributes can be evaluated in two different ways e.g. these evaluate the same thing:
+
+        | Element Attribute Should Match | xpath = //*[contains(@text,'example text')] | name | txt_field_name |
+        | Element Name Should Be         | xpath = //*[contains(@text,'example text')] | txt_field_name |      |
+
+        """
         elements = self._element_find(locator, False, True)
         if len(elements) > 1:
             self._info("CAUTION: '%s' matched %s elements - using the first element only" % (locator, len(elements)))
+
         attr_value = elements[0].get_attribute(attr_name)
-        if regexp:
-            BuiltIn.should_match_regexp(self,attr_value,match_pattern,
+
+        # ignore regexp argument if matching boolean
+        if isinstance(match_pattern, bool) or match_pattern.lower() == 'true' or match_pattern.lower() == 'false':
+            if isinstance(match_pattern, bool):
+                match_b = match_pattern
+            else:
+                match_b = ast.literal_eval(match_pattern.title())
+
+            if isinstance(attr_value, bool):
+                attr_b = attr_value
+            else:
+                attr_b = ast.literal_eval(attr_value.title())
+
+            self._bi.should_be_equal(match_b, attr_b)
+
+        elif regexp:
+            self._bi.should_match_regexp(attr_value,match_pattern,
                                         msg="Element '%s' attribute '%s' should have been '%s' "
-                                        "but it was '%s'." % (locator, attr_name, expected, attr_value),
+                                        "but it was '%s'." % (locator, attr_name, match_pattern, attr_value),
                                         values=False)
         else:
-            BuiltIn.should_match(self,attr_value,match_pattern,
+            self._bi.should_match(attr_value,match_pattern,
                                         msg="Element '%s' attribute '%s' should have been '%s' "
-                                        "but it was '%s'." % (locator, attr_name, expected, attr_value),
+                                        "but it was '%s'." % (locator, attr_name, match_pattern, attr_value),
                                         values=False)
         #if expected != elements[0].get_attribute(attr_name):
         #    raise AssertionError("Element '%s' attribute '%s' should have been '%s' "
         #                         "but it was '%s'." % (locator, attr_name, expected, element.get_attribute(attr_name)))
-        self._info("Element '%s' attribute '%s' is '%s' " % (locator, attr_name, expected))
-
-    def get_element_attribute(self, locator, attr_name):
-        elements = self._element_find(locator, False, True)
-        if len(elements) > 1:
-            self._info("CAUTION: '%s' matched %s elements - using the first element only" % (locator, len(elements)))
-        return elements.get_attribute(attr_name)
+        self._info("Element '%s' attribute '%s' is '%s' " % (locator, attr_name, match_pattern))
 
     def get_elements(self, locator, first_element_only=False, fail_on_error=True):
+        """Return elements that match the search criteria
+
+        The element is identified by _locator_. See `introduction` for details
+        about locating elements.
+
+        If the _first_element_ is set to 'True' then only the first matching element is returned.
+
+        If the _fail_on_error_ is set to 'True' this keyword fails if the search return nothing.
+
+        Returns a list of [http://selenium-python.readthedocs.org/en/latest/api.html#module-selenium.webdriver.remote.webelement|WebElement] Objects.
+        """
         return self._element_find(locator, first_element_only, fail_on_error)
 
     def get_element_attribute(self, locator, attribute):
         """Get element attribute using given attribute: name, value,...
 
-        Example:
+        Examples:
 
-        |Get Element Attribute| locator | name |
-        or
-        |Get Element Attribute| locator | value |
+        | Get Element Attribute | locator | name |
+        | Get Element Attribute | locator | value |
         """
         elements = self._element_find(locator, False, True)
         ele_len = len(elements)
@@ -204,7 +269,7 @@ class _ElementKeywords(KeywordGroup):
             self._info("CAUTION: '%s' matched %s elements - using the first element only" % (locator, len(elements)))
 
         try:
-            attr_val = element.get_attribute(attribute)
+            attr_val = elements[0].get_attribute(attribute)
             self._info("Element '%s' attribute '%s' value '%s' " % (locator, attribute, attr_val))
             return attr_val
         except:
