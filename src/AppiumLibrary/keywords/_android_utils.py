@@ -28,8 +28,7 @@ class _AndroidUtilsKeywords(KeywordGroup):
             6     |(All network on) | 1    | 1    | 0
         """
         driver = self._current_application()
-        connType = ConnectionType(int(connectionStatus))
-        return driver.set_network_connection(connType)
+        return driver.set_network_connection(int(connectionStatus))
 
     def pull_file(self, path, decode=False):
         """Retrieves the file at `path` and return it's content.

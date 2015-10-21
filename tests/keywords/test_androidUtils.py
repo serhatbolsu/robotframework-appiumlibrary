@@ -7,7 +7,7 @@ import mock
 from AppiumLibrary.keywords import _ApplicationManagementKeywords
 from webdriverremotemock import WebdriverRemoteMock
 from AppiumLibrary.keywords import _AndroidUtilsKeywords
-
+from appium.webdriver.connectiontype import ConnectionType
 
 logger = logging.getLogger()
 stream_handler = logging.StreamHandler(sys.stdout)
@@ -34,7 +34,7 @@ class AndroidUtilsTests(unittest.TestCase):
         self.au._current_application = self.am._current_application
 
     def test_set_network_connection_status(self):
-        self.au.set_network_connection_status(4)
+        self.au.set_network_connection_status(ConnectionType.DATA_ONLY)
 
     def test_get_network_connection_status(self):
         self.au.get_network_connection_status()
