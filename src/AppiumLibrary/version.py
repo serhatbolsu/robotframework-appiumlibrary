@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-VERSION = '1.3.4JNu'
+VERSION = '1.3.5'

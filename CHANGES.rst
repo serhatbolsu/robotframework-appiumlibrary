@@ -1,5 +1,11 @@
 History
 =======
+1.3.5
+----------------
+- `Update _touch.py  <https://github.com/jollychang/robotframework-appiumlibrary/pull/74>`
+- `New Element & Attribute KW's and docstring fixes  <https://github.com/jollychang/robotframework-appiumlibrary/pull/73>`
+- `Fix for default value of `Hide Keyboard  <https://github.com/jollychang/robotframework-appiumlibrary/pull/70>`
+- `Set Appium Timeout / Get Appium Timeout keywords added  <https://github.com/jollychang/robotframework-appiumlibrary/pull/69>`
 1.3.4
 ----------------
 - `hide_keyboard_set_selenium_final  <https://github.com/jollychang/robotframework-appiumlibrary/pull/68>`
