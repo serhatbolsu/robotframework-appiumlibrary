@@ -2,6 +2,9 @@
 
 import os
 import robot
+import random
+import string
+import datetime
 from keywordgroup import KeywordGroup
 
 
@@ -37,7 +40,27 @@ class _ScreenshotKeywords(KeywordGroup):
         self._html('</td></tr><tr><td colspan="3"><a href="%s">'
                    '<img src="%s" width="800px"></a>' % (link, link))
 
+    def capture_page_screenshot_with_unique_name(self):
+        """Takes a screenshot of the current page and embeds it into the log.
+        
+        The screenshot is saved it into file under the directory 
+        where the Robot Framework log file is written into.
+
+        `css` can be used to modify how the screenshot is taken. By default
+        the bakground color is changed to avoid possible problems with
+        background leaking when the page layout is somehow broken.
+        """
+
+        current_datetime = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S-%f")
+        unique_string = self._random_string(10)
+        filename = 'appium-screenshot-%s-%s.png' % (unique_string, current_datetime)
+
+        self.capture_page_screenshot(filename)
+
     # Private
+
+    def _random_string(self, number_of_chars):
+        return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(number_of_chars))
 
     def _get_screenshot_paths(self, filename):
         if not filename:
