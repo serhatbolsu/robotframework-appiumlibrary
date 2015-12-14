@@ -2,8 +2,6 @@
 
 import os
 import robot
-import random
-import string
 import datetime
 from keywordgroup import KeywordGroup
 
@@ -52,15 +50,11 @@ class _ScreenshotKeywords(KeywordGroup):
         """
 
         current_datetime = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S-%f")
-        unique_string = self._random_string(10)
-        filename = 'appium-screenshot-%s-%s.png' % (unique_string, current_datetime)
+        filename = 'appium-screenshot-%s.png' % current_datetime
 
         self.capture_page_screenshot(filename)
 
     # Private
-
-    def _random_string(self, number_of_chars):
-        return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(number_of_chars))
 
     def _get_screenshot_paths(self, filename):
         if not filename:
