@@ -2,6 +2,7 @@
 
 import os
 import robot
+import datetime
 from keywordgroup import KeywordGroup
 
 
@@ -36,6 +37,22 @@ class _ScreenshotKeywords(KeywordGroup):
         # Image is shown on its own row and thus prev row is closed on purpose
         self._html('</td></tr><tr><td colspan="3"><a href="%s">'
                    '<img src="%s" width="800px"></a>' % (link, link))
+
+    def capture_page_screenshot_with_unique_name(self):
+        """Takes a screenshot of the current page and embeds it into the log.
+        
+        The screenshot is saved it into file under the directory 
+        where the Robot Framework log file is written into.
+
+        `css` can be used to modify how the screenshot is taken. By default
+        the bakground color is changed to avoid possible problems with
+        background leaking when the page layout is somehow broken.
+        """
+
+        current_datetime = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S-%f")
+        filename = 'appium-screenshot-%s.png' % current_datetime
+
+        self.capture_page_screenshot(filename)
 
     # Private
 
