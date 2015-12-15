@@ -65,7 +65,7 @@ class _TouchKeywords(KeywordGroup):
         action = TouchAction(driver)
         action.tap(el).perform()
         
-    def click_a_point(self, x=0, y=0):
+    def press_a_point(self, x=0, y=0):
         """ Click on a point"""
         self._info("Clicking on a point (%s,%s)." % (x,y))
         driver = self._current_application()
