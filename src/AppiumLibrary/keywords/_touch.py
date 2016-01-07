@@ -74,3 +74,10 @@ class _TouchKeywords(KeywordGroup):
             action.tap(x=float(x), y=float(y)).perform()
         except:
             assert False, "Can't click on a point at (%s,%s)" % (x,y)
+
+    def click_element_at_coordinates(self, coordinate_X, coordinate_Y):
+        """ click element at a certain coordinate """
+        self._info("Pressing at (%s, %s)." % (coordinate_X, coordinate_Y))
+        driver = self._current_application()
+        action = TouchAction(driver)
+        action.press(x=coordinate_X, y=coordinate_Y).release().perform()
