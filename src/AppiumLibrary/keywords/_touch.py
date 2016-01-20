@@ -65,13 +65,13 @@ class _TouchKeywords(KeywordGroup):
         action = TouchAction(driver)
         action.tap(el).perform()
         
-    def click_a_point(self, x=0, y=0):
+    def click_a_point(self, x=0, y=0, duration=100):
         """ Click on a point"""
         self._info("Clicking on a point (%s,%s)." % (x,y))
         driver = self._current_application()
         action = TouchAction(driver)
         try:
-            action.tap(x=float(x), y=float(y)).perform()
+            action.press(x=float(x), y=float(y)).wait(float(duration)).release().perform()
         except:
             assert False, "Can't click on a point at (%s,%s)" % (x,y)
 
