@@ -4,6 +4,8 @@ from AppiumLibrary.locators import ElementFinder
 from keywordgroup import KeywordGroup
 from robot.libraries.BuiltIn import BuiltIn
 import ast
+import unicodedata
+
 
 class _ElementKeywords(KeywordGroup):
     def __init__(self):
@@ -401,7 +403,11 @@ class _ElementKeywords(KeywordGroup):
         return elements
 
     def _is_text_present(self, text):
-        return text in self.get_source()
+        text_norm = unicodedata.normalize(
+            'NFD', text).encode('ascii', 'ignore')
+        source_norm = unicodedata.normalize(
+            'NFD', self.get_source()).encode('ascii', 'ignore')
+        return text_norm in source_norm
 
     def _is_element_present(self, locator):
         application = self._current_application()
