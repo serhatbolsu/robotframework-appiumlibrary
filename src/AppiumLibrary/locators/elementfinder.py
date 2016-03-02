@@ -203,7 +203,7 @@ class ElementFinder(object):
             locator_parts = locator.partition('=')
             if len(locator_parts[1]) > 0:
                 prefix = locator_parts[0].strip().lower()
-                criteria = locator_parts[2].strip()
+                criteria = locator_parts[2].strip().strip('\'\"')
         return (prefix, criteria)
 
     def _normalize_result(self, elements):
