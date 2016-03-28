@@ -4,7 +4,7 @@ SofrecomAppium library for RobotFramework
 Introduction
 ------------
 
-AppiumLibrary is an appium testing library for `RobotFramework <http://code.google.com/p/robotframework/>`_.
+SofrecomAppiumLibrary is an appium testing library for `RobotFramework <http://code.google.com/p/robotframework/>`_.
 
 It uses `Appium <http://appium.io/>`_ (version 1.x) to communicate with Android and iOS application 
 similar to how `Selenium WebDriver <http://seleniumhq.org/projects/webdriver/>`_ talks
@@ -33,7 +33,7 @@ setup.py
 
 ::
 
-    git clone https://github.com/DhiaEddineSaidi/robotframework-appiumlibrary
+    git clone https://github.com/DhiaEddineSaidi/robotframework-sofrecomappiumlibrary
     cd robotframework-appiumlibrary
     python setup.py install
 
