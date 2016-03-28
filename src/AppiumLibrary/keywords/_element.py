@@ -413,6 +413,7 @@ class _ElementKeywords(KeywordGroup):
         application = self._current_application()
         elements = self._element_finder.find(application, locator, None)
         return len(elements) > 0
+        
     def get_text(self, locator):
         """Returns the text value of element identified by `locator`.
         See `introduction` for details about locating elements.
