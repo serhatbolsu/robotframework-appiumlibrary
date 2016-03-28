@@ -34,7 +34,7 @@ setup.py
 ::
 
     git clone https://github.com/DhiaEddineSaidi/robotframework-sofrecomappiumlibrary
-    cd robotframework-appiumlibrary
+    cd robotframework-sofrecomappiumlibrary
     python setup.py install
 
 
@@ -66,7 +66,7 @@ Documentation
 -------------
 
 The keyword documentation could be found at `Keyword Documentation 
-<http://jollychang.github.io/robotframework-appiumlibrary/doc/AppiumLibrary.html>`_
+<http://DhiaEddineSaidi.github.io/robotframework-appiumlibrary/doc/AppiumLibrary.html>`_
 
 Contributing
 -------------
@@ -74,10 +74,8 @@ Fork the project, make a change, and send a pull request!
 
 Project Contributors
 --------------------
-* `William Zhang <https://github.com/jollychang>`_
-* `Xie Lieping <https://github.com/frankbp>`_
-* `Jari Nurminen <https://github.com/yahman72>`_
-* `Serhat Bolsu <https://github.com/serhatbolsu>`_
+* `Saidi Dhia Eddine <https://github.com/DhiaEddineSaidi>`_
+
 
 
 .. image:: https://img.shields.io/pypi/v/robotframework-appiumlibrary.svg
