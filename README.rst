@@ -10,7 +10,7 @@ It uses `Appium <http://appium.io/>`_ (version 1.x) to communicate with Android 
 similar to how `Selenium WebDriver <http://seleniumhq.org/projects/webdriver/>`_ talks
 to web browser.
 
-SofrecomAppiumLibrary is modeled after (and forked from)  `appiumandroidlibrary <https://github.com/jollychang/robotframework-appiumlibrary>.   
+SofrecomAppiumLibrary is modeled after (and forked from)  `AppiumLibrary <https://github.com/jollychang/robotframework-appiumlibrary>`.   
 
 It support Python 2.x only.
 
