@@ -1,4 +1,4 @@
-Appium library for RobotFramework
+SofrecomAppium library for RobotFramework
 ==================================================
 
 Introduction
