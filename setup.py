@@ -10,7 +10,7 @@ from setuptools import setup
 
 execfile(join(dirname(__file__), 'src', 'AppiumLibrary', 'version.py'))
 
-setup(name         = 'robotframework-appiumlibrary',
+setup(name         = 'robotframework-appiumlibrarya',
       version      = VERSION,
       description  = 'app testing library for Robot Framework',
       long_description = open(join(dirname(__file__), 'README.rst')).read(),
