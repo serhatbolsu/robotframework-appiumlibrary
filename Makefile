@@ -4,7 +4,7 @@ help:
 	@echo targes: version, generate_doc, pypi_upload, clean_pyc, andriod_demo, ios_demo, demo, unittest, test
 
 generate_doc: 
-	VENV/bin/python -m robot.libdoc ./src/AppiumLibrary/ ./doc/AppiumLibrary.html
+	VENV/bin/python -m robot.libdoc ./src/AppiumLibrary/ ./doc/SofrecomAppiumLibrary.html
 
 update_github:
 	version=`python -c "import sys;sys.path.insert(0,'src');import AppiumLibrary;print AppiumLibrary.__version__"`
@@ -20,7 +20,7 @@ update_github:
 pypi_upload:clean_pyc
 	rm -rf src/robotframework_appiumlibrary.egg-info/
 	VENV/bin/python setup.py sdist upload
-	@echo https://pypi.python.org/pypi/robotframework-appiumlibrary/
+	@echo https://pypi.python.org/pypi/robotframework-sofrecomappiumlibrary/
 
 clean_pyc:
 	find . -iname "*.pyc" -delete
