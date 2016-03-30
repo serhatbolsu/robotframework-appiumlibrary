@@ -154,7 +154,7 @@ class _ElementKeywords(KeywordGroup):
 
     def element_value_should_be(self, locator, expected):
         element = self._element_find(locator, True, True)
-        if expected != element.get_attribute('value'):
+        if str(expected) != str(element.get_attribute('value')):
             raise AssertionError("Element '%s' value should be '%s' "
                                  "but it is '%s'." % (locator, expected, element.get_attribute('value')))
         self._info("Element '%s' value is '%s' " % (locator, expected))
