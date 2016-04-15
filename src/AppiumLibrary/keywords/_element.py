@@ -5,7 +5,15 @@ from keywordgroup import KeywordGroup
 from robot.libraries.BuiltIn import BuiltIn
 import ast
 import unicodedata
+from selenium.webdriver.remote.webelement import WebElement
 
+try:
+    basestring  # attempt to evaluate basestring
+    def isstr(s):
+        return isinstance(s, basestring)
+except NameError:
+    def isstr(s):
+        return isinstance(s, str)
 
 class _ElementKeywords(KeywordGroup):
     def __init__(self):
@@ -394,12 +402,17 @@ class _ElementKeywords(KeywordGroup):
 
     def _element_find(self, locator, first_only, required, tag=None):
         application = self._current_application()
-        elements = self._element_finder.find(application, locator, tag)
-        if required and len(elements) == 0:
-            raise ValueError("Element locator '" + locator + "' did not match any elements.")
-        if first_only:
-            if len(elements) == 0: return None
-            return elements[0]
+        if isstr(locator):
+            elements = self._element_finder.find(application, locator, tag)
+            if required and len(elements) == 0:
+                raise ValueError("Element locator '" + locator + "' did not match any elements.")
+            if first_only:
+                if len(elements) == 0: return None
+                return elements[0]
+        elif isinstance(locator, WebElement):
+            elements = locator
+        # do some other stuff here like deal with list of webelements
+        # ... or raise locator/element specific error if required
         return elements
 
     def _is_text_present(self, text):
