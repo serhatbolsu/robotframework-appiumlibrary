@@ -2,7 +2,7 @@
 
 from appium.webdriver.common.touch_action import TouchAction
 from AppiumLibrary.locators import ElementFinder
-from keywordgroup import KeywordGroup
+from .keywordgroup import KeywordGroup
 
 
 class _TouchKeywords(KeywordGroup):
