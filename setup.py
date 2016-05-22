@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 
 import sys
-from os.path import join, dirname
-
-sys.path.append(join(dirname(__file__), 'src'))
+from os.path import abspath, dirname, join
 from ez_setup import use_setuptools
-use_setuptools()
 from setuptools import setup
 
-execfile(join(dirname(__file__), 'src', 'AppiumLibrary', 'version.py'))
+sys.path.append(join(dirname(__file__), 'src'))
+use_setuptools()
+version_file = join(dirname(__file__), 'src', 'AppiumLibrary', 'version.py')
+exec(compile(open(version_file).read(), version_file, 'exec'))
+
 
 setup(name         = 'robotframework-appiumlibrary',
       version      = VERSION,
