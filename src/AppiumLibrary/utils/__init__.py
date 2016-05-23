@@ -1,4 +1,4 @@
-from applicationcache import ApplicationCache
+from .applicationcache import ApplicationCache
 
 __all__ = [
     "ApplicationCache"

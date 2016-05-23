@@ -4,7 +4,7 @@ import os
 import robot
 from appium import webdriver
 from AppiumLibrary.utils import ApplicationCache
-from keywordgroup import KeywordGroup
+from .keywordgroup import KeywordGroup
 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
@@ -176,7 +176,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def get_contexts(self):
         """Get available contexts."""
-        print self._current_application().contexts
+        print(self._current_application().contexts)
         return self._current_application().contexts
 
     def switch_to_context(self, context_name):
@@ -203,8 +203,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
     def _get_platform(self):
         try:
             platformName = self._current_application().desired_capabilities['desired']['platformName']
-        except Exception, e:
-            raise Exception, e
+        except Exception as e:
+            raise e
         return platformName.lower()
 
     def _is_platform(self, platform):
