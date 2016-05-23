@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import os
-from keywords import *
-from version import VERSION
+from AppiumLibrary.keywords import *
+from AppiumLibrary.version import VERSION
 
 __version__ = VERSION
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import base64
 
-from keywordgroup import KeywordGroup
+from .keywordgroup import KeywordGroup
 from appium.webdriver.connectiontype import ConnectionType
 
 class _AndroidUtilsKeywords(KeywordGroup):

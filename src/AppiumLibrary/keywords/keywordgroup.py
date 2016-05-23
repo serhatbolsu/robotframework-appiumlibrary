@@ -13,7 +13,7 @@ if sys.platform == 'cli':
 def _run_on_failure_decorator(method, *args, **kwargs):
     try:
         return method(*args, **kwargs)
-    except Exception, err:
+    except Exception as err:
         self = args[0]
         if hasattr(self, '_run_on_failure'):
             self._run_on_failure()

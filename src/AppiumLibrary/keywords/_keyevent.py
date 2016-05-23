@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from keywordgroup import KeywordGroup
+from .keywordgroup import KeywordGroup
 
 
 class _KeyeventKeywords(KeywordGroup):
