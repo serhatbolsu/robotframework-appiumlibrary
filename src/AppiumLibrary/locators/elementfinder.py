@@ -17,6 +17,7 @@ class ElementFinder(object):
             'android': self._find_by_android,
             'ios': self._find_by_ios,
             'css': self._find_by_css_selector,
+            'jquery': self._find_by_sizzle_selector,
             None: self._find_by_default
         }
 
