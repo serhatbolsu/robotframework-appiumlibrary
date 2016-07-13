@@ -1,7 +1,7 @@
 .PHONY: help
 
 help:
-	@echo targes: version, generate_doc, pypi_upload, clean_pyc, andriod_demo, ios_demo, demo, unittest, test
+	@echo targes: version, generate_doc, pypi_upload, clean_pyc, android_demo, ios_demo, demo, unittest, test
 
 generate_doc: 
 	VENV/bin/python -m robot.libdoc ./src/AppiumLibrary/ ./doc/AppiumLibrary.html
@@ -26,13 +26,13 @@ clean_pyc:
 	find . -iname "*.pyc" -delete
 	find . -iname "__pycache__" | xargs rm -rf {} \;
 
-andriod_demo:
-	VENV/bin/pybot ./demo/test_andriod_demo.txt
+android_demo:
+	VENV/bin/pybot ./demo/test_android_demo.txt
 
 ios_demo:
 	VENV/bin/pybot ./demo/test_ios_demo.txt
 
-demo:andriod_demo ios_demo
+demo:android_demo ios_demo
 
 unittest:
 	py.test -s tests 

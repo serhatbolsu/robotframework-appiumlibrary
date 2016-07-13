@@ -214,7 +214,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
     def _is_ios(self):
         return self._is_platform('ios')
 
-    def _is_andriod(self):
+    def _is_android(self):
         return self._is_platform('android')
 
     def _rotate(self, orientation):
