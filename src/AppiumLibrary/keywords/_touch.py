@@ -45,12 +45,18 @@ class _TouchKeywords(KeywordGroup):
         driver = self._current_application()
         driver.scroll(el1, el2)
         
-    def scroll_to(self, locator):
-        """Scrolls to element"""
+    def scroll_down(self, locator):
+        """Scrolls down to element"""
         driver = self._current_application()
         element = self._element_find(locator, True, True)
-        driver.execute_script("mobile: scrollTo", {"element": element.id})
+        driver.execute_script("mobile: scroll", {"direction": 'down', 'element': element.id})
         
+    def scroll_up(self, locator):
+        """Scrolls up to element"""
+        driver = self._current_application()
+        element = self._element_find(locator, True, True)
+        driver.execute_script("mobile: scroll", {"direction": 'up', 'element': element.id})
+
     def long_press(self, locator):
         """ Long press the element """
         driver = self._current_application()
