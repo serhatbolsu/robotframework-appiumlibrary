@@ -27,9 +27,19 @@ class _TouchKeywords(KeywordGroup):
         element = self._element_find(locator, True, True)
         driver.pinch(element=element, percent=percent, steps=steps)
 
-    def swipe(self, start_x, start_y, end_x, end_y, duration=1000):
+    def swipe(self, start_x, start_y, offset_x, offset_y, duration=1000):
         """
         Swipe from one point to another point, for an optional duration.
+
+        :Args:
+         - start_x - x-coordinate at which to start
+         - start_y - y-coordinate at which to start
+         - offset_x - x-coordinate distance from start_x at which to stop
+         - offset_y - y-coordinate distance from start_y at which to stop
+         - duration - (optional) time to take the swipe, in ms.
+
+        :Usage:
+            Swipe    ${100}  ${100}  ${300}  ${0}
         """
         driver = self._current_application()
         driver.swipe(start_x, start_y, end_x, end_y, duration)
@@ -44,13 +54,13 @@ class _TouchKeywords(KeywordGroup):
         el2 = self._element_find(end_locator, True, True)
         driver = self._current_application()
         driver.scroll(el1, el2)
-        
+
     def scroll_down(self, locator):
         """Scrolls down to element"""
         driver = self._current_application()
         element = self._element_find(locator, True, True)
         driver.execute_script("mobile: scroll", {"direction": 'down', 'element': element.id})
-        
+
     def scroll_up(self, locator):
         """Scrolls up to element"""
         driver = self._current_application()
@@ -70,7 +80,7 @@ class _TouchKeywords(KeywordGroup):
         el = self._element_find(locator, True, True)
         action = TouchAction(driver)
         action.tap(el).perform()
-        
+
     def click_a_point(self, x=0, y=0, duration=100):
         """ Click on a point"""
         self._info("Clicking on a point (%s,%s)." % (x,y))
