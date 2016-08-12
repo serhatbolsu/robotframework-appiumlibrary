@@ -1,5 +1,12 @@
 History
 =======
+1.3.6
+----------------
+- `modify click_a_point() action  <https://github.com/jollychang/robotframework-appiumlibrary/pull/81>`
+- `Add 'press_at' in keywords/_touch.py <https://github.com/jollychang/robotframework-appiumlibrary/pull/83>`
+- `add duration for click a point keyowrd <https://github.com/jollychang/robotframework-appiumlibrary/pull/88>`
+- Bug fix and update document
+
 1.3.5
 ----------------
 - `Update _touch.py  <https://github.com/jollychang/robotframework-appiumlibrary/pull/74>`
