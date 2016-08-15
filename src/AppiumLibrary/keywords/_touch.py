@@ -42,7 +42,7 @@ class _TouchKeywords(KeywordGroup):
             Swipe    ${100}  ${100}  ${300}  ${0}
         """
         driver = self._current_application()
-        driver.swipe(start_x, start_y, end_x, end_y, duration)
+        driver.swipe(start_x, start_y, offset_x, offset_y, duration)
 
     def scroll(self, start_locator, end_locator):
         """
