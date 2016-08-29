@@ -249,19 +249,31 @@ class _ElementKeywords(KeywordGroup):
         #                         "but it was '%s'." % (locator, attr_name, expected, element.get_attribute(attr_name)))
         self._info("Element '%s' attribute '%s' is '%s' " % (locator, attr_name, match_pattern))
 
-    def get_elements(self, locator, first_element_only=False, fail_on_error=True):
-        """Return elements that match the search criteria
+    def get_webelement(self, locator):
+        """Returns the first [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement] matching the given ``locator``.
 
-        The element is identified by _locator_. See `introduction` for details
-        about locating elements.
+        Example:
+        | ${element}     | Get Webelement | id=my_element |
+        | Click Element  | ${element}     |               |
 
-        If the _first_element_ is set to 'True' then only the first matching element is returned.
-
-        If the _fail_on_error_ is set to 'True' this keyword fails if the search return nothing.
-
-        Returns a list of [http://selenium-python.readthedocs.org/en/latest/api.html#module-selenium.webdriver.remote.webelement|WebElement] Objects.
+        New in AppiumLibrary 1.4.
         """
-        return self._element_find(locator, first_element_only, fail_on_error)
+        return self._element_find(locator, True, True)
+
+    def get_webelements(self, locator):
+        """Returns list of [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement] objects matching ``locator``.
+
+        Example:
+        | @{elements}    | Get Webelements | id=my_element |
+        | Click Element  | @{elements}[2]  |               |
+
+        This keyword was changed in AppiumLibrary 1.4 in following ways:
+        - Name is changed from `Get Elements` to current one.
+        - Deprecated argument ``fail_on_error``, use `Run Keyword and Ignore Error` if necessary.
+
+        New in AppiumLibrary 1.4.
+        """
+        return self._element_find(locator, False, True)
 
     def get_element_attribute(self, locator, attribute):
         """Get element attribute using given attribute: name, value,...

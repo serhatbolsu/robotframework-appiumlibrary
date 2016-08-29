@@ -20,18 +20,24 @@ class AppiumLibrary(
 ):
     """AppiumLibrary is a App testing library for Robot Framework.
 
-    *Locating elements*
+    = Locating or specifying elements =
 
-    All keywords in AppiumLibrary that need to find an element on the app
-    take an argument, `locator`. By default, when a locator value is provided,
+    All keywords in AppiumLibrary that need to find an element on the page
+    take an argument, either a ``locator`` or a `webelement`. ``locator``
+    is a string that describes how to locate an element using a syntax
+    specifying different location strategies. `webelement` is a variable that
+    holds a WebElement instance, which is a representation of the element.
+
+    == Using locators ==
+
+    By default, when a locator value is provided,
     it is matched against the key attributes of the particular element type.
-    For example, `id` and `name` are key attributes to all elements, and
-    locating elements is easy using just the `id` as a `locator`. For example:
+    For example, ``id`` and ``name`` are key attributes to all elements, and
+    locating elements is easy using just the ``id`` as a ``locator``. For example:
 
     ``Click Element  my_element``
 
-    Appium additionally supports some of the _Mobile JSON Wire Protocol_
-    (https://code.google.com/p/selenium/source/browse/spec-draft.md?repo=mobile) locator strategies
+    Appium additionally supports some of the [https://w3c.github.io/webdriver/webdriver-spec.html|Mobile JSON Wire Protocol] locator strategies.
     It is also possible to specify the approach AppiumLibrary should take
     to find an element by specifying a lookup strategy with a locator
     prefix. Supported strategies are:
@@ -47,8 +53,11 @@ class AppiumLibrary(
     | ios               | Click Element `|` ios=.buttons().withName('Apps')              | Matches by iOS UI Automation      |
     | css               | Click Element `|` css=.green_button                            | Matches by css in webview         |
 
+    == Using webelements ==
 
-
+    Starting with version 1.4 of the AppiumLibrary, one can pass an argument
+    that contains a WebElement instead of a string locator. To get a WebElement,
+    use the new `Get WebElements` or `Get WebElement` keyword.
     """
 
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
