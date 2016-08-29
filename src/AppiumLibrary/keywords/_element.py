@@ -86,7 +86,7 @@ class _ElementKeywords(KeywordGroup):
         using the log level specified with the optional `loglevel` argument.
         Giving `NONE` as level disables logging.
         """
-        if text not in self.log_source(loglevel):
+        if unicode(text) not in self.log_source(loglevel):
             self.log_source(loglevel)
             raise AssertionError("Page should have contained text '%s' "
                                  "but did not" % text)
@@ -99,10 +99,9 @@ class _ElementKeywords(KeywordGroup):
         using the log level specified with the optional `loglevel` argument.
         Giving `NONE` as level disables logging.
         """
-        if text in self.log_source(loglevel):
+        if unicode(text) in self.log_source(loglevel):
             self.log_source(loglevel)
-            raise AssertionError("Page should not have contained text '%s' "
-                                 "but did not" % text)
+            raise AssertionError("Page should not have contained text '%s'" % text)
         self._info("Current page does not contains text '%s'." % text)
 
     def page_should_contain_element(self, locator, loglevel='INFO'):
@@ -110,7 +109,7 @@ class _ElementKeywords(KeywordGroup):
 
         If this keyword fails, it automatically logs the page source
         using the log level specified with the optional `loglevel` argument.
-        Givin
+        Giving `NONE` as level disables logging.
         """
         if not self._is_element_present(locator):
             self.log_source(loglevel)
@@ -123,12 +122,11 @@ class _ElementKeywords(KeywordGroup):
 
         If this keyword fails, it automatically logs the page source
         using the log level specified with the optional `loglevel` argument.
-        Givin
+        Giving `NONE` as level disables logging.
         """
         if self._is_element_present(locator):
             self.log_source(loglevel)
-            raise AssertionError("Page should not have contained element '%s' "
-                                 "but did not" % locator)
+            raise AssertionError("Page should not have contained element '%s'" % locator)
         self._info("Current page not contains element '%s'." % locator)
 
     def element_should_be_disabled(self, locator, loglevel='INFO'):
