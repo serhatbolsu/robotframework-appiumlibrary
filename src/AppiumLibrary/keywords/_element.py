@@ -86,7 +86,7 @@ class _ElementKeywords(KeywordGroup):
         using the log level specified with the optional `loglevel` argument.
         Giving `NONE` as level disables logging.
         """
-        if unicode(text) not in self.log_source(loglevel):
+        if not self._is_text_present(text):
             self.log_source(loglevel)
             raise AssertionError("Page should have contained text '%s' "
                                  "but did not" % text)
@@ -99,7 +99,7 @@ class _ElementKeywords(KeywordGroup):
         using the log level specified with the optional `loglevel` argument.
         Giving `NONE` as level disables logging.
         """
-        if unicode(text) in self.log_source(loglevel):
+        if self._is_text_present(text):
             self.log_source(loglevel)
             raise AssertionError("Page should not have contained text '%s'" % text)
         self._info("Current page does not contains text '%s'." % text)
