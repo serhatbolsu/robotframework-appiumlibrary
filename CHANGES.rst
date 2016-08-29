@@ -1,5 +1,9 @@
 History
 =======
+1.3.7
+----------------
+- ``swipe`` critical bug fix <https://github.com/jollychang/robotframework-appiumlibrary/pull/125>
+
 1.3.6
 ----------------
 - `modify click_a_point() action  <https://github.com/jollychang/robotframework-appiumlibrary/pull/81>`
