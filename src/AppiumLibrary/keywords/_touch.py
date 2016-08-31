@@ -74,7 +74,7 @@ class _TouchKeywords(KeywordGroup):
         driver.execute_script("mobile: scroll", {"direction": 'left', 'element': element.id})
         
     def scroll_right(self, locator):
-        """Scrolls left to element"""
+        """Scrolls right to element"""
         driver = self._current_application()
         element = self._element_find(locator, True, True)
         driver.execute_script("mobile: scroll", {"direction": 'right', 'element': element.id})
