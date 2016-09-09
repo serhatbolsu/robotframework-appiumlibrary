@@ -143,7 +143,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         Lock the device for a certain period of time. iOS only.
         """
-        self._current_application().lock(seconds)
+        self._current_application().lock(robot.utils.timestr_to_secs(seconds))
 
     def background_app(self, seconds=5):
         """
