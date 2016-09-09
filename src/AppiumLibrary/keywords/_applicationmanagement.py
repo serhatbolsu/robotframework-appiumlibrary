@@ -139,11 +139,11 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """Goes one step backward in the browser history."""
         self._current_application().back()
 
-    def lock(self):
+    def lock(self, seconds=5):
         """
-        Lock the device
+        Lock the device for a certain period of time. iOS only.
         """
-        self._current_application().lock()
+        self._current_application().lock(robot.utils.timestr_to_secs(seconds))
 
     def background_app(self, seconds=5):
         """
