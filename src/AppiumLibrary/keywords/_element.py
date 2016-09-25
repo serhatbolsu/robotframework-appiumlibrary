@@ -9,11 +9,14 @@ from selenium.webdriver.remote.webelement import WebElement
 
 try:
     basestring  # attempt to evaluate basestring
+
+
     def isstr(s):
         return isinstance(s, basestring)
 except NameError:
     def isstr(s):
         return isinstance(s, str)
+
 
 class _ElementKeywords(KeywordGroup):
     def __init__(self):
@@ -26,7 +29,7 @@ class _ElementKeywords(KeywordGroup):
 
         See `introduction` for details about locating elements.
         """
-        self._info("Clear text field '%s'" % (locator))
+        self._info("Clear text field '%s'" % locator)
         self._element_clear_text_by_locator(locator)
 
     def click_element(self, locator):
@@ -233,22 +236,22 @@ class _ElementKeywords(KeywordGroup):
             self._bi.should_be_equal(match_b, attr_b)
 
         elif regexp:
-            self._bi.should_match_regexp(attr_value,match_pattern,
-                                        msg="Element '%s' attribute '%s' should have been '%s' "
-                                        "but it was '%s'." % (locator, attr_name, match_pattern, attr_value),
-                                        values=False)
+            self._bi.should_match_regexp(attr_value, match_pattern,
+                                         msg="Element '%s' attribute '%s' should have been '%s' "
+                                             "but it was '%s'." % (locator, attr_name, match_pattern, attr_value),
+                                         values=False)
         else:
-            self._bi.should_match(attr_value,match_pattern,
-                                        msg="Element '%s' attribute '%s' should have been '%s' "
-                                        "but it was '%s'." % (locator, attr_name, match_pattern, attr_value),
-                                        values=False)
-        #if expected != elements[0].get_attribute(attr_name):
+            self._bi.should_match(attr_value, match_pattern,
+                                  msg="Element '%s' attribute '%s' should have been '%s' "
+                                      "but it was '%s'." % (locator, attr_name, match_pattern, attr_value),
+                                  values=False)
+        # if expected != elements[0].get_attribute(attr_name):
         #    raise AssertionError("Element '%s' attribute '%s' should have been '%s' "
         #                         "but it was '%s'." % (locator, attr_name, expected, element.get_attribute(attr_name)))
         self._info("Element '%s' attribute '%s' is '%s' " % (locator, attr_name, match_pattern))
 
     def get_webelement(self, locator):
-        """Returns the first [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement] matching the given ``locator``.
+        """Returns the first [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement] object matching ``locator``.
 
         Example:
         | ${element}     | Get Webelement | id=my_element |
