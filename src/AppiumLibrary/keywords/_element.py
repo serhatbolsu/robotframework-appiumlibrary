@@ -136,7 +136,7 @@ class _ElementKeywords(KeywordGroup):
         """Verifies that element identified with locator is disabled.
 
         Key attributes for arbitrary elements are `id` and `name`. See
-        `introduction` for details about locating elements.        
+        `introduction` for details about locating elements.
         """
         if self._element_find(locator, True, True).is_enabled():
             self.log_source(loglevel)
@@ -148,7 +148,7 @@ class _ElementKeywords(KeywordGroup):
         """Verifies that element identified with locator is enabled.
 
         Key attributes for arbitrary elements are `id` and `name`. See
-        `introduction` for details about locating elements.        
+        `introduction` for details about locating elements.
         """
         if not self._element_find(locator, True, True).is_enabled():
             self.log_source(loglevel)
@@ -250,6 +250,60 @@ class _ElementKeywords(KeywordGroup):
         #                         "but it was '%s'." % (locator, attr_name, expected, element.get_attribute(attr_name)))
         self._info("Element '%s' attribute '%s' is '%s' " % (locator, attr_name, match_pattern))
 
+    def element_should_contain_text(self, locator, expected, message=''):
+        """Verifies element identified by ``locator`` contains text ``expected``.
+
+        If you wish to assert an exact (not a substring) match on the text
+        of the element, use `Element Text Should Be`.
+
+        Key attributes for arbitrary elements are ``id`` and ``xpath``. ``message`` can be used to override the default error message.
+
+        New in AppiumLibrary 1.4.
+        """
+        self._info("Verifying element '%s' contains text '%s'."
+                    % (locator, expected))
+        actual = self._get_text(locator)
+        if not expected in actual:
+            if not message:
+                message = "Element '%s' should have contained text '%s' but "\
+                          "its text was '%s'." % (locator, expected, actual)
+            raise AssertionError(message)
+
+    def element_should_not_contain_text(self, locator, expected, message=''):
+        """Verifies element identified by ``locator`` does not contain text ``expected``.
+
+        ``message`` can be used to override the default error message.
+        See `Element Should Contain Text` for more details.
+        """
+        self._info("Verifying element '%s' does not contain text '%s'."
+                   % (locator, expected))
+        actual = self._get_text(locator)
+        if expected in actual:
+            if not message:
+                message = "Element '%s' should not contain text '%s' but " \
+                          "it did." % (locator, expected)
+            raise AssertionError(message)
+
+    def element_text_should_be(self, locator, expected, message=''):
+        """Verifies element identified by ``locator`` exactly contains text ``expected``.
+
+        In contrast to `Element Should Contain Text`, this keyword does not try
+        a substring match but an exact match on the element identified by ``locator``.
+
+        ``message`` can be used to override the default error message.
+
+        New in AppiumLibrary 1.4.
+        """
+        self._info("Verifying element '%s' contains exactly text '%s'."
+                    % (locator, expected))
+        element = self._element_find(locator, True, True)
+        actual = element.text
+        if expected != actual:
+            if not message:
+                message = "The text of element '%s' should have been '%s' but "\
+                          "in fact it was '%s'." % (locator, expected, actual)
+            raise AssertionError(message)
+
     def get_webelement(self, locator):
         """Returns the first [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement] object matching ``locator``.
 
@@ -302,7 +356,7 @@ class _ElementKeywords(KeywordGroup):
         """Get element location
 
         Key attributes for arbitrary elements are `id` and `name`. See
-        `introduction` for details about locating elements. 
+        `introduction` for details about locating elements.
         """
         element = self._element_find(locator, True, True)
         element_location = element.location
@@ -313,12 +367,25 @@ class _ElementKeywords(KeywordGroup):
         """Get element size
 
         Key attributes for arbitrary elements are `id` and `name`. See
-        `introduction` for details about locating elements. 
+        `introduction` for details about locating elements.
         """
         element = self._element_find(locator, True, True)
         element_size = element.size
         self._info("Element '%s' size: %s " % (locator, element_size))
         return element_size
+
+    def get_text(self, locator):
+        """Get element text (for hybrid and mobile browser use `xpath` locator, others might cause problem)
+
+        Example:
+
+        | ${text} | Get Text | //*[contains(@text,'foo')] |
+
+        New in AppiumLibrary 1.4.
+        """
+        text = self._get_text(locator)
+        self._info("Element '%s' text is '%s' " % (locator, text))
+        return text
 
     # Private
 
@@ -427,6 +494,12 @@ class _ElementKeywords(KeywordGroup):
         # do some other stuff here like deal with list of webelements
         # ... or raise locator/element specific error if required
         return elements
+
+    def _get_text(self, locator):
+        element = self._element_find(locator, True, True)
+        if element is not None:
+            return element.text
+        return None
 
     def _is_text_present(self, text):
         text_norm = unicodedata.normalize(
