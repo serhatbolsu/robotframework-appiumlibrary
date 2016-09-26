@@ -387,6 +387,50 @@ class _ElementKeywords(KeywordGroup):
         self._info("Element '%s' text is '%s' " % (locator, text))
         return text
 
+    def get_matching_xpath_count(self, xpath):
+        """Returns number of elements matching ``xpath``
+
+        One should not use the `xpath=` prefix for 'xpath'. XPath is assumed.
+
+        | *Correct:* |
+        | ${count}  | Get Matching Xpath Count | //android.view.View[@text='Test'] |
+        | Incorrect:  |
+        | ${count}  | Get Matching Xpath Count | xpath=//android.view.View[@text='Test'] |
+
+        If you wish to assert the number of matching elements, use
+        `Xpath Should Match X Times`.
+
+        New in AppiumLibrary 1.4.
+        """
+        count = len(self._element_find("xpath=" + xpath, False, False))
+        return str(count)
+
+    def xpath_should_match_x_times(self, xpath, count, error=None, loglevel='INFO'):
+        """Verifies that the page contains the given number of elements located by the given ``xpath``.
+
+        One should not use the `xpath=` prefix for 'xpath'. XPath is assumed.
+
+        | *Correct:* |
+        | Xpath Should Match X Times | //android.view.View[@text='Test'] | 1 |
+        | Incorrect: |
+        | Xpath Should Match X Times | xpath=//android.view.View[@text='Test'] | 1 |
+
+        ``error`` can be used to override the default error message.
+
+        See `Log Source` for explanation about ``loglevel`` argument.
+
+        New in AppiumLibrary 1.4.
+        """
+        actual_xpath_count = len(self._element_find("xpath=" + xpath, False, False))
+        if int(actual_xpath_count) != int(count):
+            if not error:
+                error = "Xpath %s should have matched %s times but matched %s times"\
+                            %(xpath, count, actual_xpath_count)
+            self.log_source(loglevel)
+            raise AssertionError(error)
+        self._info("Current page contains %s elements matching '%s'."
+                   % (actual_xpath_count, xpath))
+
     # Private
 
     def _is_index(self, index_or_name):
