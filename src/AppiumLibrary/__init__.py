@@ -37,7 +37,9 @@ class AppiumLibrary(
     | Click Element    id=my_element
 
     New in AppiumLibrary 1.4, ``id`` and ``xpath`` are not required to be specified,
-    however ``xpath`` should normally start with ``//``. For example:
+    however ``xpath`` should start with ``//`` else just use ``xpath`` locator as explained below.
+
+    For example:
 
     | Click Element    my_element
     | Wait Until Page Contains Element    //*[@type="android.widget.EditText"]
