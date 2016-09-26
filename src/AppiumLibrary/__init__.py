@@ -18,7 +18,7 @@ class AppiumLibrary(
     _KeyeventKeywords,
     _AndroidUtilsKeywords,
 ):
-    """AppiumLibrary is a App testing library for Robot Framework.
+    """AppiumLibrary is a Mobile App testing library for Robot Framework.
 
     = Locating or specifying elements =
 
@@ -34,10 +34,13 @@ class AppiumLibrary(
     of the particular element type. For iOS and Android, key attribute is ``id`` for
     all elements and locating elements is easy using just the ``id``. For example:
 
-    | Click Element  id=my_element
+    | Click Element    id=my_element
 
-    New in AppiumLibrary 1.4, ``id`` is not required to be specified:
-    | Click Element  my_element
+    New in AppiumLibrary 1.4, ``id`` and ``xpath`` are not required to be specified,
+    however ``xpath`` should normally start with ``//``. For example:
+
+    | Click Element    my_element
+    | Wait Until Page Contains Element    //*[@type="android.widget.EditText"]
 
 
     Appium additionally supports some of the [https://w3c.github.io/webdriver/webdriver-spec.html|Mobile JSON Wire Protocol] locator strategies.
@@ -47,7 +50,7 @@ class AppiumLibrary(
 
     | *Strategy*        | *Example*                                                      | *Description*                     | *Note*                      |
     | identifier        | Click Element `|` identifier=my_element                        | Matches by @id attribute          |                             |
-    | id                | Click Element `|` id=my_element                                | Matches by @id attribute          |                             |
+    | id                | Click Element `|` id=my_element                                | Matches by @resource-id attribute |                             |
     | accessibility_id  | Click Element `|` accessibility_id=button3                     | Accessibility options utilize.    |                             |
     | xpath             | Click Element `|` xpath=//UIATableView/UIATableCell/UIAButton  | Matches with arbitrary XPath      |                             |
     | class             | Click Element `|` class=UIAPickerWheel                         | Matches by class                  |                             |
