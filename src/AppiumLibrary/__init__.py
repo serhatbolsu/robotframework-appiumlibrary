@@ -25,7 +25,7 @@ class AppiumLibrary(
     All keywords in AppiumLibrary that need to find an element on the page
     take an argument, either a ``locator`` or a ``webelement``. ``locator``
     is a string that describes how to locate an element using a syntax
-    specifying different location strategies. ``webelement` is a variable that
+    specifying different location strategies. ``webelement`` is a variable that
     holds a WebElement instance, which is a representation of the element.
 
     == Using locators ==
