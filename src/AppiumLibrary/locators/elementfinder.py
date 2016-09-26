@@ -18,7 +18,7 @@ class ElementFinder(object):
             'ios': self._find_by_ios,
             'css': self._find_by_css_selector,
             'jquery': self._find_by_sizzle_selector,
-            None: self._find_by_default
+            'default': self._find_by_default
         }
 
     def find(self, browser, locator, tag=None):
@@ -26,6 +26,7 @@ class ElementFinder(object):
         assert locator is not None and len(locator) > 0
 
         (prefix, criteria) = self._parse_locator(locator)
+        prefix = 'default' if prefix is None else prefix
         strategy = self._strategies.get(prefix)
         if strategy is None:
             raise ValueError("Element locator with prefix '" + prefix + "' is not supported")
@@ -107,8 +108,12 @@ class ElementFinder(object):
     def _find_by_default(self, browser, criteria, tag, constraints):
         if criteria.startswith('//'):
             return self._find_by_xpath(browser, criteria, tag, constraints)
-        return self._find_by_key_attrs(browser, criteria, tag, constraints)
+        # Used `id` instead of _find_by_key_attrs since iOS and Android internal `id` alternatives are
+        # different and inside appium python client. Need to expose these and improve in order to make
+        # _find_by_key_attrs useful.
+        return self._find_by_id(browser, criteria, tag, constraints)
 
+    # TODO: Not in use after conversion from Selenium2Library need to make more use of multiple auto selector strategy
     def _find_by_key_attrs(self, browser, criteria, tag, constraints):
         key_attrs = self._key_attrs.get(None)
         if tag is not None:
@@ -124,11 +129,9 @@ class ElementFinder(object):
             xpath_tag,
             ' and '.join(xpath_constraints) + ' and ' if len(xpath_constraints) > 0 else '',
             ' or '.join(xpath_searchers))
-
         return self._normalize_result(browser.find_elements_by_xpath(xpath))
 
     # Private
-
     _key_attrs = {
         None: ['@id', '@name'],
         'a': ['@id', '@name', '@href', 'normalize-space(descendant-or-self::text())'],

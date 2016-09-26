@@ -31,15 +31,18 @@ class _TouchKeywords(KeywordGroup):
         """
         Swipe from one point to another point, for an optional duration.
 
-        :Args:
+        Args:
          - start_x - x-coordinate at which to start
          - start_y - y-coordinate at which to start
          - offset_x - x-coordinate distance from start_x at which to stop
          - offset_y - y-coordinate distance from start_y at which to stop
          - duration - (optional) time to take the swipe, in ms.
 
-        :Usage:
-            Swipe    ${100}  ${100}  ${300}  ${0}
+        Usage:
+        | Swipe | 500 | 100 | 100 | 0 | 1000 |
+
+        *!Important Note:* Android `Swipe` is not working properly, use ``offset_x`` and ``offset_y``
+        as if these are destination points.
         """
         driver = self._current_application()
         driver.swipe(start_x, start_y, offset_x, offset_y, duration)
