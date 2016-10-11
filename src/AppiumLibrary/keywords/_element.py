@@ -49,6 +49,27 @@ class _ElementKeywords(KeywordGroup):
             class_name = self._get_class(_platform_class_dict)
             self._click_element_by_class_name(class_name, index_or_name)
 
+    def click_text(self, text, exact_match=False):
+        """Click text identified by ``text``.
+
+        By default tries to click any text involves given ``text``, if you would
+        like to click exactly matching text, then set ``exact_match`` to `True`.
+
+        If there are multiple use  of ``text`` use `Get Web Elements`.
+
+        New in AppiumLibrary 1.4.
+        """
+        _platform_class_dict = {'ios': 'name', 'android': 'text'}
+        if exact_match:
+            _xpath = '//*[@{}="{}"]'.format(
+                _platform_class_dict.get(self._get_platform()),
+                text)
+        else:
+            _xpath = '//*[contains(@{},"{}")]'.format(
+                _platform_class_dict.get(self._get_platform()),
+                text)
+        self._element_find(_xpath, True, True).click()
+
     def input_text(self, locator, text):
         """Types the given `text` into text field identified by `locator`.
 
