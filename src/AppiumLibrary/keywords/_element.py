@@ -52,10 +52,10 @@ class _ElementKeywords(KeywordGroup):
     def click_text(self, text, exact_match=False):
         """Click text identified by ``text``.
 
-        By default tries to click any text involves given ``text``, if you would
+        By default tries to click first text involves given ``text``, if you would
         like to click exactly matching text, then set ``exact_match`` to `True`.
 
-        If there are multiple use  of ``text`` use `Get Web Elements`.
+        If there are multiple use  of ``text`` use `locator` with `Get Web Elements` instead.
 
         New in AppiumLibrary 1.4.
         """

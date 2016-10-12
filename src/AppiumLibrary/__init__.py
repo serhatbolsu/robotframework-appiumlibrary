@@ -66,6 +66,11 @@ class AppiumLibrary(
     Starting with version 1.4 of the AppiumLibrary, one can pass an argument
     that contains a WebElement instead of a string locator. To get a WebElement,
     use the new `Get WebElements` or `Get WebElement` keyword.
+
+    For example:
+    | @{elements}    Get Webelements    class=UIAButton
+    | Click Element    @{elements}[2]
+
     """
 
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
