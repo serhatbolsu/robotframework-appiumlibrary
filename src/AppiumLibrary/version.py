@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-VERSION = '1.4.0.b1'
+VERSION = '1.4.0'
