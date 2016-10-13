@@ -61,11 +61,11 @@ class _ElementKeywords(KeywordGroup):
         """
         _platform_class_dict = {'ios': 'name', 'android': 'text'}
         if exact_match:
-            _xpath = '//*[@{}="{}"]'.format(
+            _xpath = u'//*[@{}="{}"]'.format(
                 _platform_class_dict.get(self._get_platform()),
                 text)
         else:
-            _xpath = '//*[contains(@{},"{}")]'.format(
+            _xpath = u'//*[contains(@{},"{}")]'.format(
                 _platform_class_dict.get(self._get_platform()),
                 text)
         self._element_find(_xpath, True, True).click()
