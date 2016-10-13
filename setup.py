@@ -14,13 +14,13 @@ exec(compile(open(version_file).read(), version_file, 'exec'))
 
 setup(name         = 'robotframework-appiumlibrary',
       version      = VERSION,
-      description  = 'app testing library for Robot Framework',
+      description  = 'Robot Framework Mobile app testing library for Appium Client Android & iOS & Web',
       long_description = open(join(dirname(__file__), 'README.rst')).read(),
-      author       = 'William Zhang, Xie Lieping, Jari Nurminen, Serhat Bolsu',
-      author_email = '<jollychang@gmail.com>, <frankbp@gmail.com>',
-      url          = 'https://github.com/jollychang/robotframework-appiumlibrary',
+      author       = 'Serhat Bolsu, William Zhang, Xie Lieping, Jari Nurminen',
+      author_email = '<serhatbolsu@gmail.com>, <jollychang@gmail.com>, <frankbp@gmail.com>',
+      url          = 'https://github.com/serhatbolsu/robotframework-appiumlibrary',
       license      = 'Apache License 2.0',
-      keywords     = 'robotframework testing testautomation mobile appium webdriver app',
+      keywords     = 'robotframework testing testautomation mobile appium webdriver app android ios',
       platforms    = 'any',
       classifiers  = [
                         "Development Status :: 5 - Production/Stable",
