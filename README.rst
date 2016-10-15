@@ -66,7 +66,7 @@ Documentation
 -------------
 
 The keyword documentation could be found at `Keyword Documentation 
-<http://serhatbolsu.github.io/robotframework-appiumlibrary/doc/AppiumLibrary.html>`_
+<http://serhatbolsu.github.io/robotframework-appiumlibrary/AppiumLibrary.html>`_
 
 Contributing
 -------------
