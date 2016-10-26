@@ -1,5 +1,19 @@
 History
 =======
+1.4.1
+----------------
+- Unicode better support
+- Unicode supported now inside xpath text.
+- Click Text iOS handling is much better now. Works regardless if text is name, value or label
+
+1.4.0
+----------------
+- New finding elements strategy now supports directly using WebElement. Check keyword documentation for more information.
+- Added default locator strategies. Default is: id and xpath check library introduction for more details.
+- Click Text added as keyword in which you can directly click on found texts. Underlying it works on predefined xpath depending on platform.
+- Unicode fixes also reflected on Page Should Contain Text and Page Should Not Contain Text
+- Getting an element text is added and its helper keywords.
+
 1.3.7
 ----------------
 - ``swipe`` critical bug fix <https://github.com/jollychang/robotframework-appiumlibrary/pull/125>
