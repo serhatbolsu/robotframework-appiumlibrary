@@ -4,7 +4,7 @@ from AppiumLibrary.locators import ElementFinder
 from .keywordgroup import KeywordGroup
 from robot.libraries.BuiltIn import BuiltIn
 import ast
-import unicodedata
+from unicodedata import normalize
 from selenium.webdriver.remote.webelement import WebElement
 
 try:
@@ -55,20 +55,27 @@ class _ElementKeywords(KeywordGroup):
         By default tries to click first text involves given ``text``, if you would
         like to click exactly matching text, then set ``exact_match`` to `True`.
 
-        If there are multiple use  of ``text`` use `locator` with `Get Web Elements` instead.
+        If there are multiple use  of ``text`` and you do not want first one,
+        use `locator` with `Get Web Elements` instead.
 
         New in AppiumLibrary 1.4.
         """
-        _platform_class_dict = {'ios': 'name', 'android': 'text'}
-        if exact_match:
-            _xpath = u'//*[@{}="{}"]'.format(
-                _platform_class_dict.get(self._get_platform()),
-                text)
-        else:
-            _xpath = u'//*[contains(@{},"{}")]'.format(
-                _platform_class_dict.get(self._get_platform()),
-                text)
-        self._element_find(_xpath, True, True).click()
+        if self._get_platform() == 'ios':
+            element = self._element_find(text, True, False)
+            if element:
+                element.click()
+            else:
+                if exact_match:
+                    _xpath = u'//*[@value="{}" or @label="{}"]'.format(text, text)
+                else:
+                    _xpath = u'//*[contains(@label,"{}") or contains(@value, "{}")]'.format(text, text)
+                self._element_find(_xpath, True, True).click()
+        elif self._get_platform() == 'android':
+            if exact_match:
+                _xpath = u'//*[@{}="{}"]'.format('text', text)
+            else:
+                _xpath = u'//*[contains(@{},"{}")]'.format('text', text)
+            self._element_find(_xpath, True, True).click()
 
     def input_text(self, locator, text):
         """Types the given `text` into text field identified by `locator`.
@@ -548,7 +555,12 @@ class _ElementKeywords(KeywordGroup):
     def _element_find(self, locator, first_only, required, tag=None):
         application = self._current_application()
         if isstr(locator):
-            elements = self._element_finder.find(application, locator, tag)
+            # Normalize any unicode as explained here, http://appium.io/slate/en/master/?javascript#multi-lingual-support
+            if self._get_platform() == 'ios':
+                _locator = normalize('NFD', locator)
+            else:
+                _locator = locator
+            elements = self._element_finder.find(application, _locator, tag)
             if required and len(elements) == 0:
                 raise ValueError("Element locator '" + locator + "' did not match any elements.")
             if first_only:
@@ -567,10 +579,8 @@ class _ElementKeywords(KeywordGroup):
         return None
 
     def _is_text_present(self, text):
-        text_norm = unicodedata.normalize(
-            'NFD', text).encode('ascii', 'ignore')
-        source_norm = unicodedata.normalize(
-            'NFD', self.get_source()).encode('ascii', 'ignore')
+        text_norm = normalize('NFD', text).encode('ascii', 'ignore')
+        source_norm = normalize('NFD', self.get_source()).encode('ascii', 'ignore')
         return text_norm in source_norm
 
     def _is_element_present(self, locator):
