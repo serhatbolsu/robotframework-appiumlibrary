@@ -66,11 +66,9 @@ class _ElementKeywords(KeywordGroup):
                 element.click()
             else:
                 if exact_match:
-                    _text = normalize('NFD', text)
-                    _xpath = u'//*[@value="{}" or @label="{}"]'.format(_text, _text)
+                    _xpath = u'//*[@value="{}" or @label="{}"]'.format(text, text)
                 else:
-                    _text = normalize('NFD', text)
-                    _xpath = u'//*[contains(@label,"{}") or contains(@value, "{}")]'.format(_text, _text)
+                    _xpath = u'//*[contains(@label,"{}") or contains(@value, "{}")]'.format(text, text)
                 self._element_find(_xpath, True, True).click()
         elif self._get_platform() == 'android':
             if exact_match:
@@ -558,7 +556,10 @@ class _ElementKeywords(KeywordGroup):
         application = self._current_application()
         if isstr(locator):
             # Normalize any unicode as explained here, http://appium.io/slate/en/master/?javascript#multi-lingual-support
-            _locator = normalize('NFD', locator)
+            if self._get_platform() == 'ios':
+                _locator = normalize('NFD', locator)
+            else:
+                _locator = locator
             elements = self._element_finder.find(application, _locator, tag)
             if required and len(elements) == 0:
                 raise ValueError("Element locator '" + locator + "' did not match any elements.")
