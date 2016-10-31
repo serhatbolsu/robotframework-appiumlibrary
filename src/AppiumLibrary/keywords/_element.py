@@ -587,3 +587,10 @@ class _ElementKeywords(KeywordGroup):
         application = self._current_application()
         elements = self._element_finder.find(application, locator, None)
         return len(elements) > 0
+        
+    def _is_visible(self, locator):
+        element = self._element_find(locator, True, False)
+        if element is not None:
+            return element.is_displayed()
+        return None
+

@@ -4,6 +4,29 @@ from .keywordgroup import KeywordGroup
 
 
 class _WaitingKeywords(KeywordGroup):
+    def wait_until_element_is_visible(self, locator, timeout=None, error=None):
+        """Waits until element specified with `locator` is visible.
+
+        Fails if `timeout` expires before the element is visible. See
+        `introduction` for more information about `timeout` and its
+        default value.
+
+        `error` can be used to override the default error message.
+
+        See also `Wait Until Page Contains`, `Wait Until Page Contains 
+        Element`, `Wait For Condition` and BuiltIn keyword `Wait Until Keyword
+        Succeeds`.
+        """
+        def check_visibility():
+            visible = self._is_visible(locator)
+            if visible:
+                return
+            elif visible is None:
+                return error or "Element locator '%s' did not match any elements after %s" % (locator, self._format_timeout(timeout))
+            else:
+                return error or "Element '%s' was not visible in %s" % (locator, self._format_timeout(timeout))
+        self._wait_until_no_error(timeout, check_visibility)
+
     def wait_until_page_contains(self, text, timeout=None, error=None):
         """Waits until `text` appears on current page.
 
