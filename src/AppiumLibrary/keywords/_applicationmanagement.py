@@ -121,6 +121,11 @@ class _ApplicationManagementKeywords(KeywordGroup):
         self._timeout_in_secs = robot.utils.timestr_to_secs(seconds)
         return old_timeout
 
+    def get_appium_sessionId(self):
+        """Returns the current session ID as a reference"""
+        self._info("Appium Session ID: " + self._current_application().session_id)
+        return self._current_application().session_id
+
     def get_source(self):
         """Returns the entire source of the current page."""
         return self._current_application().page_source
@@ -202,14 +207,14 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def _get_platform(self):
         try:
-            platformName = self._current_application().desired_capabilities['desired']['platformName']
+            platform_name = self._current_application().desired_capabilities['platformName']
         except Exception as e:
             raise e
-        return platformName.lower()
+        return platform_name.lower()
 
     def _is_platform(self, platform):
-        platformName = self._get_platform()
-        return platform.lower() == platformName
+        platform_name = self._get_platform()
+        return platform.lower() == platform_name
 
     def _is_ios(self):
         return self._is_platform('ios')
