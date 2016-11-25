@@ -1,5 +1,9 @@
 History
 =======
+1.4.1.1
+----------------
+- Fix desiredCapability dict problem for Appium 1.6 compatibility
+
 1.4.1
 ----------------
 - Unicode better support
