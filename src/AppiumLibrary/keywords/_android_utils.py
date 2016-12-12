@@ -3,6 +3,7 @@ import base64
 
 from .keywordgroup import KeywordGroup
 from appium.webdriver.connectiontype import ConnectionType
+from selenium.common.exceptions import TimeoutException
 
 class _AndroidUtilsKeywords(KeywordGroup):
 
@@ -74,3 +75,71 @@ class _AndroidUtilsKeywords(KeywordGroup):
         if encode:
             data = base64.b64encode(data)
         driver.push_file(path, data)
+
+    def get_activity(self):
+        """Retrieves the current activity on the device.
+
+        Android only.
+
+        """
+        driver = self._current_application()
+        return driver.current_activity
+
+    def start_activity(self, appPackage, appActivity, **opts):
+        """Opens an arbitrary activity during a test. If the activity belongs to
+        another application, that application is started and the activity is opened.
+
+        Android only.
+
+        - _appPackage_ - The package containing the activity to start.
+        - _appActivity_ - The activity to start.
+        - _appWaitPackage_ - Begin automation after this package starts (optional).
+        - _appWaitActivity_ - Begin automation after this activity starts (optional).
+        - _intentAction_ - Intent to start (opt_ional).
+        - _intentCategory_ - Intent category to start (optional).
+        - _intentFlags_ - Flags to send to the intent (optional).
+        - _optionalIntentArguments_ - Optional arguments to the intent (optional).
+        - _stopAppOnReset_ - Should the app be stopped on reset (optional)?
+
+        """
+
+
+        # Almost the same code as in appium's start activity,
+        # just to keep the same keyword names as in open application
+
+        arguments = {
+            'app_wait_package': 'appWaitPackage',
+            'app_wait_activity': 'appWaitActivity',
+            'intent_action': 'intentAction',
+            'intent_category': 'intentCategory',
+            'intent_flags': 'intentFlags',
+            'optional_intent_arguments': 'optionalIntentArguments',
+            'stop_app_on_reset': 'stopAppOnReset'
+        }
+
+        data = {}
+
+        for key, value in arguments.items():
+            if value in opts:
+                data[key] = opts[value]
+
+        driver = self._current_application()
+        driver.start_activity(app_package=appPackage, app_activity=appActivity, **data)
+
+    def wait_activity(self, activity, timeout, interval=1):
+        """Wait for an activity: block until target activity presents
+        or time out.
+
+        Android only.
+
+         - _activity_ - target activity
+         - _timeout_ - max wait time, in seconds
+         - _interval_ - sleep interval between retries, in seconds
+        """
+
+        if not activity.startswith('.'):
+            activity = ".%s" % activity
+
+        driver = self._current_application()
+        if not driver.wait_activity(activity=activity, timeout=float(timeout), interval=float(interval)):
+            raise TimeoutException(msg="Activity %s never presented, current activity: %s" % (activity, self.get_activity()))
