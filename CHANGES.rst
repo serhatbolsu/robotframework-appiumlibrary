@@ -1,5 +1,9 @@
 History
 =======
+1.4.2
+----------------
+- Wait Until Page Contains / Page should contain text unicode fix
+
 1.4.1.1
 ----------------
 - Fix desiredCapability dict problem for Appium 1.6 compatibility
