@@ -579,8 +579,8 @@ class _ElementKeywords(KeywordGroup):
         return None
 
     def _is_text_present(self, text):
-        text_norm = normalize('NFD', text).encode('ascii', 'ignore')
-        source_norm = normalize('NFD', self.get_source()).encode('ascii', 'ignore')
+        text_norm = normalize('NFD', text)
+        source_norm = normalize('NFD', self.get_source())
         return text_norm in source_norm
 
     def _is_element_present(self, locator):
