@@ -77,8 +77,19 @@ class _TouchKeywords(KeywordGroup):
         long_press = TouchAction(driver).long_press(element)
         long_press.perform()
 
-    def tap(self, locator):
-        """ Tap on element """
+    def tap(self, locator, x_offset=None, y_offset=None, count=1):
+        """ Tap element identified by ``locator``.
+
+        Args:
+        - ``x_offset`` - (optional) x coordinate to tap, relative to the top left corner of the element.
+        - ``y_offset`` - (optional) y coordinate. If y is used, x must also be set, and vice versa
+        - ``count`` - can be used for multiple times of tap on that element
+        """
+        driver = self._current_application()
+        el = self._element_find(locator, True, True)
+        action = TouchAction(driver)
+        action.tap(el,x_offset,y_offset, count).perform()
+
         driver = self._current_application()
         el = self._element_find(locator, True, True)
         action = TouchAction(driver)
