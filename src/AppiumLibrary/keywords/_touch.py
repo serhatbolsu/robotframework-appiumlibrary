@@ -90,11 +90,6 @@ class _TouchKeywords(KeywordGroup):
         action = TouchAction(driver)
         action.tap(el,x_offset,y_offset, count).perform()
 
-        driver = self._current_application()
-        el = self._element_find(locator, True, True)
-        action = TouchAction(driver)
-        action.tap(el).perform()
-
     def click_a_point(self, x=0, y=0, duration=100):
         """ Click on a point"""
         self._info("Clicking on a point (%s,%s)." % (x,y))
