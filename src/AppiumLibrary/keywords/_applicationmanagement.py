@@ -136,9 +136,13 @@ class _ApplicationManagementKeywords(KeywordGroup):
         The `loglevel` argument defines the used log level. Valid log levels are
         `WARN`, `INFO` (default), `DEBUG`, `TRACE` and `NONE` (no logging).
         """
-        source = self._current_application().page_source
-        self._log(source, loglevel.upper())
-        return source
+        ll = loglevel.upper()
+        if ll == 'NONE':
+            return ''
+        else:
+            source = self._current_application().page_source
+            self._log(source, ll)
+            return source
 
     def go_back(self):
         """Goes one step backward in the browser history."""
