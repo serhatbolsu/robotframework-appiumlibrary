@@ -32,7 +32,7 @@ class WebdriverRemoteMock(mock.Mock, unittest.TestCase):
     def quit(self, **kwargs):
         self._dead = True
 
-    def lock(self):
+    def lock(self, seconds=5):
         if self._dead:
             raise RuntimeError('Application has been closed')
 

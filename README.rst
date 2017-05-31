@@ -12,7 +12,7 @@ to web browser.
 
 AppiumLibrary is modeled after (and forked from)  `appiumandroidlibrary <https://github.com/frankbp/robotframework-appiumandroidlibrary>`_,  but re-implemented to use appium 1.X technologies.   
 
-It support Python 2.x only.
+It is fully supported under Python 2.7, python 3.3+ support is still experimental
 
 
 Installation

@@ -1,6 +1,8 @@
-from AppiumLibrary.locators import ElementFinder
-import mock
 import unittest
+
+import mock
+
+from AppiumLibrary.locators import ElementFinder
 
 
 class ElementFinderTests(unittest.TestCase):

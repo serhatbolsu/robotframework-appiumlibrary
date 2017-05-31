@@ -4,10 +4,10 @@ help:
 	@echo targes: version, generate_doc, pypi_upload, clean_pyc, android_demo, ios_demo, demo, unittest, test
 
 generate_doc: 
-	VENV/bin/python -m robot.libdoc ./src/AppiumLibrary/ ./doc/AppiumLibrary.html
+	VENV/bin/python -m robot.libdoc ./AppiumLibrary/ ./doc/AppiumLibrary.html
 
 update_github:
-	version=`python -c "import sys;sys.path.insert(0,'src');import AppiumLibrary;print AppiumLibrary.__version__"`
+	version=`python -c "import sys;sys.path.insert(0,'.');import AppiumLibrary;print AppiumLibrary.__version__"`
 	git tag $version
 	git push origin $version
 	git push origin master
@@ -34,8 +34,11 @@ ios_demo:
 
 demo:android_demo ios_demo
 
-unittest:
-	py.test -s tests 
+test_requirements:
+    python -m pip install -U -r test_require.txt
+
+unittest: test_requirements
+	python setup.py test
 
 test:unittest
 
@@ -43,4 +46,4 @@ coverage:
 	py.test --cov AppiumLibrary --cov-report=html tests
 
 version:
-	cat src/AppiumLibrary/version.py
+	cat AppiumLibrary/version.py

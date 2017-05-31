@@ -1,13 +1,15 @@
 import unittest
-import os
+
 from AppiumLibrary.utils import ApplicationCache
 
 
-class ApplicationCacheTests(unittest.TestCase): 
+class ApplicationCacheTests(unittest.TestCase):
+    import six
+    if six.PY2:
+        assertRegex = unittest.TestCase.assertRegexpMatches
+        assertRaisesRegex = unittest.TestCase.assertRaisesRegexp
 
     def test_no_current_message(self):
         cache = ApplicationCache()
-        try:
-            self.assertRaises(RuntimeError, cache.current.anyMember())
-        except RuntimeError as e:
-            self.assertEqual(e.message, "No current application")
+        with self.assertRaisesRegex(RuntimeError, "No current application"):
+            cache.current.anyMember()

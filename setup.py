@@ -1,49 +1,55 @@
-#!/usr/bin/env python
+from os.path import dirname, join, realpath
 
-import sys
-from os.path import abspath, dirname, join
-sys.path.append(join(dirname(__file__), 'src'))
+from setuptools import setup, find_packages
 
-from ez_setup import use_setuptools
-from setuptools import setup
+ROOT = realpath(dirname(__file__))
 
-use_setuptools()
-version_file = join(dirname(__file__), 'src', 'AppiumLibrary', 'version.py')
-exec(compile(open(version_file).read(), version_file, 'exec'))
+version_file = join(ROOT, 'AppiumLibrary', 'version.py')
+exec (compile(open(version_file).read(), version_file, 'exec'))
 
+with open(join(ROOT, 'test_require.txt'), "rt") as f:
+    tests_require = f.readlines()
 
-setup(name         = 'robotframework-appiumlibrary',
-      version      = VERSION,
-      description  = 'Robot Framework Mobile app testing library for Appium Client Android & iOS & Web',
-      long_description = open(join(dirname(__file__), 'README.rst')).read(),
-      author       = 'Serhat Bolsu, William Zhang, Xie Lieping, Jari Nurminen',
-      author_email = '<serhatbolsu@gmail.com>, <jollychang@gmail.com>, <frankbp@gmail.com>',
-      url          = 'https://github.com/serhatbolsu/robotframework-appiumlibrary',
-      license      = 'Apache License 2.0',
-      keywords     = 'robotframework testing testautomation mobile appium webdriver app android ios',
-      platforms    = 'any',
-      classifiers  = [
-                        "Development Status :: 5 - Production/Stable",
-                        "License :: OSI Approved :: Apache Software License",
-                        "Operating System :: OS Independent",
-                        "Programming Language :: Python",
-                        "Topic :: Software Development :: Testing"
-                     ],
-      install_requires = [
-                            'decorator >= 3.3.2',
-                            'robotframework >= 2.6.0',
-                            'docutils >= 0.8.1',
-                            'Appium-Python-Client >= 0.20',
-                            'selenium >= 2.47.1',
-                            'mock == 1.0.1',
-                            'sauceclient >= 0.1.0',
-                            'pytest-cov >= 1.8.1',
-                            'pytest-xdist >= 1.11',
-                            'pytest-pythonpath >= 0.4',
-                         ],
-      py_modules=['ez_setup'],
-      package_dir  = {'' : 'src'},
-      packages     = ['AppiumLibrary','AppiumLibrary.keywords','AppiumLibrary.locators',
-                      'AppiumLibrary.utils'],
-      include_package_data = True,
+setup(name='robotframework-appiumlibrary',
+      version=VERSION,
+      description='Robot Framework Mobile app testing library for Appium Client Android & iOS & Web',
+      long_description=open(join(ROOT, 'README.rst')).read(),
+      author='Serhat Bolsu, William Zhang, Xie Lieping, Jari Nurminen',
+      author_email='<serhatbolsu@gmail.com>, <jollychang@gmail.com>, <frankbp@gmail.com>',
+      url='https://github.com/serhatbolsu/robotframework-appiumlibrary',
+      license='Apache License 2.0',
+      keywords='robotframework testing testautomation mobile appium webdriver app android ios',
+      platforms='any',
+      classifiers=[
+          "Development Status :: 5 - Production/Stable",
+          "License :: OSI Approved :: Apache Software License",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python",
+          "Topic :: Software Development :: Testing"
+          'Programming Language :: Python',
+          'Programming Language :: Python :: 2',
+          'Programming Language :: Python :: 2.6',
+          'Programming Language :: Python :: 2.7',
+          'Programming Language :: Python :: 3',
+          'Programming Language :: Python :: 3.3',
+          'Programming Language :: Python :: 3.4',
+          'Programming Language :: Python :: 3.5',
+          'Programming Language :: Python :: 3.6',
+          'Programming Language :: Python :: Implementation',
+          'Programming Language :: Python :: Implementation :: CPython',
+      ],
+      setup_requires=[
+          "pytest-runner"
+      ],
+      install_requires=[
+          'decorator >= 3.3.2',
+          'robotframework >= 2.6.0',
+          'docutils >= 0.8.1',
+          'Appium-Python-Client >= 0.20',
+          'selenium >= 2.47.1',
+          'kitchen >= 1.2.4',
+      ],
+      tests_require=tests_require,
+      packages=find_packages(exclude=["demo", "docs", "tests", ]),
+      include_package_data=True,
       )
