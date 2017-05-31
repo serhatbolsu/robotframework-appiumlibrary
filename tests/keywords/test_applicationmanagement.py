@@ -1,10 +1,13 @@
 import unittest
-import mock
+
 import appium
-from AppiumLibrary.keywords import _ApplicationManagementKeywords
+import mock
 from webdriverremotemock import WebdriverRemoteMock
 
-class ApplicationManagementKeywordsTests(unittest.TestCase): 
+from AppiumLibrary import _ApplicationManagementKeywords
+
+
+class ApplicationManagementKeywordsTests(unittest.TestCase):
 
     def test_close_application_clean_cache_sucessful(self):
         am = _ApplicationManagementKeywords()
