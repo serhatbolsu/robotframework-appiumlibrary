@@ -202,6 +202,16 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         self._current_application().get(url)
 
+    def get_capability(self, capability_name):
+        """
+        Return the capability value by capability name
+        """
+        try:
+            capability = self._current_application().capabilities[capability_name]
+        except Exception as e:
+            raise e
+        return capability
+        
     # Private
 
     def _current_application(self):
