@@ -204,7 +204,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def get_capability(self, capability_name):
         """
-        Return the capability value by capability name
+        Return the desired capability value by desired capability name
         """
         try:
             capability = self._current_application().capabilities[capability_name]
