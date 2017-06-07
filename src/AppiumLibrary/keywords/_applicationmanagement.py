@@ -95,6 +95,16 @@ class _ApplicationManagementKeywords(KeywordGroup):
         driver = self._current_application()
         driver.remove_app(application_id)
 
+    def application_should_be_installed(self, application_id):
+        """Checks whether the application specified by `application_id` is installed on the device.
+
+        Example:
+        | Application Should Be Installed |  com.netease.qa.orangedemo |
+        """
+        driver = self._current_application()
+        if not driver.is_app_installed(bundle_id=application_id):
+            raise AssertionError("Application %s should be installed" % application_id)
+
     def get_appium_timeout(self):
         """Gets the timeout in seconds that is used by various keywords.
 
