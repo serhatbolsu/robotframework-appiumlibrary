@@ -137,9 +137,6 @@ class _AndroidUtilsKeywords(KeywordGroup):
          - _interval_ - sleep interval between retries, in seconds
         """
 
-        if not activity.startswith('.'):
-            activity = ".%s" % activity
-
         driver = self._current_application()
         if not driver.wait_activity(activity=activity, timeout=float(timeout), interval=float(interval)):
             raise TimeoutException(msg="Activity %s never presented, current activity: %s" % (activity, self.get_activity()))
