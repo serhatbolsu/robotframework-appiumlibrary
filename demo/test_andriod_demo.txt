@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation   demo for appium library
 Force Tags      demo
-Resource        demo/demo_resoure.txt
+Resource        demo_resoure.txt
 
 
 *** Test Cases ***
