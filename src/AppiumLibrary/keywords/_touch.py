@@ -47,6 +47,110 @@ class _TouchKeywords(KeywordGroup):
         driver = self._current_application()
         driver.swipe(start_x, start_y, offset_x, offset_y, duration)
 
+    def swipe_up_within_element(self,locator,start_offset=8,end_offset=2,duration=1000):
+        """
+               Swipe inside a view, by default will swipe from 80% to 20% of the view at the center
+
+               Args:
+                - locator  - locator of the element view
+                - start_offset  - value at which to start(scale of 1 - 10)
+                - end_offset  - value at which to end(scale of 1 - 10)
+                - duration - (optional) time to take the swipe, in ms.
+
+               Usage:
+               | swipe up inside element | locator | start_offset | end_offset | duration |
+               | swipe up inside element | locator | 8 | 2 | 1000 |
+
+               """
+        driver = self._current_application()
+        element = self._element_find(locator, True, True)
+        element_location = element.location
+        element_size = element.size
+
+        start_x = element_location['x'] + element_size['width']*0.5
+        offset_x = element_location['x'] + element_size['width']*0.5
+        start_y = element_location['y'] + element_size['height']*start_offset / 10
+        offset_y = element_location['y'] + element_size['height']*end_offset / 10
+        driver.swipe(start_x, start_y, offset_x, offset_y, duration)
+
+    def swipe_down_within_element(self,locator,start_offset=2,end_offset=8,duration=1000):
+        """
+               Swipe inside a view, by default will swipe from 20% to 80% of the view at the center
+
+               Args:
+                - locator  - locator of the element view
+                - start_offset  - value at which to start(scale of 1 - 10)
+                - end_offset  - value at which to end(scale of 1 - 10)
+                - duration - (optional) time to take the swipe, in ms.
+
+               Usage:
+               | swipe down within element | locator | start_offset | end_offset | duration |
+               | swipe down inside element | locator | 2 | 8 | 1000 |
+
+               """
+        driver = self._current_application()
+        element = self._element_find(locator, True, True)
+        element_location = element.location
+        element_size = element.size
+
+        start_x = element_location['x'] + element_size['width']*0.5
+        offset_x = element_location['x'] + element_size['width']*0.5
+        start_y = element_location['y'] + element_size['height']*start_offset / 10
+        offset_y = element_location['y'] + element_size['height']*end_offset / 10
+        driver.swipe(start_x, start_y, offset_x, offset_y, duration)
+
+    def swipe_right_within_element(self,locator,start_offset=2,end_offset=8,duration=1000):
+        """
+               Swipe inside a view, by default will swipe from 20% to 80% of the view at the center
+
+               Args:
+                - locator  - locator of the element view
+                - start_offset  - value at which to start(scale of 1 - 10)
+                - end_offset  - value at which to end(scale of 1 - 10)
+                - duration - (optional) time to take the swipe, in ms.
+
+               Usage:
+               | swipe right within element | locator | start_offset | end_offset | duration |
+               | swipe right inside element | locator | 2 | 8 | 1000 |
+
+               """
+        driver = self._current_application()
+        element = self._element_find(locator, True, True)
+        element_location = element.location
+        element_size = element.size
+
+        start_x = element_location['x'] + element_size['width'] * start_offset / 10
+        offset_x = element_location['x'] + element_size['width'] * end_offset / 10
+        start_y = element_location['y'] + element_size['height'] * 0.5
+        offset_y = element_location['y'] + element_size['height'] * 0.5
+        driver.swipe(start_x, start_y, offset_x, offset_y, duration)
+
+    def swipe_left_within_element(self, locator, start_offset=8, end_offset=2, duration=1000):
+        """
+               Swipe inside a view, by default will swipe from 20% to 80% of the view at the center
+
+               Args:
+                - locator  - locator of the element view
+                - start_offset  - value at which to start(scale of 1 - 10)
+                - end_offset  - value at which to end(scale of 1 - 10)
+                - duration - (optional) time to take the swipe, in ms.
+
+               Usage:
+               | swipe left within element | locator | start_offset | end_offset | duration |
+               | swipe left inside element | locator | 8 | 2 | 1000 |
+
+               """
+        driver = self._current_application()
+        element = self._element_find(locator, True, True)
+        element_location = element.location
+        element_size = element.size
+
+        start_x = element_location['x'] + element_size['width'] * start_offset / 10
+        offset_x = element_location['x'] + element_size['width'] * end_offset / 10
+        start_y = element_location['y'] + element_size['height'] * 0.5
+        offset_y = element_location['y'] + element_size['height'] * 0.5
+        driver.swipe(start_x, start_y, offset_x, offset_y, duration)
+
     def scroll(self, start_locator, end_locator):
         """
         Scrolls from one element to another
@@ -57,6 +161,18 @@ class _TouchKeywords(KeywordGroup):
         el2 = self._element_find(end_locator, True, True)
         driver = self._current_application()
         driver.scroll(el1, el2)
+
+    def scroll_down_inside_element(self, locator):
+        """Scrolls down inside an element"""
+        driver = self._current_application()
+        element = self._element_find(locator, True, True)
+        driver.execute_script("mobile: scroll", {"direction": 'down', 'element': element.id})
+
+    def scroll_up_inside_element(self, locator):
+        """Scrolls up inside an element"""
+        driver = self._current_application()
+        element = self._element_find(locator, True, True)
+        driver.execute_script("mobile: scroll", {"direction": 'up', 'element': element.id})
 
     def scroll_down(self, locator):
         """Scrolls down to element"""
