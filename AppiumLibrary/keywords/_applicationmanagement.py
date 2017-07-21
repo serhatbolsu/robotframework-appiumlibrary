@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import os
-
 import robot
 from appium import webdriver
-
 from AppiumLibrary.utils import ApplicationCache
 from .keywordgroup import KeywordGroup
 
@@ -213,6 +211,16 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | Go To URL         | http://m.webapp.com          |
         """
         self._current_application().get(url)
+
+    def get_capability(self, capability_name):
+        """
+        Return the desired capability value by desired capability name
+        """
+        try:
+            capability = self._current_application().capabilities[capability_name]
+        except Exception as e:
+            raise e
+        return capability
 
     # Private
 

@@ -1,5 +1,9 @@
 History
 =======
+1.4.4
+----------------
+- Get Capability  added for easy access to desired capabilities
+
 1.4.2
 ----------------
 - Wait Until Page Contains / Page should contain text unicode fix
