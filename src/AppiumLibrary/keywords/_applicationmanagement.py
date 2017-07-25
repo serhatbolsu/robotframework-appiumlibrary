@@ -137,14 +137,16 @@ class _ApplicationManagementKeywords(KeywordGroup):
         The `loglevel` argument defines the used log level. Valid log levels are
         `WARN`, `INFO` (default), `DEBUG`, `TRACE` and `NONE` (no logging).
         """
-        if  "run_keyword_and_ignore_error" not in [check_error_ignored[3] for check_error_ignored in inspect.stack()]:
-            ll = loglevel.upper()
-            if ll == 'NONE':
-                return ''
-            else:
+        ll = loglevel.upper()
+        if ll == 'NONE':
+            return ''
+        else:
+            if  "run_keyword_and_ignore_error" not in [check_error_ignored[3] for check_error_ignored in inspect.stack()]:
                 source = self._current_application().page_source
                 self._log(source, ll)
                 return source
+            else:
+                return ''
 
     def go_back(self):
         """Goes one step backward in the browser history."""
