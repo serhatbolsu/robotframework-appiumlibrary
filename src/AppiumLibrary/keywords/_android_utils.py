@@ -143,3 +143,13 @@ class _AndroidUtilsKeywords(KeywordGroup):
         driver = self._current_application()
         if not driver.wait_activity(activity=activity, timeout=float(timeout), interval=float(interval)):
             raise TimeoutException(msg="Activity %s never presented, current activity: %s" % (activity, self.get_activity()))
+
+    def install_app(self, app_path, app_package):
+        """ Install App via Appium
+
+        - app_path - path to app
+        - app_package - package of install app to verify
+        """
+        driver = self._current_application()
+        driver.install_app(app_path)
+        return driver.is_app_installed(app_package)
