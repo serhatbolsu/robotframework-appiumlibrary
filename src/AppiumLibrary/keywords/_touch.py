@@ -41,11 +41,45 @@ class _TouchKeywords(KeywordGroup):
         Usage:
         | Swipe | 500 | 100 | 100 | 0 | 1000 |
 
-        *!Important Note:* Android `Swipe` is not working properly, use ``offset_x`` and ``offset_y``
-        as if these are destination points.
+        _*NOTE: *_ 
+        Android 'Swipe' is not working properly, use ``offset_x`` and ``offset_y`` as if these are destination points.
         """
         driver = self._current_application()
         driver.swipe(start_x, start_y, offset_x, offset_y, duration)
+
+    def swipe_by_percent(self, start_x, start_y, end_x, end_y):
+        """
+        Swipe from one percent of the screen to another percent, for an optional duration. 
+        Normal swipe fails to scale for different screen resolutions, this can be avoided using percent.
+
+        Args:
+         - start_x - x-percent at which to start
+         - start_y - y-percent at which to start
+         - end_x - x-percent distance from start_x at which to stop
+         - end_y - y-percent distance from start_y at which to stop
+         - duration - (optional) time to take the swipe, in ms.
+         
+        Usage:
+        | Swipe By Percent | 90 | 50 | 10 | 50 | # Swipes screen from right to left. |
+
+        _*NOTE: *_
+        This also considers swipe acts different between iOS and Android.
+        
+        New in AppiumLibrary 1.4.5
+        """
+        width = self.get_window_width()
+        height = self.get_window_height()
+        x_start = float(start_x) / 100 * width
+        x_end = float(end_x) / 100 * width
+        y_start = float(start_y) / 100 * height
+        y_end = float(end_y) / 100 * height
+        x_offset = x_end - x_start
+        y_offset = y_end - y_start
+        platform = self._get_platform()
+        if platform == 'android':
+            self.swipe(x_start, y_start, x_end, y_end)
+        else:
+            self.swipe(x_start, y_start, x_offset, y_offset)
 
     def scroll(self, start_locator, end_locator):
         """

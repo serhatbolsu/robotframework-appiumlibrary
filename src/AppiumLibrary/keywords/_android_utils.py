@@ -146,6 +146,8 @@ class _AndroidUtilsKeywords(KeywordGroup):
 
     def install_app(self, app_path, app_package):
         """ Install App via Appium
+        
+        Android only.
 
         - app_path - path to app
         - app_package - package of install app to verify

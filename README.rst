@@ -14,6 +14,12 @@ AppiumLibrary is modeled after (and forked from)  `appiumandroidlibrary <https:/
 
 It support Python 2.x only.
 
+Documentation
+-------------
+
+The keyword documentation could be found at `Keyword Documentation
+<http://serhatbolsu.github.io/robotframework-appiumlibrary/AppiumLibrary.html>`_
+
 
 Installation
 ------------
@@ -62,11 +68,6 @@ for more information.
 As it uses Appium make sure your Appium server is up and running.
 For how to use Appium please refer to `Appium Documentation <http://appium.io/getting-started.html>`_
 
-Documentation
--------------
-
-The keyword documentation could be found at `Keyword Documentation 
-<http://serhatbolsu.github.io/robotframework-appiumlibrary/AppiumLibrary.html>`_
 
 Contributing
 -------------

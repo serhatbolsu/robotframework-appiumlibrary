@@ -192,6 +192,30 @@ class _ApplicationManagementKeywords(KeywordGroup):
         print(self._current_application().contexts)
         return self._current_application().contexts
 
+    def get_window_height(self):
+        """Get current device height.
+        
+        Example:
+        | ${width}       | Get Window Height |
+        | ${height}      | Get Window Height |
+        | Click A Point  | ${width           | ${height} |
+               
+        New in AppiumLibrary 1.4.5
+        """
+        return self._current_application().get_window_size()['height']
+
+    def get_window_width(self):
+        """Get current device width.
+        
+        Example:
+        | ${width}       | Get Window Height |
+        | ${height}      | Get Window Height |
+        | Click A Point  | ${width           | ${height} |
+        
+        New in AppiumLibrary 1.4.5
+        """
+        return self._current_application().get_window_size()['width']
+
     def switch_to_context(self, context_name):
         """Switch to a new context"""
         self._current_application().switch_to.context(context_name)

@@ -1,5 +1,13 @@
 History
 =======
+1.4.5
+----------------
+- Swipe By Percent - new keyword added
+- Element Should Be Visible - new keyword added
+- Text Should Be Visible - new keyword added
+- Get Window Height - new keyword added
+- Get Window Width - new keyword added
+
 1.4.4
 ----------------
 - Get Capability  added for easy access to desired capabilities
