@@ -47,7 +47,7 @@ class _TouchKeywords(KeywordGroup):
         driver = self._current_application()
         driver.swipe(start_x, start_y, offset_x, offset_y, duration)
 
-    def swipe_by_percent(self, start_x, start_y, end_x, end_y):
+    def swipe_by_percent(self, start_x, start_y, end_x, end_y, duration=1000):
         """
         Swipe from one percent of the screen to another percent, for an optional duration. 
         Normal swipe fails to scale for different screen resolutions, this can be avoided using percent.
@@ -77,9 +77,9 @@ class _TouchKeywords(KeywordGroup):
         y_offset = y_end - y_start
         platform = self._get_platform()
         if platform == 'android':
-            self.swipe(x_start, y_start, x_end, y_end)
+            self.swipe(x_start, y_start, x_end, y_end, duration)
         else:
-            self.swipe(x_start, y_start, x_offset, y_offset)
+            self.swipe(x_start, y_start, x_offset, y_offset, duration)
 
     def scroll(self, start_locator, end_locator):
         """
