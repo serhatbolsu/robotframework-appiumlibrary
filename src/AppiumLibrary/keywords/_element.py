@@ -58,24 +58,8 @@ class _ElementKeywords(KeywordGroup):
         If there are multiple use  of ``text`` and you do not want first one,
         use `locator` with `Get Web Elements` instead.
 
-        New in AppiumLibrary 1.4.
         """
-        if self._get_platform() == 'ios':
-            element = self._element_find(text, True, False)
-            if element:
-                element.click()
-            else:
-                if exact_match:
-                    _xpath = u'//*[@value="{}" or @label="{}"]'.format(text, text)
-                else:
-                    _xpath = u'//*[contains(@label,"{}") or contains(@value, "{}")]'.format(text, text)
-                self._element_find(_xpath, True, True).click()
-        elif self._get_platform() == 'android':
-            if exact_match:
-                _xpath = u'//*[@{}="{}"]'.format('text', text)
-            else:
-                _xpath = u'//*[contains(@{},"{}")]'.format('text', text)
-            self._element_find(_xpath, True, True).click()
+        self._element_find_by_text(text,exact_match).click()
 
     def input_text(self, locator, text):
         """Types the given `text` into text field identified by `locator`.
@@ -183,6 +167,19 @@ class _ElementKeywords(KeywordGroup):
             raise AssertionError("Element '%s' should be enabled "
                                  "but did not" % locator)
         self._info("Element '%s' is enabled ." % locator)
+
+    def element_should_be_visible(self, locator, loglevel='INFO'):
+        """Verifies that element identified with locator is visible.
+        
+        Key attributes for arbitrary elements are `id` and `name`. See
+        `introduction` for details about locating elements.
+        
+        New in AppiumLibrary 1.4.5
+        """
+        if not self._element_find(locator, True, True).is_displayed():
+            self.log_source(loglevel)
+            raise AssertionError("Element '%s' should be visible "
+                                 "but did not" % locator)
 
     def element_name_should_be(self, locator, expected):
         element = self._element_find(locator, True, True)
@@ -433,6 +430,16 @@ class _ElementKeywords(KeywordGroup):
         count = len(self._element_find("xpath=" + xpath, False, False))
         return str(count)
 
+    def text_should_be_visible(self, text, exact_match=False, loglevel='INFO'):
+        """Verifies that element identified with text is visible.
+
+        New in AppiumLibrary 1.4.5
+        """
+        if not self._element_find_by_text(text, exact_match).is_displayed():
+            self.log_source(loglevel)
+            raise AssertionError("Text '%s' should be visible "
+                                 "but did not" % text)
+
     def xpath_should_match_x_times(self, xpath, count, error=None, loglevel='INFO'):
         """Verifies that the page contains the given number of elements located by the given ``xpath``.
 
@@ -571,6 +578,24 @@ class _ElementKeywords(KeywordGroup):
         # do some other stuff here like deal with list of webelements
         # ... or raise locator/element specific error if required
         return elements
+
+    def _element_find_by_text(self, text, exact_match=False):
+        if self._get_platform() == 'ios':
+            element = self._element_find(text, True, False)
+            if element:
+                return element
+            else:
+                if exact_match:
+                    _xpath = '//*[@value="{}" or @label="{}"]'.format(text, text)
+                else:
+                    _xpath = '//*[contains(@label,"{}") or contains(@value, "{}")]'.format(text, text)
+                return self._element_find(_xpath, True, True)
+        elif self._get_platform() == 'android':
+            if exact_match:
+                _xpath = '//*[@{}="{}"]'.format('text', text)
+            else:
+                _xpath = '//*[contains(@{},"{}")]'.format('text', text)
+            return self._element_find(_xpath, True, True)
 
     def _get_text(self, locator):
         element = self._element_find(locator, True, True)
