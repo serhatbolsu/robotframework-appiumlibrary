@@ -47,3 +47,6 @@ htmlcov/
 run.sh
 # for eclipse
 .settings
+.eggs/
+.cache/
+venv*/
