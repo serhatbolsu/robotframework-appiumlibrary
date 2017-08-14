@@ -219,6 +219,24 @@ class _ApplicationManagementKeywords(KeywordGroup):
     def switch_to_context(self, context_name):
         """Switch to a new context"""
         self._current_application().switch_to.context(context_name)
+        
+    def switch_to_frame(self, frame):
+        """
+        Switches focus to the specified frame, by index, name, or webelement.
+
+        Example:
+        | Go To Url | http://www.xxx.com |
+        | Switch To Frame  | iframe_name|
+        | Click Element | xpath=//*[@id="online-btn"] |
+        """
+        self._current_application().switch_to.frame(frame)
+        
+    def switch_to_parent_frame(self):
+        """
+        Switches focus to the parent context. If the current context is the top
+        level browsing context, the context remains unchanged.
+        """
+        self._current_application().switch_to.parent_frame()
 
     def go_to_url(self, url):
         """
