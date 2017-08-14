@@ -165,6 +165,20 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         self._current_application().background_app(seconds)
 
+    def touch_id(self, match=True):
+        """
+        Simulate Touch ID on iOS Simulator
+
+        `match` (boolean) whether the simulated fingerprint is valid (default true)
+        """
+        self._current_application().touch_id(match)
+
+    def toggle_touch_id_enrollment(self):
+        """
+        Toggle Touch ID enrolled state on iOS Simulator
+        """
+        self._current_application().toggle_touch_id_enrollment()
+
     def shake(self):
         """
         Shake the device
@@ -194,24 +208,24 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def get_window_height(self):
         """Get current device height.
-        
+
         Example:
         | ${width}       | Get Window Height |
         | ${height}      | Get Window Height |
         | Click A Point  | ${width           | ${height} |
-               
+
         New in AppiumLibrary 1.4.5
         """
         return self._current_application().get_window_size()['height']
 
     def get_window_width(self):
         """Get current device width.
-        
+
         Example:
         | ${width}       | Get Window Height |
         | ${height}      | Get Window Height |
         | Click A Point  | ${width           | ${height} |
-        
+
         New in AppiumLibrary 1.4.5
         """
         return self._current_application().get_window_size()['width']
@@ -239,7 +253,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         except Exception as e:
             raise e
         return capability
-        
+
     # Private
 
     def _current_application(self):
