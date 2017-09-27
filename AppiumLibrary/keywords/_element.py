@@ -32,14 +32,16 @@ class _ElementKeywords(KeywordGroup):
         self._info("Clear text field '%s'" % locator)
         self._element_clear_text_by_locator(locator)
 
-    def click_element(self, locator):
+   def click_element(self, locator):
         """Click element identified by `locator`.
-
         Key attributes for arbitrary elements are `index` and `name`. See
         `introduction` for details about locating elements.
         """
         self._info("Clicking element '%s'." % locator)
-        self._element_find(locator, True, True).click()
+        #self._element_find(locator, True, True).click()
+        application = self._current_application()
+        elements = self._element_finder.find(application, locator, None)
+        elements[0].click()
 
     def click_button(self, index_or_name):
         """ Click button """
