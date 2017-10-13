@@ -26,7 +26,7 @@ setup(name='robotframework-appiumlibrary',
           "License :: OSI Approved :: Apache Software License",
           "Operating System :: OS Independent",
           "Programming Language :: Python",
-          "Topic :: Software Development :: Testing"
+          "Topic :: Software Development :: Testing",
           'Programming Language :: Python',
           'Programming Language :: Python :: 2',
           'Programming Language :: Python :: 2.6',
