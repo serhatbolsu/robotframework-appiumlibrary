@@ -580,6 +580,7 @@ class _ElementKeywords(KeywordGroup):
         return elements
 
     def _element_find_by_text(self, text, exact_match=False):
+        text = text.encode('utf-8')
         if self._get_platform() == 'ios':
             element = self._element_find(text, True, False)
             if element:
