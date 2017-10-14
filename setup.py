@@ -1,20 +1,20 @@
 #!/usr/bin/env python
 
-from os.path import dirname, join, realpath
+from os import path
 from setuptools import setup, find_packages
 
-ROOT = realpath(dirname(__file__))
+ROOT = path.abspath(path.dirname(__file__))
 
-version_file = join(ROOT, 'AppiumLibrary', 'version.py')
+version_file = path.join(ROOT, 'AppiumLibrary', 'version.py')
 exec (compile(open(version_file).read(), version_file, 'exec'))
 
-with open(join(ROOT, 'test_require.txt'), "rt") as f:
+with open(path.join(ROOT, 'test_require.txt'), "rt") as f:
     tests_require = f.readlines()
 
 setup(name='robotframework-appiumlibrary',
       version=VERSION,
       description='Robot Framework Mobile app testing library for Appium Client Android & iOS & Web',
-      long_description=open(join(ROOT, 'README.rst')).read(),
+      long_description=open(path.join(ROOT, 'README.rst')).read(),
       author='Serhat Bolsu, William Zhang, Xie Lieping, Jari Nurminen',
       author_email='serhatbolsu@gmail.com,jollychang@gmail.com,frankbp@gmail.com',
       url='https://github.com/serhatbolsu/robotframework-appiumlibrary',
