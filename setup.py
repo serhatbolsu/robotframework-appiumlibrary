@@ -8,9 +8,6 @@ ROOT = dirname(abspath(__file__))
 version_file = join(ROOT, 'AppiumLibrary', 'version.py')
 exec (compile(open(version_file).read(), version_file, 'exec'))
 
-with open(join(ROOT, 'test_require.txt')) as f:
-    tests_require = f.read().splitlines()
-
 setup(name='robotframework-appiumlibrary',
       version=VERSION,
       description='Robot Framework Mobile app testing library for Appium Client Android & iOS & Web',
@@ -50,7 +47,14 @@ setup(name='robotframework-appiumlibrary',
           'selenium >= 2.47.1',
           'kitchen >= 1.2.4',
       ],
-      tests_require=tests_require,
+      tests_require=[
+          'mock >= 2.0.0',
+          'pytest-cov >= 2.5.1',
+          'pytest-xdist >= 1.16.0',
+          'pytest-pythonpath >= 0.7.1',
+          'pytest >= 3.1.0',
+          'six >= 1.10.0'
+      ],
       packages=find_packages(exclude=["demo", "docs", "tests", ]),
       include_package_data=True,
       )
