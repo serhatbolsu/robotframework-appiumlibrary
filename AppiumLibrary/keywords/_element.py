@@ -562,11 +562,7 @@ class _ElementKeywords(KeywordGroup):
     def _element_find(self, locator, first_only, required, tag=None):
         application = self._current_application()
         if isstr(locator):
-            # Normalize any unicode as explained here, http://appium.io/slate/en/master/?javascript#multi-lingual-support
-            if self._get_platform() == 'ios':
-                _locator = normalize('NFD', locator)
-            else:
-                _locator = locator
+            _locator = locator
             elements = self._element_finder.find(application, _locator, tag)
             if required and len(elements) == 0:
                 raise ValueError("Element locator '" + locator + "' did not match any elements.")
@@ -586,15 +582,15 @@ class _ElementKeywords(KeywordGroup):
                 return element
             else:
                 if exact_match:
-                    _xpath = '//*[@value="{}" or @label="{}"]'.format(text, text)
+                    _xpath = u'//*[@value="{}" or @label="{}"]'.format(text, text)
                 else:
-                    _xpath = '//*[contains(@label,"{}") or contains(@value, "{}")]'.format(text, text)
+                    _xpath = u'//*[contains(@label,"{}") or contains(@value, "{}")]'.format(text, text)
                 return self._element_find(_xpath, True, True)
         elif self._get_platform() == 'android':
             if exact_match:
-                _xpath = '//*[@{}="{}"]'.format('text', text)
+                _xpath = u'//*[@{}="{}"]'.format('text', text)
             else:
-                _xpath = '//*[contains(@{},"{}")]'.format('text', text)
+                _xpath = u'//*[contains(@{},"{}")]'.format('text', text)
             return self._element_find(_xpath, True, True)
 
     def _get_text(self, locator):
