@@ -18,7 +18,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
     # Public, open and close
 
     def close_application(self):
-        """Closes the current application."""
+        """Closes the current application and also close webdriver session."""
         self._debug('Closing application with session id %s' % self._current_application().session_id)
         self._cache.close()
 
@@ -81,8 +81,46 @@ class _ApplicationManagementKeywords(KeywordGroup):
             self._cache.switch(index_or_alias)
         return old_index
 
+    def launch_application(self):
+        """ Launch application. Application can be launched while Appium session running.
+        This keyword can be used to launch application during test case or between test cases.
+        
+        This keyword works while `Open Application` has a test running. This is good practice to `Launch Application`
+        and `Quit Application` between test cases. As Suite Setup is `Open Application`, `Test Setup` can be used to `Launch Application`
+       
+        Example (syntax is just a representation, refer to RF Guide for usage of Setup/Teardown):
+        | [Setup Suite] |
+        |  | Open Application | http://localhost:4723/wd/hub | platformName=Android | deviceName=192.168.56.101:5555 | app=${CURDIR}/demoapp/OrangeDemoApp.apk |
+        | [Test Setup] |
+        |  | Launch Application |
+        |  |  | <<<test execution>>> |
+        |  |  | <<<test execution>>> |
+        | [Test Teardown] |
+        |  | Quit Application |
+        | [Suite Teardown] |
+        |  | Close Application |
+        
+        See `Quit Application` for quiting application but keeping Appium sesion running.
+        
+        New in AppiumLibrary 1.4.6
+        """
+        driver = self._current_application()
+        driver.launch_app()
+
+    def quit_application(self):
+        """ Quit application. Application can be quit while Appium session is kept alive. 
+        This keyword can be used to close application during test case or between test cases.
+        
+        See `Launch Application` for an explanation.
+        
+        New in AppiumLibrary 1.4.6
+        """
+        driver = self._current_application()
+        driver.close_app()
+
     def reset_application(self):
-        """ Reset application """
+        """ Reset application. Open Application can be reset while Appium session is kept alive.       
+        """
         driver = self._current_application()
         driver.reset()
 
