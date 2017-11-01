@@ -18,6 +18,7 @@ class ElementFinder(object):
             'ios': self._find_by_ios,
             'css': self._find_by_css_selector,
             'jquery': self._find_by_sizzle_selector,
+            'nsp': self._find_by_nsp,
             'default': self._find_by_default
         }
 
@@ -103,6 +104,12 @@ class ElementFinder(object):
         """Find element matches by UI Automation."""
         return self._filter_elements(
             browser.find_elements_by_ios_uiautomation(criteria),
+            tag, constraints)
+
+    def _find_by_nsp(self, browser, criteria, tag, constraints):
+        """Find element matches by  iOSNsPredicateString."""
+        return self._filter_elements(
+            browser.find_elements_by_ios_predicate(criteria),
             tag, constraints)
 
     def _find_by_default(self, browser, criteria, tag, constraints):
