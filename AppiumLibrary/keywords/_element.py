@@ -32,10 +32,11 @@ class _ElementKeywords(KeywordGroup):
         self._info("Clear text field '%s'" % locator)
         self._element_clear_text_by_locator(locator)
 
-   def click_element(self, locator):
+    def click_element(self, locator):
         """Click element identified by `locator`.
         Key attributes for arbitrary elements are `index` and `name`. See
         `introduction` for details about locating elements.
+        Update by LT
         """
         self._info("Clicking element '%s'." % locator)
         #self._element_find(locator, True, True).click()
@@ -364,9 +365,14 @@ class _ElementKeywords(KeywordGroup):
 
         | Get Element Attribute | locator | name |
         | Get Element Attribute | locator | value |
+        
+        Update by LT
         """
         if not isinstance(locator, WebElement):
-            elements = self._element_find(locator, False, True)
+            application = self._current_application()
+            elements = self._element_finder.find(application, locator, None)
+            
+            #elements = self._element_find(locator, False, True)
             ele_len = len(elements)
             if ele_len == 0:
                 raise AssertionError("Element '%s' could not be found" % locator)
@@ -381,15 +387,59 @@ class _ElementKeywords(KeywordGroup):
             return attr_val
         except:
             raise AssertionError("Attribute '%s' is not valid for element '%s'" % (attribute, locator))
+            
+            
+        # if not isinstance(locator, WebElement):
+#             elements = self._element_find(locator, False, True)
+#             ele_len = len(elements)
+#             if ele_len == 0:
+#                 raise AssertionError("Element '%s' could not be found" % locator)
+#             elif ele_len > 1:
+#                 self._info("CAUTION: '%s' matched %s elements - using the first element only" % (locator, len(elements)))
+#         try:
+#             if not isinstance(locator, WebElement):
+#                 attr_val = elements[0].get_attribute(attribute)
+#             else:
+#                 attr_val = locator.get_attribute(attribute)
+#             self._info("Element '%s' attribute '%s' value '%s' " % (locator, attribute, attr_val))
+#             return attr_val
+#         except:
+#             raise AssertionError("Attribute '%s' is not valid for element '%s'" % (attribute, locator))
+
+#     def get_element_location(self, locator):
+#         """Get element location
+# 
+#         Key attributes for arbitrary elements are `id` and `name`. See
+#         `introduction` for details about locating elements.
+#         """
+#         element = self._element_find(locator, True, True)
+#         element_location = element.location
+#         self._info("Element '%s' location: %s " % (locator, element_location))
+#         return element_location
+# 
+#     def get_element_size(self, locator):
+#         """Get element size
+# 
+#         Key attributes for arbitrary elements are `id` and `name`. See
+#         `introduction` for details about locating elements.
+#         """
+#         element = self._element_find(locator, True, True)
+#         element_size = element.size
+#         self._info("Element '%s' size: %s " % (locator, element_size))
+#         return element_size
+
 
     def get_element_location(self, locator):
         """Get element location
 
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
+        
+        Update by LT
         """
-        element = self._element_find(locator, True, True)
-        element_location = element.location
+        application = self._current_application()
+        elements = self._element_finder.find(application, locator, None)
+        element_location = elements[0].location
         self._info("Element '%s' location: %s " % (locator, element_location))
         return element_location
 
@@ -398,12 +448,15 @@ class _ElementKeywords(KeywordGroup):
 
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
+        
+        Update by LT
         """
-        element = self._element_find(locator, True, True)
-        element_size = element.size
+        application = self._current_application()
+        elements = self._element_finder.find(application, locator, None)
+        element_size = elements[0].size
         self._info("Element '%s' size: %s " % (locator, element_size))
         return element_size
-
+        
     def get_text(self, locator):
         """Get element text (for hybrid and mobile browser use `xpath` locator, others might cause problem)
 
