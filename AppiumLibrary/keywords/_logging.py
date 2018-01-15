@@ -7,11 +7,29 @@ from .keywordgroup import KeywordGroup
 
 
 class _LoggingKeywords(KeywordGroup):
+    LOG_LEVEL_DEBUG = ['DEBUG']
+    LOG_LEVEL_INFO = ['DEBUG', 'INFO']
+    LOG_LEVEL_WARN = ['DEBUG', 'INFO', 'WARN']
 
-    # Private
+    @property
+    def _log_level(self):
+        return BuiltIn().get_variable_value("${APPIUM_LOG_LEVEL}", default='DEBUG')
 
     def _debug(self, message):
-        logger.debug(message)
+        if self._log_level in self.LOG_LEVEL_DEBUG:
+            logger.debug(message)
+
+    def _info(self, message):
+        if self._log_level in self.LOG_LEVEL_INFO:
+            logger.info(message)
+
+    def _warn(self, message):
+        if self._log_level in self.LOG_LEVEL_WARN:
+            logger.warn(message)
+
+    def _html(self, message):
+        if self._log_level in self.LOG_LEVEL_INFO:
+            logger.info(message, True, False)
 
     def _get_log_dir(self):
         variables = BuiltIn().get_variables()
@@ -19,12 +37,6 @@ class _LoggingKeywords(KeywordGroup):
         if logfile != 'NONE':
             return os.path.dirname(logfile)
         return variables['${OUTPUTDIR}']
-
-    def _html(self, message):
-        logger.info(message, True, False)
-
-    def _info(self, message):
-        logger.info(message)
 
     def _log(self, message, level='INFO'):
         level = level.upper()
@@ -44,5 +56,3 @@ class _LoggingKeywords(KeywordGroup):
         self._info('\n'.join(msg))
         return items
 
-    def _warn(self, message):
-        logger.warn(message)
