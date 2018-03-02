@@ -143,3 +143,15 @@ class _AndroidUtilsKeywords(KeywordGroup):
         driver = self._current_application()
         if not driver.wait_activity(activity=activity, timeout=float(timeout), interval=float(interval)):
             raise TimeoutException(msg="Activity %s never presented, current activity: %s" % (activity, self.get_activity()))
+
+    def set_location(self, latitude, longitude, altitude=10):
+        """ Set location
+
+        - _latitute_
+        - _longitude_
+        - _altitude_ = 10 [optional]
+        
+        Android only
+        """
+        driver = self._current_application()
+        driver.set_location(latitude,longitude,altitude)
