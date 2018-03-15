@@ -593,8 +593,10 @@ class _ElementKeywords(KeywordGroup):
 
     def _element_input_text_by_locator(self, locator, text):
         try:
-            element = self._element_find(locator, True, True)
-            element.send_keys(text)
+            application = self._current_application()
+            elements = self._element_finder.find(application, locator, None)
+            #element = self._element_find(locator, True, True)
+            elements[0].send_keys(text)
         except Exception as e:
             raise e
 
