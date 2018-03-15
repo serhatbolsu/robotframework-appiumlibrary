@@ -34,6 +34,7 @@ class _ElementKeywords(KeywordGroup):
 
     def click_element(self, locator):
         """Click element identified by `locator`.
+
         Key attributes for arbitrary elements are `index` and `name`. See
         `introduction` for details about locating elements.
         Update by LT
@@ -356,7 +357,11 @@ class _ElementKeywords(KeywordGroup):
 
         New in AppiumLibrary 1.4.
         """
-        return self._element_find(locator, False, True)
+        #return self._element_find(locator, False, True)
+        application = self._current_application()
+        elements = self._element_finder.find(application, locator, None)
+
+        return elements
 
     def get_element_attribute(self, locator, attribute):
         """Get element attribute using given attribute: name, value,...
@@ -369,6 +374,7 @@ class _ElementKeywords(KeywordGroup):
         Update by LT
         """
         if not isinstance(locator, WebElement):
+            BuiltIn().log("NOT webelement")
             application = self._current_application()
             elements = self._element_finder.find(application, locator, None)
             
@@ -380,54 +386,15 @@ class _ElementKeywords(KeywordGroup):
                 self._info("CAUTION: '%s' matched %s elements - using the first element only" % (locator, len(elements)))
         try:
             if not isinstance(locator, WebElement):
+                BuiltIn().log("NOT webelement")
                 attr_val = elements[0].get_attribute(attribute)
             else:
+                BuiltIn().log("webelement")
                 attr_val = locator.get_attribute(attribute)
             self._info("Element '%s' attribute '%s' value '%s' " % (locator, attribute, attr_val))
             return attr_val
         except:
             raise AssertionError("Attribute '%s' is not valid for element '%s'" % (attribute, locator))
-            
-            
-        # if not isinstance(locator, WebElement):
-#             elements = self._element_find(locator, False, True)
-#             ele_len = len(elements)
-#             if ele_len == 0:
-#                 raise AssertionError("Element '%s' could not be found" % locator)
-#             elif ele_len > 1:
-#                 self._info("CAUTION: '%s' matched %s elements - using the first element only" % (locator, len(elements)))
-#         try:
-#             if not isinstance(locator, WebElement):
-#                 attr_val = elements[0].get_attribute(attribute)
-#             else:
-#                 attr_val = locator.get_attribute(attribute)
-#             self._info("Element '%s' attribute '%s' value '%s' " % (locator, attribute, attr_val))
-#             return attr_val
-#         except:
-#             raise AssertionError("Attribute '%s' is not valid for element '%s'" % (attribute, locator))
-
-    def get_element_location_old(self, locator):
-        """Get element location
-
-        Key attributes for arbitrary elements are `id` and `name`. See
-        `introduction` for details about locating elements.
-        """
-        element = self._element_find(locator, True, True)
-        element_location = element.location
-        self._info("Element '%s' location: %s " % (locator, element_location))
-        return element_location
-
-    def get_element_size_old(self, locator):
-        """Get element size
-
-        Key attributes for arbitrary elements are `id` and `name`. See
-        `introduction` for details about locating elements.
-        """
-        element = self._element_find(locator, True, True)
-        element_size = element.size
-        self._info("Element '%s' size: %s " % (locator, element_size))
-        return element_size
-
 
     def get_element_location(self, locator):
         """Get element location
@@ -437,11 +404,35 @@ class _ElementKeywords(KeywordGroup):
         
         Update by LT
         """
-        application = self._current_application()
-        elements = self._element_finder.find(application, locator, None)
-        element_location = elements[0].location
-        self._info("Element '%s' location: %s " % (locator, element_location))
-        return element_location
+        if not isinstance(locator, WebElement):
+            BuiltIn().log("NOT webelement")
+            application = self._current_application()
+            elements = self._element_finder.find(application, locator, None)
+            
+            #elements = self._element_find(locator, False, True)
+            ele_len = len(elements)
+            if ele_len == 0:
+                raise AssertionError("Element '%s' could not be found" % locator)
+            elif ele_len > 1:
+                self._info("CAUTION: '%s' matched %s elements - using the first element only" % (locator, len(elements)))
+        try:
+            if not isinstance(locator, WebElement):
+                BuiltIn().log("NOT webelement")
+                attr_val = elements[0].location
+            else:
+                BuiltIn().log("webelement")
+                attr_val = locator.location
+            self._info("Element '%s' location: %s " % (locator, attr_val))
+            return attr_val
+        except:
+            raise AssertionError("Attribute '%s' is not valid for element '%s'" % (attribute, locator))
+            
+            
+        #application = self._current_application()
+        #elements = self._element_finder.find(application, locator, None)
+        #element_location = elements[0].location
+        #self._info("Element '%s' location: %s " % (locator, element_location))
+        #return element_location
 
     def get_element_size(self, locator):
         """Get element size
@@ -451,11 +442,35 @@ class _ElementKeywords(KeywordGroup):
         
         Update by LT
         """
-        application = self._current_application()
-        elements = self._element_finder.find(application, locator, None)
-        element_size = elements[0].size
-        self._info("Element '%s' size: %s " % (locator, element_size))
-        return element_size
+        if not isinstance(locator, WebElement):
+            BuiltIn().log("NOT webelement")
+            application = self._current_application()
+            elements = self._element_finder.find(application, locator, None)
+            
+            #elements = self._element_find(locator, False, True)
+            ele_len = len(elements)
+            if ele_len == 0:
+                raise AssertionError("Element '%s' could not be found" % locator)
+            elif ele_len > 1:
+                self._info("CAUTION: '%s' matched %s elements - using the first element only" % (locator, len(elements)))
+        try:
+            if not isinstance(locator, WebElement):
+                BuiltIn().log("NOT webelement")
+                attr_val = elements[0].size
+            else:
+                BuiltIn().log("webelement")
+                attr_val = locator.size
+            self._info("Element '%s' size: %s " % (locator, attr_val))
+            return attr_val
+        except:
+            raise AssertionError("Attribute '%s' is not valid for element '%s'" % (attribute, locator))
+            
+            
+        #application = self._current_application()
+        #elements = self._element_finder.find(application, locator, None)
+        #element_size = elements[0].size
+        #self._info("Element '%s' size: %s " % (locator, element_size))
+        #return element_size
         
     def get_text(self, locator):
         """Get element text (for hybrid and mobile browser use `xpath` locator, others might cause problem)
