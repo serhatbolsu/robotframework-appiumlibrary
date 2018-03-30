@@ -4,6 +4,7 @@ from AppiumLibrary.locators import ElementFinder
 from .keywordgroup import KeywordGroup
 from robot.libraries.BuiltIn import BuiltIn
 import ast
+import os
 from unicodedata import normalize
 from selenium.webdriver.remote.webelement import WebElement
 
@@ -170,10 +171,10 @@ class _ElementKeywords(KeywordGroup):
 
     def element_should_be_visible(self, locator, loglevel='INFO'):
         """Verifies that element identified with locator is visible.
-        
+
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
-        
+
         New in AppiumLibrary 1.4.5
         """
         if not self._element_find(locator, True, True).is_displayed():
@@ -286,11 +287,11 @@ class _ElementKeywords(KeywordGroup):
         New in AppiumLibrary 1.4.
         """
         self._info("Verifying element '%s' contains text '%s'."
-                    % (locator, expected))
+                   % (locator, expected))
         actual = self._get_text(locator)
         if not expected in actual:
             if not message:
-                message = "Element '%s' should have contained text '%s' but "\
+                message = "Element '%s' should have contained text '%s' but " \
                           "its text was '%s'." % (locator, expected, actual)
             raise AssertionError(message)
 
@@ -320,12 +321,12 @@ class _ElementKeywords(KeywordGroup):
         New in AppiumLibrary 1.4.
         """
         self._info("Verifying element '%s' contains exactly text '%s'."
-                    % (locator, expected))
+                   % (locator, expected))
         element = self._element_find(locator, True, True)
         actual = element.text
         if expected != actual:
             if not message:
-                message = "The text of element '%s' should have been '%s' but "\
+                message = "The text of element '%s' should have been '%s' but " \
                           "in fact it was '%s'." % (locator, expected, actual)
             raise AssertionError(message)
 
@@ -459,12 +460,24 @@ class _ElementKeywords(KeywordGroup):
         actual_xpath_count = len(self._element_find("xpath=" + xpath, False, False))
         if int(actual_xpath_count) != int(count):
             if not error:
-                error = "Xpath %s should have matched %s times but matched %s times"\
-                            %(xpath, count, actual_xpath_count)
+                error = "Xpath %s should have matched %s times but matched %s times" \
+                        %(xpath, count, actual_xpath_count)
             self.log_source(loglevel)
             raise AssertionError(error)
         self._info("Current page contains %s elements matching '%s'."
                    % (actual_xpath_count, xpath))
+
+    def execute_javascript(self, *code):
+        """Executes the given JavaScript code.
+
+       Examples:
+       | `Execute JavaScript` | ${CURDIR}/scrip.js    |
+       | ${sum} =             | `Execute JavaScript` | return 1 + 1; |
+       | `Should Be Equal`    | ${sum}               | ${2}          |
+       """
+        js = self._get_javascript_to_execute(''.join(code))
+        self._info("Executing Javascript:\n%s" % js)
+        return self._current_application().execute_script(js)
 
     # Private
 
@@ -608,10 +621,21 @@ class _ElementKeywords(KeywordGroup):
         application = self._current_application()
         elements = self._element_finder.find(application, locator, None)
         return len(elements) > 0
-        
+
     def _is_visible(self, locator):
         element = self._element_find(locator, True, False)
         if element is not None:
             return element.is_displayed()
         return None
 
+    def _get_javascript_to_execute(self, code):
+        codepath = code.replace('/', os.sep)
+        if not (os.path.isabs(codepath) and os.path.isfile(codepath)):
+            return code
+        self._html('Reading JavaScript from file <a href="file://%s">%s</a>.'
+                   % (codepath.replace(os.sep, '/'), codepath))
+        codefile = open(codepath)
+        try:
+            return codefile.read().strip()
+        finally:
+            codefile.close()
