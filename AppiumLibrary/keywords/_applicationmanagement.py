@@ -258,6 +258,14 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """Switch to a new context"""
         self._current_application().switch_to.context(context_name)
 
+    def switch_to_frame(self, frame_id):
+        """Switch to a new frame"""
+        self._current_application().switch_to.frame(frame_id)
+
+    def switch_to_parent(self):
+        """Switch to parent frame"""
+        return self._current_application().switch_to.parent()
+
     def go_to_url(self, url):
         """
         Opens URL in default web browser.
