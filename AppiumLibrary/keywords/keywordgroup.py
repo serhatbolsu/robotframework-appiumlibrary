@@ -17,7 +17,7 @@ def _run_on_failure_decorator(method, *args, **kwargs):
         self = args[0]
         if hasattr(self, '_run_on_failure'):
             self._run_on_failure()
-        raise
+        raise err
 
 
 class KeywordGroupMetaClass(type):
