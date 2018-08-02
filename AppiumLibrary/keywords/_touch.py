@@ -105,11 +105,11 @@ class _TouchKeywords(KeywordGroup):
         element = self._element_find(locator, True, True)
         driver.execute_script("mobile: scroll", {"direction": 'up', 'element': element.id})
 
-    def long_press(self, locator):
-        """ Long press the element """
+    def long_press(self, locator, duration=1000):
+        """ Long press the element with optional duration """
         driver = self._current_application()
         element = self._element_find(locator, True, True)
-        long_press = TouchAction(driver).long_press(element)
+        long_press = TouchAction(driver).long_press(element, duration)
         long_press.perform()
 
     def tap(self, locator, x_offset=None, y_offset=None, count=1):
