@@ -84,10 +84,10 @@ class _ApplicationManagementKeywords(KeywordGroup):
     def launch_application(self):
         """ Launch application. Application can be launched while Appium session running.
         This keyword can be used to launch application during test case or between test cases.
-        
+
         This keyword works while `Open Application` has a test running. This is good practice to `Launch Application`
         and `Quit Application` between test cases. As Suite Setup is `Open Application`, `Test Setup` can be used to `Launch Application`
-       
+
         Example (syntax is just a representation, refer to RF Guide for usage of Setup/Teardown):
         | [Setup Suite] |
         |  | Open Application | http://localhost:4723/wd/hub | platformName=Android | deviceName=192.168.56.101:5555 | app=${CURDIR}/demoapp/OrangeDemoApp.apk |
@@ -99,27 +99,27 @@ class _ApplicationManagementKeywords(KeywordGroup):
         |  | Quit Application |
         | [Suite Teardown] |
         |  | Close Application |
-        
+
         See `Quit Application` for quiting application but keeping Appium sesion running.
-        
+
         New in AppiumLibrary 1.4.6
         """
         driver = self._current_application()
         driver.launch_app()
 
     def quit_application(self):
-        """ Quit application. Application can be quit while Appium session is kept alive. 
+        """ Quit application. Application can be quit while Appium session is kept alive.
         This keyword can be used to close application during test case or between test cases.
-        
+
         See `Launch Application` for an explanation.
-        
+
         New in AppiumLibrary 1.4.6
         """
         driver = self._current_application()
         driver.close_app()
 
     def reset_application(self):
-        """ Reset application. Open Application can be reset while Appium session is kept alive.       
+        """ Reset application. Open Application can be reset while Appium session is kept alive.
         """
         driver = self._current_application()
         driver.reset()
@@ -232,24 +232,24 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def get_window_height(self):
         """Get current device height.
-        
+
         Example:
         | ${width}       | Get Window Height |
         | ${height}      | Get Window Height |
         | Click A Point  | ${width           | ${height} |
-               
+
         New in AppiumLibrary 1.4.5
         """
         return self._current_application().get_window_size()['height']
 
     def get_window_width(self):
         """Get current device width.
-        
+
         Example:
         | ${width}       | Get Window Height |
         | ${height}      | Get Window Height |
         | Click A Point  | ${width           | ${height} |
-        
+
         New in AppiumLibrary 1.4.5
         """
         return self._current_application().get_window_size()['width']
@@ -277,7 +277,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         except Exception as e:
             raise e
         return capability
-        
+
     # Private
 
     def _current_application(self):
