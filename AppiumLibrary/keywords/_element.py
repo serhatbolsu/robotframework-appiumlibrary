@@ -675,6 +675,6 @@ class _ElementKeywords(KeywordGroup):
         """
         element = self._element_find(locator, True, True)
         if element is not None:
-            self._info("Element '%s' name is '%s' " % (locator, name))
+            self._info("Element '%s' name is '%s' " % (locator, element.name))
             return element.name
         return None
