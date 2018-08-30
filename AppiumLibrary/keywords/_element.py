@@ -615,3 +615,66 @@ class _ElementKeywords(KeywordGroup):
             return element.is_displayed()
         return None
 
+    def is_element_exist(self, locator):
+        """add Get that element with locator is existed.
+
+        Key attributes for arbitrary elements are `id` and `name`. See
+        `introduction` for details about locating elements.
+        """
+        elements = self._element_find(locator, False, False)
+        return len(elements) > 0
+
+    def get_element_enabled(self, locator, loglevel='INFO'):
+        """add Get that element with locator is enabled.
+
+        Key attributes for arbitrary elements are `id` and `name`. See
+        `introduction` for details about locating elements.
+        """
+        if not self._element_find(locator, True, True).is_enabled():
+            return False
+        return True
+
+    def is_element_visible(self, locator):
+        """add Get that element with locator is visibled.
+
+        Key attributes for arbitrary elements are `id` and `name`. See
+        `introduction` for details about locating elements.
+        """
+        element = self._element_find(locator, True, False)
+        if element is not None:
+            return element.is_displayed()
+        return None
+
+    def is_page_contain_text(self, text, loglevel='INFO'):
+        """add Verifies that current page contains `text`.
+
+        If this keyword fails, it automatically logs the page source
+        using the log level specified with the optional `loglevel` argument.
+        Giving `NONE` as level disables logging.
+        """
+        if self._is_text_present(text):
+            self.log_source(loglevel)
+            return True
+        else:
+            return False
+
+    def get_text_selected(self, text, exact_match=False):
+        """add  Get text with locator is selected.
+        Examples:
+        | get_text_selected | text |
+        """
+        try:
+            if not self._element_find_by_text(text, exact_match).is_selected():
+                return False
+            return True
+        except Exception as e:
+            return False
+
+    def get_name(self, locator):
+        """add Get element name
+        """
+        element = self._element_find(locator, True, True)
+        if element is not None:
+            self._info("Element '%s' name is '%s' " % (locator, name))
+            return element.name
+        return None
