@@ -19,6 +19,7 @@ class ElementFinder(object):
             'css': self._find_by_css_selector,
             'jquery': self._find_by_sizzle_selector,
             'nsp': self._find_by_nsp,
+            'chain': self._find_by_chain,
             'default': self._find_by_default
         }
 
@@ -110,6 +111,12 @@ class ElementFinder(object):
         """Find element matches by  iOSNsPredicateString."""
         return self._filter_elements(
             browser.find_elements_by_ios_predicate(criteria),
+            tag, constraints)
+
+    def _find_by_chain(self, browser, criteria, tag, constraints):
+        """Find element matches by  iOSChainString."""
+        return self._filter_elements(
+            browser.find_elements_by_ios_class_chain(criteria),
             tag, constraints)
 
     def _find_by_default(self, browser, criteria, tag, constraints):
