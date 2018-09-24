@@ -278,6 +278,9 @@ class _ApplicationManagementKeywords(KeywordGroup):
             raise e
         return capability
 
+    def get_current_application(self):
+        return self._current_application()
+
     # Private
 
     def _current_application(self):
