@@ -2,6 +2,7 @@
 
 import os
 from robot.libraries.BuiltIn import BuiltIn
+from robot.libraries.BuiltIn import RobotNotRunningError
 from robot.api import logger
 from .keywordgroup import KeywordGroup
 
@@ -13,7 +14,11 @@ class _LoggingKeywords(KeywordGroup):
 
     @property
     def _log_level(self):
-        return BuiltIn().get_variable_value("${APPIUM_LOG_LEVEL}", default='DEBUG')
+        try:
+            level = BuiltIn().get_variable_value("${APPIUM_LOG_LEVEL}", default='DEBUG')
+        except RobotNotRunningError:
+            level = 'DEBUG'
+        return level
 
     def _debug(self, message):
         if self._log_level in self.LOG_LEVEL_DEBUG:
