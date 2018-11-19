@@ -203,6 +203,20 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         self._current_application().background_app(seconds)
 
+    def touch_id(self, match=True):
+        """
+        Simulate Touch ID on iOS Simulator
+
+        `match` (boolean) whether the simulated fingerprint is valid (default true)
+        """
+        self._current_application().touch_id(match)
+
+    def toggle_touch_id_enrollment(self):
+        """
+        Toggle Touch ID enrolled state on iOS Simulator
+        """
+        self._current_application().toggle_touch_id_enrollment()
+
     def shake(self):
         """
         Shake the device
