@@ -10,6 +10,10 @@ History
 - Appium-Python library min-version bump
 - Simulate Touch ID on iOS Simulator
 
+1.4.6
+----------------
+- Launch Application - new keyword added
+- Quit Application - new keyword added
 
 1.4.5
 ----------------

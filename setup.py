@@ -46,6 +46,7 @@ setup(name='robotframework-appiumlibrary',
           'Appium-Python-Client >= 0.28',
           'selenium >= 2.47.1',
           'kitchen >= 1.2.4',
+          'six >= 1.10.0'
       ],
       tests_require=[
           'mock >= 2.0.0',
