@@ -123,17 +123,17 @@ class _TouchKeywords(KeywordGroup):
         driver = self._current_application()
         el = self._element_find(locator, True, True)
         action = TouchAction(driver)
-        action.tap(el,x_offset,y_offset, count).perform()
+        action.tap(el, x_offset, y_offset, count).perform()
 
     def click_a_point(self, x=0, y=0, duration=100):
         """ Click on a point"""
-        self._info("Clicking on a point (%s,%s)." % (x,y))
+        self._info("Clicking on a point (%s,%s)." % (x, y))
         driver = self._current_application()
         action = TouchAction(driver)
         try:
             action.press(x=float(x), y=float(y)).wait(float(duration)).release().perform()
         except:
-            assert False, "Can't click on a point at (%s,%s)" % (x,y)
+            assert False, "Can't click on a point at (%s,%s)" % (x, y)
 
     def click_element_at_coordinates(self, coordinate_X, coordinate_Y):
         """ click element at a certain coordinate """

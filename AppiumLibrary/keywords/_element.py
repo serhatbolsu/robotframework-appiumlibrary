@@ -6,16 +6,7 @@ from robot.libraries.BuiltIn import BuiltIn
 import ast
 from unicodedata import normalize
 from selenium.webdriver.remote.webelement import WebElement
-
-try:
-    basestring  # attempt to evaluate basestring
-
-
-    def isstr(s):
-        return isinstance(s, basestring)
-except NameError:
-    def isstr(s):
-        return isinstance(s, str)
+import six
 
 
 class _ElementKeywords(KeywordGroup):
@@ -59,7 +50,7 @@ class _ElementKeywords(KeywordGroup):
         use `locator` with `Get Web Elements` instead.
 
         """
-        self._element_find_by_text(text,exact_match).click()
+        self._element_find_by_text(text, exact_match).click()
 
     def input_text(self, locator, text):
         """Types the given `text` into text field identified by `locator`.
@@ -185,14 +176,16 @@ class _ElementKeywords(KeywordGroup):
         element = self._element_find(locator, True, True)
         if str(expected) != str(element.get_attribute('name')):
             raise AssertionError("Element '%s' name should be '%s' "
-                                 "but it is '%s'." % (locator, expected, element.get_attribute('name')))
+                                 "but it is '%s'." % (
+                                 locator, expected, element.get_attribute('name')))
         self._info("Element '%s' name is '%s' " % (locator, expected))
 
     def element_value_should_be(self, locator, expected):
         element = self._element_find(locator, True, True)
         if str(expected) != str(element.get_attribute('value')):
             raise AssertionError("Element '%s' value should be '%s' "
-                                 "but it is '%s'." % (locator, expected, element.get_attribute('value')))
+                                 "but it is '%s'." % (
+                                 locator, expected, element.get_attribute('value')))
         self._info("Element '%s' value is '%s' " % (locator, expected))
 
     def element_attribute_should_match(self, locator, attr_name, match_pattern, regexp=False):
@@ -242,12 +235,14 @@ class _ElementKeywords(KeywordGroup):
         """
         elements = self._element_find(locator, False, True)
         if len(elements) > 1:
-            self._info("CAUTION: '%s' matched %s elements - using the first element only" % (locator, len(elements)))
+            self._info("CAUTION: '%s' matched %s elements - using the first element only" % (
+            locator, len(elements)))
 
         attr_value = elements[0].get_attribute(attr_name)
 
         # ignore regexp argument if matching boolean
-        if isinstance(match_pattern, bool) or match_pattern.lower() == 'true' or match_pattern.lower() == 'false':
+        if isinstance(match_pattern,
+                      bool) or match_pattern.lower() == 'true' or match_pattern.lower() == 'false':
             if isinstance(match_pattern, bool):
                 match_b = match_pattern
             else:
@@ -263,12 +258,14 @@ class _ElementKeywords(KeywordGroup):
         elif regexp:
             self._bi.should_match_regexp(attr_value, match_pattern,
                                          msg="Element '%s' attribute '%s' should have been '%s' "
-                                             "but it was '%s'." % (locator, attr_name, match_pattern, attr_value),
+                                             "but it was '%s'." % (
+                                             locator, attr_name, match_pattern, attr_value),
                                          values=False)
         else:
             self._bi.should_match(attr_value, match_pattern,
                                   msg="Element '%s' attribute '%s' should have been '%s' "
-                                      "but it was '%s'." % (locator, attr_name, match_pattern, attr_value),
+                                      "but it was '%s'." % (
+                                      locator, attr_name, match_pattern, attr_value),
                                   values=False)
         # if expected != elements[0].get_attribute(attr_name):
         #    raise AssertionError("Element '%s' attribute '%s' should have been '%s' "
@@ -286,11 +283,11 @@ class _ElementKeywords(KeywordGroup):
         New in AppiumLibrary 1.4.
         """
         self._info("Verifying element '%s' contains text '%s'."
-                    % (locator, expected))
+                   % (locator, expected))
         actual = self._get_text(locator)
         if not expected in actual:
             if not message:
-                message = "Element '%s' should have contained text '%s' but "\
+                message = "Element '%s' should have contained text '%s' but " \
                           "its text was '%s'." % (locator, expected, actual)
             raise AssertionError(message)
 
@@ -320,12 +317,12 @@ class _ElementKeywords(KeywordGroup):
         New in AppiumLibrary 1.4.
         """
         self._info("Verifying element '%s' contains exactly text '%s'."
-                    % (locator, expected))
+                   % (locator, expected))
         element = self._element_find(locator, True, True)
         actual = element.text
         if expected != actual:
             if not message:
-                message = "The text of element '%s' should have been '%s' but "\
+                message = "The text of element '%s' should have been '%s' but " \
                           "in fact it was '%s'." % (locator, expected, actual)
             raise AssertionError(message)
 
@@ -368,14 +365,16 @@ class _ElementKeywords(KeywordGroup):
         if ele_len == 0:
             raise AssertionError("Element '%s' could not be found" % locator)
         elif ele_len > 1:
-            self._info("CAUTION: '%s' matched %s elements - using the first element only" % (locator, len(elements)))
+            self._info("CAUTION: '%s' matched %s elements - using the first element only" % (
+            locator, len(elements)))
 
         try:
             attr_val = elements[0].get_attribute(attribute)
             self._info("Element '%s' attribute '%s' value '%s' " % (locator, attribute, attr_val))
             return attr_val
         except:
-            raise AssertionError("Attribute '%s' is not valid for element '%s'" % (attribute, locator))
+            raise AssertionError(
+                "Attribute '%s' is not valid for element '%s'" % (attribute, locator))
 
     def get_element_location(self, locator):
         """Get element location
@@ -459,8 +458,8 @@ class _ElementKeywords(KeywordGroup):
         actual_xpath_count = len(self._element_find("xpath=" + xpath, False, False))
         if int(actual_xpath_count) != int(count):
             if not error:
-                error = "Xpath %s should have matched %s times but matched %s times"\
-                            %(xpath, count, actual_xpath_count)
+                error = "Xpath %s should have matched %s times but matched %s times" \
+                        % (xpath, count, actual_xpath_count)
             self.log_source(loglevel)
             raise AssertionError(error)
         self._info("Current page contains %s elements matching '%s'."
@@ -550,7 +549,8 @@ class _ElementKeywords(KeywordGroup):
         try:
             element.send_keys(text)
         except Exception as e:
-            raise 'Cannot input text "%s" for the %s element "%s"' % (text, class_name, index_or_name)
+            raise 'Cannot input text "%s" for the %s element "%s"' % (
+            text, class_name, index_or_name)
 
     def _element_input_value_by_locator(self, locator, text):
         try:
@@ -561,13 +561,14 @@ class _ElementKeywords(KeywordGroup):
 
     def _element_find(self, locator, first_only, required, tag=None):
         application = self._current_application()
-        if isstr(locator):
+        if isinstance(locator, six.string_types):
             _locator = locator
             elements = self._element_finder.find(application, _locator, tag)
             if required and len(elements) == 0:
                 raise ValueError("Element locator '" + locator + "' did not match any elements.")
             if first_only:
-                if len(elements) == 0: return None
+                if len(elements) == 0:
+                    return None
                 return elements[0]
         elif isinstance(locator, WebElement):
             elements = locator
@@ -584,7 +585,8 @@ class _ElementKeywords(KeywordGroup):
                 if exact_match:
                     _xpath = u'//*[@value="{}" or @label="{}"]'.format(text, text)
                 else:
-                    _xpath = u'//*[contains(@label,"{}") or contains(@value, "{}")]'.format(text, text)
+                    _xpath = u'//*[contains(@label,"{}") or contains(@value, "{}")]'.format(text,
+                                                                                            text)
                 return self._element_find(_xpath, True, True)
         elif self._get_platform() == 'android':
             if exact_match:
@@ -608,10 +610,9 @@ class _ElementKeywords(KeywordGroup):
         application = self._current_application()
         elements = self._element_finder.find(application, locator, None)
         return len(elements) > 0
-        
+
     def _is_visible(self, locator):
         element = self._element_find(locator, True, False)
         if element is not None:
             return element.is_displayed()
         return None
-

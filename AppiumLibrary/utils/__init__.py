@@ -2,11 +2,9 @@ import six
 
 from .applicationcache import ApplicationCache
 
-if six.PY3:
-    unicode = str
 
 def escape_xpath_value(value):
-    value = unicode(value)
+    value = six.text_type(value)
     if '"' in value and '\'' in value:
         parts_wo_apos = value.split('\'')
         return "concat('%s')" % "', \"'\", '".join(parts_wo_apos)

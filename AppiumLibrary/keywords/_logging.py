@@ -45,13 +45,13 @@ class _LoggingKeywords(KeywordGroup):
 
     def _log(self, message, level='INFO'):
         level = level.upper()
-        if (level == 'INFO'):
+        if level == 'INFO':
             self._info(message)
-        elif (level == 'DEBUG'):
+        elif level == 'DEBUG':
             self._debug(message)
-        elif (level == 'WARN'):
+        elif level == 'WARN':
             self._warn(message)
-        elif (level == 'HTML'):
+        elif level == 'HTML':
             self._html(message)
 
     def _log_list(self, items, what='item'):
@@ -60,4 +60,3 @@ class _LoggingKeywords(KeywordGroup):
             msg.append('%d: %s' % (index+1, item))
         self._info('\n'.join(msg))
         return items
-

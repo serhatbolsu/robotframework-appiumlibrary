@@ -53,8 +53,7 @@ setup(name='robotframework-appiumlibrary',
           'pytest-cov >= 2.5.1',
           'pytest-xdist >= 1.16.0',
           'pytest-pythonpath >= 0.7.1',
-          'pytest >= 3.1.0',
-          'six >= 1.10.0'
+          'pytest >= 3.1.0'
       ],
       packages=find_packages(exclude=["demo", "docs", "tests", ]),
       include_package_data=True,
