@@ -83,11 +83,7 @@ class _TouchKeywords(KeywordGroup):
             self.swipe(x_start, y_start, x_offset, y_offset, duration)
             
     def swipe_by_direction(self, direction):
-        """swipe by given direction
-
-        Args: 
-         - direction - left, right, down, up
-        """
+        """ swipe by given direction: left, right, down, up. """
         driver = self._current_application()
         driver.execute_script("mobile: swipe", {"direction": direction})
 
