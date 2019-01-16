@@ -42,7 +42,7 @@ class _TouchKeywords(KeywordGroup):
         Usage:
         | Swipe | 500 | 100 | 100 | 0 | 1000 |
 
-        _*NOTE: *_ 
+        _*NOTE: *_
         Android 'Swipe' is not working properly, use ``offset_x`` and ``offset_y`` as if these are destination points.
         """
         driver = self._current_application()
@@ -50,7 +50,7 @@ class _TouchKeywords(KeywordGroup):
 
     def swipe_by_percent(self, start_x, start_y, end_x, end_y, duration=1000):
         """
-        Swipe from one percent of the screen to another percent, for an optional duration. 
+        Swipe from one percent of the screen to another percent, for an optional duration.
         Normal swipe fails to scale for different screen resolutions, this can be avoided using percent.
 
         Args:
@@ -59,13 +59,13 @@ class _TouchKeywords(KeywordGroup):
          - end_x - x-percent distance from start_x at which to stop
          - end_y - y-percent distance from start_y at which to stop
          - duration - (optional) time to take the swipe, in ms.
-         
+
         Usage:
         | Swipe By Percent | 90 | 50 | 10 | 50 | # Swipes screen from right to left. |
 
         _*NOTE: *_
         This also considers swipe acts different between iOS and Android.
-        
+
         New in AppiumLibrary 1.4.5
         """
         width = self.get_window_width()
@@ -109,8 +109,8 @@ class _TouchKeywords(KeywordGroup):
         """ Long press the element with optional duration """
         driver = self._current_application()
         element = self._element_find(locator, True, True)
-        long_press = TouchAction(driver).long_press(element, duration)
-        long_press.perform()
+        action = TouchAction(driver)
+        action.press(element).wait(duration).release().perform()
 
     def tap(self, locator, x_offset=None, y_offset=None, count=1):
         """ Tap element identified by ``locator``.
