@@ -164,7 +164,8 @@ class _AndroidUtilsKeywords(KeywordGroup):
         - _longitude_
         - _altitude_ = 10 [optional]
         
-        Android only
+        Android only.
+        New in AppiumLibrary 1.5
         """
         driver = self._current_application()
         driver.set_location(latitude,longitude,altitude)

@@ -39,7 +39,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
     def open_application(self, remote_url, alias=None, **kwargs):
         """Opens a new application to given Appium server.
         Capabilities of appium server, Android and iOS,
-        Please check http://appium.io/slate/en/master/?python#appium-server-capabilities
+        Please check https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/server-args.md
         | *Option*            | *Man.* | *Description*     |
         | remote_url          | Yes    | Appium server url |
         | alias               | no     | alias             |
@@ -186,6 +186,34 @@ class _ApplicationManagementKeywords(KeywordGroup):
             else:
                 return ''
 
+    def execute_script(self, script):
+        """
+        Inject a snippet of JavaScript into the page for execution in the
+        context of the currently selected frame (Web context only).
+
+        The executed script is assumed to be synchronous and the result
+        of evaluating the script is returned to the client.
+
+        New in AppiumLibrary 1.5
+        """
+        return self._current_application().execute_script(script)
+
+    def execute_async_script(self, script):
+        """
+        Inject a snippet of Async-JavaScript into the page for execution in the
+        context of the currently selected frame (Web context only).
+
+        The executed script is assumed to be asynchronous and must signal that is done by
+        invoking the provided callback, which is always provided as the final argument to the
+        function.
+
+        The value to this callback will be returned to the client.
+
+
+        New in AppiumLibrary 1.5
+        """
+        return self._current_application().execute_async_script(script)
+
     def go_back(self):
         """Goes one step backward in the browser history."""
         self._current_application().back()
@@ -202,6 +230,24 @@ class _ApplicationManagementKeywords(KeywordGroup):
         duration.
         """
         self._current_application().background_app(seconds)
+
+    def touch_id(self, match=True):
+        """
+        Simulate Touch ID on iOS Simulator
+
+        `match` (boolean) whether the simulated fingerprint is valid (default true)
+
+        New in AppiumLibrary 1.5
+        """
+        self._current_application().touch_id(match)
+
+    def toggle_touch_id_enrollment(self):
+        """
+        Toggle Touch ID enrolled state on iOS Simulator
+
+        New in AppiumLibrary 1.5
+        """
+        self._current_application().toggle_touch_id_enrollment()
 
     def shake(self):
         """

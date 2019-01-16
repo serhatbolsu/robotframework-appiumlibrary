@@ -1,5 +1,20 @@
 History
 =======
+1.5
+----------------
+- iOS predicates selector - new locator strategy
+- Execute Sync/Async Script in Web context - new keyword added
+- Long press has time parameter now
+- Added log-level filter for reporting
+- Set Location Keyword - new keyword added
+- Appium-Python library min-version bump
+- Simulate Touch ID on iOS Simulator
+
+1.4.6
+----------------
+- Launch Application - new keyword added
+- Quit Application - new keyword added
+
 1.4.5
 ----------------
 - Swipe By Percent - new keyword added
