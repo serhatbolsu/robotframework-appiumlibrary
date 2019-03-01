@@ -2,7 +2,7 @@
 
 import sys
 import inspect
-from future.utils import with_metaclass
+from six import with_metaclass
 try:
     from decorator import decorator
 except SyntaxError:  # decorator module requires Python/Jython 2.4+
