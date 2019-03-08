@@ -2,6 +2,7 @@
 
 import sys
 import inspect
+from six import with_metaclass
 try:
     from decorator import decorator
 except SyntaxError:  # decorator module requires Python/Jython 2.4+
@@ -29,5 +30,5 @@ class KeywordGroupMetaClass(type):
         return type.__new__(cls, clsname, bases, dict)
 
 
-class KeywordGroup(object):
-    __metaclass__ = KeywordGroupMetaClass
+class KeywordGroup(with_metaclass(KeywordGroupMetaClass, object)):
+    pass
