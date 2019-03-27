@@ -58,6 +58,7 @@ class AppiumLibrary(
     | class             | Click Element `|` class=UIAPickerWheel                         | Matches by class                  |                             |
     | android           | Click Element `|` android=UiSelector().description('Apps')     | Matches by Android UI Automator   |                             |
     | ios               | Click Element `|` ios=.buttons().withName('Apps')              | Matches by iOS UI Automation      |                             |
+    | nsp               | Click Element `|` nsp=name=="login"                            | Matches by iOSNsPredicate         | Check PR: #196              |
     | css               | Click Element `|` css=.green_button                            | Matches by css in webview         |                             |
     | name              | Click Element `|` name=my_element                              | Matches by @name attribute        | *Only valid* for Selendroid |
 
