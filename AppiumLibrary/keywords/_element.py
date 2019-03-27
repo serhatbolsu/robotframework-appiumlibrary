@@ -561,6 +561,7 @@ class _ElementKeywords(KeywordGroup):
 
     def _element_find(self, locator, first_only, required, tag=None):
         application = self._current_application()
+        elements = None
         if isstr(locator):
             _locator = locator
             elements = self._element_finder.find(application, _locator, tag)
@@ -570,7 +571,7 @@ class _ElementKeywords(KeywordGroup):
                 if len(elements) == 0: return None
                 return elements[0]
         elif isinstance(locator, WebElement):
-            elements = locator
+            elements = [locator]
         # do some other stuff here like deal with list of webelements
         # ... or raise locator/element specific error if required
         return elements
