@@ -572,7 +572,7 @@ class _ElementKeywords(KeywordGroup):
                 return elements[0]
         elif isinstance(locator, WebElement):
             if first_only:
-                return elements[0]
+                return locator
             else:
                 elements = [locator]
         # do some other stuff here like deal with list of webelements
