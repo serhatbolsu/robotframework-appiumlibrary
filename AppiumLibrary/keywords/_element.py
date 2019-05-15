@@ -571,7 +571,10 @@ class _ElementKeywords(KeywordGroup):
                 if len(elements) == 0: return None
                 return elements[0]
         elif isinstance(locator, WebElement):
-            elements = [locator]
+            if first_only:
+                return locator
+            else:
+                elements = [locator]
         # do some other stuff here like deal with list of webelements
         # ... or raise locator/element specific error if required
         return elements
