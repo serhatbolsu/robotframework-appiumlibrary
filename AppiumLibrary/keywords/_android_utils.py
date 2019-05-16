@@ -100,7 +100,7 @@ class _AndroidUtilsKeywords(KeywordGroup):
         - _intentCategory_ - Intent category to start (optional).
         - _intentFlags_ - Flags to send to the intent (optional).
         - _optionalIntentArguments_ - Optional arguments to the intent (optional).
-        - _stopAppOnReset_ - Should the app be stopped on reset (optional)?
+        - _dontStopAppOnReset_ - Should the app be stopped on reset (optional)?
 
         """
 
@@ -115,7 +115,7 @@ class _AndroidUtilsKeywords(KeywordGroup):
             'intent_category': 'intentCategory',
             'intent_flags': 'intentFlags',
             'optional_intent_arguments': 'optionalIntentArguments',
-            'stop_app_on_reset': 'stopAppOnReset'
+            'dont_stop_app_on_reset': 'dontStopAppOnReset'
         }
 
         data = {}
