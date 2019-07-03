@@ -43,6 +43,9 @@ class _ScreenshotKeywords(KeywordGroup):
         if not filename:
             self._screenshot_index += 1
             filename = 'appium-screenshot-%d.png' % self._screenshot_index
+        elif "<counter>" in filename:
+            self._screenshot_index += 1
+            filename = filename.replace("<counter>", str(self._screenshot_index))
         else:
             filename = filename.replace('/', os.sep)
         logdir = self._get_log_dir()
