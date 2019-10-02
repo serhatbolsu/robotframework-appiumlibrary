@@ -214,6 +214,15 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         return self._current_application().execute_async_script(script)
 
+    def execute_adb_shell(self, command, *args):
+        """
+        Execute Adb shell
+        """
+        return self._current_application().execute_script('mobile: shell', {
+            'command': command,
+            'args': list(args)
+        })
+        
     def go_back(self):
         """Goes one step backward in the browser history."""
         self._current_application().back()
