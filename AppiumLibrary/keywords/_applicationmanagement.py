@@ -216,7 +216,16 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def execute_adb_shell(self, command, *args):
         """
-        Execute Adb shell
+        Execute ADB shell commands
+
+        Android only.
+
+        - _command_ - The ABD shell command
+        - _args_ - Arguments to send to command
+
+        Returns the exit code of ADB shell.
+
+        Requires server flag --relaxed-security to be set.
         """
         return self._current_application().execute_script('mobile: shell', {
             'command': command,
