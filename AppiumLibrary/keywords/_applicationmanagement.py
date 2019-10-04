@@ -225,7 +225,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
         Returns the exit code of ADB shell.
 
-        Requires server flag --relaxed-security to be set.
+        Requires server flag --relaxed-security to be set on Appium server.
         """
         return self._current_application().execute_script('mobile: shell', {
             'command': command,
