@@ -342,6 +342,36 @@ class _ApplicationManagementKeywords(KeywordGroup):
             raise e
         return capability
 
+    def get_window_handles(self):
+        """Return all current window handles as a list.
+
+        WebViews Only
+
+        Note:Hybrid Native app should be built in debug mode
+
+        Example:
+        | ${window_handles}       | Get Window Handles |
+
+        """
+        print(self._current_application().window_handles)
+        return self._current_application().window_handles
+
+    def select_window(self, window_handle):
+        """ Select Window based on window_handle
+        Returns Previous Window Handle
+        WebViews Only
+
+        Note:Hybrid Native app should be built in debug mode
+
+        Example:
+        | ${window_handles}       | Get Window Handles |
+        | ${prev_handle}          | Select Window       |     @{window_handles}[1]  |
+
+        """
+        current_handle = self._current_application().current_window_handle
+        self._current_application().switch_to.window(window_handle)
+        return current_handle
+    
     # Private
 
     def _current_application(self):
