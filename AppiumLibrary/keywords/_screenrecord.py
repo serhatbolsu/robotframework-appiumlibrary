@@ -73,17 +73,16 @@ class _ScreenrecordKeywords(KeywordGroup):
         return path
 
     def _set_output_format(self):
-        return 'ffmpeg' if self._is_ios() else 'mp4'
+        return '.ffmpeg' if self._is_ios() else '.mp4'
 
     def _get_screenrecord_paths(self, filename=None):
         if filename is None:
             self._screenrecord_index += 1
-            filename = 'appium-screenrecord-{index}.{ext}'.format(index=self._screenrecord_index,
+            filename = 'appium-screenrecord-{index}{ext}'.format(index=self._screenrecord_index,
                                                                   ext=self._output_format
                                                                   )
         else:
-            filename = filename.replace('/', os.sep)
-            filename += self._output_format
+            filename = (filename.replace('/', os.sep)) + self._output_format
         logdir = self._get_log_dir()
         path = os.path.join(logdir, filename)
         link = robot.utils.get_link_path(path, logdir)
