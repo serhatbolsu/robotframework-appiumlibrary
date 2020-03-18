@@ -93,6 +93,32 @@ class _TouchKeywords(KeywordGroup):
         driver = self._current_application()
         driver.scroll(el1, el2)
 
+    def scroll_by_uiautomator(self, scroll_strategy, scrollable_view, scroll_to_locator):
+        """ Scroll to element using uiautomator
+        https://stackoverflow.com/questions/49486263/how-to-scroll-android-app-with-appium-by-python-client
+        
+        Args:
+         - scroll_strategy - "0" for using text, "1" for using resource-id
+         - scrollable_view - resource-id of the scrollable list
+         - scroll_to_locator - resource-id of the destination element 
+
+        Usage Example:
+        | Scroll By Uiautomator | 0 | app.co.foo:id/scroll_view | Produk Rekomendasi | # Scroll down and up until element contains text "Produk Rekomendasi" found |
+        | Scroll By Uiautomator | 1 | app.co.foo:id/scroll_view | app.co.foo:id/button1 | # Scroll down and up until element with resource-id "app.co.foo:id/button1" found |
+        """
+        
+        # get the webdriver
+        driver = self._current_application()
+
+        # choose strategy and start scrolling
+        if scroll_strategy == '0':
+            driver.find_element_by_android_uiautomator('new UiScrollable(new UiSelector().resourceId("' + scrollable_view + '")).scrollIntoView(new UiSelector().textContains("' + scroll_to_locator + '"))')
+        elif scroll_strategy == '1':
+            driver.find_element_by_android_uiautomator('new UiScrollable(new UiSelector().resourceId("' + scrollable_view + '")).scrollIntoView(new UiSelector().resourceId("' + scroll_to_locator + '"))')
+        else:
+            raise ValueError("Invalid strategy. Valid strategies are '0' for text and '1' for resource-id")
+
+
     def scroll_down(self, locator):
         """Scrolls down to element"""
         driver = self._current_application()
