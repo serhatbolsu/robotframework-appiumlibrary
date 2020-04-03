@@ -93,30 +93,94 @@ class _TouchKeywords(KeywordGroup):
         driver = self._current_application()
         driver.scroll(el1, el2)
 
-    def scroll_by_uiautomator(self, scroll_strategy, scrollable_view, scroll_to_locator):
-        """ Scroll to element using uiautomator
+    def _generate_xpath_for_uiautomator(self, xpathtext):
+        print ">>> Generating XPath for UIAutomator... "
+
+        # 1. get class name
+        divider = xpathtext.find('[')
+        className = xpathtext[:divider]
+        className = className.replace('//','')
+
+        # 2. get property name
+        divider = xpathtext.find('@')
+        propName = xpathtext[divider+1:]
+        divider = propName.find(',')
+        propName = propName[:divider]
+
+        # 3. get property value
+        divider = xpathtext.find("'")
+        propValue = xpathtext[divider+1:]
+        divider = propValue.find("'")
+        propValue = propValue[:divider]
+
+        print ">>> Generating XPath for UIAutomator completed."
+        return className, propName, propValue 
+
+    def scroll_by_uiautomator(self, scroll_strategy, scrollTo_xpath_or_text, scrollView_xpath):        
+        """ 
+        Scroll to element using UIAutomator  |  Author: thekucays
         https://stackoverflow.com/questions/49486263/how-to-scroll-android-app-with-appium-by-python-client
-        
+
         Args:
-         - scroll_strategy - "0" for using text, "1" for using resource-id
-         - scrollable_view - resource-id of the scrollable list
-         - scroll_to_locator - resource-id of the destination element 
+         - scroll_strategy - "0" for Quick Mode, "1" for Normal Mode
+         - scrollTo_xpath_or_text - element destination's xpath OR text, depending on scroll_strategy chosen
+         - scrollView_xpath - xpath for scrollable element 
 
         Usage Example:
-        | Scroll By Uiautomator | 0 | app.co.foo:id/scroll_view | Produk Rekomendasi | # Scroll down and up until element contains text "Produk Rekomendasi" found |
-        | Scroll By Uiautomator | 1 | app.co.foo:id/scroll_view | app.co.foo:id/button1 | # Scroll down and up until element with resource-id "app.co.foo:id/button1" found |
+        | Scroll By Uiautomator | 0 | Produk Rekomendasi | //android.widget.ScrollView[contains(@resource-id,'id.co.foo.prod:id/scroll_view')] | # Scroll down and up until element contains text "Produk Rekomendasi" found |
+        | Scroll By Uiautomator | 1 | //android.widget.Button[contains(@resource-id,'id.co.foo.prod:id/bt_submit')] | //android.widget.ScrollView[contains(@resource-id,'id.co.foo.prod:id/scroll_view')] | # Scroll down and up until element with that XPath found |
+        
         """
         
         # get the webdriver
         driver = self._current_application()
 
+        # convert xpath string to 3 arrays 
+        # eg: 
+        # from: //android.widget.FrameLayout[contains(@resource-id,'id.co.foo.prod:id/nav_account')]
+        # to: android.widget.FrameLayout | resource-id | id.co.foo.prod:id/nav_account
+        if scroll_strategy == '1':
+            (scrollTo_class, scrollTo_prop, scrollTo_prop_value) = self._generate_xpath_for_uiautomator(scrollTo_xpath_or_text)
+        (scrollable_class, scrollable_prop, scrollable_prop_value) = self._generate_xpath_for_uiautomator(scrollView_xpath) 
+
+
+        # check if scrollable_prop and scrollTo_prop has dash on it. Convert them if any 
+        # eg: "resource-id" to "resourceId", "long-clickable" to "longClickable" 
+        dashIndexScrollableProp = scrollable_prop.find('-')
+        dashIndexScrollToProp = scrollTo_prop.find('-')
+
+        if dashIndexScrollableProp >= 0:
+            # convert to Uppercase for character NEXT TO dashIndex
+            charToUpper = scrollable_prop[dashIndexScrollableProp+1]
+            charToUpper = charToUpper.upper()
+            scrollable_prop = scrollable_prop[:dashIndexScrollableProp+1] + charToUpper + scrollable_prop[dashIndexScrollableProp+2:]
+            # print text[:3]        # text sebelum index nya
+            # print text[3:]        # text sesudah index nya, include dia nya
+
+            # remove dash "-"
+            scrollable_prop = scrollable_prop.replace('-','')
+        
+        if dashIndexScrollToProp >= 0:
+            # convert to Uppercase for character NEXT TO dashIndex
+            charToUpper = scrollTo_prop[dashIndexScrollToProp+1]
+            charToUpper = charToUpper.upper()
+            scrollTo_prop = scrollTo_prop[:dashIndexScrollToProp+1] + charToUpper + scrollTo_prop[dashIndexScrollToProp+2:]
+
+            # remove dash "-"
+            scrollTo_prop = scrollTo_prop.replace('-','')
+
+
         # choose strategy and start scrolling
         if scroll_strategy == '0':
-            driver.find_element_by_android_uiautomator('new UiScrollable(new UiSelector().resourceId("' + scrollable_view + '")).scrollIntoView(new UiSelector().textContains("' + scroll_to_locator + '"))')
+            print ">>> Scrolling with Quick Mode"
+            driver.find_element_by_android_uiautomator('new UiScrollable(new UiSelector().className("' + scrollable_class + '").' + scrollable_prop + '("' + scrollable_prop_value + '")).scrollIntoView(new UiSelector().textContains("' + scrollTo_xpath_or_text + '"))')
+            print ">>> Scrolling with Quick Mode finished"
         elif scroll_strategy == '1':
-            driver.find_element_by_android_uiautomator('new UiScrollable(new UiSelector().resourceId("' + scrollable_view + '")).scrollIntoView(new UiSelector().resourceId("' + scroll_to_locator + '"))')
+            print ">>> Scrolling with Normal Mode"
+            driver.find_element_by_android_uiautomator('new UiScrollable(new UiSelector().className("' + scrollable_class + '").' + scrollable_prop + '("' + scrollable_prop_value + '")).scrollIntoView(new UiSelector().className("' + scrollTo_class +  '").' + scrollTo_prop + '("' + scrollTo_prop_value + '"))')
+            print ">>> Scrolling with Normal Mode finished"
         else:
-            raise ValueError("Invalid strategy. Valid strategies are '0' for text and '1' for resource-id")
+            raise ValueError("Invalid strategy. Valid strategies are 0 or 1. Please read the doc")
 
 
     def scroll_down(self, locator):
