@@ -147,7 +147,6 @@ class _TouchKeywords(KeywordGroup):
         # check if scrollable_prop and scrollTo_prop has dash on it. Convert them if any 
         # eg: "resource-id" to "resourceId", "long-clickable" to "longClickable" 
         dashIndexScrollableProp = scrollable_prop.find('-')
-        dashIndexScrollToProp = scrollTo_prop.find('-')
 
         if dashIndexScrollableProp >= 0:
             # convert to Uppercase for character NEXT TO dashIndex
@@ -160,14 +159,16 @@ class _TouchKeywords(KeywordGroup):
             # remove dash "-"
             scrollable_prop = scrollable_prop.replace('-','')
         
-        if dashIndexScrollToProp >= 0:
-            # convert to Uppercase for character NEXT TO dashIndex
-            charToUpper = scrollTo_prop[dashIndexScrollToProp+1]
-            charToUpper = charToUpper.upper()
-            scrollTo_prop = scrollTo_prop[:dashIndexScrollToProp+1] + charToUpper + scrollTo_prop[dashIndexScrollToProp+2:]
+        if scroll_strategy == '1':
+            dashIndexScrollToProp = scrollTo_prop.find('-')
+            if dashIndexScrollToProp >= 0:
+                # convert to Uppercase for character NEXT TO dashIndex
+                charToUpper = scrollTo_prop[dashIndexScrollToProp+1]
+                charToUpper = charToUpper.upper()
+                scrollTo_prop = scrollTo_prop[:dashIndexScrollToProp+1] + charToUpper + scrollTo_prop[dashIndexScrollToProp+2:]
 
-            # remove dash "-"
-            scrollTo_prop = scrollTo_prop.replace('-','')
+                # remove dash "-"
+                scrollTo_prop = scrollTo_prop.replace('-','')
 
 
         # choose strategy and start scrolling
