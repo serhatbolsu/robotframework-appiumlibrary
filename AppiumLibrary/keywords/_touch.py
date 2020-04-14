@@ -4,6 +4,7 @@ from appium.webdriver.common.touch_action import TouchAction
 
 from AppiumLibrary.locators import ElementFinder
 from .keywordgroup import KeywordGroup
+import time
 
 
 class _TouchKeywords(KeywordGroup):
@@ -116,6 +117,29 @@ class _TouchKeywords(KeywordGroup):
         print ">>> Generating XPath for UIAutomator completed."
         return className, propName, propValue 
 
+    def swipe_until_element_visible(self, x_start, y_start, x_end, y_end, locator, scroll_limit=50):
+        """
+        Swipes the device until element visible/found.
+
+        The default scroll limit before the scroll stops is 50. 
+        To override this, use "scroll_limit" argument at the end of keyword issuing
+
+
+        Author: thekucays
+
+        """
+
+        if not self._is_element_present(locator):
+            for x in range(scroll_limit):
+                self.swipe(x_start, y_start, x_end, y_end, 1000)
+                time.sleep(0.7)
+                present = self._is_element_present(locator)
+                if present:
+                    print ">>> ELEMENT " + locator + " FOUND."
+                    break
+        else:
+            print ">>> Element Already Visible. Exit directly.."
+
     def scroll_by_uiautomator(self, scroll_strategy, scrollTo_xpath_or_text, scrollView_xpath):        
         """ 
         Scroll to element using UIAutomator  |  Author: thekucays
@@ -172,13 +196,81 @@ class _TouchKeywords(KeywordGroup):
 
 
         # choose strategy and start scrolling
+        scrollScript = 'new UiScrollable(new UiSelector().className("' + scrollable_class + '").' + scrollable_prop
+        scrollForward = '.scrollForward(1)'
+
         if scroll_strategy == '0':
-            print ">>> Scrolling with Quick Mode"
-            driver.find_element_by_android_uiautomator('new UiScrollable(new UiSelector().className("' + scrollable_class + '").' + scrollable_prop + '("' + scrollable_prop_value + '")).scrollIntoView(new UiSelector().textContains("' + scrollTo_xpath_or_text + '"))')
+            print ">>> Scrolling with Quick Mode" 
+            if scrollable_prop_value.isdigit():
+                scrollScript += '(' + scrollable_prop_value + '))'
+            else:
+                scrollScript += '("' + scrollable_prop_value + '"))' 
+
+            # try to scroll, if element not found, scroll forward once, then try repeat once again
+            defaultScroll = '.setMaxSearchSwipes(20).scrollIntoView(new UiSelector().textContains("' + scrollTo_xpath_or_text + '"))'
+            try:
+                time.sleep(2)
+                driver.find_element_by_android_uiautomator(scrollScript + defaultScroll)
+            except:
+                print ">>> GOT ERROR, NOT SCROLLING. TRY TO SCROLL FORWARD FIRST"
+                # driver.find_element_by_android_uiautomator(scrollScript + scrollForward)
+                x_start = float(self.get_window_width()/2)
+                y_start = float(self.get_window_height()/2)
+                x_end = x_start
+                y_end = y_start - 1000
+                self.swipe(x_start, y_start, x_end, y_end, 1000)
+                print ">>> SCROLL FORWARD DONE."
+                time.sleep(2)
+
+                # check if element is already found accidentially by the scroll hack
+                # CARITAU DULU INI RETURN NYA SI ELEMENT FIND APA KALO KETEMU SAMA ENGGA KETEMU, buat bikin if nya
+                # TERLEBIH INI NGE THROW ERROR APA ENGGA, KALO IYA, JANGAN TARUH IF, TARUH TRY EXCEPT
+                isVisibleAlready = self._element_find(scrollTo_xpath_or_text, True, True)
+                # if !isVisibleAlready:
+                    # y_end = y_start + 100
+                    # self.swipe(x_start, y_start, x_end, y_end, 1000)
+                    # driver.find_element_by_android_uiautomator(scrollScript + defaultScroll)
+
             print ">>> Scrolling with Quick Mode finished"
+
+
         elif scroll_strategy == '1':
             print ">>> Scrolling with Normal Mode"
-            driver.find_element_by_android_uiautomator('new UiScrollable(new UiSelector().className("' + scrollable_class + '").' + scrollable_prop + '("' + scrollable_prop_value + '")).scrollIntoView(new UiSelector().className("' + scrollTo_class +  '").' + scrollTo_prop + '("' + scrollTo_prop_value + '"))')
+            # driver.find_element_by_android_uiautomator('new UiScrollable(new UiSelector().className("' + scrollable_class + '").' + scrollable_prop + '("' + scrollable_prop_value + '")).scrollIntoView(new UiSelector().className("' + scrollTo_class +  '").' + scrollTo_prop + '("' + scrollTo_prop_value + '"))')
+            if scrollable_prop_value.isdigit():
+                scrollScript += '(' + scrollable_prop_value + '))'
+            else:
+                scrollScript += '("' + scrollable_prop_value + '"))'
+
+
+            scrollScriptTemp = ''
+            try:
+                defaultScroll = '.scrollIntoView(new UiSelector().className("' + scrollTo_class +  '").' + scrollTo_prop
+                if scrollTo_prop_value.isdigit():
+                    scrollScriptTemp = scrollScript + defaultScroll + '(' + scrollTo_prop_value + '))'
+                else:
+                    scrollScriptTemp = scrollScript + defaultScroll + '("' + scrollTo_prop_value + '"))'
+
+                time.sleep(2)
+                driver.find_element_by_android_uiautomator(scrollScriptTemp)
+            except:
+                print ">>> GOT ERROR, NOT SCROLLING OR SCROLL BUG OCCURED. TRY TO SCROLL FORWARD FIRST"
+                # driver.find_element_by_android_uiautomator(scrollScript + scrollForward)
+                # driver.find_element_by_android_uiautomator('new UiScrollable(new UiSelector().className("' + scrollable_class + '").scrollForward(1)')
+
+                x_start = float(self.get_window_width()/2)
+                y_start = float(self.get_window_height()/2)
+                x_end = x_start
+                y_end = y_start - 1000
+                self.swipe(x_start, y_start, x_end, y_end, 1000)
+                time.sleep(2)
+                
+                # y_end = y_start + 100
+                # self.swipe(x_start, y_start, x_end, y_end, 1000)
+
+                print ">>> SCROLL FORWARD DONE. RE-ATTEMPT TO SCROLLING"
+                driver.find_element_by_android_uiautomator(scrollScriptTemp)
+
             print ">>> Scrolling with Normal Mode finished"
         else:
             raise ValueError("Invalid strategy. Valid strategies are 0 or 1. Please read the doc")
