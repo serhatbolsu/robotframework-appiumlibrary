@@ -129,10 +129,14 @@ class _TouchKeywords(KeywordGroup):
 
         """
 
+        # always swipe once first
+        print ">>> Swiping once first"
+        self.swipe(x_start, y_start, x_end, y_end, 1000)
+
         if not self._is_element_present(locator):
             for x in range(scroll_limit):
                 self.swipe(x_start, y_start, x_end, y_end, 1000)
-                time.sleep(0.7)
+                time.sleep(1)
                 present = self._is_element_present(locator)
                 if present:
                     print ">>> ELEMENT " + locator + " FOUND."
