@@ -94,6 +94,13 @@ class _ElementKeywords(KeywordGroup):
         driver = self._current_application()
         driver.hide_keyboard(key_name)
 
+    def is_keyboard_shown(self):
+        """Return true if Android keyboard is displayed or False if not displayed
+        No parameters are used.
+        """
+        driver = self._current_application()
+        return driver.is_keyboard_shown()
+
     def page_should_contain_text(self, text, loglevel='INFO'):
         """Verifies that current page contains `text`.
 
@@ -170,10 +177,10 @@ class _ElementKeywords(KeywordGroup):
 
     def element_should_be_visible(self, locator, loglevel='INFO'):
         """Verifies that element identified with locator is visible.
-        
+
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
-        
+
         New in AppiumLibrary 1.4.5
         """
         if not self._element_find(locator, True, True).is_displayed():
@@ -612,10 +619,9 @@ class _ElementKeywords(KeywordGroup):
         application = self._current_application()
         elements = self._element_finder.find(application, locator, None)
         return len(elements) > 0
-        
+
     def _is_visible(self, locator):
         element = self._element_find(locator, True, False)
         if element is not None:
             return element.is_displayed()
         return None
-
