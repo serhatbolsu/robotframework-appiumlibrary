@@ -62,7 +62,10 @@ class AppiumLibrary(
     | nsp               | Click Element `|` nsp=name=="login"                            | Matches by iOSNsPredicate         | Check PR: #196              |
     | css               | Click Element `|` css=.green_button                            | Matches by css in webview         |                             |
     | name              | Click Element `|` name=my_element                              | Matches by @name attribute        | *Only valid* for Selendroid |
+    | chain             | Click Element `|` chain=XCUIElementTypeWindow                  | Matches by iOS Class Chain        |                             |
 
+    [https://github.com/facebookarchive/WebDriverAgent/wiki/Class-Chain-Queries-Construction-Rules|More info for iOS class chain]
+    
     == Using webelements ==
 
     Starting with version 1.4 of the AppiumLibrary, one can pass an argument

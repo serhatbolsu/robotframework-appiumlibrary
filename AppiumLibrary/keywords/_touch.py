@@ -94,16 +94,28 @@ class _TouchKeywords(KeywordGroup):
         driver.scroll(el1, el2)
 
     def scroll_down(self, locator):
-        """Scrolls down to element"""
+        """Scrolls down to element. iOS only."""
         driver = self._current_application()
         element = self._element_find(locator, True, True)
         driver.execute_script("mobile: scroll", {"direction": 'down', 'element': element.id})
 
     def scroll_up(self, locator):
-        """Scrolls up to element"""
+        """Scrolls up to element. iOS only."""
         driver = self._current_application()
         element = self._element_find(locator, True, True)
         driver.execute_script("mobile: scroll", {"direction": 'up', 'element': element.id})
+        
+    def swipe_left(self, locator):
+        """Swipe right to left at element. iOS only."""
+        driver = self._current_application()
+        element = self._element_find(locator, True, True)
+        driver.execute_script("mobile: swipe", {"direction": 'left', 'element': element.id})
+        
+    def swipe_right(self, locator):
+        """Swipe left to right at element. iOS only."""
+        driver = self._current_application()
+        element = self._element_find(locator, True, True)
+        driver.execute_script("mobile: swipe", {"direction": 'right', 'element': element.id})
 
     def long_press(self, locator, duration=1000):
         """ Long press the element with optional duration """
