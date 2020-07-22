@@ -10,6 +10,7 @@ class ElementFinder(object):
         self._strategies = {
             'identifier': self._find_by_identifier,
             'id': self._find_by_id,
+            'imagef': self._find_by_image,
             'name': self._find_by_name,
             'xpath': self._find_by_xpath,
             'class': self._find_by_class_name,
@@ -117,6 +118,12 @@ class ElementFinder(object):
         """Find element matches by  iOSChainString."""
         return self._filter_elements(
             browser.find_elements_by_ios_class_chain(criteria),
+            tag, constraints)
+
+    def _find_by_image(self, browser, criteria, tag, constraints):
+        """Find element matches by image file."""
+        return self._filter_elements(
+            browser.find_elements_by_image(criteria),
             tag, constraints)
 
     def _find_by_default(self, browser, criteria, tag, constraints):
