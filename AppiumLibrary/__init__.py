@@ -62,6 +62,8 @@ class AppiumLibrary(
     | nsp               | Click Element `|` nsp=name=="login"                            | Matches by iOSNsPredicate         | Check PR: #196              |
     | css               | Click Element `|` css=.green_button                            | Matches by css in webview         |                             |
     | name              | Click Element `|` name=my_element                              | Matches by @name attribute        | *Only valid* for Selendroid |
+    | imagef            | Click Element `|` imagef=path/to/image/file                    | Matches by image                  | Only Available for NATIVE  \
+                                                                                                                               Context - Check PR: #291    |
 
     == Using webelements ==
 
