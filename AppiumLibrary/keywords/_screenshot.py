@@ -36,6 +36,7 @@ class _ScreenshotKeywords(KeywordGroup):
         # Image is shown on its own row and thus prev row is closed on purpose
         self._html('</td></tr><tr><td colspan="3"><a href="%s">'
                    '<img src="%s" width="800px"></a>' % (link, link))
+        return path
 
     # Private
 
