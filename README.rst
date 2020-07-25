@@ -62,12 +62,13 @@ Usage
 
 To write tests with Robot Framework and AppiumLibrary, 
 AppiumLibrary must be imported into your RF test suite.
-See `Robot Framework User Guide <https://code.google.com/p/robotframework/wiki/UserGuide>`_ 
+See `Robot Framework User Guide <https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html>`_
 for more information.
 
 As it uses Appium make sure your Appium server is up and running.
-For how to use Appium please refer to `Appium Documentation <http://appium.io/getting-started.html>`_
+For how to use Appium please refer to `Appium Documentation <http://appium.io/docs/en/about-appium/getting-started/>`_
 
+Boilerplate A
 
 Contributing
 -------------
