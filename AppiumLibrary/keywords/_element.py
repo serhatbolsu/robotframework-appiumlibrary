@@ -523,7 +523,7 @@ class _ElementKeywords(KeywordGroup):
         return platform_class_dict.get(self._get_platform())
 
     def _is_support_platform(self, platform_class_dict):
-        return platform_class_dict.has_key(self._get_platform())
+        return self._get_platform() in platform_class_dict
 
     def _click_element_by_class_name(self, class_name, index_or_name):
         element = self._find_element_by_class_name(class_name, index_or_name)
