@@ -60,6 +60,7 @@ class AppiumLibrary(
     | android           | Click Element `|` android=UiSelector().description('Apps')     | Matches by Android UI Automator   |                             |
     | ios               | Click Element `|` ios=.buttons().withName('Apps')              | Matches by iOS UI Automation      |                             |
     | nsp               | Click Element `|` nsp=name=="login"                            | Matches by iOSNsPredicate         | Check PR: #196              |
+    | chain             | Click Element `|` chain=XCUIElementTypeWindow[1]/*             | Matches by iOS Class Chain        |                             |
     | css               | Click Element `|` css=.green_button                            | Matches by css in webview         |                             |
     | name              | Click Element `|` name=my_element                              | Matches by @name attribute        | *Only valid* for Selendroid |
     | imagef            | Click Element `|` imagef=path/to/image/file                    | Matches by image                  | Only Available for NATIVE  \
