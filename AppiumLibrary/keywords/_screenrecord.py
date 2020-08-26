@@ -99,7 +99,7 @@ class _ScreenrecordKeywords(KeywordGroup):
             raise RuntimeError("There is no Active Screen Record Session.")
 
     def _save_recording(self, filename, options):
-        path, link = self._get_screenrecord_paths(filename, options)
+        path, link = self._get_screenrecord_paths(options, filename)
         decoded = base64.b64decode(self._recording)
         with open(path, 'wb') as screenrecording:
             screenrecording.write(decoded)
