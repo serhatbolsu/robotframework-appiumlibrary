@@ -45,8 +45,12 @@ class _TouchKeywords(KeywordGroup):
         _*NOTE: *_
         Android 'Swipe' is not working properly, use ``offset_x`` and ``offset_y`` as if these are destination points.
         """
+        x_start = int(start_x)
+        x_offset = int(offset_x)
+        y_start = int(start_y)
+        y_offset = int(offset_y)
         driver = self._current_application()
-        driver.swipe(start_x, start_y, offset_x, offset_y, duration)
+        driver.swipe(x_start, y_start, x_offset, y_offset, duration)
 
     def swipe_by_percent(self, start_x, start_y, end_x, end_y, duration=1000):
         """
