@@ -124,6 +124,18 @@ class _TouchKeywords(KeywordGroup):
         el = self._element_find(locator, True, True)
         action = TouchAction(driver)
         action.tap(el,x_offset,y_offset, count).perform()
+        
+    def tap_with_number_of_taps(self, locator, number_of_taps, number_of_touches):
+        """ Sends one or more taps with one or more touch points.
+        
+        Args:
+        - ``number_of_taps`` - The number of taps.
+        - ``number_of_touches`` - The number of touch points.
+        """
+        driver = self._current_application()
+        element = self._element_find(locator, True, True)
+        params = {'element': element, 'numberOfTaps': number_of_taps, 'numberOfTouches': number_of_touches}
+        driver.execute_script("mobile: tapWithNumberOfTaps", params)
 
     def click_a_point(self, x=0, y=0, duration=100):
         """ Click on a point"""
