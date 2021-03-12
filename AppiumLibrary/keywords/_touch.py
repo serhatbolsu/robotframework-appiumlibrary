@@ -118,7 +118,6 @@ class _TouchKeywords(KeywordGroup):
 
     def tap(self, locator, x_offset=None, y_offset=None, count=1):
         """ Tap element identified by ``locator``. 
-        ocator - (mandatory). Taps coordinates when set to ${None}.
 
         Args:
         - ``locator `` - (mandatory). Taps coordinates when set to ${None}.
