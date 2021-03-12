@@ -120,7 +120,7 @@ class _TouchKeywords(KeywordGroup):
         """ Tap element identified by ``locator``. 
 
         Args:
-        - ``locator `` - (mandatory). Taps coordinates when set to ${None}.
+        - ``locator`` - (mandatory). Taps coordinates when set to ${None}.
         - ``x_offset`` - (optional) x coordinate to tap, relative to the top left corner of the element.
         - ``y_offset`` - (optional) y coordinate. If y is used, x must also be set, and vice versa
         - ``count`` - can be used for multiple times of tap on that element
