@@ -117,9 +117,11 @@ class _TouchKeywords(KeywordGroup):
         action.press(element).wait(duration).release().perform()
 
     def tap(self, locator, x_offset=None, y_offset=None, count=1):
-        """ Taps coordinates when locator is set to ${None}.
+        """ Tap element identified by ``locator``. 
+        ocator - (mandatory). Taps coordinates when set to ${None}.
 
         Args:
+        - ``locator `` - (mandatory). Taps coordinates when set to ${None}.
         - ``x_offset`` - (optional) x coordinate to tap, relative to the top left corner of the element.
         - ``y_offset`` - (optional) y coordinate. If y is used, x must also be set, and vice versa
         - ``count`` - can be used for multiple times of tap on that element
