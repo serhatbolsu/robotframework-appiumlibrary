@@ -298,9 +298,9 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """Get current device height.
 
         Example:
-        | ${width}       | Get Window Height |
+        | ${width}       | Get Window Width |
         | ${height}      | Get Window Height |
-        | Click A Point  | ${width           | ${height} |
+        | Click A Point  | ${width}         | ${height} |
 
         New in AppiumLibrary 1.4.5
         """
@@ -310,9 +310,9 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """Get current device width.
 
         Example:
-        | ${width}       | Get Window Height |
+        | ${width}       | Get Window Width |
         | ${height}      | Get Window Height |
-        | Click A Point  | ${width           | ${height} |
+        | Click A Point  | ${width}          | ${height} |
 
         New in AppiumLibrary 1.4.5
         """
