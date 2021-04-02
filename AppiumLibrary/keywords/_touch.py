@@ -126,7 +126,7 @@ class _TouchKeywords(KeywordGroup):
         action.tap(el,x_offset,y_offset, count).perform()
         
     def tap_with_number_of_taps(self, locator, number_of_taps, number_of_touches):
-        """ Sends one or more taps with one or more touch points.
+        """ Sends one or more taps with one or more touch points.iOS only.
         
         Args:
         - ``number_of_taps`` - The number of taps.
