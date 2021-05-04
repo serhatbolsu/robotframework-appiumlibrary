@@ -1,5 +1,16 @@
 History
 =======
+1.6
+----------------
+- Sample code
+- Documentation update on how to start
+- Execute Adb Shell - new keyword added
+- Screen record - new keyword added
+- Is Keyboard Shown - new keyword added
+- (iOS) Chain - locator added
+- (iOS) Tab multiple times - new keyword added
+- (Android) Open Notifications - new keyword added
+
 1.5
 ----------------
 - iOS predicates selector - new locator strategy
