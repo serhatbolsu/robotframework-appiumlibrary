@@ -125,7 +125,12 @@ class _WaitingKeywords(KeywordGroup):
         old_sleep = self._sleep_between_wait
         self._sleep_between_wait = robot.utils.timestr_to_secs(seconds)
         return old_sleep
-        
+    
+    def get_sleep_between_wait(self):
+        """Gets the sleep between wait loop in seconds that is used by wait until keywords.
+        """
+        return robot.utils.secs_to_timestr(self._sleep_between_wait)
+    
     # Private
 
     def _wait_until(self, timeout, error, function, *args):
