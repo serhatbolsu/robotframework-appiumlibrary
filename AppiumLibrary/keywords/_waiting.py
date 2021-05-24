@@ -115,10 +115,10 @@ class _WaitingKeywords(KeywordGroup):
 
         self._wait_until_no_error(timeout, check_present)
 
-    def set_sleep_between_wait(self, seconds=0.2):
+    def set_sleep_between_wait_loop(self, seconds=0.2):
         """Sets the sleep in seconds used by wait until loop.
         
-        If you use the remote appium server, the default value is not recommend because 
+        If you use the remote appium server, the default value is not recommended because 
         it is another 200ms overhead to the network latency and will slow down your test
         execution.
         """
@@ -126,7 +126,7 @@ class _WaitingKeywords(KeywordGroup):
         self._sleep_between_wait = robot.utils.timestr_to_secs(seconds)
         return old_sleep
     
-    def get_sleep_between_wait(self):
+    def get_sleep_between_wait_loop(self):
         """Gets the sleep between wait loop in seconds that is used by wait until keywords.
         """
         return robot.utils.secs_to_timestr(self._sleep_between_wait)
