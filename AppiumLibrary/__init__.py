@@ -79,7 +79,7 @@ class AppiumLibrary(
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
     ROBOT_LIBRARY_VERSION = VERSION
 
-    def __init__(self, timeout=5, run_on_failure='Capture Page Screenshot'):
+    def __init__(self, timeout=5, run_on_failure='Capture Page Screenshot', sleep_between_wait_loop=0.2):
         """AppiumLibrary can be imported with optional arguments.
 
         ``timeout`` is the default timeout used to wait for all waiting actions.
@@ -92,12 +92,16 @@ class AppiumLibrary(
         Using the value `No Operation` will disable this feature altogether. See
         `Register Keyword To Run On Failure` keyword for more information about this
         functionality.
+        
+        ``sleep_between_wait_loop`` is the default sleep used to wait between loop in all wait until keywords
 
         Examples:
         | Library | AppiumLibrary | 10 | # Sets default timeout to 10 seconds                                                                             |
         | Library | AppiumLibrary | timeout=10 | run_on_failure=No Operation | # Sets default timeout to 10 seconds and does nothing on failure           |
+        | Library | AppiumLibrary | timeout=10 | sleep_between_wait_loop=0.3 | # Sets default timeout to 10 seconds and sleep 300 ms between wait loop    |
         """
         for base in AppiumLibrary.__bases__:
             base.__init__(self)
         self.set_appium_timeout(timeout)
         self.register_keyword_to_run_on_failure(run_on_failure)
+        self.set_sleep_between_wait_loop(sleep_between_wait_loop)
