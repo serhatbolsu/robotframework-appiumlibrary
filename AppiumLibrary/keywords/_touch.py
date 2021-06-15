@@ -158,3 +158,11 @@ class _TouchKeywords(KeywordGroup):
         driver = self._current_application()
         action = TouchAction(driver)
         action.press(x=coordinate_X, y=coordinate_Y).release().perform()
+
+    def type_text(self, locator, text):
+        """Types text into an element"""
+        driver = self._current_application()
+        el = self._element_find(locator, True, True)
+        action = TouchAction(driver)
+        action.tap(el).perform()
+        driver.execute_script("mobile: type", {"text": text})
