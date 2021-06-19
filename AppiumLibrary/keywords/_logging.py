@@ -33,8 +33,7 @@ class _LoggingKeywords(KeywordGroup):
             logger.warn(message)
 
     def _html(self, message):
-        if self._log_level in self.LOG_LEVEL_INFO:
-            logger.info(message, True, False)
+        logger.info(message, True, False)
 
     def _get_log_dir(self):
         variables = BuiltIn().get_variables()
