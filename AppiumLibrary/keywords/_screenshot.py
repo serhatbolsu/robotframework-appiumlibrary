@@ -23,7 +23,7 @@ class _ScreenshotKeywords(KeywordGroup):
         given in absolute format.
 
         `css` can be used to modify how the screenshot is taken. By default
-        the bakground color is changed to avoid possible problems with
+        the background color is changed to avoid possible problems with
         background leaking when the page layout is somehow broken.
         """
         path, link = self._get_screenshot_paths(filename)
