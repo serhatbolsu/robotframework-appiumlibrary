@@ -101,13 +101,13 @@ class _TouchKeywords(KeywordGroup):
         """Scrolls down to element"""
         driver = self._current_application()
         element = self._element_find(locator, True, True)
-        driver.execute_script("mobile: scroll", {"direction": 'down', 'element': element.id})
+        driver.execute_script("mobile: scroll", {"direction": 'down', 'elementid': element.id})
 
     def scroll_up(self, locator):
         """Scrolls up to element"""
         driver = self._current_application()
         element = self._element_find(locator, True, True)
-        driver.execute_script("mobile: scroll", {"direction": 'up', 'element': element.id})
+        driver.execute_script("mobile: scroll", {"direction": 'up', 'elementid': element.id})
 
     def long_press(self, locator, duration=1000):
         """ Long press the element with optional duration """
