@@ -366,6 +366,21 @@ class _ElementKeywords(KeywordGroup):
         self._current_application().execute_script(script, element)
         return element
 
+    def get_webelement_in_webelement(self, element, locator):
+            # def _element_find(self, locator, first_only, required, tag=None):
+        elements = None
+        if isstr(locator):
+            _locator = locator
+            elements = self._element_finder.find(element, _locator, None)
+            if len(elements) == 0:
+                raise ValueError("Element locator '" + locator + "' did not match any elements.")
+            if len(elements) == 0: 
+                return None
+            return elements[0]
+        elif isinstance(locator, WebElement):
+            return locator
+
+
     def get_webelements(self, locator):
         """Returns list of [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement] objects matching ``locator``.
 
