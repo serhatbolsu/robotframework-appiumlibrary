@@ -231,7 +231,27 @@ class _ApplicationManagementKeywords(KeywordGroup):
             'command': command,
             'args': list(args)
         })
-        
+
+    def execute_adb_shell_timeout(self, command, timeout, *args):
+        """
+        Execute ADB shell commands
+
+        Android only.
+
+        - _command_ - The ABD shell command
+        - _timeout_ - Timeout to be applied to command
+        - _args_ - Arguments to send to command
+
+        Returns the exit code of ADB shell.
+
+        Requires server flag --relaxed-security to be set on Appium server.
+        """
+        return self._current_application().execute_script('mobile: shell', {
+            'command': command,
+            'args': list(args),
+            'timeout': timeout
+        })
+
     def go_back(self):
         """Goes one step backward in the browser history."""
         self._current_application().back()
