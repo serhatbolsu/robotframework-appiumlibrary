@@ -347,6 +347,25 @@ class _ElementKeywords(KeywordGroup):
         """
         return self._element_find(locator, True, True)
 
+    def scroll_element_into_view(self, locator):
+        """Scrolls an element from given ``locator`` into view.
+        Arguments:
+        - ``locator``: The locator to find requested element. Key attributes for
+                       arbitrary elements are ``id`` and ``name``. See `introduction` for
+                       details about locating elements.
+        Examples:
+        | Scroll Element Into View | css=div.class |
+        """
+        if isinstance(locator, WebElement):
+            element = locator
+        else:
+            self._info("Scrolling element '%s' into view." % locator)
+            element = self._element_find(locator, True, True)
+        script = 'arguments[0].scrollIntoView()'
+        # pylint: disable=no-member
+        self._current_application().execute_script(script, element)
+        return element
+
     def get_webelements(self, locator):
         """Returns list of [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement] objects matching ``locator``.
 
