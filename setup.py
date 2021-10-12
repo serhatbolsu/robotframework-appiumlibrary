@@ -37,7 +37,7 @@ setup(name='robotframework-appiumlibrary',
           'robotframework >= 2.6.0',
           'docutils >= 0.8.1',
           'Appium-Python-Client >= 1.1.0',
-          'selenium >= 2.47.1, < 4',
+          'selenium >= 2.47.1',
           'kitchen >= 1.2.4',
           'six >= 1.10.0'
       ],
