@@ -367,7 +367,13 @@ class _ElementKeywords(KeywordGroup):
         return element
 
     def get_webelement_in_webelement(self, element, locator):
-            # def _element_find(self, locator, first_only, required, tag=None):
+        """ 
+        Returns a single [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement] 
+        objects matching ``locator`` that is a child of argument element.
+
+        This is useful when your HTML doesn't properly have id or name elements on all elements.
+        So the user can find an element with a tag and then serach that elmements children.
+        """
         elements = None
         if isstr(locator):
             _locator = locator
