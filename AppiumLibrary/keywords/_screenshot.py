@@ -4,6 +4,7 @@ import os
 import robot
 from .keywordgroup import KeywordGroup
 
+EMBED = "EMBED"
 
 class _ScreenshotKeywords(KeywordGroup):
 
@@ -22,21 +23,30 @@ class _ScreenshotKeywords(KeywordGroup):
         also considered relative to the same directory, if it is not
         given in absolute format.
 
+        If `filename` equals to EMBED (case insensitive), then screenshot is
+        embedded as Base64 image to the log.html.
+        In this case no file is created in the filesystem.
+
         `css` can be used to modify how the screenshot is taken. By default
         the background color is changed to avoid possible problems with
         background leaking when the page layout is somehow broken.
         """
-        path, link = self._get_screenshot_paths(filename)
-
-        if hasattr(self._current_application(), 'get_screenshot_as_file'):
-            self._current_application().get_screenshot_as_file(path)
+        if filename and filename.casefold() == EMBED.casefold():
+            base64_screenshot = self._current_application().get_screenshot_as_base64()
+            self._html('</td></tr><tr><td colspan="3">'
+                       '<img src="data:image/png;base64, %s" width="800px">' % base64_screenshot)
         else:
-            self._current_application().save_screenshot(path)
+            path, link = self._get_screenshot_paths(filename)
 
-        # Image is shown on its own row and thus prev row is closed on purpose
-        self._html('</td></tr><tr><td colspan="3"><a href="%s">'
-                   '<img src="%s" width="800px"></a>' % (link, link))
-        return path
+            if hasattr(self._current_application(), 'get_screenshot_as_file'):
+                self._current_application().get_screenshot_as_file(path)
+            else:
+                self._current_application().save_screenshot(path)
+
+            # Image is shown on its own row and thus prev row is closed on purpose
+            self._html('</td></tr><tr><td colspan="3"><a href="%s">'
+                       '<img src="%s" width="800px"></a>' % (link, link))
+            return path
 
     # Private
 
