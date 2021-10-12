@@ -372,7 +372,7 @@ class _ElementKeywords(KeywordGroup):
         objects matching ``locator`` that is a child of argument element.
 
         This is useful when your HTML doesn't properly have id or name elements on all elements.
-        So the user can find an element with a tag and then serach that elmements children.
+        So the user can find an element with a tag and then search that elmements children.
         """
         elements = None
         if isstr(locator):
@@ -385,21 +385,6 @@ class _ElementKeywords(KeywordGroup):
             return elements[0]
         elif isinstance(locator, WebElement):
             return locator
-
-    def get_webelements_no_error(self, locator):
-        """Returns list of [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement] objects matching ``locator``.
-
-        Example:
-        | @{elements}    | Get Webelements | id=my_element |
-        | Click Element  | @{elements}[2]  |               |
-
-        This keyword was changed in AppiumLibrary 1.4 in following ways:
-        - Name is changed from `Get Elements` to current one.
-        - Deprecated argument ``fail_on_error``, use `Run Keyword and Ignore Error` if necessary.
-
-        New in AppiumLibrary 1.4.
-        """
-        return self._element_find(locator, False, False)
 
     def get_webelements(self, locator):
         """Returns list of [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement] objects matching ``locator``.
