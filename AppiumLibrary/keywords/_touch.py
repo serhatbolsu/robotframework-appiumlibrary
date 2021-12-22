@@ -45,8 +45,12 @@ class _TouchKeywords(KeywordGroup):
         _*NOTE: *_
         Android 'Swipe' is not working properly, use ``offset_x`` and ``offset_y`` as if these are destination points.
         """
+        x_start = int(start_x)
+        x_offset = int(offset_x)
+        y_start = int(start_y)
+        y_offset = int(offset_y)
         driver = self._current_application()
-        driver.swipe(start_x, start_y, offset_x, offset_y, duration)
+        driver.swipe(x_start, y_start, x_offset, y_offset, duration)
 
     def swipe_by_percent(self, start_x, start_y, end_x, end_y, duration=1000):
         """
@@ -97,13 +101,13 @@ class _TouchKeywords(KeywordGroup):
         """Scrolls down to element"""
         driver = self._current_application()
         element = self._element_find(locator, True, True)
-        driver.execute_script("mobile: scroll", {"direction": 'down', 'element': element.id})
+        driver.execute_script("mobile: scroll", {"direction": 'down', 'elementid': element.id})
 
     def scroll_up(self, locator):
         """Scrolls up to element"""
         driver = self._current_application()
         element = self._element_find(locator, True, True)
-        driver.execute_script("mobile: scroll", {"direction": 'up', 'element': element.id})
+        driver.execute_script("mobile: scroll", {"direction": 'up', 'elementid': element.id})
 
     def long_press(self, locator, duration=1000):
         """ Long press the element with optional duration """
@@ -113,9 +117,10 @@ class _TouchKeywords(KeywordGroup):
         action.press(element).wait(duration).release().perform()
 
     def tap(self, locator, x_offset=None, y_offset=None, count=1):
-        """ Tap element identified by ``locator``.
+        """ Tap element identified by ``locator``. 
 
         Args:
+        - ``locator`` - (mandatory). Taps coordinates when set to ${None}.
         - ``x_offset`` - (optional) x coordinate to tap, relative to the top left corner of the element.
         - ``y_offset`` - (optional) y coordinate. If y is used, x must also be set, and vice versa
         - ``count`` - can be used for multiple times of tap on that element
@@ -124,6 +129,18 @@ class _TouchKeywords(KeywordGroup):
         el = self._element_find(locator, True, True)
         action = TouchAction(driver)
         action.tap(el,x_offset,y_offset, count).perform()
+        
+    def tap_with_number_of_taps(self, locator, number_of_taps, number_of_touches):
+        """ Sends one or more taps with one or more touch points.iOS only.
+        
+        Args:
+        - ``number_of_taps`` - The number of taps.
+        - ``number_of_touches`` - The number of touch points.
+        """
+        driver = self._current_application()
+        element = self._element_find(locator, True, True)
+        params = {'element': element, 'numberOfTaps': number_of_taps, 'numberOfTouches': number_of_touches}
+        driver.execute_script("mobile: tapWithNumberOfTaps", params)
 
     def click_a_point(self, x=0, y=0, duration=100):
         """ Click on a point"""

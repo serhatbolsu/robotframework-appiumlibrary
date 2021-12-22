@@ -231,7 +231,27 @@ class _ApplicationManagementKeywords(KeywordGroup):
             'command': command,
             'args': list(args)
         })
-        
+
+    def execute_adb_shell_timeout(self, command, timeout, *args):
+        """
+        Execute ADB shell commands
+
+        Android only.
+
+        - _command_ - The ABD shell command
+        - _timeout_ - Timeout to be applied to command
+        - _args_ - Arguments to send to command
+
+        Returns the exit code of ADB shell.
+
+        Requires server flag --relaxed-security to be set on Appium server.
+        """
+        return self._current_application().execute_script('mobile: shell', {
+            'command': command,
+            'args': list(args),
+            'timeout': timeout
+        })
+
     def go_back(self):
         """Goes one step backward in the browser history."""
         self._current_application().back()
@@ -298,9 +318,9 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """Get current device height.
 
         Example:
-        | ${width}       | Get Window Height |
+        | ${width}       | Get Window Width |
         | ${height}      | Get Window Height |
-        | Click A Point  | ${width           | ${height} |
+        | Click A Point  | ${width}         | ${height} |
 
         New in AppiumLibrary 1.4.5
         """
@@ -310,9 +330,9 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """Get current device width.
 
         Example:
-        | ${width}       | Get Window Height |
+        | ${width}       | Get Window Width |
         | ${height}      | Get Window Height |
-        | Click A Point  | ${width           | ${height} |
+        | Click A Point  | ${width}          | ${height} |
 
         New in AppiumLibrary 1.4.5
         """
@@ -321,6 +341,24 @@ class _ApplicationManagementKeywords(KeywordGroup):
     def switch_to_context(self, context_name):
         """Switch to a new context"""
         self._current_application().switch_to.context(context_name)
+        
+    def switch_to_frame(self, frame):
+        """
+        Switches focus to the specified frame, by index, name, or webelement.
+
+        Example:
+        | Go To Url | http://www.xxx.com |
+        | Switch To Frame  | iframe_name|
+        | Click Element | xpath=//*[@id="online-btn"] |
+        """
+        self._current_application().switch_to.frame(frame)
+        
+    def switch_to_parent_frame(self):
+        """
+        Switches focus to the parent context. If the current context is the top
+        level browsing context, the context remains unchanged.
+        """
+        self._current_application().switch_to.parent_frame()
 
     def go_to_url(self, url):
         """

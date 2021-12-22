@@ -8,6 +8,14 @@ from kitchen.text.converters import to_bytes
 class _AndroidUtilsKeywords(KeywordGroup):
 
     # Public
+    def open_notifications(self):
+        """Opens and expands an Android device's notification drawer.
+
+        Android only.
+        """
+        driver = self._current_application()
+        driver.open_notifications()
+        
     def get_network_connection_status(self):
         """Returns an integer bitmask specifying the network connection type.
 
