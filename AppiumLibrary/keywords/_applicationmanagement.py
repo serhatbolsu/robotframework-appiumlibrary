@@ -360,6 +360,13 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         self._current_application().switch_to.parent_frame()
 
+    def switch_to_window(self, window_name):
+        """
+        Switch to a new webview window if the application contains multiple webviews
+        """
+        self._current_application().switch_to.window(window_name)
+
+
     def go_to_url(self, url):
         """
         Opens URL in default web browser.
@@ -379,6 +386,21 @@ class _ApplicationManagementKeywords(KeywordGroup):
         except Exception as e:
             raise e
         return capability
+
+    def get_window_title(self):
+        """Get the current Webview window title."""
+        return self._current_application().title
+
+    def get_window_url(self):
+        """Get the current Webview window URL."""
+        return self._current_application().current_url
+
+
+    def get_windows(self):
+        """Get available Webview windows."""
+        print(self._current_application().window_handles)
+        return self._current_application().window_handles
+
 
     # Private
 
