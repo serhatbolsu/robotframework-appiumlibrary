@@ -29,8 +29,12 @@ class _ElementKeywords(KeywordGroup):
 
         See `introduction` for details about locating elements.
         """
-        self._info("Clear text field '%s'" % locator)
-        self._element_clear_text_by_locator(locator)
+        if locator is None:
+            self._info("Clear text field")
+            self._element_clear_text()
+        else:
+            self._info("Clear text field '%s'" % locator)
+            self._element_clear_text_by_locator(locator)
 
     def click_element(self, locator):
         """Click element identified by `locator`.
@@ -66,8 +70,12 @@ class _ElementKeywords(KeywordGroup):
 
         See `introduction` for details about locating elements.
         """
-        self._info("Typing text '%s' into text field '%s'" % (text, locator))
-        self._element_input_text_by_locator(locator, text)
+        if locator is None:
+            self._info("Typing text '%s' if keyboard is visible" % text)
+            self._element_active_input_text(text)
+        else:
+            self._info("Typing text '%s' into text field '%s'" % (text, locator))
+            self._element_input_text_by_locator(locator, text)
 
     def input_password(self, locator, text):
         """Types the given password into text field identified by `locator`.
@@ -76,8 +84,12 @@ class _ElementKeywords(KeywordGroup):
         does not log the given password. See `introduction` for details about
         locating elements.
         """
-        self._info("Typing password into text field '%s'" % locator)
-        self._element_input_text_by_locator(locator, text)
+        if locator is None:
+            self._info("Typing password if keyboard is visible")
+            self._element_active_input_text(text)
+        else:
+            self._info("Typing password into text field '%s'" % locator)
+            self._element_input_text_by_locator(locator, text)
 
     def input_value(self, locator, text):
         """Sets the given value into text field identified by `locator`. This is an IOS only keyword, input value makes use of set_value
@@ -579,9 +591,27 @@ class _ElementKeywords(KeywordGroup):
         except Exception as e:
             raise e
 
+    def _element_clear_text(self):
+        try:
+            self._wait_keyboard()
+            driver = self._current_application()
+            element = driver.switch_to.active_element
+            element.clear()
+        except Exception as e:
+            raise e
+
     def _element_input_text_by_locator(self, locator, text):
         try:
             element = self._element_find(locator, True, True)
+            element.send_keys(text)
+        except Exception as e:
+            raise e
+
+    def _element_active_input_text(self, text):
+        try:
+            self._wait_keyboard()
+            driver = self._current_application()
+            element = driver.switch_to.active_element
             element.send_keys(text)
         except Exception as e:
             raise e
@@ -650,9 +680,8 @@ class _ElementKeywords(KeywordGroup):
         return None
 
     def _is_text_present(self, text):
-        text_norm = normalize('NFD', text)
-        source_norm = normalize('NFD', self.get_source())
-        return text_norm in source_norm
+        application = self._current_application()
+        return self._element_finder.find_text(application, text)
 
     def _is_element_present(self, locator):
         application = self._current_application()
@@ -664,3 +693,9 @@ class _ElementKeywords(KeywordGroup):
         if element is not None:
             return element.is_displayed()
         return None
+
+    def _wait_keyboard(self):
+        # wait keyboard
+        self._bi.wait_until_keyword_succeeds(
+            '5 times', '50ms', self.is_keyboard_shown.__name__
+        )

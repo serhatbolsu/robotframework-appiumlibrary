@@ -50,3 +50,5 @@ run.sh
 .eggs/
 .cache/
 venv*/
+
+.DS_Store
