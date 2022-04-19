@@ -50,7 +50,10 @@ class _TouchKeywords(KeywordGroup):
         y_start = int(start_y)
         y_offset = int(offset_y)
         driver = self._current_application()
+        try:
         driver.swipe(x_start, y_start, x_offset, y_offset, duration)
+        except:
+            print("caught exception ...")
 
     def swipe_by_percent(self, start_x, start_y, end_x, end_y, duration=1000):
         """
@@ -101,20 +104,26 @@ class _TouchKeywords(KeywordGroup):
         """Scrolls down to element"""
         driver = self._current_application()
         element = self._element_find(locator, True, True)
-        driver.execute_script("mobile: scroll", {"direction": 'down', 'elementid': element.id})
+        driver.execute_script("mobile: scroll", {"direction": 'down', 'elementId': element.id})
 
     def scroll_up(self, locator):
         """Scrolls up to element"""
         driver = self._current_application()
         element = self._element_find(locator, True, True)
-        driver.execute_script("mobile: scroll", {"direction": 'up', 'elementid': element.id})
+        driver.execute_script("mobile: scroll", {"direction": 'up', 'elementId': element.id})
 
     def long_press(self, locator, duration=1000):
         """ Long press the element with optional duration """
         driver = self._current_application()
         element = self._element_find(locator, True, True)
         action = TouchAction(driver)
+        #
+        # modified: added try / catch
+        #
+        try:
         action.press(element).wait(duration).release().perform()
+        except:
+            print("caught exception ...")
 
     def tap(self, locator, x_offset=None, y_offset=None, count=1):
         """ Tap element identified by ``locator``. 
@@ -128,7 +137,13 @@ class _TouchKeywords(KeywordGroup):
         driver = self._current_application()
         el = self._element_find(locator, True, True)
         action = TouchAction(driver)
+        #
+        # modified: added try / catch
+        #
+        try:
         action.tap(el,x_offset,y_offset, count).perform()
+        except:
+            print("caught exception ...")
         
     def tap_with_number_of_taps(self, locator, number_of_taps, number_of_touches):
         """ Sends one or more taps with one or more touch points.iOS only.
@@ -157,4 +172,10 @@ class _TouchKeywords(KeywordGroup):
         self._info("Pressing at (%s, %s)." % (coordinate_X, coordinate_Y))
         driver = self._current_application()
         action = TouchAction(driver)
+        #
+        # modified: added try / catch
+        #
+        try:
         action.press(x=coordinate_X, y=coordinate_Y).release().perform()
+        except:
+            print("caught exception ...")
