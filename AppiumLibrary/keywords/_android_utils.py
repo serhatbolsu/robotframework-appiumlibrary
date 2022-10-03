@@ -85,6 +85,24 @@ class _AndroidUtilsKeywords(KeywordGroup):
             data = base64.b64encode(data)
         driver.push_file(path, data)
 
+    def delete_file(self, path, timeout=5000, include_stderr=True):
+        """Delete the file specified as `path`.
+
+        Android only.
+
+         - _path_ - the path on the device
+         - _timeout_ - delete command timeout
+         - _includeStderr_ - whether exception will be thrown if the command's
+                            return code is not zero
+        """
+        driver = self._current_application()
+        driver.execute_script('mobile: shell', {
+            'command': 'rm',
+            'args': [path],
+            'includeStderr': include_stderr,
+            'timeout': timeout
+        })
+
     def get_activity(self):
         """Retrieves the current activity on the device.
 
