@@ -116,6 +116,24 @@ class _TouchKeywords(KeywordGroup):
         action = TouchAction(driver)
         action.press(element).wait(duration).release().perform()
 
+    def tap_point(self, x, y, timeout=5000, include_stderr=True):
+        """Sends tap to point (`x`, `y`).
+
+        Android only.
+         - x - x coordinate to tap
+         - y - y coordinate to tap
+         - _timeout_ - tap command timeout
+         - _includeStderr_ - whether exception will be thrown if the command's
+                            return code is not zero
+        """
+        driver = self._current_application()
+        driver.execute_script('mobile: shell', {
+            'command': 'input tap',
+            'args': [x, y],
+            'includeStderr': include_stderr,
+            'timeout': timeout
+        })
+
     def tap(self, locator, x_offset=None, y_offset=None, count=1):
         """ Tap element identified by ``locator``. 
 
