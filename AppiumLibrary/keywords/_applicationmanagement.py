@@ -269,6 +269,12 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         self._current_application().background_app(seconds)
 
+    def activate_app(self, app_id):
+        """
+        Activate the given app onto the device
+        """
+        self._current_application().activate_app(app_id)
+
     def touch_id(self, match=True):
         """
         Simulate Touch ID on iOS Simulator
