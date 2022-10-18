@@ -269,6 +269,19 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         self._current_application().background_app(seconds)
 
+    def stop_app(self, app_id, timeout=5000, include_stderr=True):
+        """
+        Stop the given app on the device
+
+        Android only.
+        """
+        self._current_application().execute_script('mobile: shell', {
+            'command': 'am force-stop',
+            'args': [app_id],
+            'includeStderr': include_stderr,
+            'timeout': timeout
+        })
+
     def touch_id(self, match=True):
         """
         Simulate Touch ID on iOS Simulator
