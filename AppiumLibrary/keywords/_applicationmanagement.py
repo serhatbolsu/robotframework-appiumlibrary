@@ -268,6 +268,12 @@ class _ApplicationManagementKeywords(KeywordGroup):
         duration.
         """
         self._current_application().background_app(seconds)
+        
+    def remove_app(self, app_id):
+        """
+        Remove an app from the device
+        """
+        self._current_application().remove_app(app_id)
 
     def touch_id(self, match=True):
         """
