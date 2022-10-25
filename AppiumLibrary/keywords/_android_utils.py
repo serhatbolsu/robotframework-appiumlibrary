@@ -82,7 +82,7 @@ class _AndroidUtilsKeywords(KeywordGroup):
         driver = self._current_application()
         data = to_bytes(data)
         if encode:
-            data = base64.b64encode(data)
+            data = base64.b64encode(data).decode('utf-8')
         driver.push_file(path, data)
 
     def get_activity(self):
