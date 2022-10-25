@@ -82,7 +82,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         return old_index
 
     def launch_application(self):
-        """*DEPRECATED!!* Since selenium v4, use `Activate Application` keyword.
+        """*DEPRECATED!!* in selenium v4, use `Activate Application` keyword.
 
         Launch application. Application can be launched while Appium session running.
         This keyword can be used to launch application during test case or between test cases.
@@ -108,7 +108,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         driver.launch_app()
 
     def quit_application(self):
-        """ *DEPRECATED!!* Since selenium v4, check `Close Application` keyword.
+        """*DEPRECATED!!* in selenium v4, check `Close Application` keyword.
 
         Close application. Application can be quit while Appium session is kept alive.
         This keyword can be used to close application during test case or between test cases.
@@ -120,7 +120,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         driver.close_app()
 
     def reset_application(self):
-        """ *DEPRECATED!!* Since selenium v4, check `Terminate Application` keyword.
+        """*DEPRECATED!!* in selenium v4, check `Terminate Application` keyword.
 
         Reset application. Open Application can be reset while Appium session is kept alive.
         """
@@ -265,6 +265,13 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         self._current_application().lock(robot.utils.timestr_to_secs(seconds))
 
+    def background_app(self, seconds=5):
+        """*DEPRECATED!!*  use  `Background Application` instead.
+        Puts the application in the background on the device for a certain
+        duration.
+        """
+        self._current_application().background_app(seconds)
+
     def background_application(self, seconds=5):
         """
         Puts the application in the background on the device for a certain
@@ -272,7 +279,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         self._current_application().background_app(seconds)
         
-    def remove_app(self, app_id):
+    def remove_application(self, app_id):
         """
         Remove an app from the device
         """
@@ -300,7 +307,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         return self._current_application().terminate_app(app_id)
 
 
-    def stop_app(self, app_id, timeout=5000, include_stderr=True):
+    def stop_application(self, app_id, timeout=5000, include_stderr=True):
         """
         Stop the given app on the device
 

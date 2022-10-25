@@ -6,6 +6,8 @@ History
 - Deprecate launch_application, quit_application, reset_application according to Appium Python Client
 - Rename `Activate App` to `Activate Application` for consistency
 - Rename `Background App` to `Background Application` for consistency
+- Rename `Stop App` to `Stop Application` for consistency
+- Rename `Remove App` to `Remove Application` for consistency
 - Added `Terminate Application`
 
 1.6.4
