@@ -282,6 +282,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
     def remove_application(self, app_id):
         """
         Remove an app from the device
+
+        New in AppiumLibrary v2
         """
         self._current_application().remove_app(app_id)
 
@@ -311,7 +313,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         Stop the given app on the device
 
-        Android only.
+        Android only. New in AppiumLibrary v2
         """
         self._current_application().execute_script('mobile: shell', {
             'command': 'am force-stop',

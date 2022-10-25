@@ -1,6 +1,6 @@
 History
 =======
-1.6.9
+2.0.0
 ----------------
 - Deprecate the TouchAction keywords
 - Deprecate launch_application, quit_application, reset_application according to Appium Python Client
