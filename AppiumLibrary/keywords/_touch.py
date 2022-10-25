@@ -110,14 +110,18 @@ class _TouchKeywords(KeywordGroup):
         driver.execute_script("mobile: scroll", {"direction": 'up', 'elementid': element.id})
 
     def long_press(self, locator, duration=1000):
-        """ Long press the element with optional duration """
+        """*DEPRECATED!!* Since selenium v4, use other keywords.
+
+        Long press the element with optional duration """
         driver = self._current_application()
         element = self._element_find(locator, True, True)
         action = TouchAction(driver)
         action.press(element).wait(duration).release().perform()
 
     def tap(self, locator, x_offset=None, y_offset=None, count=1):
-        """ Tap element identified by ``locator``. 
+        """*DEPRECATED!!* Since selenium v4, use other keywords.
+
+        Tap element identified by ``locator``.
 
         Args:
         - ``locator`` - (mandatory). Taps coordinates when set to ${None}.
@@ -143,7 +147,9 @@ class _TouchKeywords(KeywordGroup):
         driver.execute_script("mobile: tapWithNumberOfTaps", params)
 
     def click_a_point(self, x=0, y=0, duration=100):
-        """ Click on a point"""
+        """*DEPRECATED!!* Since selenium v4, use other keywords.
+
+        Click on a point"""
         self._info("Clicking on a point (%s,%s)." % (x,y))
         driver = self._current_application()
         action = TouchAction(driver)
@@ -153,7 +159,9 @@ class _TouchKeywords(KeywordGroup):
             assert False, "Can't click on a point at (%s,%s)" % (x,y)
 
     def click_element_at_coordinates(self, coordinate_X, coordinate_Y):
-        """ click element at a certain coordinate """
+        """*DEPRECATED!!* Since selenium v4, use other keywords.
+
+        click element at a certain coordinate """
         self._info("Pressing at (%s, %s)." % (coordinate_X, coordinate_Y))
         driver = self._current_application()
         action = TouchAction(driver)

@@ -1,5 +1,13 @@
 History
 =======
+1.6.9
+----------------
+- Deprecate the TouchAction keywords
+- Deprecate launch_application, quit_application, reset_application according to Appium Python Client
+- Rename `Activate App` to `Activate Application` for consistency
+- Rename `Background App` to `Background Application` for consistency
+- Added `Terminate Application`
+
 1.6.4
 ----------------
 - Added Activate App, Remove App(Android), Stop App thx @js361014

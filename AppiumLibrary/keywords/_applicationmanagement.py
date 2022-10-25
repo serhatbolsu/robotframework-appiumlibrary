@@ -82,7 +82,9 @@ class _ApplicationManagementKeywords(KeywordGroup):
         return old_index
 
     def launch_application(self):
-        """ Launch application. Application can be launched while Appium session running.
+        """*DEPRECATED!!* Since selenium v4, use `Activate Application` keyword.
+
+        Launch application. Application can be launched while Appium session running.
         This keyword can be used to launch application during test case or between test cases.
 
         This keyword works while `Open Application` has a test running. This is good practice to `Launch Application`
@@ -101,25 +103,26 @@ class _ApplicationManagementKeywords(KeywordGroup):
         |  | Close Application |
 
         See `Quit Application` for quiting application but keeping Appium sesion running.
-
-        New in AppiumLibrary 1.4.6
         """
         driver = self._current_application()
         driver.launch_app()
 
     def quit_application(self):
-        """ Quit application. Application can be quit while Appium session is kept alive.
+        """ *DEPRECATED!!* Since selenium v4, check `Close Application` keyword.
+
+        Close application. Application can be quit while Appium session is kept alive.
         This keyword can be used to close application during test case or between test cases.
 
         See `Launch Application` for an explanation.
 
-        New in AppiumLibrary 1.4.6
         """
         driver = self._current_application()
         driver.close_app()
 
     def reset_application(self):
-        """ Reset application. Open Application can be reset while Appium session is kept alive.
+        """ *DEPRECATED!!* Since selenium v4, check `Terminate Application` keyword.
+
+        Reset application. Open Application can be reset while Appium session is kept alive.
         """
         driver = self._current_application()
         driver.reset()
@@ -262,7 +265,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         self._current_application().lock(robot.utils.timestr_to_secs(seconds))
 
-    def background_app(self, seconds=5):
+    def background_application(self, seconds=5):
         """
         Puts the application in the background on the device for a certain
         duration.
@@ -275,11 +278,27 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         self._current_application().remove_app(app_id)
 
-    def activate_app(self, app_id):
+    def activate_application(self, app_id):
         """
-        Activate the given app onto the device
+        Activates the application if it is not running or is running in the background.
+        Args:
+         - app_id - BundleId for iOS. Package name for Android.
+
+        New in AppiumLibrary v2
         """
         self._current_application().activate_app(app_id)
+
+    def terminate_application(self, app_id):
+        """
+        Terminate the given app on the device
+
+        Args:
+         - app_id - BundleId for iOS. Package name for Android.
+
+        New in AppiumLibrary v2
+        """
+        return self._current_application().terminate_app(app_id)
+
 
     def stop_app(self, app_id, timeout=5000, include_stderr=True):
         """
