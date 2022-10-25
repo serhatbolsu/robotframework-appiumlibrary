@@ -4,6 +4,7 @@ import os
 import robot
 import inspect
 from appium import webdriver
+from appium.options.common import AppiumOptions
 from AppiumLibrary.utils import ApplicationCache
 from .keywordgroup import KeywordGroup
 
@@ -43,13 +44,20 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | *Option*            | *Man.* | *Description*     |
         | remote_url          | Yes    | Appium server url |
         | alias               | no     | alias             |
+        | strict_ssl          | No     | allows you to send commands to an invalid certificate host like a self-signed one. |
 
         Examples:
         | Open Application | http://localhost:4723/wd/hub | alias=Myapp1         | platformName=iOS      | platformVersion=7.0            | deviceName='iPhone Simulator'           | app=your.app                         |
+        | Open Application | http://localhost:4723/wd/hub | alias=Myapp1         | platformName=iOS      | platformVersion=7.0            | deviceName='iPhone Simulator'           | app=your.app                         | strict_ssl=False         |
         | Open Application | http://localhost:4723/wd/hub | platformName=Android | platformVersion=4.2.2 | deviceName=192.168.56.101:5555 | app=${CURDIR}/demoapp/OrangeDemoApp.apk | appPackage=com.netease.qa.orangedemo | appActivity=MainActivity |
         """
-        desired_caps = kwargs
-        application = webdriver.Remote(str(remote_url), desired_caps)
+        strict_ssl = False
+        if "strict_ssl" in kwargs.keys():
+            strict_ssl = kwargs.pop("strict_ssl")
+            self._debug(f"strict_ssl found as {strict_ssl}")
+
+        desired_caps = AppiumOptions().load_capabilities(caps=kwargs)
+        application = webdriver.Remote(str(remote_url), options=desired_caps, strict_ssl=strict_ssl)
 
         self._debug('Opened application with session id %s' % application.session_id)
 

@@ -9,6 +9,7 @@ History
 - Rename `Stop App` to `Stop Application` for consistency
 - Rename `Remove App` to `Remove Application` for consistency
 - Added `Terminate Application`
+- Support for strict_ssl added in `Open Application`
 
 1.6.4
 ----------------
