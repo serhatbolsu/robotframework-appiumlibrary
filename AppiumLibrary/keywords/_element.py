@@ -61,6 +61,16 @@ class _ElementKeywords(KeywordGroup):
         """
         self._element_find_by_text(text,exact_match).click()
 
+    def input_text_into_current_element(self, text):
+        """Types the given `text` into currently selected text field.
+
+            Android only.
+        """
+        self._info("Typing text '%s' into current text field" % text)
+        driver = self._current_application()
+        driver.set_clipboard_text(text)
+        driver.press_keycode(50, 0x1000 | 0x2000)
+
     def input_text(self, locator, text):
         """Types the given `text` into text field identified by `locator`.
 
