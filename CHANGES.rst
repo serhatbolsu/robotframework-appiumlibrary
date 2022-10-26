@@ -12,6 +12,8 @@ History
 - Support for strict_ssl added in `Open Application`
 - Support for arguments(dict) with `Execute Script` and `Execute Async Script`
 - Added `Tap With Positions` that uses new ActionChain of w3c
+- Espresso selector support (viewtag, data matcher, view matcher)
+- Fix all find_element_by to find_element using AppiumBy
 
 1.6.4
 ----------------

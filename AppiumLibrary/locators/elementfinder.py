@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from AppiumLibrary import utils
+from appium.webdriver.common.appiumby import AppiumBy
 from robot.api import logger
 
 
@@ -15,16 +16,19 @@ class ElementFinder(object):
             'class': self._find_by_class_name,
             'accessibility_id': self._find_element_by_accessibility_id,
             'android': self._find_by_android,
+            'viewtag': self._find_by_android_viewtag,
+            'data_matcher': self._find_by_android_data_matcher,
+            'view_matcher': self._find_by_android_view_matcher,
             'ios': self._find_by_ios,
             'css': self._find_by_css_selector,
             'jquery': self._find_by_sizzle_selector,
-            'nsp': self._find_by_nsp,
+            'predicate': self._find_by_ios_predicate,
             'chain': self._find_by_chain,
             'default': self._find_by_default
         }
 
-    def find(self, browser, locator, tag=None):
-        assert browser is not None
+    def find(self, application, locator, tag=None):
+        assert application is not None
         assert locator is not None and len(locator) > 0
 
         (prefix, criteria) = self._parse_locator(locator)
@@ -33,102 +37,129 @@ class ElementFinder(object):
         if strategy is None:
             raise ValueError("Element locator with prefix '" + prefix + "' is not supported")
         (tag, constraints) = self._get_tag_and_constraints(tag)
-        return strategy(browser, criteria, tag, constraints)
+        return strategy(application, criteria, tag, constraints)
 
     # Strategy routines, private
 
-    def _find_by_identifier(self, browser, criteria, tag, constraints):
-        elements = self._normalize_result(browser.find_elements_by_id(criteria))
-        elements.extend(self._normalize_result(browser.find_elements_by_name(criteria)))
+    def _find_by_identifier(self, application, criteria, tag, constraints):
+        elements = self._normalize_result(application.find_elements_by_id(criteria))
+        elements.extend(self._normalize_result(application.find_elements_by_name(criteria)))
         return self._filter_elements(elements, tag, constraints)
 
-    def _find_by_id(self, browser, criteria, tag, constraints):
+    def _find_by_id(self, application, criteria, tag, constraints):
+        print(f"criteria is {criteria}")
         return self._filter_elements(
-            browser.find_elements_by_id(criteria),
+            application.find_elements(by=AppiumBy.ID, value=criteria),
+        tag, constraints)
+
+    def _find_by_name(self, application, criteria, tag, constraints):
+        return self._filter_elements(
+            application.find_elements(by=AppiumBy.NAME, value=criteria),
             tag, constraints)
 
-    def _find_by_name(self, browser, criteria, tag, constraints):
+    def _find_by_xpath(self, application, criteria, tag, constraints):
+        print(f"xpath criteria: {criteria}")
         return self._filter_elements(
-            browser.find_elements_by_name(criteria),
+            application.find_elements(by=AppiumBy.XPATH, value=criteria),
             tag, constraints)
 
-    def _find_by_xpath(self, browser, criteria, tag, constraints):
-        return self._filter_elements(
-            browser.find_elements_by_xpath(criteria),
-            tag, constraints)
-
-    def _find_by_dom(self, browser, criteria, tag, constraints):
-        result = browser.execute_script("return %s;" % criteria)
+    def _find_by_dom(self, application, criteria, tag, constraints):
+        result = application.execute_script("return %s;" % criteria)
         if result is None:
             return []
         if not isinstance(result, list):
             result = [result]
         return self._filter_elements(result, tag, constraints)
 
-    def _find_by_sizzle_selector(self, browser, criteria, tag, constraints):
+    def _find_by_sizzle_selector(self, application, criteria, tag, constraints):
         js = "return jQuery('%s').get();" % criteria.replace("'", "\\'")
         return self._filter_elements(
-            browser.execute_script(js),
+            application.execute_script(js),
             tag, constraints)
 
-    def _find_by_link_text(self, browser, criteria, tag, constraints):
+    def _find_by_link_text(self, application, criteria, tag, constraints):
         return self._filter_elements(
-            browser.find_elements_by_link_text(criteria),
+            application.find_elements(by=AppiumBy.LINK_TEXT, value=criteria),
             tag, constraints)
 
-    def _find_by_css_selector(self, browser, criteria, tag, constraints):
+    def _find_by_css_selector(self, application, criteria, tag, constraints):
         return self._filter_elements(
-            browser.find_elements_by_css_selector(criteria),
+            application.find_elements(by=AppiumBy.CSS_SELECTOR, value=criteria),
             tag, constraints)
 
-    def _find_by_tag_name(self, browser, criteria, tag, constraints):
+    def _find_by_tag_name(self, application, criteria, tag, constraints):
         return self._filter_elements(
-            browser.find_elements_by_tag_name(criteria),
+            application.find_elements(by=AppiumBy.TAG_NAME, value=criteria),
             tag, constraints)
 
-    def _find_by_class_name(self, browser, criteria, tag, constraints):
+    def _find_by_class_name(self, application, criteria, tag, constraints):
         return self._filter_elements(
-            browser.find_elements_by_class_name(criteria),
+            application.find_elements(by=AppiumBy.CLASS_NAME, value=criteria),
             tag, constraints)
 
-    def _find_element_by_accessibility_id(self, browser, criteria, tag, constraints):
-        elements = browser.find_elements_by_accessibility_id(criteria)
-        return elements
+    def _find_element_by_accessibility_id(self, application, criteria, tag, constraints):
+        return self._filter_elements(
+            application.find_elements(by=AppiumBy.ACCESSIBILITY_ID, value=criteria),
+            tag, constraints)
 
-    def _find_by_android(self, browser, criteria, tag, constraints):
+    def _find_by_android(self, application, criteria, tag, constraints):
         """Find element matches by UI Automator."""
         return self._filter_elements(
-            browser.find_elements_by_android_uiautomator(criteria),
+            application.find_elements(by=AppiumBy.ANDROID_UIAUTOMATOR, value=criteria),
             tag, constraints)
 
-    def _find_by_ios(self, browser, criteria, tag, constraints):
+    def _find_by_android_viewtag(self, application, criteria, tag, constraints):
+        """Find element matches by its view tag
+        Espresso only
+        """
+        return self._filter_elements(
+            application.find_elements(by=AppiumBy.ANDROID_VIEWTAG, value=criteria),
+            tag, constraints)
+
+    def _find_by_android_data_matcher(self, application, criteria, tag, constraints):
+        """Find element matches by Android Data Matcher
+        Espresso only
+        """
+        return self._filter_elements(
+            application.find_elements(by=AppiumBy.ANDROID_DATA_MATCHER, value=criteria),
+            tag, constraints)
+
+    def _find_by_android_view_matcher(self, application, criteria, tag, constraints):
+        """Find element matches by  Android View Matcher
+        Espresso only
+        """
+        return self._filter_elements(
+            application.find_elements(by=AppiumBy.ANDROID_VIEW_MATCHER, value=criteria),
+            tag, constraints)
+
+    def _find_by_ios(self, application, criteria, tag, constraints):
         """Find element matches by UI Automation."""
         return self._filter_elements(
-            browser.find_elements_by_ios_uiautomation(criteria),
+            application.find_elements(by=AppiumBy.IOS_UIAUTOMATION, value=criteria),
             tag, constraints)
 
-    def _find_by_nsp(self, browser, criteria, tag, constraints):
+    def _find_by_ios_predicate(self, application, criteria, tag, constraints):
         """Find element matches by  iOSNsPredicateString."""
         return self._filter_elements(
-            browser.find_elements_by_ios_predicate(criteria),
+            application.find_elements(by=AppiumBy.IOS_PREDICATE, value=criteria),
             tag, constraints)
 
-    def _find_by_chain(self, browser, criteria, tag, constraints):
+    def _find_by_chain(self, application, criteria, tag, constraints):
         """Find element matches by  iOSChainString."""
         return self._filter_elements(
-            browser.find_elements_by_ios_class_chain(criteria),
+            application.find_elements(by=AppiumBy.IOS_CLASS_CHAIN, value=criteria),
             tag, constraints)
 
-    def _find_by_default(self, browser, criteria, tag, constraints):
+    def _find_by_default(self, application, criteria, tag, constraints):
         if criteria.startswith('//'):
-            return self._find_by_xpath(browser, criteria, tag, constraints)
+            return self._find_by_xpath(application, criteria, tag, constraints)
         # Used `id` instead of _find_by_key_attrs since iOS and Android internal `id` alternatives are
         # different and inside appium python client. Need to expose these and improve in order to make
         # _find_by_key_attrs useful.
-        return self._find_by_id(browser, criteria, tag, constraints)
+        return self._find_by_id(application, criteria, tag, constraints)
 
     # TODO: Not in use after conversion from Selenium2Library need to make more use of multiple auto selector strategy
-    def _find_by_key_attrs(self, browser, criteria, tag, constraints):
+    def _find_by_key_attrs(self, application, criteria, tag, constraints):
         key_attrs = self._key_attrs.get(None)
         if tag is not None:
             key_attrs = self._key_attrs.get(tag, key_attrs)
@@ -138,12 +169,12 @@ class ElementFinder(object):
         xpath_constraints = ["@%s='%s'" % (name, constraints[name]) for name in constraints]
         xpath_searchers = ["%s=%s" % (attr, xpath_criteria) for attr in key_attrs]
         xpath_searchers.extend(
-            self._get_attrs_with_url(key_attrs, criteria, browser))
+            self._get_attrs_with_url(key_attrs, criteria, application))
         xpath = "//%s[%s(%s)]" % (
             xpath_tag,
             ' and '.join(xpath_constraints) + ' and ' if len(xpath_constraints) > 0 else '',
             ' or '.join(xpath_searchers))
-        return self._normalize_result(browser.find_elements_by_xpath(xpath))
+        return self._normalize_result(application.find_elements_by_xpath(xpath))
 
     # Private
     _key_attrs = {
