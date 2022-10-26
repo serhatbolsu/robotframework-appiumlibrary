@@ -197,19 +197,25 @@ class _ApplicationManagementKeywords(KeywordGroup):
             else:
                 return ''
 
-    def execute_script(self, script):
+    def execute_script(self, script, **kwargs):
         """
-        Inject a snippet of JavaScript into the page for execution in the
-        context of the currently selected frame (Web context only).
+        Execute a variety of native, mobile commands that aren't associated
+        with a specific endpoint. See [https://appium.io/docs/en/commands/mobile-command/|Appium Mobile Command]
+        for more details.
 
-        The executed script is assumed to be synchronous and the result
-        of evaluating the script is returned to the client.
+        Example:
+        | &{scrollGesture}  |  create dictionary  |  left=${50}  |  top=${150}  |  width=${50}  |  height=${200}  |  direction=down  |  percent=${100}  |
+        | Sleep             |  1                  |
+        | Execute Script    |  mobile: scrollGesture  |  &{scrollGesture}  |
 
-        New in AppiumLibrary 1.5
+        Updated in AppiumLibrary 2
         """
-        return self._current_application().execute_script(script)
+        if kwargs:
+            self._info(f"Provided dictionary: {kwargs}")
 
-    def execute_async_script(self, script):
+        return self._current_application().execute_script(script, kwargs)
+
+    def execute_async_script(self, script, **kwargs):
         """
         Inject a snippet of Async-JavaScript into the page for execution in the
         context of the currently selected frame (Web context only).
@@ -220,10 +226,14 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
         The value to this callback will be returned to the client.
 
+        Check `Execute Script` for example kwargs usage
 
-        New in AppiumLibrary 1.5
+        Updated in AppiumLibrary 2
         """
-        return self._current_application().execute_async_script(script)
+        if kwargs:
+            self._info(f"Provided dictionary: {kwargs}")
+
+        return self._current_application().execute_async_script(script, kwargs)
 
     def execute_adb_shell(self, command, *args):
         """
@@ -286,7 +296,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         duration.
         """
         self._current_application().background_app(seconds)
-        
+
     def remove_application(self, app_id):
         """
         Remove an app from the device
@@ -315,7 +325,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         New in AppiumLibrary v2
         """
         return self._current_application().terminate_app(app_id)
-
 
     def stop_application(self, app_id, timeout=5000, include_stderr=True):
         """
@@ -402,7 +411,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
     def switch_to_context(self, context_name):
         """Switch to a new context"""
         self._current_application().switch_to.context(context_name)
-        
+
     def switch_to_frame(self, frame):
         """
         Switches focus to the specified frame, by index, name, or webelement.
@@ -413,7 +422,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | Click Element | xpath=//*[@id="online-btn"] |
         """
         self._current_application().switch_to.frame(frame)
-        
+
     def switch_to_parent_frame(self):
         """
         Switches focus to the parent context. If the current context is the top
@@ -426,7 +435,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         Switch to a new webview window if the application contains multiple webviews
         """
         self._current_application().switch_to.window(window_name)
-
 
     def go_to_url(self, url):
         """
@@ -456,12 +464,10 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """Get the current Webview window URL."""
         return self._current_application().current_url
 
-
     def get_windows(self):
         """Get available Webview windows."""
         print(self._current_application().window_handles)
         return self._current_application().window_handles
-
 
     # Private
 

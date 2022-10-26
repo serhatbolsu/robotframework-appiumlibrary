@@ -10,6 +10,7 @@ History
 - Rename `Remove App` to `Remove Application` for consistency
 - Added `Terminate Application`
 - Support for strict_ssl added in `Open Application`
+- Support for arguments(dict) with `Execute Script` and `Execute Async Script`
 
 1.6.4
 ----------------
