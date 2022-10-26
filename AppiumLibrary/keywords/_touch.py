@@ -13,7 +13,7 @@ class _TouchKeywords(KeywordGroup):
 
     # Public, element lookups
     def zoom(self, locator, percent="200%", steps=1):
-        """
+        """*DEPRECATED!!*
         Zooms in on an element a certain amount.
         """
         driver = self._current_application()
@@ -21,7 +21,7 @@ class _TouchKeywords(KeywordGroup):
         driver.zoom(element=element, percent=percent, steps=steps)
 
     def pinch(self, locator, percent="200%", steps=1):
-        """
+        """*DEPRECATED!!* use `Execute Script` instead.
         Pinch in on an element a certain amount.
         """
         driver = self._current_application()
@@ -119,7 +119,7 @@ class _TouchKeywords(KeywordGroup):
         action.press(element).wait(duration).release().perform()
 
     def tap(self, locator, x_offset=None, y_offset=None, count=1):
-        """*DEPRECATED!!* Since selenium v4, use other keywords.
+        """*DEPRECATED!!* Since selenium v4, use `Tap With Positions` keyword.
 
         Tap element identified by ``locator``.
 
@@ -133,6 +133,27 @@ class _TouchKeywords(KeywordGroup):
         el = self._element_find(locator, True, True)
         action = TouchAction(driver)
         action.tap(el,x_offset,y_offset, count).perform()
+
+    def tap_with_positions(self, duration=500, *locations):
+        """Taps on a particular place with up to five fingers, holding for a
+        certain time
+
+        Args:
+        - locations - an array of tuples representing the x/y coordinates of
+                the fingers to tap. Length can be up to five.
+        - duration - length of time to tap, in ms. Default: 500ms
+
+        Example:
+        |  @{firstFinger}   |  create list  |  ${100}  |  ${500}  |
+        |  @{secondFinger}  |  create list  |${700}    |  ${500}  |
+        |  @{fingerPositions}  |  create list  |  ${firstFinger}  |  ${secondFinger}  |
+        |  Sleep  |  1  |
+        |  Tap with Positions  |  ${1000}  |  @{fingerPositions}  |
+
+        New in AppiumLibrary v2
+        """
+        driver = self._current_application()
+        driver.tap(positions=list(locations), duration=duration)
         
     def tap_with_number_of_taps(self, locator, number_of_taps, number_of_touches):
         """ Sends one or more taps with one or more touch points.iOS only.
@@ -166,3 +187,11 @@ class _TouchKeywords(KeywordGroup):
         driver = self._current_application()
         action = TouchAction(driver)
         action.press(x=coordinate_X, y=coordinate_Y).release().perform()
+
+    def drag_and_drop(self):
+        """TO BE IMPLEMENTED
+        Refer to : appium.webdriver.extensions.action_helpers"""
+
+    def flick(self):
+        """TO BE IMPLEMENTED
+        Refer to : appium.webdriver.extensions.action_helpers"""
