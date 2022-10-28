@@ -2,6 +2,7 @@
 
 from AppiumLibrary import utils
 from robot.api import logger
+from unicodedata import normalize
 
 
 class ElementFinder(object):
@@ -34,6 +35,11 @@ class ElementFinder(object):
             raise ValueError("Element locator with prefix '" + prefix + "' is not supported")
         (tag, constraints) = self._get_tag_and_constraints(tag)
         return strategy(browser, criteria, tag, constraints)
+
+    def find_text(self, browser, text):
+        text_norm = normalize('NFD', text)
+        source_norm = normalize('NFD', browser.page_source)
+        return text_norm in source_norm
 
     # Strategy routines, private
 
