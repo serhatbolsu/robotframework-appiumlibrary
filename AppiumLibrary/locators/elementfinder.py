@@ -42,8 +42,8 @@ class ElementFinder(object):
     # Strategy routines, private
 
     def _find_by_identifier(self, application, criteria, tag, constraints):
-        elements = self._normalize_result(application.find_elements_by_id(criteria))
-        elements.extend(self._normalize_result(application.find_elements_by_name(criteria)))
+        elements = self._normalize_result(application.find_elements(by=AppiumBy.ID, value=criteria))
+        elements.extend(self._normalize_result(application.find_elements(by=AppiumBy.NAME, value=criteria)))
         return self._filter_elements(elements, tag, constraints)
 
     def _find_by_id(self, application, criteria, tag, constraints):
@@ -174,7 +174,7 @@ class ElementFinder(object):
             xpath_tag,
             ' and '.join(xpath_constraints) + ' and ' if len(xpath_constraints) > 0 else '',
             ' or '.join(xpath_searchers))
-        return self._normalize_result(application.find_elements_by_xpath(xpath))
+        return self._normalize_result(application.find_elements(by=AppiumBy.XPATH, value=xpath))
 
     # Private
     _key_attrs = {
