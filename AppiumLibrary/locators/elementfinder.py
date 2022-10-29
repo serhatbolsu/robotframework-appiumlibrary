@@ -50,7 +50,7 @@ class ElementFinder(object):
         print(f"criteria is {criteria}")
         return self._filter_elements(
             application.find_elements(by=AppiumBy.ID, value=criteria),
-        tag, constraints)
+            tag, constraints)
 
     def _find_by_name(self, application, criteria, tag, constraints):
         return self._filter_elements(

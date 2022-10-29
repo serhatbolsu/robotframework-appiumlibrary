@@ -297,13 +297,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         self._current_application().background_app(seconds)
 
-    def remove_application(self, app_id):
-        """
-        Remove an app from the device
-
-        New in AppiumLibrary v2
-        """
-        self._current_application().remove_app(app_id)
 
     def activate_application(self, app_id):
         """
