@@ -1,7 +1,7 @@
 .PHONY: help
 
 help:
-	@echo targes: version, generate_doc, pypi_upload, clean_pyc, android_demo, ios_demo, demo, unittest, test
+	@echo targets: version, generate_doc, pypi_upload, clean_pyc, android_demo, ios_demo, demo, unittest, test
 
 generate_doc: 
 	VENV/bin/python -m robot.libdoc ./AppiumLibrary/ ./doc/AppiumLibrary.html
@@ -35,7 +35,7 @@ ios_demo:
 demo:android_demo ios_demo
 
 test_requirements:
-    python -m pip install -U -r test_require.txt
+	python -m pip install -U -r test_require.txt
 
 unittest: test_requirements
 	python setup.py test
