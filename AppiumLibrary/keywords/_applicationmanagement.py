@@ -268,6 +268,31 @@ class _ApplicationManagementKeywords(KeywordGroup):
         duration.
         """
         self._current_application().background_app(seconds)
+        
+    def remove_app(self, app_id):
+        """
+        Remove an app from the device
+        """
+        self._current_application().remove_app(app_id)
+
+    def activate_app(self, app_id):
+        """
+        Activate the given app onto the device
+        """
+        self._current_application().activate_app(app_id)
+
+    def stop_app(self, app_id, timeout=5000, include_stderr=True):
+        """
+        Stop the given app on the device
+
+        Android only.
+        """
+        self._current_application().execute_script('mobile: shell', {
+            'command': 'am force-stop',
+            'args': [app_id],
+            'includeStderr': include_stderr,
+            'timeout': timeout
+        })
 
     def touch_id(self, match=True):
         """

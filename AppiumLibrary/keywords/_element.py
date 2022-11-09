@@ -445,6 +445,17 @@ class _ElementKeywords(KeywordGroup):
         self._info("Element '%s' size: %s " % (locator, element_size))
         return element_size
 
+    def get_element_rect(self, locator):
+        """Gets dimensions and coordinates of an element
+
+        Key attributes for arbitrary elements are `id` and `name`. See
+        `introduction` for details about locating elements.
+        """
+        element = self._element_find(locator, True, True)
+        element_rect = element.rect
+        self._info("Element '%s' rect: %s " % (locator, element_rect))
+        return element_rect
+
     def get_text(self, locator):
         """Get element text (for hybrid and mobile browser use `xpath` locator, others might cause problem)
 

@@ -1,5 +1,12 @@
 History
 =======
+1.6.4
+----------------
+- Added Activate App, Remove App(Android), Stop App thx @js361014
+- Embed screenshots to report thanks @arnaudruffin
+- element id fix thanks @Wolfe1
+- selenium 4+ temporary implementation, TouchAction wont work with selenium 4+
+
 1.6
 ----------------
 - Sample code
