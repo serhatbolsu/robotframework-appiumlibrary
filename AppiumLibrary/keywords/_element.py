@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from AppiumLibrary.locators import ElementFinder
+from appium.webdriver.common.appiumby import AppiumBy
 from .keywordgroup import KeywordGroup
 from robot.libraries.BuiltIn import BuiltIn
 import ast
@@ -42,7 +43,10 @@ class _ElementKeywords(KeywordGroup):
         self._element_find(locator, True, True).click()
 
     def click_button(self, index_or_name):
-        """ Click button """
+        """*DEPRECATED!!* in selenium v4, use `Click Element` keyword.
+        Click button
+
+        """
         _platform_class_dict = {'ios': 'UIAButton',
                                 'android': 'android.widget.Button'}
         if self._is_support_platform(_platform_class_dict):
@@ -60,6 +64,16 @@ class _ElementKeywords(KeywordGroup):
 
         """
         self._element_find_by_text(text,exact_match).click()
+
+    def input_text_into_current_element(self, text):
+        """Types the given `text` into currently selected text field.
+
+            Android only.
+        """
+        self._info("Typing text '%s' into current text field" % text)
+        driver = self._current_application()
+        driver.set_clipboard_text(text)
+        driver.press_keycode(50, 0x1000 | 0x2000)
 
     def input_text(self, locator, text):
         """Types the given `text` into text field identified by `locator`.
@@ -531,10 +545,11 @@ class _ElementKeywords(KeywordGroup):
         else:
             return False
 
+    # TODO: Remove all locators methods from _element.py
     def _click_element_by_name(self, name):
         driver = self._current_application()
         try:
-            element = driver.find_element_by_name(name)
+            element = driver.find_element(by=AppiumBy.NAME, value=name)
         except Exception as e:
             raise e
 
@@ -543,9 +558,10 @@ class _ElementKeywords(KeywordGroup):
         except Exception as e:
             raise 'Cannot click the element with name "%s"' % name
 
+    # TODO: Remove all locators from _element.py
     def _find_elements_by_class_name(self, class_name):
         driver = self._current_application()
-        elements = driver.find_elements_by_class_name(class_name)
+        elements = driver.find_elements(by=AppiumBy.CLASS_NAME, value=class_name)
         return elements
 
     def _find_element_by_class_name(self, class_name, index_or_name):

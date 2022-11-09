@@ -4,6 +4,7 @@ import os
 import robot
 import inspect
 from appium import webdriver
+from appium.options.common import AppiumOptions
 from AppiumLibrary.utils import ApplicationCache
 from .keywordgroup import KeywordGroup
 
@@ -43,13 +44,20 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | *Option*            | *Man.* | *Description*     |
         | remote_url          | Yes    | Appium server url |
         | alias               | no     | alias             |
+        | strict_ssl          | No     | allows you to send commands to an invalid certificate host like a self-signed one. |
 
         Examples:
         | Open Application | http://localhost:4723/wd/hub | alias=Myapp1         | platformName=iOS      | platformVersion=7.0            | deviceName='iPhone Simulator'           | app=your.app                         |
+        | Open Application | http://localhost:4723/wd/hub | alias=Myapp1         | platformName=iOS      | platformVersion=7.0            | deviceName='iPhone Simulator'           | app=your.app                         | strict_ssl=False         |
         | Open Application | http://localhost:4723/wd/hub | platformName=Android | platformVersion=4.2.2 | deviceName=192.168.56.101:5555 | app=${CURDIR}/demoapp/OrangeDemoApp.apk | appPackage=com.netease.qa.orangedemo | appActivity=MainActivity |
         """
-        desired_caps = kwargs
-        application = webdriver.Remote(str(remote_url), desired_caps)
+        strict_ssl = False
+        if "strict_ssl" in kwargs.keys():
+            strict_ssl = kwargs.pop("strict_ssl")
+            self._debug(f"strict_ssl found as {strict_ssl}")
+
+        desired_caps = AppiumOptions().load_capabilities(caps=kwargs)
+        application = webdriver.Remote(str(remote_url), options=desired_caps, strict_ssl=strict_ssl)
 
         self._debug('Opened application with session id %s' % application.session_id)
 
@@ -82,7 +90,9 @@ class _ApplicationManagementKeywords(KeywordGroup):
         return old_index
 
     def launch_application(self):
-        """ Launch application. Application can be launched while Appium session running.
+        """*DEPRECATED!!* in selenium v4, use `Activate Application` keyword.
+
+        Launch application. Application can be launched while Appium session running.
         This keyword can be used to launch application during test case or between test cases.
 
         This keyword works while `Open Application` has a test running. This is good practice to `Launch Application`
@@ -101,25 +111,26 @@ class _ApplicationManagementKeywords(KeywordGroup):
         |  | Close Application |
 
         See `Quit Application` for quiting application but keeping Appium sesion running.
-
-        New in AppiumLibrary 1.4.6
         """
         driver = self._current_application()
         driver.launch_app()
 
     def quit_application(self):
-        """ Quit application. Application can be quit while Appium session is kept alive.
+        """*DEPRECATED!!* in selenium v4, check `Close Application` keyword.
+
+        Close application. Application can be quit while Appium session is kept alive.
         This keyword can be used to close application during test case or between test cases.
 
         See `Launch Application` for an explanation.
 
-        New in AppiumLibrary 1.4.6
         """
         driver = self._current_application()
         driver.close_app()
 
     def reset_application(self):
-        """ Reset application. Open Application can be reset while Appium session is kept alive.
+        """*DEPRECATED!!* in selenium v4, check `Terminate Application` keyword.
+
+        Reset application. Open Application can be reset while Appium session is kept alive.
         """
         driver = self._current_application()
         driver.reset()
@@ -186,19 +197,25 @@ class _ApplicationManagementKeywords(KeywordGroup):
             else:
                 return ''
 
-    def execute_script(self, script):
+    def execute_script(self, script, **kwargs):
         """
-        Inject a snippet of JavaScript into the page for execution in the
-        context of the currently selected frame (Web context only).
+        Execute a variety of native, mobile commands that aren't associated
+        with a specific endpoint. See [https://appium.io/docs/en/commands/mobile-command/|Appium Mobile Command]
+        for more details.
 
-        The executed script is assumed to be synchronous and the result
-        of evaluating the script is returned to the client.
+        Example:
+        | &{scrollGesture}  |  create dictionary  |  left=${50}  |  top=${150}  |  width=${50}  |  height=${200}  |  direction=down  |  percent=${100}  |
+        | Sleep             |  1                  |
+        | Execute Script    |  mobile: scrollGesture  |  &{scrollGesture}  |
 
-        New in AppiumLibrary 1.5
+        Updated in AppiumLibrary 2
         """
-        return self._current_application().execute_script(script)
+        if kwargs:
+            self._info(f"Provided dictionary: {kwargs}")
 
-    def execute_async_script(self, script):
+        return self._current_application().execute_script(script, kwargs)
+
+    def execute_async_script(self, script, **kwargs):
         """
         Inject a snippet of Async-JavaScript into the page for execution in the
         context of the currently selected frame (Web context only).
@@ -209,10 +226,14 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
         The value to this callback will be returned to the client.
 
+        Check `Execute Script` for example kwargs usage
 
-        New in AppiumLibrary 1.5
+        Updated in AppiumLibrary 2
         """
-        return self._current_application().execute_async_script(script)
+        if kwargs:
+            self._info(f"Provided dictionary: {kwargs}")
+
+        return self._current_application().execute_async_script(script, kwargs)
 
     def execute_adb_shell(self, command, *args):
         """
@@ -263,29 +284,46 @@ class _ApplicationManagementKeywords(KeywordGroup):
         self._current_application().lock(robot.utils.timestr_to_secs(seconds))
 
     def background_app(self, seconds=5):
+        """*DEPRECATED!!*  use  `Background Application` instead.
+        Puts the application in the background on the device for a certain
+        duration.
+        """
+        self._current_application().background_app(seconds)
+
+    def background_application(self, seconds=5):
         """
         Puts the application in the background on the device for a certain
         duration.
         """
         self._current_application().background_app(seconds)
-        
-    def remove_app(self, app_id):
-        """
-        Remove an app from the device
-        """
-        self._current_application().remove_app(app_id)
 
-    def activate_app(self, app_id):
+
+    def activate_application(self, app_id):
         """
-        Activate the given app onto the device
+        Activates the application if it is not running or is running in the background.
+        Args:
+         - app_id - BundleId for iOS. Package name for Android.
+
+        New in AppiumLibrary v2
         """
         self._current_application().activate_app(app_id)
 
-    def stop_app(self, app_id, timeout=5000, include_stderr=True):
+    def terminate_application(self, app_id):
+        """
+        Terminate the given app on the device
+
+        Args:
+         - app_id - BundleId for iOS. Package name for Android.
+
+        New in AppiumLibrary v2
+        """
+        return self._current_application().terminate_app(app_id)
+
+    def stop_application(self, app_id, timeout=5000, include_stderr=True):
         """
         Stop the given app on the device
 
-        Android only.
+        Android only. New in AppiumLibrary v2
         """
         self._current_application().execute_script('mobile: shell', {
             'command': 'am force-stop',
@@ -366,7 +404,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
     def switch_to_context(self, context_name):
         """Switch to a new context"""
         self._current_application().switch_to.context(context_name)
-        
+
     def switch_to_frame(self, frame):
         """
         Switches focus to the specified frame, by index, name, or webelement.
@@ -377,7 +415,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | Click Element | xpath=//*[@id="online-btn"] |
         """
         self._current_application().switch_to.frame(frame)
-        
+
     def switch_to_parent_frame(self):
         """
         Switches focus to the parent context. If the current context is the top
@@ -390,7 +428,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         Switch to a new webview window if the application contains multiple webviews
         """
         self._current_application().switch_to.window(window_name)
-
 
     def go_to_url(self, url):
         """
@@ -420,12 +457,10 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """Get the current Webview window URL."""
         return self._current_application().current_url
 
-
     def get_windows(self):
         """Get available Webview windows."""
         print(self._current_application().window_handles)
         return self._current_application().window_handles
-
 
     # Private
 
