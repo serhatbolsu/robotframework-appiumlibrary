@@ -116,6 +116,23 @@ class _TouchKeywords(KeywordGroup):
         action = TouchAction(driver)
         action.press(element).wait(duration).release().perform()
 
+    # Flick Keywords
+    # Base Flick Action Keyword
+    def flick(self, start_x:int, start_y:int, end_x:int, end_y:int):
+        """Flick from one point to another point.
+
+        Args:
+        - ``start_x`` - x-coordinate at which to start
+        - ``start_y`` - y-coordinate at which to start
+        - ``end_x``   - x-coordinate at which to stop
+        - ``end_y``   - y-coordinate at which to stop
+
+        Usage:
+        | Flick | 100 | 100 | 100 | 400 | # Flicks the screen up. |
+        """
+        driver = self._current_application()
+        driver.flick(start_x, start_y, end_x, end_y)
+
     def tap(self, locator, x_offset=None, y_offset=None, count=1):
         """ Tap element identified by ``locator``. 
 
