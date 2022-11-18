@@ -13,7 +13,7 @@ class _TouchKeywords(KeywordGroup):
 
     # Public, element lookups
     def zoom(self, locator, percent="200%", steps=1):
-        """
+        """*DEPRECATED!!*
         Zooms in on an element a certain amount.
         """
         driver = self._current_application()
@@ -21,7 +21,7 @@ class _TouchKeywords(KeywordGroup):
         driver.zoom(element=element, percent=percent, steps=steps)
 
     def pinch(self, locator, percent="200%", steps=1):
-        """
+        """*DEPRECATED!!* use `Execute Script` instead.
         Pinch in on an element a certain amount.
         """
         driver = self._current_application()
@@ -110,7 +110,9 @@ class _TouchKeywords(KeywordGroup):
         driver.execute_script("mobile: scroll", {"direction": 'up', 'elementid': element.id})
 
     def long_press(self, locator, duration=1000):
-        """ Long press the element with optional duration """
+        """*DEPRECATED!!* Since selenium v4, use other keywords.
+
+        Long press the element with optional duration """
         driver = self._current_application()
         element = self._element_find(locator, True, True)
         action = TouchAction(driver)
@@ -134,7 +136,9 @@ class _TouchKeywords(KeywordGroup):
         driver.flick(start_x, start_y, end_x, end_y)
 
     def tap(self, locator, x_offset=None, y_offset=None, count=1):
-        """ Tap element identified by ``locator``. 
+        """*DEPRECATED!!* Since selenium v4, use `Tap With Positions` keyword.
+
+        Tap element identified by ``locator``.
 
         Args:
         - ``locator`` - (mandatory). Taps coordinates when set to ${None}.
@@ -146,6 +150,27 @@ class _TouchKeywords(KeywordGroup):
         el = self._element_find(locator, True, True)
         action = TouchAction(driver)
         action.tap(el,x_offset,y_offset, count).perform()
+
+    def tap_with_positions(self, duration=500, *locations):
+        """Taps on a particular place with up to five fingers, holding for a
+        certain time
+
+        Args:
+        - locations - an array of tuples representing the x/y coordinates of
+                the fingers to tap. Length can be up to five.
+        - duration - length of time to tap, in ms. Default: 500ms
+
+        Example:
+        |  @{firstFinger}   |  create list  |  ${100}  |  ${500}  |
+        |  @{secondFinger}  |  create list  |${700}    |  ${500}  |
+        |  @{fingerPositions}  |  create list  |  ${firstFinger}  |  ${secondFinger}  |
+        |  Sleep  |  1  |
+        |  Tap with Positions  |  ${1000}  |  @{fingerPositions}  |
+
+        New in AppiumLibrary v2
+        """
+        driver = self._current_application()
+        driver.tap(positions=list(locations), duration=duration)
         
     def tap_with_number_of_taps(self, locator, number_of_taps, number_of_touches):
         """ Sends one or more taps with one or more touch points.iOS only.
@@ -160,7 +185,9 @@ class _TouchKeywords(KeywordGroup):
         driver.execute_script("mobile: tapWithNumberOfTaps", params)
 
     def click_a_point(self, x=0, y=0, duration=100):
-        """ Click on a point"""
+        """*DEPRECATED!!* Since selenium v4, use other keywords.
+
+        Click on a point"""
         self._info("Clicking on a point (%s,%s)." % (x,y))
         driver = self._current_application()
         action = TouchAction(driver)
@@ -170,8 +197,18 @@ class _TouchKeywords(KeywordGroup):
             assert False, "Can't click on a point at (%s,%s)" % (x,y)
 
     def click_element_at_coordinates(self, coordinate_X, coordinate_Y):
-        """ click element at a certain coordinate """
+        """*DEPRECATED!!* Since selenium v4, use other keywords.
+
+        click element at a certain coordinate """
         self._info("Pressing at (%s, %s)." % (coordinate_X, coordinate_Y))
         driver = self._current_application()
         action = TouchAction(driver)
         action.press(x=coordinate_X, y=coordinate_Y).release().perform()
+
+    def drag_and_drop(self):
+        """TO BE IMPLEMENTED
+        Refer to : appium.webdriver.extensions.action_helpers"""
+
+    def flick(self):
+        """TO BE IMPLEMENTED
+        Refer to : appium.webdriver.extensions.action_helpers"""

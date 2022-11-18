@@ -1,5 +1,27 @@
 History
 =======
+2.0.0
+----------------
+- Deprecate the TouchAction keywords
+- Deprecate launch_application, quit_application, reset_application according to Appium Python Client
+- Rename `Activate App` to `Activate Application` for consistency
+- Rename `Background App` to `Background Application` for consistency
+- Rename `Stop App` to `Stop Application` for consistency
+- Rename `Remove App` to `Remove Application` for consistency
+- Added `Terminate Application`
+- Support for strict_ssl added in `Open Application`
+- Support for arguments(dict) with `Execute Script` and `Execute Async Script`
+- Added `Tap With Positions` that uses new ActionChain of w3c
+- Espresso selector support (viewtag, data matcher, view matcher)
+- Fix all find_element_by to find_element using AppiumBy
+
+1.6.4
+----------------
+- Added Activate App, Remove App(Android), Stop App thx @js361014
+- Embed screenshots to report thanks @arnaudruffin
+- element id fix thanks @Wolfe1
+- selenium 4+ temporary implementation, TouchAction wont work with selenium 4+
+
 1.6
 ----------------
 - Sample code
