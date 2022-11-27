@@ -188,9 +188,24 @@ class _TouchKeywords(KeywordGroup):
         action = TouchAction(driver)
         action.press(x=coordinate_X, y=coordinate_Y).release().perform()
 
-    def drag_and_drop(self):
-        """TO BE IMPLEMENTED
-        Refer to : appium.webdriver.extensions.action_helpers"""
+    def drag_and_drop(self, locator: str, target: str):
+        """Drags the element identified by ``locator`` into the ``target`` element.
+
+        The ``locator`` argument is the locator of the dragged element
+        and the ``target`` is the locator of the target. See the
+        `Locating elements` section for details about the locator syntax.
+
+        Args:
+        - ``origin`` - the element to drag
+        - ``destination`` - the element to drag to
+
+        Usage:
+        | `Drag And Drop` | id=div#element | id=div.target |
+        """
+        element = self._element_find(locator, True, True)
+        target = self._element_find(target, True, True)
+        driver = self._current_application()
+        driver.drag_and_drop(element, target)
 
     def flick(self, start_x:int, start_y:int, end_x:int, end_y:int):
         """Flick from one point to another point.
