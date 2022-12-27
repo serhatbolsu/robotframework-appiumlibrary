@@ -4,6 +4,10 @@ from .keywordgroup import KeywordGroup
 
 
 class _WaitingKeywords(KeywordGroup):
+    
+    def __init__(self):
+        self._sleep_between_wait = 0.2
+        
     def wait_until_element_is_visible(self, locator, timeout=None, error=None):
         """Waits until element specified with `locator` is visible.
 
@@ -111,6 +115,22 @@ class _WaitingKeywords(KeywordGroup):
 
         self._wait_until_no_error(timeout, check_present)
 
+    def set_sleep_between_wait_loop(self, seconds=0.2):
+        """Sets the sleep in seconds used by wait until loop.
+        
+        If you use the remote appium server, the default value is not recommended because 
+        it is another 200ms overhead to the network latency and will slow down your test
+        execution.
+        """
+        old_sleep = self._sleep_between_wait
+        self._sleep_between_wait = robot.utils.timestr_to_secs(seconds)
+        return old_sleep
+    
+    def get_sleep_between_wait_loop(self):
+        """Gets the sleep between wait loop in seconds that is used by wait until keywords.
+        """
+        return robot.utils.secs_to_timestr(self._sleep_between_wait)
+    
     # Private
 
     def _wait_until(self, timeout, error, function, *args):
@@ -131,7 +151,7 @@ class _WaitingKeywords(KeywordGroup):
             if time.time() > maxtime:
                 self.log_source()
                 raise AssertionError(timeout_error)
-            time.sleep(0.2)
+            time.sleep(self._sleep_between_wait)
 
     def _format_timeout(self, timeout):
         timeout = robot.utils.timestr_to_secs(timeout) if timeout is not None else self._timeout_in_secs
