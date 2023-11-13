@@ -40,7 +40,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
     def open_application(self, remote_url, alias=None, **kwargs):
         """Opens a new application to given Appium server.
         Capabilities of appium server, Android and iOS,
-        Please check https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/server-args.md
+        Please check https://appium.io/docs/en/2.1/cli/args/
         | *Option*            | *Man.* | *Description*     |
         | remote_url          | Yes    | Appium server url |
         | alias               | no     | alias             |
