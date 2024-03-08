@@ -171,10 +171,10 @@ class _ElementKeywords(KeywordGroup):
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
         """
-        if self._element_find(locator, True, True).is_enabled():
+        if not self._element_find(locator, True, True).is_enabled():
             self.log_source(loglevel)
             raise AssertionError("Element '%s' should be disabled "
-                                 "but did not" % locator)
+                                 "but is not" % locator)
         self._info("Element '%s' is disabled ." % locator)
 
     def element_should_be_enabled(self, locator, loglevel='INFO'):
@@ -183,10 +183,10 @@ class _ElementKeywords(KeywordGroup):
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
         """
-        if not self._element_find(locator, True, True).is_enabled():
+        if self._element_find(locator, True, True).is_enabled():
             self.log_source(loglevel)
             raise AssertionError("Element '%s' should be enabled "
-                                 "but did not" % locator)
+                                 "but is not" % locator)
         self._info("Element '%s' is enabled ." % locator)
 
     def element_should_be_visible(self, locator, loglevel='INFO'):
@@ -197,10 +197,21 @@ class _ElementKeywords(KeywordGroup):
 
         New in AppiumLibrary 1.4.5
         """
-        if not self._element_find(locator, True, True).is_displayed():
+        if self._element_find(locator, True, True).is_displayed():
             self.log_source(loglevel)
             raise AssertionError("Element '%s' should be visible "
-                                 "but did not" % locator)
+                                 "but is not" % locator)
+            
+    def element_should_not_be_visible(self, locator, loglevel='INFO'):
+        """Verifies that element identified with locator is not visible.
+
+        Key attributes for arbitrary elements are `id` and `name`. See
+        `introduction` for details about locating elements.
+        """
+        if not self._element_find(locator, True, True).is_displayed():
+            self.log_source(loglevel)
+            raise AssertionError("Element '%s' should not be visible "
+                                 "but is" % locator)
 
     def element_name_should_be(self, locator, expected):
         element = self._element_find(locator, True, True)
