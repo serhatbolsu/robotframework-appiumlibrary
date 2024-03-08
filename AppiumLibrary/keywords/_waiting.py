@@ -7,6 +7,14 @@ class _WaitingKeywords(KeywordGroup):
     
     def __init__(self):
         self._sleep_between_wait = 0.2
+
+    def implicitly_wait(self, timeout):
+        """Set the amount of time the driver should wait when searching for elements.
+
+        Timeout is in seconds.
+        """
+        driver = self._current_application()
+        driver.implicitly_wait(timeout)
         
     def wait_until_element_is_visible(self, locator, timeout=None, error=None):
         """Waits until element specified with `locator` is visible.
