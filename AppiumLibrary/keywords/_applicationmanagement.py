@@ -471,7 +471,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def _get_platform(self):
         try:
-            platform_name = self._current_application().desired_capabilities['platformName']
+            platform_name = self._current_application().capabilities['platformName']
         except Exception as e:
             raise e
         return platform_name.lower()
