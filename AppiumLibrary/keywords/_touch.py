@@ -167,6 +167,21 @@ class _TouchKeywords(KeywordGroup):
         params = {'element': element, 'numberOfTaps': number_of_taps, 'numberOfTouches': number_of_touches}
         driver.execute_script("mobile: tapWithNumberOfTaps", params)
 
+    def click_alert_button(self, button_name):
+        """ Clicks on Alert button identified by Name.iOS only.
+
+        Args:
+        - ``button_name`` - Text on the iOS alert button.
+
+        Example:
+        |  Click Alert Button  |  Allow  |
+
+        New in AppiumLibrary v2
+        """
+        driver = self._current_application()
+        params={'action': 'accept', 'buttonLabel': button_name}
+        driver.execute_script("mobile: alert", params)
+
     def click_a_point(self, x=0, y=0, duration=100):
         """*DEPRECATED!!* Since selenium v4, use other keywords.
 
