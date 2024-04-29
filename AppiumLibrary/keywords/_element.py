@@ -247,11 +247,8 @@ class _ElementKeywords(KeywordGroup):
 
 
         _*NOTE: *_
-        On Android the supported attribute names are hard-coded in the
-        [https://github.com/appium/appium/blob/master/lib/devices/android/bootstrap/src/io/appium/android/bootstrap/AndroidElement.java|AndroidElement]
-        Class's getBoolAttribute() and getStringAttribute() methods.
-        Currently supported (appium v1.4.11):
-        _contentDescription, text, className, resourceId, enabled, checkable, checked, clickable, focusable, focused, longClickable, scrollable, selected, displayed_
+        On Android the supported attribute names can be found in the uiautomator2 driver readme:
+        [https://github.com/appium/appium-uiautomator2-driver?tab=readme-ov-file#element-attributes]
 
 
         _*NOTE: *_
