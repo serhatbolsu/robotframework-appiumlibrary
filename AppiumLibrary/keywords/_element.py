@@ -247,11 +247,8 @@ class _ElementKeywords(KeywordGroup):
 
 
         _*NOTE: *_
-        On Android the supported attribute names are hard-coded in the
-        [https://github.com/appium/appium/blob/master/lib/devices/android/bootstrap/src/io/appium/android/bootstrap/AndroidElement.java|AndroidElement]
-        Class's getBoolAttribute() and getStringAttribute() methods.
-        Currently supported (appium v1.4.11):
-        _contentDescription, text, className, resourceId, enabled, checkable, checked, clickable, focusable, focused, longClickable, scrollable, selected, displayed_
+        On Android the supported attribute names can be found in the uiautomator2 driver readme:
+        [https://github.com/appium/appium-uiautomator2-driver?tab=readme-ov-file#element-attributes]
 
 
         _*NOTE: *_
@@ -470,16 +467,18 @@ class _ElementKeywords(KeywordGroup):
         self._info("Element '%s' rect: %s " % (locator, element_rect))
         return element_rect
 
-    def get_text(self, locator):
+    def get_text(self, locator, first_only: bool = True):
         """Get element text (for hybrid and mobile browser use `xpath` locator, others might cause problem)
 
-        Example:
+        first_only parameter allow to get the text from the 1st match (Default) or a list of text from all match.
 
-        | ${text} | Get Text | //*[contains(@text,'foo')] |
+        Example:
+        | ${text} | Get Text | //*[contains(@text,'foo')] |          |
+        | @{text} | Get Text | //*[contains(@text,'foo')] | ${False} |
 
         New in AppiumLibrary 1.4.
         """
-        text = self._get_text(locator)
+        text = self._get_text(locator, first_only)
         self._info("Element '%s' text is '%s' " % (locator, text))
         return text
 
@@ -670,10 +669,12 @@ class _ElementKeywords(KeywordGroup):
                 _xpath = u'//*[contains(@{},"{}")]'.format('text', text)
             return self._element_find(_xpath, True, True)
 
-    def _get_text(self, locator):
-        element = self._element_find(locator, True, True)
+    def _get_text(self, locator, first_only: bool = True):
+        element = self._element_find(locator, first_only, True)
         if element is not None:
-            return element.text
+            if first_only:
+                return element.text
+            return [el.text for el in element]
         return None
 
     def _is_text_present(self, text):
