@@ -76,7 +76,7 @@ See `Robot Framework User Guide <https://robotframework.org/robotframework/lates
 for more information.
 
 As it uses Appium make sure your Appium server is up and running.
-For how to use Appium please refer to `Appium Documentation <http://appium.io/docs/en/about-appium/getting-started/>`_
+For how to use Appium please refer to `Appium Documentation`_
 
 When using Robot Framework, it is generally recommended to write tests easy to read/modify.
 The keywords provided in AppiumLibrary are pretty low level. It is thus typically a good idea to write tests using
@@ -193,5 +193,6 @@ AppiumLibrary is modeled after (and forked from)  `appiumandroidlibrary <https:/
 .. _Keyword Documentation: http://serhatbolsu.github.io/robotframework-appiumlibrary/AppiumLibrary.html
 .. _PyPI: https://pypi.org/project/robotframework-appiumlibrary/
 .. _Robot Framework installation instructions: https://github.com/robotframework/robotframework/blob/master/INSTALL.rst
-.. _Appium Driver Setup Guide: http://appium.io/docs/en/about-appium/getting-started/?lang=en
+.. _Appium Driver Setup Guide: https://appium.io/docs/en/latest/ecosystem/drivers/
+.. _Appium Documentation: https://appium.io/docs/en/latest/#explore-the-documentation
 .. _sample project: https://github.com/serhatbolsu/robotframework-appium-sample
