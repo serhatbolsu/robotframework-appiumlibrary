@@ -57,6 +57,7 @@ class AppiumLibrary(
     | accessibility_id  | Click Element `|` accessibility_id=button3                     | Accessibility options utilize.    |                             |
     | xpath             | Click Element `|` xpath=//UIATableView/UIATableCell/UIAButton  | Matches with arbitrary XPath      |                             |
     | class             | Click Element `|` class=UIAPickerWheel                         | Matches by class                  |                             |
+    | image             | Click Element `|` image=icon.png                               | Matches by image                  |                             |
     | android           | Click Element `|` android=UiSelector().description('Apps')     | Matches by Android UI Automator   |                             |
     | ios               | Click Element `|` ios=.buttons().withName('Apps')              | Matches by iOS UI Automation      |                             |
     | predicate         | Click Element `|` predicate=name=="login"                      | Matches by iOS Predicate          | Check PR: #196              |
