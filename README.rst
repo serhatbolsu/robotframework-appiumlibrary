@@ -63,9 +63,14 @@ about installing Python and Robot Framework itself.
 Device Setup
 ------------
 After installing the library, you still need to setup an simulator/emulator or real device to use in tests.
-iOS and Android have separate paths to follow, and those steps better explained in `Appium Driver Setup Guide`_.
+iOS and Android have separate paths to follow, and those steps better explained in `Appium Quickstart Intro`_.
 Please follow the **Driver-Specific Setup** according to platform.
 
+[*As we make updates to the AppiumLibrary we want to provide current and helpful documentation with regards
+to setting up not only devices but the full development environment. I'll note personally I found this to be
+a bit overwhelming and complex - doable but lengthy. Once source which greatly helped me is the*
+`RoboCon 2024 workshop notes`_ *provide by the team at Eficode. This information may be incorporated here
+in the future.*]
 
 Usage
 -----
@@ -76,7 +81,7 @@ See `Robot Framework User Guide <https://robotframework.org/robotframework/lates
 for more information.
 
 As it uses Appium make sure your Appium server is up and running.
-For how to use Appium please refer to `Appium Documentation <http://appium.io/docs/en/about-appium/getting-started/>`_
+For how to use Appium please refer to `Appium Quickstart Intro`_.
 
 When using Robot Framework, it is generally recommended to write tests easy to read/modify.
 The keywords provided in AppiumLibrary are pretty low level. It is thus typically a good idea to write tests using
@@ -193,5 +198,6 @@ AppiumLibrary is modeled after (and forked from)  `appiumandroidlibrary <https:/
 .. _Keyword Documentation: http://serhatbolsu.github.io/robotframework-appiumlibrary/AppiumLibrary.html
 .. _PyPI: https://pypi.org/project/robotframework-appiumlibrary/
 .. _Robot Framework installation instructions: https://github.com/robotframework/robotframework/blob/master/INSTALL.rst
-.. _Appium Driver Setup Guide: http://appium.io/docs/en/about-appium/getting-started/?lang=en
+.. _Appium Quickstart Intro: https://appium.io/docs/en/latest/quickstart/
 .. _sample project: https://github.com/serhatbolsu/robotframework-appium-sample
+.. _RoboCon 2024 workshop notes: https://github.com/eficode-academy/rf-mobile-testing-appium?tab=readme-ov-file#robocon-2024
