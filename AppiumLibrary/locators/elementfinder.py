@@ -3,7 +3,8 @@
 from AppiumLibrary import utils
 from appium.webdriver.common.appiumby import AppiumBy
 from robot.api import logger
-
+import base64
+import os
 
 class ElementFinder(object):
 
@@ -14,6 +15,7 @@ class ElementFinder(object):
             'name': self._find_by_name,
             'xpath': self._find_by_xpath,
             'class': self._find_by_class_name,
+            'image': self._find_by_image,
             'accessibility_id': self._find_element_by_accessibility_id,
             'android': self._find_by_android,
             'viewtag': self._find_by_android_viewtag,
@@ -30,14 +32,17 @@ class ElementFinder(object):
     def find(self, application, locator, tag=None):
         assert application is not None
         assert locator is not None and len(locator) > 0
-
         (prefix, criteria) = self._parse_locator(locator)
-        prefix = 'default' if prefix is None else prefix
+        if prefix is None: 
+            prefix = 'image' if (self._is_image_locator(locator)) else 'default'
         strategy = self._strategies.get(prefix)
         if strategy is None:
             raise ValueError("Element locator with prefix '" + prefix + "' is not supported")
         (tag, constraints) = self._get_tag_and_constraints(tag)
         return strategy(application, criteria, tag, constraints)
+
+    def _is_image_locator(self, locator):
+        return isinstance(locator, str) and (locator.endswith(('.png', '.jpg', '.jpeg')))
 
     # Strategy routines, private
 
@@ -97,6 +102,19 @@ class ElementFinder(object):
             application.find_elements(by=AppiumBy.CLASS_NAME, value=criteria),
             tag, constraints)
 
+    def _find_by_image(self, application, criteria, tag, constraints):
+        return self._filter_elements(
+            application.find_elements(by=AppiumBy.IMAGE, value=self._encode_image_to_base64(criteria)),
+            tag, constraints)
+
+    def _encode_image_to_base64(self, image_path):
+        if not os.path.exists(image_path):
+            raise FileNotFoundError(f"Image file does not exist: {image_path}")
+        with open(image_path, 'rb') as image_file:
+            image_data = image_file.read()
+            image_base64 = base64.b64encode(image_data).decode('utf-8')
+            return image_base64
+        
     def _find_element_by_accessibility_id(self, application, criteria, tag, constraints):
         return self._filter_elements(
             application.find_elements(by=AppiumBy.ACCESSIBILITY_ID, value=criteria),

@@ -41,7 +41,7 @@ class _ElementKeywords(KeywordGroup):
         """
         self._info("Clicking element '%s'." % locator)
         self._element_find(locator, True, True).click()
-
+        
     def click_button(self, index_or_name):
         """*DEPRECATED!!* in selenium v4, use `Click Element` keyword.
         Click button
@@ -638,7 +638,10 @@ class _ElementKeywords(KeywordGroup):
             _locator = locator
             elements = self._element_finder.find(application, _locator, tag)
             if required and len(elements) == 0:
-                raise ValueError("Element locator '" + locator + "' did not match any elements.")
+                if self._element_finder._is_image_locator(locator) : 
+                    raise ValueError("Image at '" + locator + "' did not match any elements.")
+                else:
+                    raise ValueError("Element locator '" + locator + "' did not match any elements.")
             if first_only:
                 if len(elements) == 0: return None
                 return elements[0]
@@ -647,9 +650,9 @@ class _ElementKeywords(KeywordGroup):
                 return locator
             else:
                 elements = [locator]
-        # do some other stuff here like deal with list of webelements
-        # ... or raise locator/element specific error if required
-        return elements
+            # do some other stuff here like deal with list of webelements
+            # ... or raise locator/element specific error if required
+            return elements
 
     def _element_find_by_text(self, text, exact_match=False):
         if self._get_platform() == 'ios':
