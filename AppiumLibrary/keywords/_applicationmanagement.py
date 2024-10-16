@@ -462,6 +462,10 @@ class _ApplicationManagementKeywords(KeywordGroup):
         print(self._current_application().window_handles)
         return self._current_application().window_handles
 
+    def get_device_time(self):
+        """Get the device date and time."""
+        return self._current_application().device_time
+
     # Private
 
     def _current_application(self):
