@@ -7,6 +7,7 @@ from robot.libraries.BuiltIn import BuiltIn
 import ast
 from unicodedata import normalize
 from selenium.webdriver.remote.webelement import WebElement
+from datetime import datetime
 
 try:
     basestring  # attempt to evaluate basestring
@@ -23,7 +24,6 @@ class _ElementKeywords(KeywordGroup):
     def __init__(self):
         self._element_finder = ElementFinder()
         self._bi = BuiltIn()
-
     # Public, element lookups
     def clear_text(self, locator):
         """Clears the text field identified by `locator`.
@@ -638,9 +638,23 @@ class _ElementKeywords(KeywordGroup):
             _locator = locator
             elements = self._element_finder.find(application, _locator, tag)
             if required and len(elements) == 0:
+                # TODO:
+                # Check Locator Package is from same app
+                # Check application didnt crash or other application is running
+                # Extract All Page Source Elements
+                # Get the most match element
+                # Check the threshold between the matched element
+                # Add the element locator to variable file
+                self._info(self)
+                self._info(application.get_source())
                 raise ValueError("Element locator '" + locator + "' did not match any elements.")
             if first_only:
                 if len(elements) == 0: return None
+                if self.healing_client:    
+                    variable_name = next((name for name, val in self._bi.get_variables().items() if val == locator), None)    
+                    self.healing_client.add_locator_to_database(elements, locator, variable_name)
+                else:
+                        raise ValueError("Database not connected")
                 return elements[0]
         elif isinstance(locator, WebElement):
             if first_only:
