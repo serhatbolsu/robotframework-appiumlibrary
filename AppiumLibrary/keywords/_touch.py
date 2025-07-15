@@ -2,6 +2,7 @@
 
 from appium.webdriver.extensions.action_helpers import ActionHelpers
 
+from datetime import timedelta
 from AppiumLibrary.locators import ElementFinder
 from .keywordgroup import KeywordGroup
 
@@ -28,7 +29,7 @@ class _TouchKeywords(KeywordGroup):
         element = self._element_find(locator, True, True)
         driver.pinch(element=element, percent=percent, steps=steps)
 
-    def swipe(self, x_start: int, y_start: int, x_end: int, y_end: int, duration: int=1000):
+    def swipe(self, x_start: int, y_start: int, x_end: int, y_end: int, duration: timedelta='1s'):
         """
         Swipe from one point to another point, for an optional duration.
 
@@ -37,15 +38,16 @@ class _TouchKeywords(KeywordGroup):
         - start_y: y-coordinate at which to start
         - end_x: x-coordinate at which to stop
         - end_y: y-coordinate at which to stop
-        - duration: defines the swipe speed as time taken to swipe from point a to point b, in ms.
+        - duration: defines the swipe speed as time taken to swipe from point a to point b.
 
 
         Usage:
-        | Swipe | 500 | 100 | 100 | 0 | 1000 |
+        | Swipe | 500 | 100 | 100 | 0 | 1s |
+        | Swipe | 500 | 100 | 100 | 0 | 100ms |
         """
 
         driver = self._current_application()
-        driver.swipe(x_start, y_start, x_end, y_end, duration)
+        driver.swipe(x_start, y_start, x_end, y_end, duration.total_seconds() * 1000)
 
     def swipe_by_percent(self, start_x, start_y, end_x, end_y, duration=1000):
         """
