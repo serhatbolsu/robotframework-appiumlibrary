@@ -105,13 +105,14 @@ class _TouchKeywords(KeywordGroup):
         driver.execute_script("mobile: scroll", {"direction": 'up', 'elementid': element.id})
 
     def long_press(self, locator, duration=1000):
-        """*DEPRECATED!!* Since selenium v4, use other keywords.
-
-        Long press the element with optional duration """
+        """Long press the element with optional duration """
+        element = self._element_find(locator, True, True)
+        location = element.location
+        size = element.size
+        center_x = location['x'] + size['width'] // 2
+        center_y = location['y'] + size['height'] // 2
         driver = self._current_application()
-        driver.tap([(262, 758)], 500)           # FIXME: replace hard coded coordinates
-
-
+        driver.tap([(center_x, center_y)], duration)
 
     def tap(self, locator, x_offset=None, y_offset=None, count=1):
         """*DEPRECATED!!* Since selenium v4, use `Tap With Positions` keyword.
