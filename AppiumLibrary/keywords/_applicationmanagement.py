@@ -5,6 +5,7 @@ import robot
 import inspect
 from appium import webdriver
 from appium.options.common import AppiumOptions
+from appium.webdriver.client_config import AppiumClientConfig
 from AppiumLibrary.utils import ApplicationCache
 from .keywordgroup import KeywordGroup
 
@@ -38,27 +39,30 @@ class _ApplicationManagementKeywords(KeywordGroup):
         self._cache.close_all()
 
     def open_application(self, remote_url, alias=None, **kwargs):
+        # FIXME: Update Keyword documentation
         """Opens a new application to given Appium server.
         Capabilities of appium server, Android and iOS,
         Please check https://appium.io/docs/en/2.1/cli/args/
         | *Option*            | *Man.* | *Description*     |
         | remote_url          | Yes    | Appium server url |
         | alias               | no     | alias             |
-        | strict_ssl          | No     | allows you to send commands to an invalid certificate host like a self-signed one. |
+        | ignore_certificates | True   | allows you to send commands to an invalid certificate host like a self-signed one. |
 
         Examples:
         | Open Application | http://localhost:4723/wd/hub | alias=Myapp1         | platformName=iOS      | platformVersion=7.0            | deviceName='iPhone Simulator'           | app=your.app                         |
-        | Open Application | http://localhost:4723/wd/hub | alias=Myapp1         | platformName=iOS      | platformVersion=7.0            | deviceName='iPhone Simulator'           | app=your.app                         | strict_ssl=False         |
+        | Open Application | http://localhost:4723/wd/hub | alias=Myapp1         | platformName=iOS      | platformVersion=7.0            | deviceName='iPhone Simulator'           | app=your.app                         | ignore_certificates=False         |
         | Open Application | http://localhost:4723/wd/hub | platformName=Android | platformVersion=4.2.2 | deviceName=192.168.56.101:5555 | app=${CURDIR}/demoapp/OrangeDemoApp.apk | appPackage=com.netease.qa.orangedemo | appActivity=MainActivity |
         """
-        # FIXME
-        # strict_ssl = False
-        # if "strict_ssl" in kwargs.keys():
-        #     strict_ssl = kwargs.pop("strict_ssl")
-        #     self._debug(f"strict_ssl found as {strict_ssl}")
 
-        desired_caps = AppiumOptions().load_capabilities(caps=kwargs)
-        application = webdriver.Remote(str(remote_url), options=desired_caps)
+        client_config = AppiumClientConfig()
+
+        client_config.remote_server_addr = remote_url
+        client_config.direct_connection = kwargs.pop('direct_connection') if 'direct_connection' in kwargs.keys() else True
+        client_config.keep_alive = kwargs.pop('keep_alive') if 'keep_alive' in kwargs.keys() else False
+        client_config.ignore_certificates = kwargs.pop('ignore_certificates') if 'ignore_certificates' in kwargs.keys() else True
+
+        options = AppiumOptions().load_capabilities(caps=kwargs)
+        application = webdriver.Remote(options, client_config)
 
         self._debug('Opened application with session id %s' % application.session_id)
 
@@ -90,45 +94,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
             self._cache.switch(index_or_alias)
         return old_index
 
-    def launch_application(self):
-        """*DEPRECATED!!* in selenium v4, use `Activate Application` keyword.
-
-        Launch application. Application can be launched while Appium session running.
-        This keyword can be used to launch application during test case or between test cases.
-
-        This keyword works while `Open Application` has a test running. This is good practice to `Launch Application`
-        and `Quit Application` between test cases. As Suite Setup is `Open Application`, `Test Setup` can be used to `Launch Application`
-
-        Example (syntax is just a representation, refer to RF Guide for usage of Setup/Teardown):
-        | [Setup Suite] |
-        |  | Open Application | http://localhost:4723/wd/hub | platformName=Android | deviceName=192.168.56.101:5555 | app=${CURDIR}/demoapp/OrangeDemoApp.apk |
-        | [Test Setup] |
-        |  | Launch Application |
-        |  |  | <<<test execution>>> |
-        |  |  | <<<test execution>>> |
-        | [Test Teardown] |
-        |  | Quit Application |
-        | [Suite Teardown] |
-        |  | Close Application |
-
-        See `Quit Application` for quiting application but keeping Appium sesion running.
-        """
-        driver = self._current_application()
-        driver.launch_app()
-
-    def quit_application(self):
-        """*DEPRECATED!!* in selenium v4, check `Close Application` keyword.
-
-        Close application. Application can be quit while Appium session is kept alive.
-        This keyword can be used to close application during test case or between test cases.
-
-        See `Launch Application` for an explanation.
-
-        """
-        driver = self._current_application()
-        driver.close_app()
-
     def reset_application(self):
+        # FIXME: Could it be replaced with Terminate Application?
         """*DEPRECATED!!* in selenium v4, check `Terminate Application` keyword.
 
         Reset application. Open Application can be reset while Appium session is kept alive.
@@ -209,7 +176,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | Sleep             |  1                  |
         | Execute Script    |  mobile: scrollGesture  |  &{scrollGesture}  |
 
-        Updated in AppiumLibrary 2
         """
         if kwargs:
             self._info(f"Provided dictionary: {kwargs}")
@@ -229,7 +195,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
         Check `Execute Script` for example kwargs usage
 
-        Updated in AppiumLibrary 2
         """
         if kwargs:
             self._info(f"Provided dictionary: {kwargs}")
@@ -284,13 +249,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         self._current_application().lock(robot.utils.timestr_to_secs(seconds))
 
-    def background_app(self, seconds=5):
-        """*DEPRECATED!!*  use  `Background Application` instead.
-        Puts the application in the background on the device for a certain
-        duration.
-        """
-        self._current_application().background_app(seconds)
-
     def background_application(self, seconds=5):
         """
         Puts the application in the background on the device for a certain
@@ -305,7 +263,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         Args:
          - app_id - BundleId for iOS. Package name for Android.
 
-        New in AppiumLibrary v2
         """
         self._current_application().activate_app(app_id)
 
@@ -316,7 +273,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         Args:
          - app_id - BundleId for iOS. Package name for Android.
 
-        New in AppiumLibrary v2
         """
         return self._current_application().terminate_app(app_id)
 
@@ -324,7 +280,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         Stop the given app on the device
 
-        Android only. New in AppiumLibrary v2
         """
         self._current_application().execute_script('mobile: shell', {
             'command': 'am force-stop',
@@ -339,7 +294,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
         `match` (boolean) whether the simulated fingerprint is valid (default true)
 
-        New in AppiumLibrary 1.5
         """
         self._current_application().touch_id(match)
 
@@ -347,7 +301,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         Toggle Touch ID enrolled state on iOS Simulator
 
-        New in AppiumLibrary 1.5
         """
         self._current_application().toggle_touch_id_enrollment()
 
@@ -386,7 +339,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | ${height}      | Get Window Height |
         | Click A Point  | ${width}         | ${height} |
 
-        New in AppiumLibrary 1.4.5
         """
         return self._current_application().get_window_size()['height']
 
@@ -398,7 +350,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | ${height}      | Get Window Height |
         | Click A Point  | ${width}          | ${height} |
 
-        New in AppiumLibrary 1.4.5
         """
         return self._current_application().get_window_size()['width']
 
