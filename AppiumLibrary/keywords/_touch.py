@@ -28,7 +28,7 @@ class _TouchKeywords(KeywordGroup):
         element = self._element_find(locator, True, True)
         driver.pinch(element=element, percent=percent, steps=steps)
 
-    def swipe(self, x_start: int, y_start: int, x_end: int, y_end: int, duration=1000):
+    def swipe(self, x_start: int, y_start: int, x_end: int, y_end: int, duration: int=1000):
         """
         Swipe from one point to another point, for an optional duration.
 
@@ -65,7 +65,6 @@ class _TouchKeywords(KeywordGroup):
         _*NOTE: *_
         This also considers swipe acts different between iOS and Android.
 
-        New in AppiumLibrary 1.4.5
         """
         width = self.get_window_width()
         height = self.get_window_height()
