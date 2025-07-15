@@ -45,24 +45,21 @@ class _ApplicationManagementKeywords(KeywordGroup):
         Please check https://appium.io/docs/en/2.1/cli/args/
         | *Option*            | *Man.* | *Description*     |
         | remote_url          | Yes    | Appium server url |
-        | alias               | no     | alias             |
-        | ignore_certificates | True   | allows you to send commands to an invalid certificate host like a self-signed one. |
-
+        | alias               | No     | alias             |
+      
         Examples:
-        | Open Application | http://localhost:4723/wd/hub | alias=Myapp1         | platformName=iOS      | platformVersion=7.0            | deviceName='iPhone Simulator'           | app=your.app                         |
-        | Open Application | http://localhost:4723/wd/hub | alias=Myapp1         | platformName=iOS      | platformVersion=7.0            | deviceName='iPhone Simulator'           | app=your.app                         | ignore_certificates=False         |
-        | Open Application | http://localhost:4723/wd/hub | platformName=Android | platformVersion=4.2.2 | deviceName=192.168.56.101:5555 | app=${CURDIR}/demoapp/OrangeDemoApp.apk | appPackage=com.netease.qa.orangedemo | appActivity=MainActivity |
+        | Open Application | http://localhost:4723 | alias=Myapp1         | platformName=iOS      | platformVersion=18.5            | deviceName='iPhone 16'           | app=your.app                         |
+        | Open Application | http://localhost:4723 | alias=Myapp1         | platformName=iOS      | platformVersion=18.5            | deviceName='iPhone 16'           | app=your.app                         | ignore_certificates=False         |
+        | Open Application | http://localhost:4723 | platformName=Android | platformVersion=4.2.2 | deviceName=192.168.56.101:5555 | app=${CURDIR}/demoapp/OrangeDemoApp.apk | appPackage=com.netease.qa.orangedemo | appActivity=MainActivity |
         """
 
-        client_config = AppiumClientConfig()
+        client_config = AppiumClientConfig(remote_url, 
+                                           direct_connection=kwargs.pop('direct_connection', True),
+                                           keep_alive=kwargs.pop('keep_alive', False),
+                                           ignore_certificates=kwargs.pop('ignore_certificates', True))
 
-        client_config.remote_server_addr = remote_url
-        client_config.direct_connection = kwargs.pop('direct_connection') if 'direct_connection' in kwargs.keys() else True
-        client_config.keep_alive = kwargs.pop('keep_alive') if 'keep_alive' in kwargs.keys() else False
-        client_config.ignore_certificates = kwargs.pop('ignore_certificates') if 'ignore_certificates' in kwargs.keys() else True
-
-        options = AppiumOptions().load_capabilities(caps=kwargs)
-        application = webdriver.Remote(options, client_config)
+        options = AppiumOptions().load_capabilities(kwargs)
+        application = webdriver.Remote(command_executor=remote_url, options=options, client_config=client_config)
 
         self._debug('Opened application with session id %s' % application.session_id)
 
