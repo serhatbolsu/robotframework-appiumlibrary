@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from appium.webdriver.common.touch_action import TouchAction
+from appium.webdriver.extensions.action_helpers import ActionHelpers
 
 from AppiumLibrary.locators import ElementFinder
 from .keywordgroup import KeywordGroup
@@ -28,29 +28,24 @@ class _TouchKeywords(KeywordGroup):
         element = self._element_find(locator, True, True)
         driver.pinch(element=element, percent=percent, steps=steps)
 
-    def swipe(self, start_x, start_y, offset_x, offset_y, duration=1000):
+    def swipe(self, x_start: int, y_start: int, x_end: int, y_end: int, duration=1000):
         """
         Swipe from one point to another point, for an optional duration.
 
         Args:
-         - start_x - x-coordinate at which to start
-         - start_y - y-coordinate at which to start
-         - offset_x - x-coordinate distance from start_x at which to stop
-         - offset_y - y-coordinate distance from start_y at which to stop
-         - duration - (optional) time to take the swipe, in ms.
+        - start_x: x-coordinate at which to start
+        - start_y: y-coordinate at which to start
+        - end_x: x-coordinate at which to stop
+        - end_y: y-coordinate at which to stop
+        - duration: defines the swipe speed as time taken to swipe from point a to point b, in ms.
+
 
         Usage:
         | Swipe | 500 | 100 | 100 | 0 | 1000 |
-
-        _*NOTE: *_
-        Android 'Swipe' is not working properly, use ``offset_x`` and ``offset_y`` as if these are destination points.
         """
-        x_start = int(start_x)
-        x_offset = int(offset_x)
-        y_start = int(start_y)
-        y_offset = int(offset_y)
+
         driver = self._current_application()
-        driver.swipe(x_start, y_start, x_offset, y_offset, duration)
+        driver.swipe(x_start, y_start, x_end, y_end, duration)
 
     def swipe_by_percent(self, start_x, start_y, end_x, end_y, duration=1000):
         """
@@ -114,9 +109,9 @@ class _TouchKeywords(KeywordGroup):
 
         Long press the element with optional duration """
         driver = self._current_application()
-        element = self._element_find(locator, True, True)
-        action = TouchAction(driver)
-        action.press(element).wait(duration).release().perform()
+        driver.tap([(262, 758)], 500)           # FIXME: replace hard coded coordinates
+
+
 
     def tap(self, locator, x_offset=None, y_offset=None, count=1):
         """*DEPRECATED!!* Since selenium v4, use `Tap With Positions` keyword.
@@ -131,8 +126,7 @@ class _TouchKeywords(KeywordGroup):
         """
         driver = self._current_application()
         el = self._element_find(locator, True, True)
-        action = TouchAction(driver)
-        action.tap(el,x_offset,y_offset, count).perform()
+        driver.tap(el,x_offset,y_offset, count).perform()   # FIXME
 
     def tap_with_positions(self, duration=500, *locations):
         """Taps on a particular place with up to five fingers, holding for a
@@ -182,26 +176,7 @@ class _TouchKeywords(KeywordGroup):
         params={'action': 'accept', 'buttonLabel': button_name}
         driver.execute_script("mobile: alert", params)
 
-    def click_a_point(self, x=0, y=0, duration=100):
-        """*DEPRECATED!!* Since selenium v4, use other keywords.
 
-        Click on a point"""
-        self._info("Clicking on a point (%s,%s)." % (x,y))
-        driver = self._current_application()
-        action = TouchAction(driver)
-        try:
-            action.press(x=float(x), y=float(y)).wait(float(duration)).release().perform()
-        except:
-            assert False, "Can't click on a point at (%s,%s)" % (x,y)
-
-    def click_element_at_coordinates(self, coordinate_X, coordinate_Y):
-        """*DEPRECATED!!* Since selenium v4, use other keywords.
-
-        click element at a certain coordinate """
-        self._info("Pressing at (%s, %s)." % (coordinate_X, coordinate_Y))
-        driver = self._current_application()
-        action = TouchAction(driver)
-        action.press(x=coordinate_X, y=coordinate_Y).release().perform()
 
     def drag_and_drop(self, locator: str, target: str):
         """Drags the element identified by ``locator`` into the ``target`` element.
