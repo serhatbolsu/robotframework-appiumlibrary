@@ -5,6 +5,7 @@ from appium.webdriver.extensions.action_helpers import ActionHelpers
 from datetime import timedelta
 from AppiumLibrary.locators import ElementFinder
 from .keywordgroup import KeywordGroup
+from .keywordgroup import ios_only
 
 
 class _TouchKeywords(KeywordGroup):
@@ -94,12 +95,14 @@ class _TouchKeywords(KeywordGroup):
         driver.scroll(el1, el2)
 
     def scroll_down(self, locator):
+        # FIXME: Implement loop to scroll down until element is found.
         """Scrolls down to element"""
         driver = self._current_application()
         element = self._element_find(locator, True, True)
         driver.execute_script("mobile: scroll", {"direction": 'down', 'elementid': element.id})
 
     def scroll_up(self, locator):
+        # FIXME: Implement loop to scroll up until element is found.
         """Scrolls up to element"""
         driver = self._current_application()
         element = self._element_find(locator, True, True)
@@ -150,9 +153,11 @@ class _TouchKeywords(KeywordGroup):
         """
         driver = self._current_application()
         driver.tap(positions=list(locations), duration=duration)
-        
+    
+    @ios_only
     def tap_with_number_of_taps(self, locator, number_of_taps, number_of_touches):
-        """ Sends one or more taps with one or more touch points.iOS only.
+        """ Sends one or more taps with one or more touch points
+        **iOS only.**
         
         Args:
         - ``number_of_taps`` - The number of taps.
@@ -163,22 +168,21 @@ class _TouchKeywords(KeywordGroup):
         params = {'element': element, 'numberOfTaps': number_of_taps, 'numberOfTouches': number_of_touches}
         driver.execute_script("mobile: tapWithNumberOfTaps", params)
 
+    @ios_only
     def click_alert_button(self, button_name):
-        """ Clicks on Alert button identified by Name.iOS only.
+        # FIXME: Compare implementation with the documentation.
+        """ Clicks on Alert button identified by Name.
+        **iOS only.**
 
         Args:
         - ``button_name`` - Text on the iOS alert button.
 
         Example:
         |  Click Alert Button  |  Allow  |
-
-        New in AppiumLibrary v2
         """
         driver = self._current_application()
         params={'action': 'accept', 'buttonLabel': button_name}
         driver.execute_script("mobile: alert", params)
-
-
 
     def drag_and_drop(self, locator: str, target: str):
         """Drags the element identified by ``locator`` into the ``target`` element.

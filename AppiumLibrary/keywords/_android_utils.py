@@ -1,35 +1,37 @@
 # -*- coding: utf-8 -*-
 import base64
 
+from .keywordgroup import android_only
 from .keywordgroup import KeywordGroup
 from selenium.common.exceptions import TimeoutException
 from kitchen.text.converters import to_bytes
 
 class _AndroidUtilsKeywords(KeywordGroup):
-
-    # Public
+    @android_only    
     def open_notifications(self):
         """Opens and expands an Android device's notification drawer.
 
-        Android only.
+        ****Android only.****
         """
         driver = self._current_application()
         driver.open_notifications()
-        
+
+    @android_only    
     def get_network_connection_status(self):
         """Returns an integer bitmask specifying the network connection type.
 
-        Android only.
+        **Android only.**
 
         See `set network connection status` for more details.
         """
         driver = self._current_application()
         return driver.network_connection
-
+    
+    @android_only
     def set_network_connection_status(self, connectionStatus):
         """Sets the network connection Status.
 
-        Android only.
+        **Android only.**
 
         Possible values:
             | =Value= | =Alias=          | =Data= | =Wifi= | =Airplane Mode=  |
@@ -42,10 +44,11 @@ class _AndroidUtilsKeywords(KeywordGroup):
         driver = self._current_application()
         return driver.set_network_connection(int(connectionStatus))
 
+    @android_only
     def pull_file(self, path, decode=False):
         """Retrieves the file at `path` and return it's content.
 
-        Android only.
+        **Android only.**
 
          - _path_ - the path to the file on the device
          - _decode_ - True/False decode the data (base64) before returning it (default=False)
@@ -56,10 +59,11 @@ class _AndroidUtilsKeywords(KeywordGroup):
             theFile = base64.b64decode(theFile)
         return str(theFile)
 
+    @android_only
     def pull_folder(self, path, decode=False):
         """Retrieves a folder at `path`. Returns the folder's contents zipped.
 
-        Android only.
+        **Android only.**
 
          - _path_ - the path to the folder on the device
          - _decode_ - True/False decode the data (base64) before returning it (default=False)
@@ -70,10 +74,11 @@ class _AndroidUtilsKeywords(KeywordGroup):
             theFolder = base64.b64decode(theFolder)
         return theFolder
 
+    @android_only
     def push_file(self, path, data, encode=False):
         """Puts the data in the file specified as `path`.
 
-        Android only.
+        **Android only.**
 
          - _path_ - the path on the device
          - _data_ - data to be written to the file
@@ -85,10 +90,11 @@ class _AndroidUtilsKeywords(KeywordGroup):
             data = base64.b64encode(data).decode('utf-8')
         driver.push_file(path, data)
 
+    @android_only
     def delete_file(self, path, timeout=5000, include_stderr=True):
         """Delete the file specified as `path`.
 
-        Android only.
+        **Android only.**
 
          - _path_ - the path on the device
          - _timeout_ - delete command timeout
@@ -103,20 +109,21 @@ class _AndroidUtilsKeywords(KeywordGroup):
             'timeout': timeout
         })
 
+    @android_only
     def get_activity(self):
         """Retrieves the current activity on the device.
 
-        Android only.
-
+        **Android only.**
         """
         driver = self._current_application()
         return driver.current_activity
 
+    @android_only
     def start_activity(self, appPackage, appActivity, **opts):
         """Opens an arbitrary activity during a test. If the activity belongs to
         another application, that application is started and the activity is opened.
 
-        Android only.
+        **Android only.**
 
         - _appPackage_ - The package containing the activity to start.
         - _appActivity_ - The activity to start.
@@ -153,11 +160,12 @@ class _AndroidUtilsKeywords(KeywordGroup):
         driver = self._current_application()
         driver.start_activity(app_package=appPackage, app_activity=appActivity, **data)
 
+    @android_only
     def wait_activity(self, activity, timeout, interval=1):
         """Wait for an activity: block until target activity presents
         or time out.
 
-        Android only.
+        **Android only.**
 
          - _activity_ - target activity
          - _timeout_ - max wait time, in seconds
@@ -167,10 +175,11 @@ class _AndroidUtilsKeywords(KeywordGroup):
         if not driver.wait_activity(activity=activity, timeout=float(timeout), interval=float(interval)):
             raise TimeoutException(msg="Activity %s never presented, current activity: %s" % (activity, self.get_activity()))
 
+    @android_only
     def install_app(self, app_path, app_package):
         """ Install App via Appium
         
-        Android only.
+        **Android only.**
 
         - app_path - path to app
         - app_package - package of install app to verify
@@ -179,15 +188,15 @@ class _AndroidUtilsKeywords(KeywordGroup):
         driver.install_app(app_path)
         return driver.is_app_installed(app_package)
     
+    @android_only
     def set_location(self, latitude, longitude, altitude=10):
         """ Set location
 
+        **Android only.**
+        
         - _latitute_
         - _longitude_
         - _altitude_ = 10 [optional]
-        
-        Android only.
-        New in AppiumLibrary 1.5
         """
         driver = self._current_application()
         driver.set_location(latitude,longitude,altitude)

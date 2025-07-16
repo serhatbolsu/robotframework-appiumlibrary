@@ -3,11 +3,14 @@
 import os
 import robot
 import inspect
+
 from appium import webdriver
 from appium.options.common import AppiumOptions
 from appium.webdriver.client_config import AppiumClientConfig
 from AppiumLibrary.utils import ApplicationCache
 from .keywordgroup import KeywordGroup
+from .keywordgroup import android_only
+from .keywordgroup import ios_only
 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
@@ -198,11 +201,12 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
         return self._current_application().execute_async_script(script, kwargs)
 
+    @android_only
     def execute_adb_shell(self, command, *args):
         """
         Execute ADB shell commands
 
-        Android only.
+        **Android only.**
 
         - _command_ - The ABD shell command
         - _args_ - Arguments to send to command
@@ -216,11 +220,12 @@ class _ApplicationManagementKeywords(KeywordGroup):
             'args': list(args)
         })
 
+    @android_only
     def execute_adb_shell_timeout(self, command, timeout, *args):
         """
         Execute ADB shell commands
 
-        Android only.
+        **Android only.**
 
         - _command_ - The ABD shell command
         - _timeout_ - Timeout to be applied to command
@@ -240,9 +245,11 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """Goes one step backward in the browser history."""
         self._current_application().back()
 
+    @ios_only
     def lock(self, seconds=5):
         """
-        Lock the device for a certain period of time. iOS only.
+        Lock the device for a certain period of time. 
+        **iOS only.**
         """
         self._current_application().lock(robot.utils.timestr_to_secs(seconds))
 
