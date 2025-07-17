@@ -164,6 +164,7 @@ class _TouchKeywords(KeywordGroup):
 
 
     def long_press(self, locator, duration=1000):
+        # FIXME: Rename to tap? Like the method in appium-python-client. Maybe add count?
         """Long press the element with optional duration """
         element = self._element_find(locator, True, True)
         location = element.location
@@ -189,6 +190,7 @@ class _TouchKeywords(KeywordGroup):
         driver.tap(el,x_offset,y_offset, count).perform()   # FIXME
 
     def tap_with_positions(self, duration=500, *locations):
+        # TODO: More meaningful name?
         """Taps on a particular place with up to five fingers, holding for a
         certain time
 
@@ -203,14 +205,13 @@ class _TouchKeywords(KeywordGroup):
         |  @{fingerPositions}  |  create list  |  ${firstFinger}  |  ${secondFinger}  |
         |  Sleep  |  1  |
         |  Tap with Positions  |  ${1000}  |  @{fingerPositions}  |
-
-        New in AppiumLibrary v2
         """
         driver = self._current_application()
         driver.tap(positions=list(locations), duration=duration)
     
     @ios_only
     def tap_with_number_of_taps(self, locator, number_of_taps, number_of_touches):
+        # TODO: Should this keyword be removed?
         """ Sends one or more taps with one or more touch points
         **iOS only.**
         
