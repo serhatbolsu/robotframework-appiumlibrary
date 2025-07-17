@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import time
+
 from appium.webdriver.extensions.action_helpers import ActionHelpers
 
 from datetime import timedelta
@@ -94,12 +96,36 @@ class _TouchKeywords(KeywordGroup):
         driver = self._current_application()
         driver.scroll(el1, el2)
 
-    def scroll_down(self, locator):
-        # FIXME: Implement loop to scroll down until element is found.
-        """Scrolls down to element"""
+    def scroll_down(self, locator, timeout=10, retry_interval=1):
+        """Scrolls down until the element is found or until the timeout (Android only) is reached.
+            Args:
+        - ``locator`` - (mandatory)  Locator of the element to scroll down to.
+        - ``timeout`` - (optional) timeout in seconds
+        - ``retry_interval`` - (optional) interval between scroll attempts in seconds
+        """
         driver = self._current_application()
-        element = self._element_find(locator, True, True)
-        driver.execute_script("mobile: scroll", {"direction": 'down', 'elementid': element.id})
+        platform = self._get_platform()
+        if platform == 'android':
+            start_time = time.time()
+            while time.time() - start_time < timeout:
+                try:
+                    element = self._element_find(locator, True, True)
+                except ValueError:
+                    print('Element not visible, scrolling...')
+                    width = self.get_window_width()
+                    height = self.get_window_height()
+                
+                    x = width / 2
+                    start_y = height * 0.8 # 80% of the screen
+                    end_y = height * 0.2 # 20% of the screen
+                
+                    driver.swipe(x, start_y, x, end_y, 1000)
+                time.sleep(retry_interval)
+        else:
+            element = self._element_find(locator, True, True)
+            driver.execute_script("mobile: scroll", {"direction": 'down', 'elementid': element.id})
+
+        raise AssertionError(f"Element '{locator}' not found within {timeout} seconds.")
 
     def scroll_up(self, locator):
         # FIXME: Implement loop to scroll up until element is found.
