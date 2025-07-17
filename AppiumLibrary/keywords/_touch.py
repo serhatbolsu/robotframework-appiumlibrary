@@ -100,8 +100,8 @@ class _TouchKeywords(KeywordGroup):
         """Scrolls down until the element is found or until the timeout (Android only) is reached.
             Args:
         - ``locator`` - (mandatory)  Locator of the element to scroll down to.
-        - ``timeout`` - (optional) timeout in seconds
-        - ``retry_interval`` - (optional) interval between scroll attempts in seconds
+        - ``timeout`` - (optional) timeout in seconds (default 10 seconds)
+        - ``retry_interval`` - (optional) interval between scroll attempts in seconds (default one second)
         """
         driver = self._current_application()
         platform = self._get_platform()
@@ -110,6 +110,7 @@ class _TouchKeywords(KeywordGroup):
             while time.time() - start_time < timeout:
                 try:
                     element = self._element_find(locator, True, True)
+                    return True
                 except ValueError:
                     print('Element not visible, scrolling...')
                     width = self.get_window_width()
@@ -124,15 +125,43 @@ class _TouchKeywords(KeywordGroup):
         else:
             element = self._element_find(locator, True, True)
             driver.execute_script("mobile: scroll", {"direction": 'down', 'elementid': element.id})
+            return True
 
         raise AssertionError(f"Element '{locator}' not found within {timeout} seconds.")
 
-    def scroll_up(self, locator):
-        # FIXME: Implement loop to scroll up until element is found.
-        """Scrolls up to element"""
+    def scroll_up(self, locator, timeout=10, retry_interval=1):
+        """Scrolls up until the element is found or the timeout (Android only) is reached.
+            Args:
+        - ``locator`` - (mandatory)  Locator of the element to scroll down to.
+        - ``timeout`` - (optional) timeout in seconds (default 10 seconds)
+        - ``retry_interval`` - (optional) interval between scroll attempts in seconds (default one second)
+        """
         driver = self._current_application()
-        element = self._element_find(locator, True, True)
-        driver.execute_script("mobile: scroll", {"direction": 'up', 'elementid': element.id})
+        platform = self._get_platform()
+        if platform == 'android':
+            start_time = time.time()
+            while time.time() - start_time < timeout:
+                try:
+                    element = self._element_find(locator, True, True)
+                    return True
+                except ValueError:
+                    print('Element not visible, scrolling...')
+                    width = self.get_window_width()
+                    height = self.get_window_height()
+                
+                    x = width / 2
+                    start_y = height * 0.2
+                    end_y = height * 0.8
+                
+                    driver.swipe(x, start_y, x, end_y, 1000)
+                time.sleep(retry_interval)
+        else:
+            element = self._element_find(locator, True, True)
+            driver.execute_script("mobile: scroll", {"direction": 'up', 'elementid': element.id})
+            return True
+        
+        raise AssertionError(f"Element '{locator}' not found within {timeout} seconds.")
+
 
     def long_press(self, locator, duration=1000):
         """Long press the element with optional duration """
