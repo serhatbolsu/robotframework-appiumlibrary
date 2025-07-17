@@ -26,6 +26,7 @@ class _TouchKeywords(KeywordGroup):
         driver.zoom(element=element, percent=percent, steps=steps)
 
     def pinch(self, locator, percent="200%", steps=1):
+        # TODO: remove pinch and implement zoom to be able to zoom in and out?
         """*DEPRECATED!!* use `Execute Script` instead.
         Pinch in on an element a certain amount.
         """

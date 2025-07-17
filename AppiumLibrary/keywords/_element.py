@@ -42,17 +42,6 @@ class _ElementKeywords(KeywordGroup):
         self._info("Clicking element '%s'." % locator)
         self._element_find(locator, True, True).click()
 
-    def click_button(self, index_or_name):
-        """*DEPRECATED!!* in selenium v4, use `Click Element` keyword.
-        Click button
-
-        """
-        _platform_class_dict = {'ios': 'UIAButton',
-                                'android': 'android.widget.Button'}
-        if self._is_support_platform(_platform_class_dict):
-            class_name = self._get_class(_platform_class_dict)
-            self._click_element_by_class_name(class_name, index_or_name)
-
     def click_text(self, text, exact_match=False):
         """Click text identified by ``text``.
 
