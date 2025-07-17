@@ -17,6 +17,7 @@ class _TouchKeywords(KeywordGroup):
 
     # Public, element lookups
     def zoom(self, locator, percent="200%", steps=1):
+        # TODO: perhaps it can be implemented with multiple taps (action helpers)
         """*DEPRECATED!!*
         Zooms in on an element a certain amount.
         """
@@ -190,7 +191,7 @@ class _TouchKeywords(KeywordGroup):
         driver.tap(el,x_offset,y_offset, count).perform()   # FIXME
 
     def tap_with_positions(self, duration=500, *locations):
-        # TODO: More meaningful name?
+        # TODO: More meaningful name? -> Perform Multi Tap, Tap With Coordinates, Tap At, Tap Multiple Points, etc.
         """Taps on a particular place with up to five fingers, holding for a
         certain time
 
