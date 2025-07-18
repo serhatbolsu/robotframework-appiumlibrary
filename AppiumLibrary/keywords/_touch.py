@@ -17,7 +17,6 @@ class _TouchKeywords(KeywordGroup):
 
     # Public, element lookups
     def zoom(self, locator, percent="200%", steps=1):
-        # TODO: perhaps it can be implemented with multiple taps (action helpers)
         """*DEPRECATED!!*
         Zooms in on an element a certain amount.
         """
@@ -26,7 +25,6 @@ class _TouchKeywords(KeywordGroup):
         driver.zoom(element=element, percent=percent, steps=steps)
 
     def pinch(self, locator, percent="200%", steps=1):
-        # TODO: remove pinch and implement zoom to be able to zoom in and out?
         """*DEPRECATED!!* use `Execute Script` instead.
         Pinch in on an element a certain amount.
         """
@@ -102,7 +100,7 @@ class _TouchKeywords(KeywordGroup):
         """Scrolls down until the element is found or until the timeout (Android only) is reached.
             Args:
         - ``locator`` - (mandatory)  Locator of the element to scroll down to.
-        - ``timeout`` - (optional) timeout in seconds (default 10 seconds)
+        - ``timeout`` - (optional) timeout in seconds (default 10 seconds) - Android only
         - ``retry_interval`` - (optional) interval between scroll attempts in seconds (default one second)
         """
         driver = self._current_application()
@@ -135,7 +133,7 @@ class _TouchKeywords(KeywordGroup):
         """Scrolls up until the element is found or the timeout (Android only) is reached.
             Args:
         - ``locator`` - (mandatory)  Locator of the element to scroll down to.
-        - ``timeout`` - (optional) timeout in seconds (default 10 seconds)
+        - ``timeout`` - (optional) timeout in seconds (default 10 seconds) - Android only
         - ``retry_interval`` - (optional) interval between scroll attempts in seconds (default one second)
         """
         driver = self._current_application()
