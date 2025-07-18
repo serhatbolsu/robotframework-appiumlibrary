@@ -17,22 +17,12 @@ class _TouchKeywords(KeywordGroup):
 
     # Public, element lookups
     def zoom(self, locator, percent="200%", steps=1):
-        # TODO: perhaps it can be implemented with multiple taps (action helpers)
         """*DEPRECATED!!*
         Zooms in on an element a certain amount.
         """
         driver = self._current_application()
         element = self._element_find(locator, True, True)
         driver.zoom(element=element, percent=percent, steps=steps)
-
-    def pinch(self, locator, percent="200%", steps=1):
-        # TODO: remove pinch and implement zoom to be able to zoom in and out?
-        """*DEPRECATED!!* use `Execute Script` instead.
-        Pinch in on an element a certain amount.
-        """
-        driver = self._current_application()
-        element = self._element_find(locator, True, True)
-        driver.pinch(element=element, percent=percent, steps=steps)
 
     def swipe(self, x_start: int, y_start: int, x_end: int, y_end: int, duration: timedelta='1s'):
         """
@@ -102,7 +92,7 @@ class _TouchKeywords(KeywordGroup):
         """Scrolls down until the element is found or until the timeout (Android only) is reached.
             Args:
         - ``locator`` - (mandatory)  Locator of the element to scroll down to.
-        - ``timeout`` - (optional) timeout in seconds (default 10 seconds)
+        - ``timeout`` - (optional) timeout in seconds (default 10 seconds) - Android only
         - ``retry_interval`` - (optional) interval between scroll attempts in seconds (default one second)
         """
         driver = self._current_application()
@@ -135,7 +125,7 @@ class _TouchKeywords(KeywordGroup):
         """Scrolls up until the element is found or the timeout (Android only) is reached.
             Args:
         - ``locator`` - (mandatory)  Locator of the element to scroll down to.
-        - ``timeout`` - (optional) timeout in seconds (default 10 seconds)
+        - ``timeout`` - (optional) timeout in seconds (default 10 seconds) - Android only
         - ``retry_interval`` - (optional) interval between scroll attempts in seconds (default one second)
         """
         driver = self._current_application()
@@ -166,7 +156,6 @@ class _TouchKeywords(KeywordGroup):
 
 
     def long_press(self, locator, duration=1000):
-        # FIXME: Rename to tap? Like the method in appium-python-client. Maybe add count?
         """Long press the element with optional duration """
         element = self._element_find(locator, True, True)
         location = element.location
@@ -176,23 +165,25 @@ class _TouchKeywords(KeywordGroup):
         driver = self._current_application()
         driver.tap([(center_x, center_y)], duration)
 
-    def tap(self, locator, x_offset=None, y_offset=None, count=1):
-        """*DEPRECATED!!* Since selenium v4, use `Tap With Positions` keyword.
-
+    def tap(self, locator, count=1, duration=500):
+        """
         Tap element identified by ``locator``.
 
         Args:
         - ``locator`` - (mandatory). Taps coordinates when set to ${None}.
-        - ``x_offset`` - (optional) x coordinate to tap, relative to the top left corner of the element.
-        - ``y_offset`` - (optional) y coordinate. If y is used, x must also be set, and vice versa
         - ``count`` - can be used for multiple times of tap on that element
+        - ``duration`` - speed of a single tap on the element
         """
         driver = self._current_application()
-        el = self._element_find(locator, True, True)
-        driver.tap(el,x_offset,y_offset, count).perform()   # FIXME
+        for _ in range(count):
+            element = self._element_find(locator, True, True)
+            location = element.location
+            size = element.size
+            center_x = location['x'] + size['width'] // 2
+            center_y = location['y'] + size['height'] // 2
+            driver.tap([(center_x, center_y)], duration)
 
     def tap_with_positions(self, duration=500, *locations):
-        # TODO: More meaningful name? -> Perform Multi Tap, Tap With Coordinates, Tap At, Tap Multiple Points, etc.
         """Taps on a particular place with up to five fingers, holding for a
         certain time
 
