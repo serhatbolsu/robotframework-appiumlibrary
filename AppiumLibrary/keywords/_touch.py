@@ -24,14 +24,6 @@ class _TouchKeywords(KeywordGroup):
         element = self._element_find(locator, True, True)
         driver.zoom(element=element, percent=percent, steps=steps)
 
-    def pinch(self, locator, percent="200%", steps=1):
-        """*DEPRECATED!!* use `Execute Script` instead.
-        Pinch in on an element a certain amount.
-        """
-        driver = self._current_application()
-        element = self._element_find(locator, True, True)
-        driver.pinch(element=element, percent=percent, steps=steps)
-
     def swipe(self, x_start: int, y_start: int, x_end: int, y_end: int, duration: timedelta='1s'):
         """
         Swipe from one point to another point, for an optional duration.
@@ -164,7 +156,6 @@ class _TouchKeywords(KeywordGroup):
 
 
     def long_press(self, locator, duration=1000):
-        # FIXME: Rename to tap? Like the method in appium-python-client. Maybe add count?
         """Long press the element with optional duration """
         element = self._element_find(locator, True, True)
         location = element.location
