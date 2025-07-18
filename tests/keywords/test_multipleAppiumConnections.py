@@ -13,8 +13,12 @@ stream_handler = logging.StreamHandler(sys.stdout)
 logger.addHandler(stream_handler)
 stream_handler = logging.StreamHandler(sys.stderr)
 logger.addHandler(stream_handler)
-
+   
 class MultipleAppiumConnectionTests(unittest.TestCase):
+    import six
+    if six.PY2:
+        assertRegex = unittest.TestCase.assertRegexpMatches
+        assertRaisesRegex = unittest.TestCase.assertRaisesRegexp
 
     am=None
 
@@ -25,7 +29,7 @@ class MultipleAppiumConnectionTests(unittest.TestCase):
         self.am._debug = mock.Mock()
         # log debug from _ApplicationManagementKeywords to console
         #am._debug = logger.debug
-
+       
     def test_MAC_openApplication_successful(self):
         self.assertFalse(self.am._cache.current)
         #am.open_application(remote_url, platform_name, platform_version, device_name, app, automation_name, app_package, app_activity, app_wait_package, app_wait_activity, alias, bundleid, udid)
@@ -65,16 +69,16 @@ class MultipleAppiumConnectionTests(unittest.TestCase):
         self.assertFalse(self.am._cache.current)
         ## open with duplicate alias - should Fail
         # bug/Feature in ConnectionCache? It's possible to add duplicate alias
-        # --> old alias is overwritten with the new, however old connection remains open and
-        # is still accessible with the connection index
-        # see https://github.com/robotframework/SSHLibrary/issues/121
+        # --> old alias is overwritten with the new, however old connection remains open and 
+        # is still accessible with the connection index 
+        # see https://github.com/robotframework/SSHLibrary/issues/121 
         self.am.open_application('http://127.0.0.1:4723/wd/hub', alias='MyAppA', platformName='Android', platformVersion='4.4', deviceName='MyDevice01')
         self.am.open_application('http://127.0.0.1:4733/wd/hub', alias='MyAppB', platformName='Android', platformVersion='4.4', deviceName='MyDevice02')
         ## open + close + open again with the same alias (different url etc.) - should succeed
         self.am.open_application('http://127.0.0.1:4723/wd/hub', alias='MyAppA', platformName='Android', platformVersion='4.4', deviceName='MyDevice01')
-        self.am.open_application('http://127.0.0.1:4733/wd/hub', alias='MyAppB', platformName='Android', platformVersion='4.4', deviceName='MyDevice02')
+        self.am.open_application('http://127.0.0.1:4733/wd/hub', alias='MyAppB', platformName='Android', platformVersion='4.4', deviceName='MyDevice02')        
         self.am.close_application()
-        self.am.open_application('http://127.0.0.1:4743/wd/hub', alias='MyAppB', platformName='Android', platformVersion='4.4', deviceName='MyDevice03')
+        self.am.open_application('http://127.0.0.1:4743/wd/hub', alias='MyAppB', platformName='Android', platformVersion='4.4', deviceName='MyDevice03')        
 
     def test_MAC_switchWithAlias_successful(self):
         # switch applications with aliases
@@ -82,7 +86,7 @@ class MultipleAppiumConnectionTests(unittest.TestCase):
         # create 1st application - alias=MyAppA - index=1
         self.am.open_application('http://127.0.0.1:4723/wd/hub', alias='MyAppA', platformName='Android', platformVersion='4.4', deviceName='MyDevice01')
         # create 2nd application - alias=MyAppB - index=2
-        self.am.open_application('http://127.0.0.1:4733/wd/hub', alias='MyAppB', platformName='Android', platformVersion='4.4', deviceName='MyDevice02')
+        self.am.open_application('http://127.0.0.1:4733/wd/hub', alias='MyAppB', platformName='Android', platformVersion='4.4', deviceName='MyDevice02')        
         # switch to 1st application - alias=MyAppA - index=2 (switch_application returns the previous app index)
         appIndex = self.am.switch_application('MyAppA')
         self.assertRegex(self.am._cache.current._appiumUrl, '127.0.0.1:4723')
@@ -90,7 +94,7 @@ class MultipleAppiumConnectionTests(unittest.TestCase):
         self.assertEqual(appIndex, 2)
         self.am.lock()
         # create 3rd application - alias=MyAppC - index=3
-        self.am.open_application('http://127.0.0.1:4743/wd/hub', alias='MyAppC', platformName='Android', platformVersion='4.4', deviceName='MyDevice03')
+        self.am.open_application('http://127.0.0.1:4743/wd/hub', alias='MyAppC', platformName='Android', platformVersion='4.4', deviceName='MyDevice03')        
         # switch to 2nd application - alias=MyAppB - index=3 (switch_application returns the previous app index)
         appIndex = self.am.switch_application('MyAppB')
         self.assertRegex(self.am._cache.current._appiumUrl, '127.0.0.1:4733')
@@ -111,7 +115,7 @@ class MultipleAppiumConnectionTests(unittest.TestCase):
         # create 1st application - alias=MyAppA - index=1
         self.am.open_application('http://127.0.0.1:4723/wd/hub', alias='MyAppA', platformName='Android', platformVersion='4.4', deviceName='MyDevice01')
         # create 2nd application - alias=MyAppB - index=2
-        self.am.open_application('http://127.0.0.1:4733/wd/hub', alias='MyAppB', platformName='Android', platformVersion='4.4', deviceName='MyDevice02')
+        self.am.open_application('http://127.0.0.1:4733/wd/hub', alias='MyAppB', platformName='Android', platformVersion='4.4', deviceName='MyDevice02') 
         # switch to non-existent alias
         self.assertRaisesRegex(RuntimeError, "Non-existing.*MyAppXXX", self.am.switch_application, 'MyAppXXX')
 
@@ -121,7 +125,7 @@ class MultipleAppiumConnectionTests(unittest.TestCase):
         # create 1st application - alias=MyAppA - index=1
         self.am.open_application('http://127.0.0.1:4723/wd/hub', alias='MyAppA', platformName='Android', platformVersion='4.4', deviceName='MyDevice01')
         # create 2nd application - alias=MyAppB - index=2
-        self.am.open_application('http://127.0.0.1:4733/wd/hub', alias='MyAppB', platformName='Android', platformVersion='4.4', deviceName='MyDevice02')
+        self.am.open_application('http://127.0.0.1:4733/wd/hub', alias='MyAppB', platformName='Android', platformVersion='4.4', deviceName='MyDevice02') 
         # switch to 1st application - index=1 - appIndex=2 (switch_application returns the previous app index)
         appIndex = self.am.switch_application(1)
         self.assertRegex(self.am._cache.current._appiumUrl, '127.0.0.1:4723')
@@ -129,7 +133,7 @@ class MultipleAppiumConnectionTests(unittest.TestCase):
         self.assertEqual(appIndex, 2)
         self.am.lock()
         # create 3rd application - alias=MyAppC - index=3
-        self.am.open_application('http://127.0.0.1:4743/wd/hub', alias='MyAppC', platformName='Android', platformVersion='4.4', deviceName='MyDevice03')
+        self.am.open_application('http://127.0.0.1:4743/wd/hub', alias='MyAppC', platformName='Android', platformVersion='4.4', deviceName='MyDevice03')        
         # switch to 2nd application - index=2 - appIndex=3 (switch_application returns the previous app index)
         appIndex = self.am.switch_application(2)
         self.assertRegex(self.am._cache.current._appiumUrl, '127.0.0.1:4733')
@@ -150,7 +154,7 @@ class MultipleAppiumConnectionTests(unittest.TestCase):
         # create 1st application - alias=MyAppA - index=1
         self.am.open_application('http://127.0.0.1:4723/wd/hub', alias='MyAppA', platformName='Android', platformVersion='4.4', deviceName='MyDevice01')
         # create 2nd application - alias=MyAppB - index=2
-        self.am.open_application('http://127.0.0.1:4733/wd/hub', alias='MyAppB', platformName='Android', platformVersion='4.4', deviceName='MyDevice02')
+        self.am.open_application('http://127.0.0.1:4733/wd/hub', alias='MyAppB', platformName='Android', platformVersion='4.4', deviceName='MyDevice02') 
         # switch to non-existent alias
         self.assertRaisesRegex(RuntimeError, "Non-existing.*333", self.am.switch_application, 333)
 
@@ -159,7 +163,7 @@ class MultipleAppiumConnectionTests(unittest.TestCase):
         # create 1st application - alias=MyAppA - index=1
         self.am.open_application('http://127.0.0.1:4723/wd/hub', alias='MyAppA', platformName='Android', platformVersion='4.4', deviceName='MyDevice01')
         # create 2nd application - alias=MyAppB - index=2
-        self.am.open_application('http://127.0.0.1:4733/wd/hub', alias='MyAppB', platformName='Android', platformVersion='4.4', deviceName='MyDevice02')
+        self.am.open_application('http://127.0.0.1:4733/wd/hub', alias='MyAppB', platformName='Android', platformVersion='4.4', deviceName='MyDevice02') 
         # close and switch to MyAppA
         self.assertTrue(self.am._cache.current)
         self.am.close_application()
@@ -167,7 +171,7 @@ class MultipleAppiumConnectionTests(unittest.TestCase):
         appIndex = self.am.switch_application(1)
         self.assertTrue(self.am._cache.current)
         self.assertEqual(appIndex, None)
-
+        
     def test_MAC_closeApplication_failed(self):
         # switch applications with aliases
         ## close application without any open applications
@@ -178,7 +182,7 @@ class MultipleAppiumConnectionTests(unittest.TestCase):
         # create 1st application - alias=MyAppA - index=1
         self.am.open_application('http://127.0.0.1:4723/wd/hub', alias='MyAppA', platformName='Android', platformVersion='4.4', deviceName='MyDevice01')
         # create 2nd application - alias=MyAppB - index=2
-        self.am.open_application('http://127.0.0.1:4733/wd/hub', alias='MyAppB', platformName='Android', platformVersion='4.4', deviceName='MyDevice02')
+        self.am.open_application('http://127.0.0.1:4733/wd/hub', alias='MyAppB', platformName='Android', platformVersion='4.4', deviceName='MyDevice02') 
         self.am.close_application()
         self.assertRaisesRegex(RuntimeError, "No application is open", self.am.lock)
         self.am.switch_application(1)
@@ -186,18 +190,18 @@ class MultipleAppiumConnectionTests(unittest.TestCase):
         self.am.close_application()
         # verify that the applications are really closed
         # These fail because of ConnectionCache, it has no mechanism for removing a single entry from the cache
-        # --> switching to a closed connection does not produce an error, the error comes only when you try to do
+        # --> switching to a closed connection does not produce an error, the error comes only when you try to do 
         #     something with the connection
         # BUG: https://github.com/robotframework/SSHLibrary/issues/120
-        # Now the WebdriverRemoteMock object, simulates the current situation i.e. it implements
+        # Now the WebdriverRemoteMock object, simulates the current situation i.e. it implements 
         #  - the "quit()" method that is used to close the application
         #  - the "lock()" method (=keyword) to simulate a call to a dead connection
-        # When fixed, this test should look something like this:
+        # When fixed, this test should look something like this: 
         #self.assertRaisesRegex(RuntimeError, "Non-existing.*2", self.am.switch_application, 2)
         #self.assertRaisesRegex(RuntimeError, "Non-existing.*MyAppB", self.am.switch_application, 'MyAppA')
         self.am.switch_application(2)
         self.assertRaisesRegex(RuntimeError, "Application has been closed", self.am.lock)
-
+        
 
     def test_MAC_switchAndClose_successful(self):
         self.assertFalse(self.am._cache.current)
@@ -215,7 +219,7 @@ class MultipleAppiumConnectionTests(unittest.TestCase):
         appIndex = self.am.switch_application('MyAppA')
         self.assertRegex(self.am._cache.current._appiumUrl, '127.0.0.1:4723')
         self.assertEqual(self.am._cache.current._desCapa.get('deviceName'), 'MyDevice01')
-
+        
     def test_MAC_closeAll_successful(self):
         # create apps
         self.am.open_application('http://127.0.0.1:4723/wd/hub', alias='MyAppA', platformName='Android', platformVersion='4.4', deviceName='MyDevice01')
