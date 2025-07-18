@@ -2,13 +2,8 @@
 
 import sys
 import inspect
-from six import with_metaclass
-try:
-    from decorator import decorator
-except SyntaxError:  # decorator module requires Python/Jython 2.4+
-    decorator = None
-if sys.platform == 'cli':
-    decorator = None  # decorator module doesn't work with IronPython 2.6
+
+from decorator import decorator
 
 def android_only(func):
     """Decorator to mark a method as Android only."""
@@ -34,7 +29,6 @@ def _run_on_failure_decorator(method, *args, **kwargs):
         if hasattr(self, '_run_on_failure'):
             self._run_on_failure()
         raise err
-
 
 class KeywordGroupMetaClass(type):
     def __new__(cls, clsname, bases, dict):

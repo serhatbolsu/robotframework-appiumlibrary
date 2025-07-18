@@ -43,7 +43,6 @@ setup(name='robotframework-appiumlibrary',
           'selenium >=4.26.0',
           'Appium-Python-Client >= 5.1.1',
           'kitchen >= 1.2.4',
-          'six >= 1.10.0'
       ],
       tests_require=[
           'mock >= 2.0.0',
@@ -51,7 +50,6 @@ setup(name='robotframework-appiumlibrary',
           'pytest-xdist >= 1.16.0',
           'pytest-pythonpath >= 0.7.1',
           'pytest >= 3.1.0',
-          'six >= 1.10.0'
       ],
       packages=find_packages(exclude=["demo", "docs", "tests", ]),
       include_package_data=True,

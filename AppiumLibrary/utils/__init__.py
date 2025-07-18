@@ -1,9 +1,6 @@
-import six
-
 from .applicationcache import ApplicationCache
 
-if six.PY3:
-    unicode = str
+unicode = str
 
 def escape_xpath_value(value):
     value = unicode(value)
