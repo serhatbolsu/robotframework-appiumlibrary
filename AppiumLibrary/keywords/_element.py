@@ -3,6 +3,8 @@
 from AppiumLibrary.locators import ElementFinder
 from appium.webdriver.common.appiumby import AppiumBy
 from .keywordgroup import KeywordGroup
+from .keywordgroup import ios_only
+from .keywordgroup import android_only
 from robot.libraries.BuiltIn import BuiltIn
 import ast
 from unicodedata import normalize
@@ -54,6 +56,7 @@ class _ElementKeywords(KeywordGroup):
         """
         self._element_find_by_text(text,exact_match).click()
 
+    @android_only
     def input_text_into_current_element(self, text):
         """Types the given `text` into currently selected text field.
 
@@ -82,6 +85,7 @@ class _ElementKeywords(KeywordGroup):
         self._info("Typing password into text field '%s'" % locator)
         self._element_input_text_by_locator(locator, text)
 
+    @ios_only
     def input_value(self, locator, text):
         # TODO: should we make this deprecated? input text works already for everything?
         """Sets the given value into text field identified by `locator`. This is an IOS only keyword, input value makes use of set_value
@@ -99,9 +103,7 @@ class _ElementKeywords(KeywordGroup):
         driver.hide_keyboard(key_name)
 
     def is_keyboard_shown(self):
-        """Return true if Android keyboard is displayed or False if not displayed
-        No parameters are used.
-        """
+        """RETURN true or false if keyboard is displayed."""
         driver = self._current_application()
         return driver.is_keyboard_shown()
 
@@ -184,8 +186,6 @@ class _ElementKeywords(KeywordGroup):
 
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
-
-        New in AppiumLibrary 1.4.5
         """
         if not self._element_find(locator, True, True).is_displayed():
             self.log_source(loglevel)
@@ -292,8 +292,6 @@ class _ElementKeywords(KeywordGroup):
         of the element, use `Element Text Should Be`.
 
         Key attributes for arbitrary elements are ``id`` and ``xpath``. ``message`` can be used to override the default error message.
-
-        New in AppiumLibrary 1.4.
         """
         self._info("Verifying element '%s' contains text '%s'."
                     % (locator, expected))
@@ -371,8 +369,8 @@ class _ElementKeywords(KeywordGroup):
         return element
 
     def get_webelement_in_webelement(self, element, locator):
-        """ 
-        Returns a single [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement] 
+        """
+        Returns a single [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement]
         objects matching ``locator`` that is a child of argument element.
 
         This is useful when your HTML doesn't properly have id or name elements on all elements.
@@ -384,7 +382,7 @@ class _ElementKeywords(KeywordGroup):
             elements = self._element_finder.find(element, _locator, None)
             if len(elements) == 0:
                 raise ValueError("Element locator '" + locator + "' did not match any elements.")
-            if len(elements) == 0: 
+            if len(elements) == 0:
                 return None
             return elements[0]
         elif isinstance(locator, WebElement):
