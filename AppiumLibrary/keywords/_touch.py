@@ -165,23 +165,25 @@ class _TouchKeywords(KeywordGroup):
         driver = self._current_application()
         driver.tap([(center_x, center_y)], duration)
 
-    def tap(self, locator, x_offset=None, y_offset=None, count=1):
-        """*DEPRECATED!!* Since selenium v4, use `Tap With Positions` keyword.
-
+    def tap(self, locator, count=1, duration=500):
+        """
         Tap element identified by ``locator``.
 
         Args:
         - ``locator`` - (mandatory). Taps coordinates when set to ${None}.
-        - ``x_offset`` - (optional) x coordinate to tap, relative to the top left corner of the element.
-        - ``y_offset`` - (optional) y coordinate. If y is used, x must also be set, and vice versa
         - ``count`` - can be used for multiple times of tap on that element
+        - ``duration`` - speed of a single tap on the element
         """
         driver = self._current_application()
-        el = self._element_find(locator, True, True)
-        driver.tap(el,x_offset,y_offset, count).perform()   # FIXME
+        for _ in range(count):
+            element = self._element_find(locator, True, True)
+            location = element.location
+            size = element.size
+            center_x = location['x'] + size['width'] // 2
+            center_y = location['y'] + size['height'] // 2
+            driver.tap([(center_x, center_y)], duration)
 
     def tap_with_positions(self, duration=500, *locations):
-        # TODO: More meaningful name? -> Perform Multi Tap, Tap With Coordinates, Tap At, Tap Multiple Points, etc.
         """Taps on a particular place with up to five fingers, holding for a
         certain time
 
