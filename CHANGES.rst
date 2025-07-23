@@ -1,5 +1,13 @@
 History
 =======
+3.0.0
+----------------
+- Update the Appium-Python-Client and selenium versions
+- Update `Open Application`
+- Remove the following deprecated keywords `Click A Point`, `Click Element At Coordinates`, `Launch Application`, `Quit Application`, `Background App`, `Click Button`, `Pinch`
+- Fix `Long Press` and `Tap` by replacing TouchAction with ActionHelpers
+- Add Android functionality for `Scroll Up` and `Scroll Down`
+
 2.0.0
 ----------------
 - Deprecate the TouchAction keywords
