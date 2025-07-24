@@ -42,18 +42,22 @@ class _ApplicationManagementKeywords(KeywordGroup):
         self._cache.close_all()
 
     def open_application(self, remote_url, alias=None, **kwargs):
-        # FIXME: Update Keyword documentation
         """Opens a new application to given Appium server.
         Capabilities of appium server, Android and iOS,
-        Please check https://appium.io/docs/en/2.1/cli/args/
+        Please check https://appium.io/docs/en/2.19/guides/caps/
         | *Option*            | *Man.* | *Description*     |
         | remote_url          | Yes    | Appium server url |
         | alias               | No     | alias             |
-      
+
+        Appium options can also be set using a dictionary (see example below with appium:options=&{APPIUM_OPTIONS}):
+        | VAR    &{APPIUM_OPTIONS} |  deviceName=iPhone 15 Pro |  platformVersion=17.0 |  app=your.app |  automationName=XCUITest |
+
         Examples:
-        | Open Application | http://localhost:4723 | alias=Myapp1         | platformName=iOS      | platformVersion=18.5            | deviceName='iPhone 16'           | app=your.app                         |
-        | Open Application | http://localhost:4723 | alias=Myapp1         | platformName=iOS      | platformVersion=18.5            | deviceName='iPhone 16'           | app=your.app                         | ignore_certificates=False         |
+        | Open Application | http://localhost:4723 | alias=Myapp1         | platformName=iOS      | platformVersion=18.5            | deviceName=iPhone 16           | app=your.app                         |
+        | Open Application | http://localhost:4723 | alias=Myapp1         | platformName=iOS      | platformVersion=18.5            | deviceName=iPhone 16           | app=your.app                         | ignore_certificates=False         |
         | Open Application | http://localhost:4723 | platformName=Android | platformVersion=4.2.2 | deviceName=192.168.56.101:5555 | app=${CURDIR}/demoapp/OrangeDemoApp.apk | appPackage=com.netease.qa.orangedemo | appActivity=MainActivity |
+        | Open Application | http://localhost:4723 | platformName=iOS | appium:options=&{APPIUM_OPTIONS}
+
         """
 
         client_config = AppiumClientConfig(remote_url, 
@@ -63,7 +67,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
         options = AppiumOptions().load_capabilities(kwargs)
         application = webdriver.Remote(command_executor=remote_url, options=options, client_config=client_config)
-
         self._debug('Opened application with session id %s' % application.session_id)
 
         return self._cache.register(application, alias)
