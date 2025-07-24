@@ -163,8 +163,8 @@ class _TouchKeywords(KeywordGroup):
         - ``duration`` - duration of time to tap, in ms. Default: 1000ms
 
         Examples:
-        | Tap | xpath=//*[@resource-id='login_button'] |
-        | Tap | xpath=//*[@name='link'] | duration=3000
+        | Long Press | xpath=//*[@resource-id='login_button'] |
+        | Long Press | xpath=//*[@name='link'] | duration=3000 |
         """
         element = self._element_find(locator, True, True)
         location = element.location
