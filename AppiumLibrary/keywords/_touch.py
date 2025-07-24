@@ -204,7 +204,6 @@ class _TouchKeywords(KeywordGroup):
     
     @ios_only
     def tap_with_number_of_taps(self, locator, number_of_taps, number_of_touches):
-        # TODO: Should this keyword be removed?
         """ Sends one or more taps with one or more touch points
         **iOS only.**
         
@@ -219,7 +218,6 @@ class _TouchKeywords(KeywordGroup):
 
     @ios_only
     def click_alert_button(self, button_name):
-        # FIXME: Compare implementation with the documentation.
         """ Clicks on Alert button identified by Name.
         **iOS only.**
 

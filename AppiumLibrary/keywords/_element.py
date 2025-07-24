@@ -87,7 +87,6 @@ class _ElementKeywords(KeywordGroup):
 
     @ios_only
     def input_value(self, locator, text):
-        # TODO: should we make this deprecated? input text works already for everything?
         """Sets the given value into text field identified by `locator`. This is an IOS only keyword, input value makes use of set_value
 
         See `introduction` for details about locating elements.
@@ -193,7 +192,6 @@ class _ElementKeywords(KeywordGroup):
                                  "but did not" % locator)
 
     def element_name_should_be(self, locator, expected):
-        # TODO: How about making this deprecated since it can easily be replaced by Element Attribute Should Match?
         element = self._element_find(locator, True, True)
         if str(expected) != str(element.get_attribute('name')):
             raise AssertionError("Element '%s' name should be '%s' "
@@ -201,7 +199,6 @@ class _ElementKeywords(KeywordGroup):
         self._info("Element '%s' name is '%s' " % (locator, expected))
 
     def element_value_should_be(self, locator, expected):
-        # TODO: How about making this deprecated since it can easily be replaced by Element Attribute Should Match?
         element = self._element_find(locator, True, True)
         if str(expected) != str(element.get_attribute('value')):
             raise AssertionError("Element '%s' value should be '%s' "
@@ -349,7 +346,6 @@ class _ElementKeywords(KeywordGroup):
         return self._element_find(locator, True, True)
 
     def scroll_element_into_view(self, locator):
-        # TODO: should we deprecate this keyword? Scroll Up or Scroll Down can be used instead?
         """Scrolls an element from given ``locator`` into view.
         Arguments:
         - ``locator``: The locator to find requested element. Key attributes for
@@ -535,7 +531,6 @@ class _ElementKeywords(KeywordGroup):
         else:
             return False
 
-    # TODO: Remove all locators methods from _element.py
     def _click_element_by_name(self, name):
         driver = self._current_application()
         try:
@@ -548,7 +543,6 @@ class _ElementKeywords(KeywordGroup):
         except Exception as e:
             raise 'Cannot click the element with name "%s"' % name
 
-    # TODO: Remove all locators from _element.py
     def _find_elements_by_class_name(self, class_name):
         driver = self._current_application()
         elements = driver.find_elements(by=AppiumBy.CLASS_NAME, value=class_name)

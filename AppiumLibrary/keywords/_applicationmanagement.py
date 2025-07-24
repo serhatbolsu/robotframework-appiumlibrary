@@ -95,7 +95,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         return old_index
 
     def reset_application(self):
-        # FIXME: Could it be replaced with Terminate Application?
         """*DEPRECATED!!* in selenium v4, check `Terminate Application` keyword.
 
         Reset application. Open Application can be reset while Appium session is kept alive.
