@@ -156,7 +156,16 @@ class _TouchKeywords(KeywordGroup):
 
 
     def long_press(self, locator, duration=1000):
-        """Long press the element with optional duration """
+        """Long press the element identified by ``locator`` with optional ``duration``.
+        
+        Args:
+        - ``locator`` - (mandatory)
+        - ``duration`` - duration of time to tap, in ms. Default: 1000ms
+
+        Examples:
+        | Tap | xpath=//*[@resource-id='login_button'] |
+        | Tap | xpath=//*[@name='link'] | duration=3000
+        """
         element = self._element_find(locator, True, True)
         location = element.location
         size = element.size
@@ -170,9 +179,15 @@ class _TouchKeywords(KeywordGroup):
         Tap element identified by ``locator``.
 
         Args:
-        - ``locator`` - (mandatory). Taps coordinates when set to ${None}.
+        - ``locator`` - (mandatory)
         - ``count`` - can be used for multiple times of tap on that element
-        - ``duration`` - speed of a single tap on the element
+        - ``duration`` - duration of time to tap, in ms. Default: 500ms
+
+        Examples:
+        | Tap | xpath=//*[@resource-id='login_button'] |
+        | Tap | xpath=//*[@name='picture'] | duration=100
+        | Tap | xpath=//*[@name='picture'] | count=2 | duration=100
+
         """
         driver = self._current_application()
         for _ in range(count):
