@@ -9,6 +9,9 @@ from AppiumLibrary.locators import ElementFinder
 from .keywordgroup import KeywordGroup
 from .keywordgroup import ios_only
 
+from robot.api import logger
+from typing import Union
+
 
 class _TouchKeywords(KeywordGroup):
 
@@ -24,7 +27,7 @@ class _TouchKeywords(KeywordGroup):
         element = self._element_find(locator, True, True)
         driver.zoom(element=element, percent=percent, steps=steps)
 
-    def swipe(self, x_start: int, y_start: int, x_end: int, y_end: int, duration: timedelta='1s'):
+    def swipe(self, x_start: int, y_start: int, x_end: int, y_end: int, duration: Union[int, timedelta] = timedelta(seconds=1)):
         """
         Swipe from one point to another point, for an optional duration.
 
@@ -41,10 +44,17 @@ class _TouchKeywords(KeywordGroup):
         | Swipe | 500 | 100 | 100 | 0 | 100ms |
         """
 
+        if isinstance(duration, int):
+            logger.warn(
+                "Keyword 'Swipe' will not support int in ms for 'duration' in the future. "
+                "Use timedelta with units ('ms' or 's') instead."
+            )
+            duration = timedelta(milliseconds=duration)
+
         driver = self._current_application()
         driver.swipe(x_start, y_start, x_end, y_end, duration.total_seconds() * 1000)
 
-    def swipe_by_percent(self, start_x, start_y, end_x, end_y, duration=1000):
+    def swipe_by_percent(self, start_x, start_y, end_x, end_y, duration: Union[int, timedelta] = timedelta(seconds=1)):
         """
         Swipe from one percent of the screen to another percent, for an optional duration.
         Normal swipe fails to scale for different screen resolutions, this can be avoided using percent.
@@ -54,7 +64,7 @@ class _TouchKeywords(KeywordGroup):
          - start_y - y-percent at which to start
          - end_x - x-percent distance from start_x at which to stop
          - end_y - y-percent distance from start_y at which to stop
-         - duration - (optional) time to take the swipe, in ms.
+         - duration - (optional) time to take the swipe
 
         Usage:
         | Swipe By Percent | 90 | 50 | 10 | 50 | # Swipes screen from right to left. |
@@ -63,6 +73,14 @@ class _TouchKeywords(KeywordGroup):
         This also considers swipe acts different between iOS and Android.
 
         """
+
+        if isinstance(duration, int):
+            logger.warn(
+                "Keyword 'Swipe By Percent' will not support int in ms for 'duration' in the future. "
+                "Use timedelta with units ('ms' or 's') instead."
+            )
+            duration = timedelta(milliseconds=duration)
+
         width = self.get_window_width()
         height = self.get_window_height()
         x_start = float(start_x) / 100 * width
@@ -107,11 +125,11 @@ class _TouchKeywords(KeywordGroup):
                     print('Element not visible, scrolling...')
                     width = self.get_window_width()
                     height = self.get_window_height()
-                
+
                     x = width / 2
                     start_y = height * 0.8 # 80% of the screen
                     end_y = height * 0.2 # 20% of the screen
-                
+
                     driver.swipe(x, start_y, x, end_y, 1000)
                 time.sleep(retry_interval)
         else:
@@ -140,24 +158,24 @@ class _TouchKeywords(KeywordGroup):
                     print('Element not visible, scrolling...')
                     width = self.get_window_width()
                     height = self.get_window_height()
-                
+
                     x = width / 2
                     start_y = height * 0.2
                     end_y = height * 0.8
-                
+
                     driver.swipe(x, start_y, x, end_y, 1000)
                 time.sleep(retry_interval)
         else:
             element = self._element_find(locator, True, True)
             driver.execute_script("mobile: scroll", {"direction": 'up', 'elementid': element.id})
             return True
-        
+
         raise AssertionError(f"Element '{locator}' not found within {timeout} seconds.")
 
 
     def long_press(self, locator, duration=1000):
         """Long press the element identified by ``locator`` with optional ``duration``.
-        
+
         Args:
         - ``locator`` - (mandatory)
         - ``duration`` - duration of time to tap, in ms. Default: 1000ms
@@ -216,12 +234,12 @@ class _TouchKeywords(KeywordGroup):
         """
         driver = self._current_application()
         driver.tap(positions=list(locations), duration=duration)
-    
+
     @ios_only
     def tap_with_number_of_taps(self, locator, number_of_taps, number_of_touches):
         """ Sends one or more taps with one or more touch points
         **iOS only.**
-        
+
         Args:
         - ``number_of_taps`` - The number of taps.
         - ``number_of_touches`` - The number of touch points.
