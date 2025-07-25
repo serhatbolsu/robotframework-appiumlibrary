@@ -81,7 +81,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         This keyword returns the index of the previous active application,
         which can be used to switch back to that application later.
 
-        Example:
+        Examples:
         | ${appium1}=              | Open Application  | http://localhost:4723/wd/hub                   | alias=MyApp1 | platformName=iOS | platformVersion=7.0 | deviceName='iPhone Simulator' | app=your.app |
         | ${appium2}=              | Open Application  | http://localhost:4755/wd/hub                   | alias=MyApp2 | platformName=iOS | platformVersion=7.0 | deviceName='iPhone Simulator' | app=your.app |
         | Click Element            | sendHello         | # Executed on appium running at localhost:4755 |
@@ -206,9 +206,9 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def execute_adb_shell(self, command, *args):
         """
-        Execute ADB shell commands
+        Execute ADB shell commands\n
 
-        **Android only.**
+        *Android only.*
 
         - _command_ - The ABD shell command
         - _args_ - Arguments to send to command
@@ -224,9 +224,9 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def execute_adb_shell_timeout(self, command, timeout, *args):
         """
-        Execute ADB shell commands
+        Execute ADB shell commands\n
 
-        **Android only.**
+        *Android only.*
 
         - _command_ - The ABD shell command
         - _timeout_ - Timeout to be applied to command
@@ -248,8 +248,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def lock(self, seconds=5):
         """
-        Lock the device for a certain period of time.
-        **iOS only.**
+        Lock the device for a certain period of time.\n
+        *iOS only.*
         """
         self._current_application().lock(robot.utils.timestr_to_secs(seconds))
 
@@ -426,7 +426,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
                 to get the full list of supported datetime format specifiers.
                 If unset, default return format is `YYYY-MM-DDTHH:mm:ssZ`.
 
-        Example:
+        Examples:
         ${device_time}    | Get Device Time | DD MM YYYY hh:mm:ss |
         ${device_time}    | Get Device Time | |
 

@@ -37,7 +37,7 @@ class AppiumLibrary(
 
     | Click Element    id=my_element
 
-    New in AppiumLibrary 1.4, ``id`` and ``xpath`` are not required to be specified,
+    ``id`` and ``xpath`` are not required to be specified,
     however ``xpath`` should start with ``//`` else just use ``xpath`` locator as explained below.
 
     For example:
@@ -92,7 +92,7 @@ class AppiumLibrary(
         Using the value `No Operation` will disable this feature altogether. See
         `Register Keyword To Run On Failure` keyword for more information about this
         functionality.
-        
+
         ``sleep_between_wait_loop`` is the default sleep used to wait between loop in all wait until keywords
 
         Examples:

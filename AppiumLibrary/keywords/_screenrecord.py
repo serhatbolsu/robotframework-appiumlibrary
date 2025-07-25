@@ -53,7 +53,7 @@ class _ScreenrecordKeywords(KeywordGroup):
 
         `Start Screen Recording` is used hand in hand with `Stop Screen Recording`.
         See `Stop Screen Recording` for more details.
-        Example:
+        Examples:
             | `Start Screen Recording`  |                   | # starts a screen record session  |
             | ....     keyword actions  |                   |                                   |
             | `Stop Screen Recording`   | filename=output   | # saves the recorded session      |
@@ -87,7 +87,7 @@ class _ScreenrecordKeywords(KeywordGroup):
 
          - ``method`` The http multipart upload method name. The _PUT_ one is used by default.
 
-        Example:
+        Examples:
             | `Start Screen Recording`  |                   | # starts a screen record session  |
             | ....     keyword actions  |                   |                                   |
             | `Stop Screen Recording`   | filename=output   | # saves the recorded session      |

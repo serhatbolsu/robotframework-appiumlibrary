@@ -55,9 +55,9 @@ class _ElementKeywords(KeywordGroup):
         self._element_find_by_text(text,exact_match).click()
 
     def input_text_into_current_element(self, text):
-        """Types the given `text` into currently selected text field.
+        """Types the given `text` into currently selected text field.\n
 
-            Android only.
+        *Android only.*
         """
         self._info("Typing text '%s' into current text field" % text)
         driver = self._current_application()
@@ -83,7 +83,9 @@ class _ElementKeywords(KeywordGroup):
         self._element_input_text_by_locator(locator, text)
 
     def input_value(self, locator, text):
-        """Sets the given value into text field identified by `locator`. This is an IOS only keyword, input value makes use of set_value
+        """Sets the given value into text field identified by `locator`. Input Value makes use of set_value
+
+        *iOS only.*
 
         See `introduction` for details about locating elements.
         """
@@ -318,7 +320,6 @@ class _ElementKeywords(KeywordGroup):
 
         ``message`` can be used to override the default error message.
 
-        New in AppiumLibrary 1.4.
         """
         self._info("Verifying element '%s' contains exactly text '%s'."
                     % (locator, expected))
@@ -337,7 +338,6 @@ class _ElementKeywords(KeywordGroup):
         | ${element}     | Get Webelement | id=my_element |
         | Click Element  | ${element}     |               |
 
-        New in AppiumLibrary 1.4.
         """
         return self._element_find(locator, True, True)
 
@@ -391,7 +391,6 @@ class _ElementKeywords(KeywordGroup):
         - Name is changed from `Get Elements` to current one.
         - Deprecated argument ``fail_on_error``, use `Run Keyword and Ignore Error` if necessary.
 
-        New in AppiumLibrary 1.4.
         """
         return self._element_find(locator, False, True)
 
@@ -455,11 +454,10 @@ class _ElementKeywords(KeywordGroup):
 
         first_only parameter allow to get the text from the 1st match (Default) or a list of text from all match.
 
-        Example:
+        Examples:
         | ${text} | Get Text | //*[contains(@text,'foo')] |          |
         | @{text} | Get Text | //*[contains(@text,'foo')] | ${False} |
 
-        New in AppiumLibrary 1.4.
         """
         text = self._get_text(locator, first_only)
         self._info("Element '%s' text is '%s' " % (locator, text))
@@ -472,13 +470,12 @@ class _ElementKeywords(KeywordGroup):
 
         | *Correct:* |
         | ${count}  | Get Matching Xpath Count | //android.view.View[@text='Test'] |
-        | Incorrect:  |
+        | *Incorrect:*  |
         | ${count}  | Get Matching Xpath Count | xpath=//android.view.View[@text='Test'] |
 
         If you wish to assert the number of matching elements, use
         `Xpath Should Match X Times`.
 
-        New in AppiumLibrary 1.4.
         """
         count = len(self._element_find("xpath=" + xpath, False, False))
         return str(count)
@@ -486,7 +483,6 @@ class _ElementKeywords(KeywordGroup):
     def text_should_be_visible(self, text, exact_match=False, loglevel='INFO'):
         """Verifies that element identified with text is visible.
 
-        New in AppiumLibrary 1.4.5
         """
         if not self._element_find_by_text(text, exact_match).is_displayed():
             self.log_source(loglevel)
@@ -507,7 +503,6 @@ class _ElementKeywords(KeywordGroup):
 
         See `Log Source` for explanation about ``loglevel`` argument.
 
-        New in AppiumLibrary 1.4.
         """
         actual_xpath_count = len(self._element_find("xpath=" + xpath, False, False))
         if int(actual_xpath_count) != int(count):

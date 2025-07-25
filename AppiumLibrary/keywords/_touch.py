@@ -38,7 +38,7 @@ class _TouchKeywords(KeywordGroup):
         - duration: defines the swipe speed as time taken to swipe from point a to point b.
 
 
-        Usage:
+        Examples:
         | Swipe | 500 | 100 | 100 | 0 | 1s |
         | Swipe | 500 | 100 | 100 | 0 | 100ms |
         """
@@ -76,7 +76,7 @@ class _TouchKeywords(KeywordGroup):
          - end_y - y-percent distance from start_y at which to stop
          - duration - (optional) time to take the swipe
 
-        Usage:
+        Examples:
         | Swipe By Percent | 90 | 50 | 10 | 50 | # Swipes screen from right to left. |
 
         _*NOTE: *_
@@ -257,8 +257,8 @@ class _TouchKeywords(KeywordGroup):
         driver.tap(positions=list(locations), duration=duration)
 
     def tap_with_number_of_taps(self, locator, number_of_taps, number_of_touches):
-        """ Sends one or more taps with one or more touch points
-        **iOS only.**
+        """ Sends one or more taps with one or more touch points\n
+        *iOS only.*
 
         Args:
         - ``number_of_taps`` - The number of taps.
@@ -270,8 +270,8 @@ class _TouchKeywords(KeywordGroup):
         driver.execute_script("mobile: tapWithNumberOfTaps", params)
 
     def click_alert_button(self, button_name):
-        """ Clicks on Alert button identified by Name.
-        **iOS only.**
+        """ Clicks on Alert button identified by Name.\n
+        *iOS only.*
 
         Args:
         - ``button_name`` - Text on the iOS alert button.
@@ -294,7 +294,7 @@ class _TouchKeywords(KeywordGroup):
         - ``origin`` - the element to drag
         - ``destination`` - the element to drag to
 
-        Usage:
+        Example:
         | `Drag And Drop` | id=div#element | id=div.target |
         """
         element = self._element_find(locator, True, True)
@@ -311,7 +311,7 @@ class _TouchKeywords(KeywordGroup):
         - ``end_x``   - x-coordinate at which to stop
         - ``end_y``   - y-coordinate at which to stop
 
-        Usage:
+        Example:
         | Flick | 100 | 100 | 100 | 400 | # Flicks the screen up. |
         """
         driver = self._current_application()

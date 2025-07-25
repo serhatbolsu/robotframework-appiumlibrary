@@ -9,7 +9,7 @@ class _KeyeventKeywords(KeywordGroup):
     def press_keycode(self, keycode, metastate=None):
         """Sends a press of keycode to the device.
 
-        Android only.
+        *Android only.*
 
         Possible keycodes & meta states can be found in
         http://developer.android.com/reference/android/view/KeyEvent.html
@@ -35,7 +35,7 @@ class _KeyeventKeywords(KeywordGroup):
     def long_press_keycode(self, keycode, metastate=None):
         """Sends a long press of keycode to the device.
 
-        Android only.
+        *Android only.*
 
         See `press keycode` for more details.
         """
