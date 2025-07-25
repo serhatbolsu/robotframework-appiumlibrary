@@ -10,8 +10,7 @@ from appium.webdriver.client_config import AppiumClientConfig
 from AppiumLibrary.utils import ApplicationCache
 from typing import Optional
 from .keywordgroup import KeywordGroup
-from .keywordgroup import android_only
-from .keywordgroup import ios_only
+
 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
@@ -57,9 +56,9 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | Open Application | http://localhost:4723 | alias=Myapp1         | platformName=iOS      | platformVersion=18.5            | deviceName=iPhone 16           | app=your.app                         |
         | Open Application | http://localhost:4723 | alias=Myapp1         | platformName=iOS      | platformVersion=18.5            | deviceName=iPhone 16           | app=your.app                         | ignore_certificates=False         |
         | Open Application | http://localhost:4723 | platformName=Android | platformVersion=4.2.2 | deviceName=192.168.56.101:5555 | app=${CURDIR}/demoapp/OrangeDemoApp.apk | appPackage=com.netease.qa.orangedemo | appActivity=MainActivity |
-        | Open Application | http://localhost:4723 | platformName=iOS | appium:options=&{APPIUM_OPTIONS}
+        | Open Application | http://localhost:4723 | platformName=iOS | appium:options=&{APPIUM_OPTIONS} |
 
-        _*NOTE:*_`Open Application` now uses the ClientConfig for configuration. If you encounter any issues or warnings when using this keyword, please refer to https://github.com/SeleniumHQ/selenium/blob/trunk/py/selenium/webdriver/remote/client_config.py
+        _*NOTE:*_ `Open Application` now uses the ClientConfig for configuration. If you encounter any issues or warnings when using this keyword, please refer to https://github.com/SeleniumHQ/selenium/blob/trunk/py/selenium/webdriver/remote/client_config.py
         """
 
         client_config = AppiumClientConfig(remote_url,
@@ -205,7 +204,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
         return self._current_application().execute_async_script(script, kwargs)
 
-    @android_only
     def execute_adb_shell(self, command, *args):
         """
         Execute ADB shell commands
@@ -224,7 +222,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
             'args': list(args)
         })
 
-    @android_only
     def execute_adb_shell_timeout(self, command, timeout, *args):
         """
         Execute ADB shell commands
@@ -249,7 +246,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """Goes one step backward in the browser history."""
         self._current_application().back()
 
-    @ios_only
     def lock(self, seconds=5):
         """
         Lock the device for a certain period of time.
@@ -371,7 +367,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
         Example:
         | Go To Url | http://www.xxx.com |
-        | Switch To Frame  | iframe_name|
+        | Switch To Frame  | iframe_name |
         | Click Element | xpath=//*[@id="online-btn"] |
         """
         self._current_application().switch_to.frame(frame)

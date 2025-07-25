@@ -3,8 +3,6 @@
 from AppiumLibrary.locators import ElementFinder
 from appium.webdriver.common.appiumby import AppiumBy
 from .keywordgroup import KeywordGroup
-from .keywordgroup import ios_only
-from .keywordgroup import android_only
 from robot.libraries.BuiltIn import BuiltIn
 import ast
 from unicodedata import normalize
@@ -56,7 +54,6 @@ class _ElementKeywords(KeywordGroup):
         """
         self._element_find_by_text(text,exact_match).click()
 
-    @android_only
     def input_text_into_current_element(self, text):
         """Types the given `text` into currently selected text field.
 
@@ -85,7 +82,6 @@ class _ElementKeywords(KeywordGroup):
         self._info("Typing password into text field '%s'" % locator)
         self._element_input_text_by_locator(locator, text)
 
-    @ios_only
     def input_value(self, locator, text):
         """Sets the given value into text field identified by `locator`. This is an IOS only keyword, input value makes use of set_value
 
