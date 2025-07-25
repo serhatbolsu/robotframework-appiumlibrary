@@ -3,10 +3,14 @@
 import os
 import robot
 import inspect
+
 from appium import webdriver
 from appium.options.common import AppiumOptions
+from appium.webdriver.client_config import AppiumClientConfig
 from AppiumLibrary.utils import ApplicationCache
+from typing import Optional
 from .keywordgroup import KeywordGroup
+
 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
@@ -40,25 +44,30 @@ class _ApplicationManagementKeywords(KeywordGroup):
     def open_application(self, remote_url, alias=None, **kwargs):
         """Opens a new application to given Appium server.
         Capabilities of appium server, Android and iOS,
-        Please check https://appium.io/docs/en/2.1/cli/args/
+        Please check https://appium.io/docs/en/2.19/guides/caps/
         | *Option*            | *Man.* | *Description*     |
         | remote_url          | Yes    | Appium server url |
-        | alias               | no     | alias             |
-        | strict_ssl          | No     | allows you to send commands to an invalid certificate host like a self-signed one. |
+        | alias               | No     | alias             |
+
+        Appium options can also be set using a dictionary (see example below with appium:options=&{APPIUM_OPTIONS}):
+        | VAR    &{APPIUM_OPTIONS} |  deviceName=iPhone 15 Pro |  platformVersion=17.0 |  app=your.app |  automationName=XCUITest |
 
         Examples:
-        | Open Application | http://localhost:4723/wd/hub | alias=Myapp1         | platformName=iOS      | platformVersion=7.0            | deviceName='iPhone Simulator'           | app=your.app                         |
-        | Open Application | http://localhost:4723/wd/hub | alias=Myapp1         | platformName=iOS      | platformVersion=7.0            | deviceName='iPhone Simulator'           | app=your.app                         | strict_ssl=False         |
-        | Open Application | http://localhost:4723/wd/hub | platformName=Android | platformVersion=4.2.2 | deviceName=192.168.56.101:5555 | app=${CURDIR}/demoapp/OrangeDemoApp.apk | appPackage=com.netease.qa.orangedemo | appActivity=MainActivity |
+        | Open Application | http://localhost:4723 | alias=Myapp1         | platformName=iOS      | platformVersion=18.5            | deviceName=iPhone 16           | app=your.app                         |
+        | Open Application | http://localhost:4723 | alias=Myapp1         | platformName=iOS      | platformVersion=18.5            | deviceName=iPhone 16           | app=your.app                         | ignore_certificates=False         |
+        | Open Application | http://localhost:4723 | platformName=Android | platformVersion=4.2.2 | deviceName=192.168.56.101:5555 | app=${CURDIR}/demoapp/OrangeDemoApp.apk | appPackage=com.netease.qa.orangedemo | appActivity=MainActivity |
+        | Open Application | http://localhost:4723 | platformName=iOS | appium:options=&{APPIUM_OPTIONS} |
+
+        _*NOTE:*_ `Open Application` now uses the ClientConfig for configuration. If you encounter any issues or warnings when using this keyword, please refer to https://github.com/SeleniumHQ/selenium/blob/trunk/py/selenium/webdriver/remote/client_config.py
         """
-        strict_ssl = False
-        if "strict_ssl" in kwargs.keys():
-            strict_ssl = kwargs.pop("strict_ssl")
-            self._debug(f"strict_ssl found as {strict_ssl}")
 
-        desired_caps = AppiumOptions().load_capabilities(caps=kwargs)
-        application = webdriver.Remote(str(remote_url), options=desired_caps, strict_ssl=strict_ssl)
+        client_config = AppiumClientConfig(remote_url,
+                                           direct_connection=kwargs.pop('direct_connection', True),
+                                           keep_alive=kwargs.pop('keep_alive', False),
+                                           ignore_certificates=kwargs.pop('ignore_certificates', True))
 
+        options = AppiumOptions().load_capabilities(kwargs)
+        application = webdriver.Remote(command_executor=remote_url, options=options, client_config=client_config)
         self._debug('Opened application with session id %s' % application.session_id)
 
         return self._cache.register(application, alias)
@@ -72,7 +81,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         This keyword returns the index of the previous active application,
         which can be used to switch back to that application later.
 
-        Example:
+        Examples:
         | ${appium1}=              | Open Application  | http://localhost:4723/wd/hub                   | alias=MyApp1 | platformName=iOS | platformVersion=7.0 | deviceName='iPhone Simulator' | app=your.app |
         | ${appium2}=              | Open Application  | http://localhost:4755/wd/hub                   | alias=MyApp2 | platformName=iOS | platformVersion=7.0 | deviceName='iPhone Simulator' | app=your.app |
         | Click Element            | sendHello         | # Executed on appium running at localhost:4755 |
@@ -88,44 +97,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         else:
             self._cache.switch(index_or_alias)
         return old_index
-
-    def launch_application(self):
-        """*DEPRECATED!!* in selenium v4, use `Activate Application` keyword.
-
-        Launch application. Application can be launched while Appium session running.
-        This keyword can be used to launch application during test case or between test cases.
-
-        This keyword works while `Open Application` has a test running. This is good practice to `Launch Application`
-        and `Quit Application` between test cases. As Suite Setup is `Open Application`, `Test Setup` can be used to `Launch Application`
-
-        Example (syntax is just a representation, refer to RF Guide for usage of Setup/Teardown):
-        | [Setup Suite] |
-        |  | Open Application | http://localhost:4723/wd/hub | platformName=Android | deviceName=192.168.56.101:5555 | app=${CURDIR}/demoapp/OrangeDemoApp.apk |
-        | [Test Setup] |
-        |  | Launch Application |
-        |  |  | <<<test execution>>> |
-        |  |  | <<<test execution>>> |
-        | [Test Teardown] |
-        |  | Quit Application |
-        | [Suite Teardown] |
-        |  | Close Application |
-
-        See `Quit Application` for quiting application but keeping Appium sesion running.
-        """
-        driver = self._current_application()
-        driver.launch_app()
-
-    def quit_application(self):
-        """*DEPRECATED!!* in selenium v4, check `Close Application` keyword.
-
-        Close application. Application can be quit while Appium session is kept alive.
-        This keyword can be used to close application during test case or between test cases.
-
-        See `Launch Application` for an explanation.
-
-        """
-        driver = self._current_application()
-        driver.close_app()
 
     def reset_application(self):
         """*DEPRECATED!!* in selenium v4, check `Terminate Application` keyword.
@@ -208,7 +179,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | Sleep             |  1                  |
         | Execute Script    |  mobile: scrollGesture  |  &{scrollGesture}  |
 
-        Updated in AppiumLibrary 2
         """
         if kwargs:
             self._info(f"Provided dictionary: {kwargs}")
@@ -228,7 +198,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
         Check `Execute Script` for example kwargs usage
 
-        Updated in AppiumLibrary 2
         """
         if kwargs:
             self._info(f"Provided dictionary: {kwargs}")
@@ -237,9 +206,9 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def execute_adb_shell(self, command, *args):
         """
-        Execute ADB shell commands
+        Execute ADB shell commands\n
 
-        Android only.
+        *Android only.*
 
         - _command_ - The ABD shell command
         - _args_ - Arguments to send to command
@@ -255,9 +224,9 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def execute_adb_shell_timeout(self, command, timeout, *args):
         """
-        Execute ADB shell commands
+        Execute ADB shell commands\n
 
-        Android only.
+        *Android only.*
 
         - _command_ - The ABD shell command
         - _timeout_ - Timeout to be applied to command
@@ -279,16 +248,10 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def lock(self, seconds=5):
         """
-        Lock the device for a certain period of time. iOS only.
+        Lock the device for a certain period of time.\n
+        *iOS only.*
         """
         self._current_application().lock(robot.utils.timestr_to_secs(seconds))
-
-    def background_app(self, seconds=5):
-        """*DEPRECATED!!*  use  `Background Application` instead.
-        Puts the application in the background on the device for a certain
-        duration.
-        """
-        self._current_application().background_app(seconds)
 
     def background_application(self, seconds=5):
         """
@@ -304,7 +267,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         Args:
          - app_id - BundleId for iOS. Package name for Android.
 
-        New in AppiumLibrary v2
         """
         self._current_application().activate_app(app_id)
 
@@ -315,7 +277,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         Args:
          - app_id - BundleId for iOS. Package name for Android.
 
-        New in AppiumLibrary v2
         """
         return self._current_application().terminate_app(app_id)
 
@@ -323,7 +284,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         Stop the given app on the device
 
-        Android only. New in AppiumLibrary v2
         """
         self._current_application().execute_script('mobile: shell', {
             'command': 'am force-stop',
@@ -338,7 +298,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
         `match` (boolean) whether the simulated fingerprint is valid (default true)
 
-        New in AppiumLibrary 1.5
         """
         self._current_application().touch_id(match)
 
@@ -346,7 +305,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         Toggle Touch ID enrolled state on iOS Simulator
 
-        New in AppiumLibrary 1.5
         """
         self._current_application().toggle_touch_id_enrollment()
 
@@ -385,7 +343,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | ${height}      | Get Window Height |
         | Click A Point  | ${width}         | ${height} |
 
-        New in AppiumLibrary 1.4.5
         """
         return self._current_application().get_window_size()['height']
 
@@ -397,7 +354,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | ${height}      | Get Window Height |
         | Click A Point  | ${width}          | ${height} |
 
-        New in AppiumLibrary 1.4.5
         """
         return self._current_application().get_window_size()['width']
 
@@ -411,7 +367,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
         Example:
         | Go To Url | http://www.xxx.com |
-        | Switch To Frame  | iframe_name|
+        | Switch To Frame  | iframe_name |
         | Click Element | xpath=//*[@id="online-btn"] |
         """
         self._current_application().switch_to.frame(frame)
@@ -461,6 +417,23 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """Get available Webview windows."""
         print(self._current_application().window_handles)
         return self._current_application().window_handles
+
+    def get_device_time(self, format: Optional[str] = None):
+        """Returns the date and time from the device.
+
+        Args:
+            format:  The set of format specifiers. Read https://momentjs.com/docs/
+                to get the full list of supported datetime format specifiers.
+                If unset, default return format is `YYYY-MM-DDTHH:mm:ssZ`.
+
+        Examples:
+        ${device_time}    | Get Device Time | DD MM YYYY hh:mm:ss |
+        ${device_time}    | Get Device Time | |
+
+        Return:
+            str: The date and time
+        """
+        return self._current_application().get_device_time(format)
 
     # Private
 

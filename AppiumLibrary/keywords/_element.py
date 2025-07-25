@@ -42,17 +42,6 @@ class _ElementKeywords(KeywordGroup):
         self._info("Clicking element '%s'." % locator)
         self._element_find(locator, True, True).click()
 
-    def click_button(self, index_or_name):
-        """*DEPRECATED!!* in selenium v4, use `Click Element` keyword.
-        Click button
-
-        """
-        _platform_class_dict = {'ios': 'UIAButton',
-                                'android': 'android.widget.Button'}
-        if self._is_support_platform(_platform_class_dict):
-            class_name = self._get_class(_platform_class_dict)
-            self._click_element_by_class_name(class_name, index_or_name)
-
     def click_text(self, text, exact_match=False):
         """Click text identified by ``text``.
 
@@ -66,9 +55,9 @@ class _ElementKeywords(KeywordGroup):
         self._element_find_by_text(text,exact_match).click()
 
     def input_text_into_current_element(self, text):
-        """Types the given `text` into currently selected text field.
+        """Types the given `text` into currently selected text field.\n
 
-            Android only.
+        *Android only.*
         """
         self._info("Typing text '%s' into current text field" % text)
         driver = self._current_application()
@@ -94,7 +83,9 @@ class _ElementKeywords(KeywordGroup):
         self._element_input_text_by_locator(locator, text)
 
     def input_value(self, locator, text):
-        """Sets the given value into text field identified by `locator`. This is an IOS only keyword, input value makes use of set_value
+        """Sets the given value into text field identified by `locator`. Input Value makes use of set_value
+
+        *iOS only.*
 
         See `introduction` for details about locating elements.
         """
@@ -109,9 +100,7 @@ class _ElementKeywords(KeywordGroup):
         driver.hide_keyboard(key_name)
 
     def is_keyboard_shown(self):
-        """Return true if Android keyboard is displayed or False if not displayed
-        No parameters are used.
-        """
+        """RETURN true or false if keyboard is displayed."""
         driver = self._current_application()
         return driver.is_keyboard_shown()
 
@@ -194,8 +183,6 @@ class _ElementKeywords(KeywordGroup):
 
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
-
-        New in AppiumLibrary 1.4.5
         """
         if not self._element_find(locator, True, True).is_displayed():
             self.log_source(loglevel)
@@ -300,8 +287,6 @@ class _ElementKeywords(KeywordGroup):
         of the element, use `Element Text Should Be`.
 
         Key attributes for arbitrary elements are ``id`` and ``xpath``. ``message`` can be used to override the default error message.
-
-        New in AppiumLibrary 1.4.
         """
         self._info("Verifying element '%s' contains text '%s'."
                     % (locator, expected))
@@ -335,7 +320,6 @@ class _ElementKeywords(KeywordGroup):
 
         ``message`` can be used to override the default error message.
 
-        New in AppiumLibrary 1.4.
         """
         self._info("Verifying element '%s' contains exactly text '%s'."
                     % (locator, expected))
@@ -354,7 +338,6 @@ class _ElementKeywords(KeywordGroup):
         | ${element}     | Get Webelement | id=my_element |
         | Click Element  | ${element}     |               |
 
-        New in AppiumLibrary 1.4.
         """
         return self._element_find(locator, True, True)
 
@@ -378,8 +361,8 @@ class _ElementKeywords(KeywordGroup):
         return element
 
     def get_webelement_in_webelement(self, element, locator):
-        """ 
-        Returns a single [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement] 
+        """
+        Returns a single [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement]
         objects matching ``locator`` that is a child of argument element.
 
         This is useful when your HTML doesn't properly have id or name elements on all elements.
@@ -391,7 +374,7 @@ class _ElementKeywords(KeywordGroup):
             elements = self._element_finder.find(element, _locator, None)
             if len(elements) == 0:
                 raise ValueError("Element locator '" + locator + "' did not match any elements.")
-            if len(elements) == 0: 
+            if len(elements) == 0:
                 return None
             return elements[0]
         elif isinstance(locator, WebElement):
@@ -408,7 +391,6 @@ class _ElementKeywords(KeywordGroup):
         - Name is changed from `Get Elements` to current one.
         - Deprecated argument ``fail_on_error``, use `Run Keyword and Ignore Error` if necessary.
 
-        New in AppiumLibrary 1.4.
         """
         return self._element_find(locator, False, True)
 
@@ -472,11 +454,10 @@ class _ElementKeywords(KeywordGroup):
 
         first_only parameter allow to get the text from the 1st match (Default) or a list of text from all match.
 
-        Example:
+        Examples:
         | ${text} | Get Text | //*[contains(@text,'foo')] |          |
         | @{text} | Get Text | //*[contains(@text,'foo')] | ${False} |
 
-        New in AppiumLibrary 1.4.
         """
         text = self._get_text(locator, first_only)
         self._info("Element '%s' text is '%s' " % (locator, text))
@@ -489,13 +470,12 @@ class _ElementKeywords(KeywordGroup):
 
         | *Correct:* |
         | ${count}  | Get Matching Xpath Count | //android.view.View[@text='Test'] |
-        | Incorrect:  |
+        | *Incorrect:*  |
         | ${count}  | Get Matching Xpath Count | xpath=//android.view.View[@text='Test'] |
 
         If you wish to assert the number of matching elements, use
         `Xpath Should Match X Times`.
 
-        New in AppiumLibrary 1.4.
         """
         count = len(self._element_find("xpath=" + xpath, False, False))
         return str(count)
@@ -503,7 +483,6 @@ class _ElementKeywords(KeywordGroup):
     def text_should_be_visible(self, text, exact_match=False, loglevel='INFO'):
         """Verifies that element identified with text is visible.
 
-        New in AppiumLibrary 1.4.5
         """
         if not self._element_find_by_text(text, exact_match).is_displayed():
             self.log_source(loglevel)
@@ -524,7 +503,6 @@ class _ElementKeywords(KeywordGroup):
 
         See `Log Source` for explanation about ``loglevel`` argument.
 
-        New in AppiumLibrary 1.4.
         """
         actual_xpath_count = len(self._element_find("xpath=" + xpath, False, False))
         if int(actual_xpath_count) != int(count):
@@ -544,7 +522,6 @@ class _ElementKeywords(KeywordGroup):
         else:
             return False
 
-    # TODO: Remove all locators methods from _element.py
     def _click_element_by_name(self, name):
         driver = self._current_application()
         try:
@@ -557,7 +534,6 @@ class _ElementKeywords(KeywordGroup):
         except Exception as e:
             raise 'Cannot click the element with name "%s"' % name
 
-    # TODO: Remove all locators from _element.py
     def _find_elements_by_class_name(self, class_name):
         driver = self._current_application()
         elements = driver.find_elements(by=AppiumBy.CLASS_NAME, value=class_name)

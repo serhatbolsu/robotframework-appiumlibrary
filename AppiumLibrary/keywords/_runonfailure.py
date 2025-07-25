@@ -31,7 +31,7 @@ class _RunOnFailureKeywords(KeywordGroup):
         failure keyword. It can be used to restore the original
         value later.
 
-        Example:
+        Examples:
         | Register Keyword To Run On Failure  | Log Source | # Run `Log Source` on failure. |
         | ${previous kw}= | Register Keyword To Run On Failure  | Nothing    | # Disables run-on-failure functionality and stores the previous kw name in a variable. |
         | Register Keyword To Run On Failure  | ${previous kw} | # Restore to the previous keyword. |

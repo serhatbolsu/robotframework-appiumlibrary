@@ -10,7 +10,6 @@ except SyntaxError:  # decorator module requires Python/Jython 2.4+
 if sys.platform == 'cli':
     decorator = None  # decorator module doesn't work with IronPython 2.6
 
-
 def _run_on_failure_decorator(method, *args, **kwargs):
     try:
         return method(*args, **kwargs)
