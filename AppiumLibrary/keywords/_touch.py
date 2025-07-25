@@ -27,7 +27,7 @@ class _TouchKeywords(KeywordGroup):
         element = self._element_find(locator, True, True)
         driver.zoom(element=element, percent=percent, steps=steps)
 
-    def swipe(self, x_start: Union[int, float], y_start: Union[int, float], x_end: Union[int, float], y_end: Union[int, float], duration: Union[int, timedelta] = timedelta(seconds=1)):
+    def swipe(self, start_x: Union[int, float], start_y: Union[int, float], end_x: Union[int, float], end_y: Union[int, float], duration: Union[int, timedelta] = timedelta(seconds=1)):
         """
         Swipe from one point to another point, for an optional duration.
 
@@ -51,20 +51,21 @@ class _TouchKeywords(KeywordGroup):
             )
             duration = timedelta(milliseconds=duration)
 
-        args = [x_start, y_start, x_end, y_end]
+        args = [start_x, start_y, end_x, end_y]
+
         for i, arg in enumerate(args):
             if isinstance(arg, float):
                 logger.warn(
-                    "Keyword 'Swipe' will not support float for 'x_start', 'x_end', 'y_start', 'y_end' in the future."
-                    "Use int values instead."
+                    "Keyword 'Swipe' converts the values of 'start_x', 'start_y', 'end_x', 'end_y' to integer."
                 )
                 args[i] = int(arg)
-        x_start, y_start, x_end, y_end = args
+    
+        start_x, start_y, end_x, end_y = args
 
         driver = self._current_application()
-        driver.swipe(x_start, y_start, x_end, y_end, duration.total_seconds() * 1000)
+        driver.swipe(start_x, start_y, end_x, end_y, duration.total_seconds() * 1000)
 
-    def swipe_by_percent(self, start_x, start_y, end_x, end_y, duration: Union[int, timedelta] = timedelta(seconds=1)):
+    def swipe_by_percent(self, start_x: Union[int, float], start_y: Union[int, float], end_x: Union[int, float], end_y: Union[int, float], duration: Union[int, timedelta] = timedelta(seconds=1)):
         """
         Swipe from one percent of the screen to another percent, for an optional duration.
         Normal swipe fails to scale for different screen resolutions, this can be avoided using percent.
@@ -91,12 +92,23 @@ class _TouchKeywords(KeywordGroup):
             )
             duration = timedelta(milliseconds=duration)
 
+        args = [start_x, start_y, end_x, end_y]
+                
+        for i, arg in enumerate(args):
+            if isinstance(arg, float):
+                logger.warn(
+                    "Keyword 'Swipe' converts the values of 'start_x', 'start_y', 'end_x', 'end_y' to integer."
+                )
+                args[i] = int(arg)
+
+        start_x, start_y, end_x, end_y = args
+
         width = self.get_window_width()
         height = self.get_window_height()
-        x_start = float(start_x) / 100 * width
-        x_end = float(end_x) / 100 * width
-        y_start = float(start_y) / 100 * height
-        y_end = float(end_y) / 100 * height
+        x_start = int(start_x / 100 * width)
+        x_end = int(end_x / 100 * width)
+        y_start = int(start_y / 100 * height)
+        y_end = int(end_y / 100 * height)
         x_offset = x_end - x_start
         y_offset = y_end - y_start
         platform = self._get_platform()
@@ -140,7 +152,7 @@ class _TouchKeywords(KeywordGroup):
                     start_y = height * 0.8 # 80% of the screen
                     end_y = height * 0.2 # 20% of the screen
 
-                    driver.swipe(x, start_y, x, end_y, 1000)
+                    driver.swipe(int(x), int(start_y), int(x), int(end_y), 1000)
                 time.sleep(retry_interval)
         else:
             element = self._element_find(locator, True, True)
@@ -173,7 +185,7 @@ class _TouchKeywords(KeywordGroup):
                     start_y = height * 0.2
                     end_y = height * 0.8
 
-                    driver.swipe(x, start_y, x, end_y, 1000)
+                    driver.swipe(int(x), int(start_y), int(x), int(end_y), 1000)
                 time.sleep(retry_interval)
         else:
             element = self._element_find(locator, True, True)
