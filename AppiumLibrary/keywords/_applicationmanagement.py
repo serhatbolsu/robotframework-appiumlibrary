@@ -59,6 +59,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         | Open Application | http://localhost:4723 | platformName=Android | platformVersion=4.2.2 | deviceName=192.168.56.101:5555 | app=${CURDIR}/demoapp/OrangeDemoApp.apk | appPackage=com.netease.qa.orangedemo | appActivity=MainActivity |
         | Open Application | http://localhost:4723 | platformName=iOS | appium:options=&{APPIUM_OPTIONS}
 
+        _*NOTE:*_`Open Application` now uses the ClientConfig for configuration. If you encounter any issues or warnings when using this keyword, please refer to https://github.com/SeleniumHQ/selenium/blob/trunk/py/selenium/webdriver/remote/client_config.py
         """
 
         client_config = AppiumClientConfig(remote_url,
