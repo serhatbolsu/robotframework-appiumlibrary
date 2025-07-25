@@ -8,6 +8,7 @@ from appium import webdriver
 from appium.options.common import AppiumOptions
 from appium.webdriver.client_config import AppiumClientConfig
 from AppiumLibrary.utils import ApplicationCache
+from typing import Optional
 from .keywordgroup import KeywordGroup
 from .keywordgroup import android_only
 from .keywordgroup import ios_only
@@ -60,7 +61,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
         """
 
-        client_config = AppiumClientConfig(remote_url, 
+        client_config = AppiumClientConfig(remote_url,
                                            direct_connection=kwargs.pop('direct_connection', True),
                                            keep_alive=kwargs.pop('keep_alive', False),
                                            ignore_certificates=kwargs.pop('ignore_certificates', True))
@@ -250,7 +251,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
     @ios_only
     def lock(self, seconds=5):
         """
-        Lock the device for a certain period of time. 
+        Lock the device for a certain period of time.
         **iOS only.**
         """
         self._current_application().lock(robot.utils.timestr_to_secs(seconds))
@@ -419,6 +420,23 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """Get available Webview windows."""
         print(self._current_application().window_handles)
         return self._current_application().window_handles
+
+    def get_device_time(self, format: Optional[str] = None):
+        """Returns the date and time from the device.
+
+        Args:
+            format:  The set of format specifiers. Read https://momentjs.com/docs/
+                to get the full list of supported datetime format specifiers.
+                If unset, default return format is `YYYY-MM-DDTHH:mm:ssZ`.
+
+        Example:
+        ${device_time}    | Get Device Time | DD MM YYYY hh:mm:ss |
+        ${device_time}    | Get Device Time | |
+
+        Return:
+            str: The date and time
+        """
+        return self._current_application().get_device_time(format)
 
     # Private
 

@@ -7,6 +7,7 @@ History
 - Remove the following deprecated keywords `Click A Point`, `Click Element At Coordinates`, `Launch Application`, `Quit Application`, `Background App`, `Click Button`, `Pinch`
 - Fix `Long Press` and `Tap` by replacing TouchAction with ActionHelpers
 - Add Android functionality for `Scroll Up` and `Scroll Down`
+- Added `Get Device Time` keyword to retrieve the device's current time
 
 2.0.0
 ----------------
@@ -137,12 +138,12 @@ History
 - Hide Keyboard for Android
 1.2.4
 ----------------
-- fix sauceclient dependence 
+- fix sauceclient dependence
 - Added keyword "Go To URL"
 - update demo for new Open Application argument
 1.2.2
 ----------------
-- fix pytest-pythonpath dependence 
+- fix pytest-pythonpath dependence
 1.2.0
 ----------------
 - Open Application support all Appium server, iOS, Android capabilities
