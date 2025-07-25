@@ -27,7 +27,7 @@ class _TouchKeywords(KeywordGroup):
         element = self._element_find(locator, True, True)
         driver.zoom(element=element, percent=percent, steps=steps)
 
-    def swipe(self, x_start: int, y_start: int, x_end: int, y_end: int, duration: Union[int, timedelta] = timedelta(seconds=1)):
+    def swipe(self, x_start: Union[int, float], y_start: Union[int, float], x_end: Union[int, float], y_end: Union[int, float], duration: Union[int, timedelta] = timedelta(seconds=1)):
         """
         Swipe from one point to another point, for an optional duration.
 
@@ -50,6 +50,16 @@ class _TouchKeywords(KeywordGroup):
                 "Use timedelta with units ('ms' or 's') instead."
             )
             duration = timedelta(milliseconds=duration)
+
+        args = [x_start, y_start, x_end, y_end]
+        for i, arg in enumerate(args):
+            if isinstance(arg, float):
+                logger.warn(
+                    "Keyword 'Swipe' will not support float for 'x_start', 'x_end', 'y_start', 'y_end' in the future."
+                    "Use int values instead."
+                )
+                args[i] = int(arg)
+        x_start, y_start, x_end, y_end = args
 
         driver = self._current_application()
         driver.swipe(x_start, y_start, x_end, y_end, duration.total_seconds() * 1000)
