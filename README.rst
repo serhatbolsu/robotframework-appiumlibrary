@@ -141,53 +141,21 @@ Fork the project, make a change, and send a pull request!
 
 Project Contributors
 --------------------
-.. raw:: html
 
-    <table>
-      <tbody>
-        <tr>
-          <td align="center"><a href="https://github.com/jollychang"><img src="https://avatars.githubusercontent.com/u/64213?s=64&v=4&s=100" width="100px;" alt="William Zhang"/><br /><sub><b>William Zhang</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=jollychang" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/serhatbolsu"><img src="https://avatars.githubusercontent.com/u/7917050?v=4&s=100" width="100px;" alt="Serhat Bolsu"/><br /><sub><b>Serhat Bolsu</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=serhatbolsu" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/yahman72"><img src="https://avatars.githubusercontent.com/u/8724383?s=64&v=4&s=100" width="100px;" alt="Jari Nurminen"/><br /><sub><b>Jari Nurminen</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=yahman72" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/frankbp"><img src="https://avatars.githubusercontent.com/u/1422799?v=4&s=100" width="100px;" alt="Xie Lieping"/><br /><sub><b>Xie Lieping</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=frankbp" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/joshuariveramnltech"><img src="https://avatars.githubusercontent.com/u/51564452?v=4&s=100" width="100px;" alt="Joshua Rivera"/><br /><sub><b>Joshua Rivera</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=joshuariveramnltech" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/js361014"><img src="https://avatars.githubusercontent.com/u/37348338?v=4&s=100" width="100px;" alt="js361014"/><br /><sub><b>js361014</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=js361014" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/matthew-dahm"><img src="https://avatars.githubusercontent.com/u/91557334?v=4&s=100" width="100px;" alt="matthew-dahm"/><br /><sub><b>matthew-dahm</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=matthew-dahm" title="Code">💻</a></td>
-        </tr>
-        <tr>
-          <td align="center"><a href="https://github.com/akupahkala"><img src="https://avatars.githubusercontent.com/u/54975226?v=4&s=100" width="100px;" alt="akupahkala"/><br /><sub><b>akupahkala</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=akupahkala" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/soukingang"><img src="https://avatars.githubusercontent.com/u/2391550?v=4&s=100" width="100px;" alt="soukingang"/><br /><sub><b>soukingang</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=soukingang" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/erik1510"><img src="https://avatars.githubusercontent.com/u/32835295?v=4&s=100" width="100px;" alt="erik1510"/><br /><sub><b>Erik Bartalos</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=erik1510" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/minhnguyenphuonghoang"><img src="https://avatars.githubusercontent.com/u/9115912?v=4&s=100" width="100px;" alt="minhnguyenphuonghoang"/><br /><sub><b>Minh Nguyen</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=minhnguyenphuonghoang" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/sadikkuzu"><img src="https://avatars.githubusercontent.com/u/23168063?v=4&s=100" width="100px;" alt="sadikkuzu"/><br /><sub><b>Sadik Kuzu</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=sadikkuzu" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/kshrestha99"><img src="https://avatars.githubusercontent.com/u/29582193?v=4&s=100" width="100px;" alt="kshrestha99"/><br /><sub><b>KumarS</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=kshrestha99" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/lucyking"><img src="https://avatars.githubusercontent.com/u/4670642?v=4&s=100" width="100px;" alt="lucyking"/><br /><sub><b>Xia Clark</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=lucyking" title="Code">💻</a></td>
-        </tr>
-        <tr>
-          <td align="center"><a href="https://github.com/arnaudruffin"><img src="https://avatars.githubusercontent.com/u/2727108?v=4&s=100" width="100px;" alt="arnaudruffin"/><br /><sub><b>Arnaud Ruffin</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=arnaudruffin" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/jvilla17"><img src="https://avatars.githubusercontent.com/u/51178608?v=4&s=100" width="100px;" alt="jvilla17"/><br /><sub><b>Junuen Villa</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=jvilla17" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/idxn"><img src="https://avatars.githubusercontent.com/u/2438992?v=4&s=100" width="100px;" alt="idxn"/><br /><sub><b>Tanakiat Srisaranyakul</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=idxn" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/tbrito-daitan"><img src="https://avatars.githubusercontent.com/u/36163426?v=4&s=100" width="100px;" alt="tbrito-daitan"/><br /><sub><b>Thiago Paiva Brito</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=tbrito-daitan" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/Meallia"><img src="https://avatars.githubusercontent.com/u/7398724?v=4&s=100" width="100px;" alt="Meallia"/><br /><sub><b>Jonathan Gayvallet</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=Meallia" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/jennyw1"><img src="https://avatars.githubusercontent.com/u/28263065?v=4&s=100" width="100px;" alt="jennyw1"/><br /><sub><b>jennyw1</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=jennyw1" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/ac-simoes"><img src="https://avatars.githubusercontent.com/u/71258806?v=4&s=100" width="100px;" alt="ac-simoes"/><br /><sub><b>ac-simoes</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=ac-simoes" title="Code">💻</a></td>
-        </tr>
-        <tr>
-          <td align="center"><a href="https://github.com/JMcn"><img src="https://avatars.githubusercontent.com/u/6111307?v=4&s=100" width="100px;" alt="JMcn"/><br /><sub><b>JMcn</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=JMcn" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/UlhasDeshmukh"><img src="https://avatars.githubusercontent.com/u/1731041?v=4&s=100" width="100px;" alt="UlhasDeshmukh"/><br /><sub><b>Ulhas Deshmukh</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=UlhasDeshmukh" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/smaspe"><img src="https://avatars.githubusercontent.com/u/4571256?v=4&s=100" width="100px;" alt="smaspe"/><br /><sub><b>smaspe</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=smaspe" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/leongxf"><img src="https://avatars.githubusercontent.com/u/9819586?v=4&s=100" width="100px;" alt="leongxf"/><br /><sub><b>Leon Guo</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=leongxf" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/extr3mal"><img src="https://avatars.githubusercontent.com/u/4517549?v=4&s=100" width="100px;" alt="extr3mal"/><br /><sub><b>eXtReMaL</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=extr3mal" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/babarpramod"><img src="https://avatars.githubusercontent.com/u/10119811?v=4&s=100" width="100px;" alt="babarpramod"/><br /><sub><b>Pramod</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=babarpramod" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/erolstt"><img src="https://avatars.githubusercontent.com/u/5057444?v=4&s=100" width="100px;" alt="erolstt"/><br /><sub><b>Erol Selitektay</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=erolstt" title="Code">💻</a></td>
-        </tr>
-        <tr>
-          <td align="center"><a href="https://github.com/filipehb"><img src="https://avatars.githubusercontent.com/u/869359?v=4&s=100" width="100px;" alt="filipehb"/><br /><sub><b>Filipe Henrique Benjamim de Arruda</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=filipehb" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/filipehba"><img src="https://avatars.githubusercontent.com/u/101719544?v=4&s=100" width="100px;" alt="filipehba"/><br /><sub><b>Filipe Arruda</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=filipehba" title="Code">💻</a></td>
-          <td align="center"><a href="https://github.com/felipetortella"><img src="https://avatars.githubusercontent.com/u/8898257?v=4&s=100" width="100px;" alt="felipetortella"/><br /><sub><b>Felipe Luiz Tortella</b></sub></a><br /><a href="https://github.com/serhatbolsu/robotframework-appiumlibrary/commits?author=felipetortella" title="Code">💻</a></td>
-        </tr>
-      </tbody>
-    </table>
+==============    ====================   ==================================
+William Zhang     akupahkala             Arnaud Ruffin
+Serhat Bolsu      soukingang             Junuen Villa
+Xie Lieping       Erik Bartalos          Tanakiat Srisaranyakul
+Joshua Rivera     Minh Nguyen            Thiago Paiva Brito
+js361014          Sadik Kuzu             Jonathan Gayvallet
+matthew-dahm      KumarS                 jennyw1
+JMcn              Xia Clark              ac-simoes
+Ulhas Deshmukh    Leon Guo               Pramod
+smaspe            eXtReMaL               Erol Selitektay
+Filipe Arruda     Felipe Luiz Tortella   Filipe Henrique Benjamim de Arruda
+Gaja              Gabriela Simion        Christoph Singer
+                                         Ed Manlove
+==============    ====================   ==================================
 
 
 AppiumLibrary is modeled after (and forked from)  `appiumandroidlibrary <https://github.com/frankbp/robotframework-appiumandroidlibrary>`_,  but re-implemented to use appium 1.X technologies.
