@@ -26,7 +26,7 @@ class _TouchKeywords(KeywordGroup):
         element = self._element_find(locator, True, True)
         driver.zoom(element=element, percent=percent, steps=steps)
 
-    def swipe(self, start_x: Union[int, float], start_y: Union[int, float], end_x: Union[int, float], end_y: Union[int, float], duration: Union[int, timedelta] = timedelta(seconds=1)):
+    def swipe(self, *, start_x: Union[int, float], start_y: Union[int, float], end_x: Union[int, float], end_y: Union[int, float], duration: Union[int, timedelta] = timedelta(seconds=1)):
         """
         Swipe from one point to another point, for an optional duration.
 
@@ -39,8 +39,8 @@ class _TouchKeywords(KeywordGroup):
 
 
         Examples:
-        | Swipe | 500 | 100 | 100 | 0 | 1s |
-        | Swipe | 500 | 100 | 100 | 0 | 100ms |
+        | Swipe | start_x=500 | start_y=100 | end_x=100 | end_y=0 | duration=1s |
+        | Swipe | start_x=500 | start_y=100 | end_x=100 | end_y=0 | duration=100ms |
         """
 
         if isinstance(duration, int):
