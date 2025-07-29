@@ -112,9 +112,9 @@ class _TouchKeywords(KeywordGroup):
         y_offset = y_end - y_start
         platform = self._get_platform()
         if platform == 'android':
-            self.swipe(x_start, y_start, x_end, y_end, duration)
+            self.swipe(start_x=x_start, start_y=y_start, end_x=x_end, end_y=y_end, duration=duration)
         else:
-            self.swipe(x_start, y_start, x_offset, y_offset, duration)
+            self.swipe(start_x=x_start, start_y=y_start, end_x=x_offset, end_y=y_offset, duration=duration)
 
     def scroll(self, start_locator, end_locator):
         """
@@ -151,7 +151,7 @@ class _TouchKeywords(KeywordGroup):
                     start_y = height * 0.8 # 80% of the screen
                     end_y = height * 0.2 # 20% of the screen
 
-                    driver.swipe(int(x), int(start_y), int(x), int(end_y), 1000)
+                    driver.swipe(start_x=int(x), start_y=int(start_y), end_x=int(x), end_y=int(end_y), duration=1000)
                 time.sleep(retry_interval)
         else:
             element = self._element_find(locator, True, True)
@@ -184,7 +184,7 @@ class _TouchKeywords(KeywordGroup):
                     start_y = height * 0.2
                     end_y = height * 0.8
 
-                    driver.swipe(int(x), int(start_y), int(x), int(end_y), 1000)
+                    driver.swipe(start_x=int(x), start_y=int(start_y), end_x=int(x), end_y=int(end_y), duration=1000)
                 time.sleep(retry_interval)
         else:
             element = self._element_find(locator, True, True)
