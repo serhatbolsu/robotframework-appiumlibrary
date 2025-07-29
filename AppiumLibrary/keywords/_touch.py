@@ -26,7 +26,7 @@ class _TouchKeywords(KeywordGroup):
         element = self._element_find(locator, True, True)
         driver.zoom(element=element, percent=percent, steps=steps)
 
-    def swipe(self, start_x: Union[int, float], start_y: Union[int, float], end_x: Union[int, float], end_y: Union[int, float], duration: Union[int, timedelta] = timedelta(seconds=1)):
+    def swipe(self, *, start_x: Union[int, float], start_y: Union[int, float], end_x: Union[int, float], end_y: Union[int, float], duration: Union[int, timedelta] = timedelta(seconds=1)):
         """
         Swipe from one point to another point, for an optional duration.
 
@@ -39,8 +39,8 @@ class _TouchKeywords(KeywordGroup):
 
 
         Examples:
-        | Swipe | 500 | 100 | 100 | 0 | 1s |
-        | Swipe | 500 | 100 | 100 | 0 | 100ms |
+        | Swipe | start_x=500 | start_y=100 | end_x=100 | end_y=0 | duration=1s |
+        | Swipe | start_x=500 | start_y=100 | end_x=100 | end_y=0 | duration=100ms |
         """
 
         if isinstance(duration, int):
@@ -112,9 +112,9 @@ class _TouchKeywords(KeywordGroup):
         y_offset = y_end - y_start
         platform = self._get_platform()
         if platform == 'android':
-            self.swipe(x_start, y_start, x_end, y_end, duration)
+            self.swipe(start_x=x_start, start_y=y_start, end_x=x_end, end_y=y_end, duration=duration)
         else:
-            self.swipe(x_start, y_start, x_offset, y_offset, duration)
+            self.swipe(start_x=x_start, start_y=y_start, end_x=x_offset, end_y=y_offset, duration=duration)
 
     def scroll(self, start_locator, end_locator):
         """
@@ -151,7 +151,7 @@ class _TouchKeywords(KeywordGroup):
                     start_y = height * 0.8 # 80% of the screen
                     end_y = height * 0.2 # 20% of the screen
 
-                    driver.swipe(int(x), int(start_y), int(x), int(end_y), 1000)
+                    driver.swipe(start_x=int(x), start_y=int(start_y), end_x=int(x), end_y=int(end_y), duration=1000)
                 time.sleep(retry_interval)
         else:
             element = self._element_find(locator, True, True)
@@ -184,7 +184,7 @@ class _TouchKeywords(KeywordGroup):
                     start_y = height * 0.2
                     end_y = height * 0.8
 
-                    driver.swipe(int(x), int(start_y), int(x), int(end_y), 1000)
+                    driver.swipe(start_x=int(x), start_y=int(start_y), end_x=int(x), end_y=int(end_y), duration=1000)
                 time.sleep(retry_interval)
         else:
             element = self._element_find(locator, True, True)
