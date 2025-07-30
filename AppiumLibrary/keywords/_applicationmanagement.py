@@ -270,15 +270,16 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         self._current_application().activate_app(app_id)
 
-    def terminate_application(self, app_id):
+    def terminate_application(self, app_id, timeout=500):
         """
         Terminate the given app on the device
 
         Args:
          - app_id - BundleId for iOS. Package name for Android.
+         - timeout - Timeout for the terminate operation in milliseconds (default 500)
 
         """
-        return self._current_application().terminate_app(app_id)
+        return self._current_application().terminate_app(app_id, timeout=timeout)
 
     def stop_application(self, app_id, timeout=5000, include_stderr=True):
         """
