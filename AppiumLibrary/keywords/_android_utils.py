@@ -27,7 +27,8 @@ class _AndroidUtilsKeywords(KeywordGroup):
     def set_network_connection_status(self, connectionStatus):
         """Sets the network connection status.\n
 
-        *Android only.* \n
+        *Android only.*
+
         Args:
          - connectionStatus: depending on what the network connection should be set to,
          choose one of the values below.
@@ -50,9 +51,10 @@ class _AndroidUtilsKeywords(KeywordGroup):
         """Retrieves the file at `path` and returns its content.\n
 
         *Android only.*
+
         Args:
          - _path_ - the path to the file on the device
-         - _decode_ - True/False decode the data (base64) before returning it (default=False)
+         - _decode_ - should be set to True/False to decode the data (base64) before returning it (default=False)
 
         Example:
         | ${file_content} | Pull File | /sdcard/downloads/file.extension |
@@ -67,6 +69,7 @@ class _AndroidUtilsKeywords(KeywordGroup):
         """Retrieves a folder at `path` and returns its zipped content.\n
 
         *Android only.*
+
         Args:
          - _path_ - the path to the folder on the device
          - _decode_ - True/False decode the data (base64) before returning it (default=False)
@@ -84,10 +87,11 @@ class _AndroidUtilsKeywords(KeywordGroup):
         """Puts the data in the file specified as `path`.\n
 
         *Android only.*
+    
         Args:
          - _path_ - the path on the device
          - _data_ - data to be written to the file
-         - _encode_ - True/False encode the data as base64 before writing it to the file (default=False)
+         - _encode_ - should be set to True/False to encode the data as base64 before writing it to the file (default=False)
         
         Example:
         | Push File | /sdcard/downloads/file.extension | ${data}
@@ -102,6 +106,7 @@ class _AndroidUtilsKeywords(KeywordGroup):
         """Deletes the file specified as `path`.\n
 
         *Android only.*
+
         Args:
          - _path_ - the path on the device
          - _timeout_ - delete command timeout
@@ -130,6 +135,7 @@ class _AndroidUtilsKeywords(KeywordGroup):
         """Waits for an activity: blocks until target activity presents or until the timeout is reached.\n
 
         *Android only.*
+
         Args:
          - _activity_ - target activity
          - _timeout_ - max wait time, in seconds
@@ -143,6 +149,7 @@ class _AndroidUtilsKeywords(KeywordGroup):
         """ Installs the app via appium.\n
 
         *Android only.*
+    
         Args:
         - app_path - path to app
         - app_package - package of install app to verify
@@ -155,6 +162,7 @@ class _AndroidUtilsKeywords(KeywordGroup):
         """ Sets the location.\n
 
         *Android only.*
+    
         Args:
         - _latitute_
         - _longitude_
