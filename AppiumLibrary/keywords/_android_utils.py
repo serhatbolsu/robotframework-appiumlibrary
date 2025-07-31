@@ -126,47 +126,6 @@ class _AndroidUtilsKeywords(KeywordGroup):
         driver = self._current_application()
         return driver.current_activity
 
-    # TODO: Check if deprecated!
-    def start_activity(self, appPackage, appActivity, **opts):
-        """Opens an arbitrary activity during a test. If the activity belongs to
-        another application, that application is started and the activity is opened.\n
-
-        *Android only.*
-        Args:
-        - _appPackage_ - the package containing the activity to start.
-        - _appActivity_ - the activity to start.
-        - _appWaitPackage_ - begin automation after this package starts (optional).
-        - _appWaitActivity_ - begin automation after this activity starts (optional).
-        - _intentAction_ - intent to start (optional).
-        - _intentCategory_ - intent category to start (optional).
-        - _intentFlags_ - flags to send to the intent (optional).
-        - _optionalIntentArguments_ - optional arguments to the intent (optional).
-        - _dontStopAppOnReset_ - should the app be stopped on reset (optional)?
-
-        """
-
-
-        # Almost the same code as in appium's start activity,
-        # just to keep the same keyword names as in open application
-
-        arguments = {
-            'app_wait_package': 'appWaitPackage',
-            'app_wait_activity': 'appWaitActivity',
-            'intent_action': 'intentAction',
-            'intent_category': 'intentCategory',
-            'intent_flags': 'intentFlags',
-            'optional_intent_arguments': 'optionalIntentArguments',
-            'dont_stop_app_on_reset': 'dontStopAppOnReset'
-        }
-        data = {}
-
-        for key, value in arguments.items():
-            if value in opts:
-                data[key] = opts[value]
-
-        driver = self._current_application()
-        driver.start_activity(app_package=appPackage, app_activity=appActivity, **data)
-
     def wait_activity(self, activity, timeout, interval=1):
         """Waits for an activity: blocks until target activity presents or until the timeout is reached.\n
 
