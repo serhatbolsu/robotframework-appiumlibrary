@@ -9,7 +9,7 @@ class _AndroidUtilsKeywords(KeywordGroup):
     def open_notifications(self):
         """Opens and expands an Android device's notification drawer.
 
-        *ndroid only.*
+        *Android only.*
         """
         driver = self._current_application()
         driver.open_notifications()
@@ -25,9 +25,12 @@ class _AndroidUtilsKeywords(KeywordGroup):
         return driver.network_connection
 
     def set_network_connection_status(self, connectionStatus):
-        """Sets the network connection Status.\n
+        """Sets the network connection status.\n
 
-        *Android only.*
+        *Android only.* \n
+        Args:
+         - connectionStatus: depending on what the network connection should be set to,
+         choose one of the values below.
 
         Possible values:
             | =Value= | =Alias=          | =Data= | =Wifi= | =Airplane Mode=  |
@@ -36,17 +39,23 @@ class _AndroidUtilsKeywords(KeywordGroup):
             |  2      | (Wifi only)      | 0      |   1    | 0                |
             |  4      | (Data only)      | 1      |   0    | 0                |
             |  6      | (All network on) | 1      |   1    | 0                |
+
+        Example:
+        | Set Network Connection Status | 1 |
         """
         driver = self._current_application()
         return driver.set_network_connection(int(connectionStatus))
 
     def pull_file(self, path, decode=False):
-        """Retrieves the file at `path` and return it's content.\n
+        """Retrieves the file at `path` and returns its content.\n
 
         *Android only.*
-
+        Args:
          - _path_ - the path to the file on the device
          - _decode_ - True/False decode the data (base64) before returning it (default=False)
+
+        Example:
+        | ${file_content} | Pull File | /sdcard/downloads/file.extension |
          """
         driver = self._current_application()
         theFile = driver.pull_file(path)
@@ -55,12 +64,15 @@ class _AndroidUtilsKeywords(KeywordGroup):
         return str(theFile)
 
     def pull_folder(self, path, decode=False):
-        """Retrieves a folder at `path`. Returns the folder's contents zipped.\n
+        """Retrieves a folder at `path` and returns its zipped content.\n
 
         *Android only.*
-
+        Args:
          - _path_ - the path to the folder on the device
          - _decode_ - True/False decode the data (base64) before returning it (default=False)
+        
+        Example:
+        | ${folder_content} | Pull Folder | /sdcard/downloads/files |
         """
         driver = self._current_application()
         theFolder = driver.pull_folder(path)
@@ -72,10 +84,13 @@ class _AndroidUtilsKeywords(KeywordGroup):
         """Puts the data in the file specified as `path`.\n
 
         *Android only.*
-
+        Args:
          - _path_ - the path on the device
          - _data_ - data to be written to the file
          - _encode_ - True/False encode the data as base64 before writing it to the file (default=False)
+        
+        Example:
+        | Push File | /sdcard/downloads/file.extension | ${data}
         """
         driver = self._current_application()
         data = to_bytes(data)
@@ -84,14 +99,16 @@ class _AndroidUtilsKeywords(KeywordGroup):
         driver.push_file(path, data)
 
     def delete_file(self, path, timeout=5000, include_stderr=True):
-        """Delete the file specified as `path`.\n
+        """Deletes the file specified as `path`.\n
 
         *Android only.*
-
+        Args:
          - _path_ - the path on the device
          - _timeout_ - delete command timeout
          - _includeStderr_ - whether exception will be thrown if the command's
                             return code is not zero
+        Example:
+        | Delete File | /sdcard/downloads/file.extension |
         """
         driver = self._current_application()
         driver.execute_script('mobile: shell', {
@@ -109,21 +126,22 @@ class _AndroidUtilsKeywords(KeywordGroup):
         driver = self._current_application()
         return driver.current_activity
 
+    # TODO: Check if deprecated!
     def start_activity(self, appPackage, appActivity, **opts):
         """Opens an arbitrary activity during a test. If the activity belongs to
         another application, that application is started and the activity is opened.\n
 
         *Android only.*
-
-        - _appPackage_ - The package containing the activity to start.
-        - _appActivity_ - The activity to start.
-        - _appWaitPackage_ - Begin automation after this package starts (optional).
-        - _appWaitActivity_ - Begin automation after this activity starts (optional).
-        - _intentAction_ - Intent to start (opt_ional).
-        - _intentCategory_ - Intent category to start (optional).
-        - _intentFlags_ - Flags to send to the intent (optional).
-        - _optionalIntentArguments_ - Optional arguments to the intent (optional).
-        - _dontStopAppOnReset_ - Should the app be stopped on reset (optional)?
+        Args:
+        - _appPackage_ - the package containing the activity to start.
+        - _appActivity_ - the activity to start.
+        - _appWaitPackage_ - begin automation after this package starts (optional).
+        - _appWaitActivity_ - begin automation after this activity starts (optional).
+        - _intentAction_ - intent to start (optional).
+        - _intentCategory_ - intent category to start (optional).
+        - _intentFlags_ - flags to send to the intent (optional).
+        - _optionalIntentArguments_ - optional arguments to the intent (optional).
+        - _dontStopAppOnReset_ - should the app be stopped on reset (optional)?
 
         """
 
@@ -140,7 +158,6 @@ class _AndroidUtilsKeywords(KeywordGroup):
             'optional_intent_arguments': 'optionalIntentArguments',
             'dont_stop_app_on_reset': 'dontStopAppOnReset'
         }
-
         data = {}
 
         for key, value in arguments.items():
@@ -151,10 +168,10 @@ class _AndroidUtilsKeywords(KeywordGroup):
         driver.start_activity(app_package=appPackage, app_activity=appActivity, **data)
 
     def wait_activity(self, activity, timeout, interval=1):
-        """Wait for an activity: block until target activity presents or time out.\n
+        """Waits for an activity: blocks until target activity presents or until the timeout is reached.\n
 
         *Android only.*
-
+        Args:
          - _activity_ - target activity
          - _timeout_ - max wait time, in seconds
          - _interval_ - sleep interval between retries, in seconds
@@ -164,10 +181,10 @@ class _AndroidUtilsKeywords(KeywordGroup):
             raise TimeoutException(msg="Activity %s never presented, current activity: %s" % (activity, self.get_activity()))
 
     def install_app(self, app_path, app_package):
-        """ Install App via Appium\n
+        """ Installs the app via appium.\n
 
         *Android only.*
-
+        Args:
         - app_path - path to app
         - app_package - package of install app to verify
         """
@@ -176,10 +193,10 @@ class _AndroidUtilsKeywords(KeywordGroup):
         return driver.is_app_installed(app_package)
 
     def set_location(self, latitude, longitude, altitude=10):
-        """ Set location\n
+        """ Sets the location.\n
 
         *Android only.*
-
+        Args:
         - _latitute_
         - _longitude_
         - _altitude_ = 10 [optional]
