@@ -406,7 +406,7 @@ class _ElementKeywords(KeywordGroup):
         object matching ``locator`` that is a child of the argument ``element``.
 
         This is useful when your HTML doesn't properly have id or name elements on all elements.
-        This way the user can find an element with a tag and then search that elmement's children.
+        This way the user can find an element with a tag and then search that element's children.
         """
         elements = None
         if isstr(locator):
