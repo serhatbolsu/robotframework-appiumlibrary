@@ -30,7 +30,7 @@ class _AndroidUtilsKeywords(KeywordGroup):
         *Android only.*
 
         Args:
-         - connectionStatus: depending on what the network connection should be set to,
+         - ``connectionStatus``: depending on what the network connection should be set to,
          choose one of the values below.
 
         Possible values:
@@ -48,13 +48,13 @@ class _AndroidUtilsKeywords(KeywordGroup):
         return driver.set_network_connection(int(connectionStatus))
 
     def pull_file(self, path, decode=False):
-        """Retrieves the file at `path` and returns its content.\n
+        """Retrieves the file at ``path`` and returns its content.\n
 
         *Android only.*
 
         Args:
-         - _path_ - the path to the file on the device
-         - _decode_ - should be set to True/False to decode the data (base64) before returning it (default=False)
+         - ``path`` - the path to the file on the device
+         - ``decode`` - should be set to True/False to decode the data (base64) before returning it (default=False)
 
         Example:
         | ${file_content} | Pull File | /sdcard/downloads/file.extension |
@@ -66,13 +66,13 @@ class _AndroidUtilsKeywords(KeywordGroup):
         return str(theFile)
 
     def pull_folder(self, path, decode=False):
-        """Retrieves a folder at `path` and returns its zipped content.\n
+        """Retrieves a folder at ``path`` and returns its zipped content.\n
 
         *Android only.*
 
         Args:
-         - _path_ - the path to the folder on the device
-         - _decode_ - True/False decode the data (base64) before returning it (default=False)
+         - ``path`` - the path to the folder on the device
+         - ``decode`` - True/False decode the data (base64) before returning it (default=False)
         
         Example:
         | ${folder_content} | Pull Folder | /sdcard/downloads/files |
@@ -84,14 +84,14 @@ class _AndroidUtilsKeywords(KeywordGroup):
         return theFolder
 
     def push_file(self, path, data, encode=False):
-        """Puts the data in the file specified as `path`.\n
+        """Puts the data in the file specified as ``path``.\n
 
         *Android only.*
     
         Args:
-         - _path_ - the path on the device
-         - _data_ - data to be written to the file
-         - _encode_ - should be set to True/False to encode the data as base64 before writing it to the file (default=False)
+         - ``path`` - the path on the device
+         - ``data`` - data to be written to the file
+         - ``encode`` - should be set to True/False to encode the data as base64 before writing it to the file (default=False)
         
         Example:
         | Push File | /sdcard/downloads/file.extension | ${data}
@@ -103,14 +103,14 @@ class _AndroidUtilsKeywords(KeywordGroup):
         driver.push_file(path, data)
 
     def delete_file(self, path, timeout=5000, include_stderr=True):
-        """Deletes the file specified as `path`.\n
+        """Deletes the file specified as ``path``.\n
 
         *Android only.*
 
         Args:
-         - _path_ - the path on the device
-         - _timeout_ - delete command timeout
-         - _includeStderr_ - whether exception will be thrown if the command's
+         - ``path`` - the path on the device
+         - ``timeout`` - delete command timeout
+         - ``includeStderr`` - whether exception will be thrown if the command's
                             return code is not zero
         Example:
         | Delete File | /sdcard/downloads/file.extension |
@@ -137,9 +137,9 @@ class _AndroidUtilsKeywords(KeywordGroup):
         *Android only.*
 
         Args:
-         - _activity_ - target activity
-         - _timeout_ - max wait time, in seconds
-         - _interval_ - sleep interval between retries, in seconds
+         - ``activity`` - target activity
+         - ``timeout`` - max wait time, in seconds
+         - ``interval`` - sleep interval between retries, in seconds
         """
         driver = self._current_application()
         if not driver.wait_activity(activity=activity, timeout=float(timeout), interval=float(interval)):
@@ -151,8 +151,8 @@ class _AndroidUtilsKeywords(KeywordGroup):
         *Android only.*
     
         Args:
-        - app_path - path to app
-        - app_package - package of install app to verify
+        - ``app_path`` - path to app
+        - ``app_package`` - package of install app to verify
         """
         driver = self._current_application()
         driver.install_app(app_path)
@@ -164,9 +164,9 @@ class _AndroidUtilsKeywords(KeywordGroup):
         *Android only.*
     
         Args:
-        - _latitute_
-        - _longitude_
-        - _altitude_ = 10 [optional]
+        - ``latitute``
+        - ``longitude``
+        - ``altitude`` = 10 [optional]
         """
         driver = self._current_application()
         driver.set_location(latitude,longitude,altitude)
