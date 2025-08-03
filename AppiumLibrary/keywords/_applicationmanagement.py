@@ -10,7 +10,7 @@ from appium.webdriver.client_config import AppiumClientConfig
 from AppiumLibrary.utils import ApplicationCache
 from typing import Optional
 from .keywordgroup import KeywordGroup
-
+from geopy.geocoders import Nominatim
 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
@@ -436,6 +436,55 @@ class _ApplicationManagementKeywords(KeywordGroup):
         return self._current_application().get_device_time(format)
 
     # Private
+
+    def get_device_location(self):
+        """Gets the device's current GPS location with human-readable address information.
+
+        Retrieves GPS coordinates from the connected device and performs reverse geocoding
+        to convert coordinates into readable address components (country, state, city).
+
+        Returns:
+            dict: Location data with the following structure:
+                - ``country`` (str): Country name or empty string if unavailable
+                - ``state`` (str): State/region name or empty string if unavailable
+                - ``city`` (str): City/town/village name or empty string if unavailable
+                - ``latitude`` (float): GPS latitude coordinate
+                - ``longitude`` (float): GPS longitude coordinate
+
+        Examples:
+            | ${location}= | Get Device Location |
+            | Log | Current location: ${location['city']}, ${location['country']} |
+            | Should Not Be Empty | ${location['latitude']} |
+            | Should Be True | ${location['longitude']} != 0 |
+
+        Prerequisites:
+            - Device location services must be enabled
+            - App must have location permissions granted
+            - Internet connection required for address lookup
+            - Uses OpenStreetMap's Nominatim geocoding service
+        """
+        # Step 1: Retrieve raw location data from the device
+        raw_location = self._current_application().location
+
+        # Step 2: Extract coordinates
+        latitude = raw_location.get('latitude')
+        longitude = raw_location.get('longitude')
+
+        # Step 3: Perform reverse geocoding to get address information
+        geolocator = Nominatim(user_agent="appium_library_device_location")
+        location = geolocator.reverse(f"{latitude}, {longitude}")
+
+        # Step 4: Extract address components
+        raw_data = getattr(location, 'raw', None)
+        address_components = raw_data['address']
+        # Step 5: Build and return the location response with fallback options for address fields
+        return {
+            'country': address_components.get('country', ''),
+            'state': address_components.get('state', ''),
+            'city': address_components.get('city', ''),
+            'latitude': latitude,
+            'longitude': longitude
+        }
 
     def _current_application(self):
         if not self._cache.current:
