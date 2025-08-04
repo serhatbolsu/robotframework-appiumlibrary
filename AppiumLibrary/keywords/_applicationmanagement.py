@@ -264,6 +264,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
     def activate_application(self, app_id):
         """
         Activates the application if it is not running or is running in the background.
+        
         Args:
          - ``app_id`` - bundleId for iOS, package name for Android.
 
