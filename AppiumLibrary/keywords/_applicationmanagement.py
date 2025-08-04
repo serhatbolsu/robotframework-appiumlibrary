@@ -107,7 +107,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         driver.reset()
 
     def remove_application(self, application_id):
-        """ Removes the application that is identified with an ``application_id``.
+        """ Removes the application that is identified by the ``application_id``.
 
         Example:
         | Remove Application |  com.netease.qa.orangedemo |
@@ -168,7 +168,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
             else:
                 return ''
 
-    # TODO: link
     def execute_script(self, script, **kwargs):
         """
         Executes a variety of native, mobile commands that aren't associated
