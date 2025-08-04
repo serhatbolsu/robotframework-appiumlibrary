@@ -94,7 +94,7 @@ class _AndroidUtilsKeywords(KeywordGroup):
          - ``encode`` - should be set to True/False to encode the data as base64 before writing it to the file (default=False)
         
         Example:
-        | Push File | /sdcard/downloads/file.extension | ${data}
+        | Push File | /sdcard/downloads/file.extension | ${data} |
         """
         driver = self._current_application()
         data = to_bytes(data)
