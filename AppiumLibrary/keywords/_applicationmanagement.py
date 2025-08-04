@@ -23,7 +23,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
     # Public, open and close
 
     def close_application(self):
-        """Closes the current application and also close webdriver session."""
+        """Closes the current application and the webdriver session."""
         self._debug('Closing application with session id %s' % self._current_application().session_id)
         self._cache.close()
 
@@ -42,7 +42,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         self._cache.close_all()
 
     def open_application(self, remote_url, alias=None, **kwargs):
-        """Opens a new application to given Appium server.
+        """Opens a new application to the given Appium server.
         Capabilities of appium server, Android and iOS,
         Please check https://appium.io/docs/en/2.19/guides/caps/
         | *Option*            | *Man.* | *Description*     |
@@ -75,8 +75,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
     def switch_application(self, index_or_alias):
         """Switches the active application by index or alias.
 
-        `index_or_alias` is either application index (an integer) or alias
-        (a string). Index is got as the return value of `Open Application`.
+        ``index_or_alias`` is either application index (an integer) or alias
+        (a string). The index is returned by the `Open Application` keyword.
 
         This keyword returns the index of the previous active application,
         which can be used to switch back to that application later.
@@ -107,7 +107,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         driver.reset()
 
     def remove_application(self, application_id):
-        """ Removes the application that is identified with an application id
+        """ Removes the application that is identified with an ``application_id``.
 
         Example:
         | Remove Application |  com.netease.qa.orangedemo |
@@ -117,13 +117,13 @@ class _ApplicationManagementKeywords(KeywordGroup):
         driver.remove_app(application_id)
 
     def get_appium_timeout(self):
-        """Gets the timeout in seconds that is used by various keywords.
+        """Returns the timeout in seconds used by various keywords.
 
         See `Set Appium Timeout` for an explanation."""
         return robot.utils.secs_to_timestr(self._timeout_in_secs)
 
     def set_appium_timeout(self, seconds):
-        """Sets the timeout in seconds used by various keywords.
+        """Sets the timeout in ``seconds`` used by various keywords.
 
         There are several `Wait ...` keywords that take timeout as an
         argument. All of these timeout arguments are optional. The timeout
@@ -143,7 +143,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         return old_timeout
 
     def get_appium_sessionId(self):
-        """Returns the current session ID as a reference"""
+        """Returns the current session ID as a reference."""
         self._info("Appium Session ID: " + self._current_application().session_id)
         return self._current_application().session_id
 
@@ -154,7 +154,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
     def log_source(self, loglevel='INFO'):
         """Logs and returns the entire html source of the current page or frame.
 
-        The `loglevel` argument defines the used log level. Valid log levels are
+        The ``loglevel`` argument defines the used log level. Valid log levels are
         `WARN`, `INFO` (default), `DEBUG`, `TRACE` and `NONE` (no logging).
         """
         ll = loglevel.upper()
@@ -168,11 +168,11 @@ class _ApplicationManagementKeywords(KeywordGroup):
             else:
                 return ''
 
+    # TODO: link
     def execute_script(self, script, **kwargs):
         """
-        Execute a variety of native, mobile commands that aren't associated
-        with a specific endpoint. See [https://appium.io/docs/en/commands/mobile-command/|Appium Mobile Command]
-        for more details.
+        Executes a variety of native, mobile commands that aren't associated
+        with a specific endpoint. Check out the appium drivers for more details: https://appium.io/docs/en/2.19/ecosystem/drivers/.
 
         Example:
         | &{scrollGesture}  |  create dictionary  |  left=${50}  |  top=${150}  |  width=${50}  |  height=${200}  |  direction=down  |  percent=${100}  |
@@ -187,7 +187,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def execute_async_script(self, script, **kwargs):
         """
-        Inject a snippet of Async-JavaScript into the page for execution in the
+        Injects a snippet of Async-JavaScript into the page for execution in the
         context of the currently selected frame (Web context only).
 
         The executed script is assumed to be asynchronous and must signal that is done by
@@ -196,7 +196,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
         The value to this callback will be returned to the client.
 
-        Check `Execute Script` for example kwargs usage
+        Check `Execute Script` for example kwargs usage.
 
         """
         if kwargs:
@@ -206,16 +206,17 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def execute_adb_shell(self, command, *args):
         """
-        Execute ADB shell commands\n
+        Executes ADB shell commands.\n
 
         *Android only.*
+        
+        Args:
+        - ``command`` - the adb shell command
+        - ``args`` - arguments to send to the command
 
-        - _command_ - The ABD shell command
-        - _args_ - Arguments to send to command
+        Returns the exit code of the ADB shell.
 
-        Returns the exit code of ADB shell.
-
-        Requires server flag --relaxed-security to be set on Appium server.
+        Requires the server flag --relaxed-security to be set on Appium server.
         """
         return self._current_application().execute_script('mobile: shell', {
             'command': command,
@@ -224,17 +225,18 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def execute_adb_shell_timeout(self, command, timeout, *args):
         """
-        Execute ADB shell commands\n
+        Executes ADB shell commands with a timeout.\n
 
         *Android only.*
 
-        - _command_ - The ABD shell command
-        - _timeout_ - Timeout to be applied to command
-        - _args_ - Arguments to send to command
+        Args:
+        - ``command`` - the adb shell command
+        - ``timeout`` - timeout to be applied to the command
+        - ``args`` - arguments to send to the command
 
-        Returns the exit code of ADB shell.
+        Returns the exit code of the ADB shell.
 
-        Requires server flag --relaxed-security to be set on Appium server.
+        Requires the server flag --relaxed-security to be set on Appium server.
         """
         return self._current_application().execute_script('mobile: shell', {
             'command': command,
@@ -248,15 +250,14 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def lock(self, seconds=5):
         """
-        Lock the device for a certain period of time.\n
+        Locks the device for a certain period of time.\n
         *iOS only.*
         """
         self._current_application().lock(robot.utils.timestr_to_secs(seconds))
 
     def background_application(self, seconds=5):
         """
-        Puts the application in the background on the device for a certain
-        duration.
+        Puts the application in the background on the device for a certain amount of ``seconds``.
         """
         self._current_application().background_app(seconds)
 
@@ -265,24 +266,24 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         Activates the application if it is not running or is running in the background.
         Args:
-         - app_id - BundleId for iOS. Package name for Android.
+         - ``app_id`` - bundleId for iOS, package name for Android.
 
         """
         self._current_application().activate_app(app_id)
 
     def terminate_application(self, app_id):
         """
-        Terminate the given app on the device
+        Terminates the given app on the device.
 
         Args:
-         - app_id - BundleId for iOS. Package name for Android.
+         - ``app_id`` - bundleId for iOS, package name for Android.
 
         """
         return self._current_application().terminate_app(app_id)
 
     def stop_application(self, app_id, timeout=5000, include_stderr=True):
         """
-        Stop the given app on the device
+        Stops the app with the ``app_id`` on the device.
 
         """
         self._current_application().execute_script('mobile: shell', {
@@ -294,49 +295,50 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def touch_id(self, match=True):
         """
-        Simulate Touch ID on iOS Simulator
-
-        `match` (boolean) whether the simulated fingerprint is valid (default true)
+        Simulates Touch ID on the iOS Simulator.`
+        
+        Args:
+         - ``match`` (boolean): whether the simulated fingerprint is valid (default=True)
 
         """
         self._current_application().touch_id(match)
 
     def toggle_touch_id_enrollment(self):
         """
-        Toggle Touch ID enrolled state on iOS Simulator
+        Toggles Touch ID enrolled state on the iOS Simulator.
 
         """
         self._current_application().toggle_touch_id_enrollment()
 
     def shake(self):
         """
-        Shake the device
+        Shakes the device.
         """
         self._current_application().shake()
 
     def portrait(self):
         """
-        Set the device orientation to PORTRAIT
+        Sets the device orientation to PORTRAIT.
         """
         self._rotate('PORTRAIT')
 
     def landscape(self):
         """
-        Set the device orientation to LANDSCAPE
+        Sets the device orientation to LANDSCAPE.
         """
         self._rotate('LANDSCAPE')
 
     def get_current_context(self):
-        """Get current context."""
+        """Returns the current context."""
         return self._current_application().current_context
 
     def get_contexts(self):
-        """Get available contexts."""
+        """Returns the available contexts."""
         print(self._current_application().contexts)
         return self._current_application().contexts
 
     def get_window_height(self):
-        """Get current device height.
+        """Returns the current device window height.
 
         Example:
         | ${width}       | Get Window Width |
@@ -347,7 +349,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         return self._current_application().get_window_size()['height']
 
     def get_window_width(self):
-        """Get current device width.
+        """Returns the current device window width.
 
         Example:
         | ${width}       | Get Window Width |
@@ -358,12 +360,12 @@ class _ApplicationManagementKeywords(KeywordGroup):
         return self._current_application().get_window_size()['width']
 
     def switch_to_context(self, context_name):
-        """Switch to a new context"""
+        """Switches to a new context with the ``context_name``."""
         self._current_application().switch_to.context(context_name)
 
     def switch_to_frame(self, frame):
         """
-        Switches focus to the specified frame, by index, name, or webelement.
+        Switches focus to the specified ``frame``, by index, name, or webelement.
 
         Example:
         | Go To Url | http://www.xxx.com |
@@ -381,13 +383,13 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def switch_to_window(self, window_name):
         """
-        Switch to a new webview window if the application contains multiple webviews
+        Switches to a new webview window with the ``window_name`` if the application contains multiple webviews.
         """
         self._current_application().switch_to.window(window_name)
 
     def go_to_url(self, url):
         """
-        Opens URL in default web browser.
+        Opens the ``url`` in the default web browser.
 
         Example:
         | Open Application  | http://localhost:4755/wd/hub | platformName=iOS | platformVersion=7.0 | deviceName='iPhone Simulator' | browserName=Safari |
@@ -397,7 +399,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def get_capability(self, capability_name):
         """
-        Return the desired capability value by desired capability name
+        Returns the desired capability value by ``capability_name``.
         """
         try:
             capability = self._current_application().capabilities[capability_name]
@@ -406,15 +408,15 @@ class _ApplicationManagementKeywords(KeywordGroup):
         return capability
 
     def get_window_title(self):
-        """Get the current Webview window title."""
+        """Returns the current Webview window title."""
         return self._current_application().title
 
     def get_window_url(self):
-        """Get the current Webview window URL."""
+        """Returns the current Webview window URL."""
         return self._current_application().current_url
 
     def get_windows(self):
-        """Get available Webview windows."""
+        """Returns the available Webview windows."""
         print(self._current_application().window_handles)
         return self._current_application().window_handles
 
@@ -422,7 +424,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """Returns the date and time from the device.
 
         Args:
-            format:  The set of format specifiers. Read https://momentjs.com/docs/
+         - format: the set of format specifiers. Read https://momentjs.com/docs/
                 to get the full list of supported datetime format specifiers.
                 If unset, default return format is `YYYY-MM-DDTHH:mm:ssZ`.
 
