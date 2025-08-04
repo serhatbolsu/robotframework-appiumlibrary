@@ -15,16 +15,16 @@ class _RunOnFailureKeywords(KeywordGroup):
     # Public
 
     def register_keyword_to_run_on_failure(self, keyword):
-        """Sets the keyword to execute when a AppiumLibrary keyword fails.
+        """Sets the keyword to be executed when an AppiumLibrary keyword fails.
 
-        `keyword_name` is the name of a keyword (from any available
-        libraries) that  will be executed if a AppiumLibrary keyword fails.
+        ``keyword`` is the name of a keyword (from any available
+        libraries) that  will be executed if an AppiumLibrary keyword fails.
         It is not possible to use a keyword that requires arguments.
-        Using the value "Nothing" will disable this feature altogether.
+        Using the value `Nothing` will disable this feature altogether.
 
         The initial keyword to use is set in `importing`, and the
         keyword that is used by default is `Capture Page Screenshot`.
-        Taking a screenshot when something failed is a very useful
+        Taking a screenshot when something fails is a very useful
         feature, but notice that it can slow down the execution.
 
         This keyword returns the name of the previously registered
