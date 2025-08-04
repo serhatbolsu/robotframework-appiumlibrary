@@ -28,14 +28,14 @@ class _TouchKeywords(KeywordGroup):
 
     def swipe(self, *, start_x: Union[int, float], start_y: Union[int, float], end_x: Union[int, float], end_y: Union[int, float], duration: Union[int, timedelta] = timedelta(seconds=1)):
         """
-        Swipe from one point to another point, for an optional duration.
+        Swipes from one point to another point, for an optional ``duration``.
 
         Args:
-        - start_x: x-coordinate at which to start
-        - start_y: y-coordinate at which to start
-        - end_x: x-coordinate at which to stop
-        - end_y: y-coordinate at which to stop
-        - duration: defines the swipe speed as time taken to swipe from point a to point b.
+        - ``start_x`` - x-coordinate at which to start
+        - ``start_y`` - y-coordinate at which to start
+        - ``end_x`` - x-coordinate at which to stop
+        - ``end_y`` - y-coordinate at which to stop
+        - ``duration`` - defines the swipe speed as time taken to swipe from point a to point b.
 
 
         Examples:
@@ -66,15 +66,15 @@ class _TouchKeywords(KeywordGroup):
 
     def swipe_by_percent(self, start_x: Union[int, float], start_y: Union[int, float], end_x: Union[int, float], end_y: Union[int, float], duration: Union[int, timedelta] = timedelta(seconds=1)):
         """
-        Swipe from one percent of the screen to another percent, for an optional duration.
-        Normal swipe fails to scale for different screen resolutions, this can be avoided using percent.
+        Swipes from one percent of the screen to another percent, for an optional ``duration``.
+        Normal swipe fails to scale for different screen resolutions, this can be avoided by using this keyword.
 
         Args:
-         - start_x - x-percent at which to start
-         - start_y - y-percent at which to start
-         - end_x - x-percent distance from start_x at which to stop
-         - end_y - y-percent distance from start_y at which to stop
-         - duration - (optional) time to take the swipe
+         - ``start_x`` - x-percent at which to start
+         - ``start_y`` - y-percent at which to start
+         - ``end_x`` - x-percent distance from start_x at which to stop
+         - ``end_y`` - y-percent distance from start_y at which to stop
+         - ``duration`` - (optional) time to take the swipe
 
         Examples:
         | Swipe By Percent | 90 | 50 | 10 | 50 | # Swipes screen from right to left. |
@@ -118,7 +118,7 @@ class _TouchKeywords(KeywordGroup):
 
     def scroll(self, start_locator, end_locator):
         """
-        Scrolls from one element to another
+        Scrolls from the element identified by ``start_locator`` to the element identified by ``end_locator``.
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
         """
@@ -128,11 +128,12 @@ class _TouchKeywords(KeywordGroup):
         driver.scroll(el1, el2)
 
     def scroll_down(self, locator, timeout=10, retry_interval=1):
-        """Scrolls down until the element is found or until the timeout (Android only) is reached.
-            Args:
-        - ``locator`` - (mandatory)  Locator of the element to scroll down to.
-        - ``timeout`` - (optional) timeout in seconds (default 10 seconds) - Android only
-        - ``retry_interval`` - (optional) interval between scroll attempts in seconds (default one second)
+        """Scrolls down until the element identified by ``locator`` is found or until the ``timeout`` (Android only) is reached.
+        
+        Args:
+        - ``locator`` - (mandatory) locator of the element to scroll down to
+        - ``timeout`` - (optional, Android only) timeout in seconds (default=10s)
+        - ``retry_interval`` - (optional) interval between scroll attempts in seconds (default=1s)
         """
         driver = self._current_application()
         platform = self._get_platform()
@@ -161,11 +162,12 @@ class _TouchKeywords(KeywordGroup):
         raise AssertionError(f"Element '{locator}' not found within {timeout} seconds.")
 
     def scroll_up(self, locator, timeout=10, retry_interval=1):
-        """Scrolls up until the element is found or the timeout (Android only) is reached.
-            Args:
-        - ``locator`` - (mandatory)  Locator of the element to scroll down to.
-        - ``timeout`` - (optional) timeout in seconds (default 10 seconds) - Android only
-        - ``retry_interval`` - (optional) interval between scroll attempts in seconds (default one second)
+        """Scrolls up until the element identified by the ``locator`` is found or the ``timeout`` (Android only) is reached.
+        
+        Args:
+        - ``locator`` - (mandatory)  locator of the element to scroll up to
+        - ``timeout`` - (optional, Android only) timeout in seconds (default=10s)
+        - ``retry_interval`` - (optional) interval between scroll attempts in seconds (default=1s)
         """
         driver = self._current_application()
         platform = self._get_platform()
@@ -195,11 +197,11 @@ class _TouchKeywords(KeywordGroup):
 
 
     def long_press(self, locator, duration=1000):
-        """Long press the element identified by ``locator`` with optional ``duration``.
+        """Long presses the element identified by the ``locator`` with an optional ``duration``.
 
         Args:
-        - ``locator`` - (mandatory)
-        - ``duration`` - duration of time to tap, in ms. Default: 1000ms
+        - ``locator`` - locator of the element to be long pressed
+        - ``duration`` - duration of the time to tap, in ms (default=1000ms)
 
         Examples:
         | Long Press | xpath=//*[@resource-id='login_button'] |
@@ -215,17 +217,17 @@ class _TouchKeywords(KeywordGroup):
 
     def tap(self, locator, count=1, duration=500):
         """
-        Tap element identified by ``locator``.
+        Taps the element identified by the ``locator``.
 
         Args:
-        - ``locator`` - (mandatory)
+        - ``locator`` - locator of the element to be tapped
         - ``count`` - can be used for multiple times of tap on that element
-        - ``duration`` - duration of time to tap, in ms. Default: 500ms
+        - ``duration`` - duration of time to tap, in ms (default=500ms)
 
         Examples:
         | Tap | xpath=//*[@resource-id='login_button'] |
-        | Tap | xpath=//*[@name='picture'] | duration=100
-        | Tap | xpath=//*[@name='picture'] | count=2 | duration=100
+        | Tap | xpath=//*[@name='picture'] | duration=100 |
+        | Tap | xpath=//*[@name='picture'] | count=2 | duration=100 |
 
         """
         driver = self._current_application()
@@ -239,12 +241,12 @@ class _TouchKeywords(KeywordGroup):
 
     def tap_with_positions(self, duration=500, *locations):
         """Taps on a particular place with up to five fingers, holding for a
-        certain time
+        certain time.
 
         Args:
-        - locations - an array of tuples representing the x/y coordinates of
+        - ``locations`` - an array of tuples representing the x/y coordinates of
                 the fingers to tap. Length can be up to five.
-        - duration - length of time to tap, in ms. Default: 500ms
+        - ``duration`` - length of time to tap, in ms (default=500ms)
 
         Example:
         |  @{firstFinger}   |  create list  |  ${100}  |  ${500}  |
@@ -257,12 +259,12 @@ class _TouchKeywords(KeywordGroup):
         driver.tap(positions=list(locations), duration=duration)
 
     def tap_with_number_of_taps(self, locator, number_of_taps, number_of_touches):
-        """ Sends one or more taps with one or more touch points\n
+        """ Sends one or more taps with one or more touch points.\n
         *iOS only.*
 
         Args:
-        - ``number_of_taps`` - The number of taps.
-        - ``number_of_touches`` - The number of touch points.
+        - ``number_of_taps`` - the number of taps
+        - ``number_of_touches`` - the number of touch points
         """
         driver = self._current_application()
         element = self._element_find(locator, True, True)
@@ -270,11 +272,11 @@ class _TouchKeywords(KeywordGroup):
         driver.execute_script("mobile: tapWithNumberOfTaps", params)
 
     def click_alert_button(self, button_name):
-        """ Clicks on Alert button identified by Name.\n
+        """ Clicks on the alert button identified by ``button_name``.\n
         *iOS only.*
 
         Args:
-        - ``button_name`` - Text on the iOS alert button.
+        - ``button_name`` - the text on the iOS alert button
 
         Example:
         |  Click Alert Button  |  Allow  |
@@ -284,15 +286,15 @@ class _TouchKeywords(KeywordGroup):
         driver.execute_script("mobile: alert", params)
 
     def drag_and_drop(self, locator: str, target: str):
-        """Drags the element identified by ``locator`` into the ``target`` element.
+        """Drags the element identified by the ``locator`` into the ``target`` element.
 
         The ``locator`` argument is the locator of the dragged element
         and the ``target`` is the locator of the target. See the
         `Locating elements` section for details about the locator syntax.
 
         Args:
-        - ``origin`` - the element to drag
-        - ``destination`` - the element to drag to
+        - ``locator`` - the element to drag
+        - ``target`` - the element to drag to
 
         Example:
         | `Drag And Drop` | id=div#element | id=div.target |
@@ -303,7 +305,7 @@ class _TouchKeywords(KeywordGroup):
         driver.drag_and_drop(element, target)
 
     def flick(self, start_x:int, start_y:int, end_x:int, end_y:int):
-        """Flick from one point to another point.
+        """Flicks from one point to another point.
 
         Args:
         - ``start_x`` - x-coordinate at which to start
