@@ -118,8 +118,7 @@ class _ElementKeywords(KeywordGroup):
 
         Args:
          - ``text``: the text that the page should contain
-         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source
-        using the the given loglevel. Set this argument to `NONE` to disable logging.
+         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
         """
         if not self._is_text_present(text):
             self.log_source(loglevel)
@@ -132,8 +131,7 @@ class _ElementKeywords(KeywordGroup):
 
         Args:
          - ``text``: the text that the page should not contain
-         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source
-        using the the given loglevel. Set this argument to `NONE` to disable logging.
+         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
         """
         if self._is_text_present(text):
             self.log_source(loglevel)
@@ -145,8 +143,7 @@ class _ElementKeywords(KeywordGroup):
 
        Args:
          - ``locator``: locator of the element that the page should contain
-         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source
-        using the the given loglevel. Set this argument to `NONE` to disable logging.
+         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
         """
         if not self._is_element_present(locator):
             self.log_source(loglevel)
@@ -159,8 +156,7 @@ class _ElementKeywords(KeywordGroup):
 
         Args:
          - ``locator``: locator of the element that the page should not contain
-         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source
-        using the the given loglevel. Set this argument to `NONE` to disable logging.
+         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
         """
         if self._is_element_present(locator):
             self.log_source(loglevel)
@@ -172,8 +168,7 @@ class _ElementKeywords(KeywordGroup):
 
         Args:
          - ``locator``: locator of the element that should be disabled
-         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source
-        using the the given loglevel. Set this argument to `NONE` to disable logging.
+         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
 
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
@@ -189,8 +184,7 @@ class _ElementKeywords(KeywordGroup):
 
         Args:
          - ``locator``: locator of the element that should be enabled
-         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source
-        using the the given loglevel. Set this argument to `NONE` to disable logging.
+         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
 
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
