@@ -4,6 +4,8 @@ import base64
 from .keywordgroup import KeywordGroup
 from selenium.common.exceptions import TimeoutException
 from kitchen.text.converters import to_bytes
+from robot.api import logger
+
 
 class _AndroidUtilsKeywords(KeywordGroup):
     def open_notifications(self):
@@ -170,3 +172,66 @@ class _AndroidUtilsKeywords(KeywordGroup):
         """
         driver = self._current_application()
         driver.set_location(latitude,longitude,altitude)
+
+    def start_activity(self, appPackage, appActivity, **opts):
+        """ Starts the given activity intent. It invokes the `am start/ am start-activity` command under the hood.
+        This keyword extends the functionality of the Start Activity app management API.
+        The intent is built with the ``appPackage`` and ``appActivity``.
+
+        *Android only.*
+
+        Args:
+         - ``appPackage`` - package of install app to verify
+         - ``appActivity`` - activity that should be launched
+         - ``user`` - the user ID for which the service is started (the current user is used by default)
+         - ``wait`` - set to true if you want to block the method call until the Activity Manager's process returns the control to the system
+         - ``stop`` - set to true to force stop the target app before starting the activity
+         - ``windowingMode`` - the windowing mode to launch the activity into
+         - ``activityType`` - the activity type to launch the activity as
+         - ``action`` - action name (actual value for the Activity Manager's `-a` argument)
+         - ``uri`` - unified resource identifier (actual value for the Activity Manager's `-d` argument)
+         - ``mimeType`` - the actual value for the Activity Manager's `-t` argument
+         - ``identifier`` - optional identifier (actual value for the Activity Manager's `-i` argument)
+         - ``categories`` - one or more category names (actual value for the Activity Manager's `-c` argument)
+         - ``component`` - component name (actual value for the Activity Manager's `-n` argument)
+         - ``package`` - package name (actual value for the Activity Manager's `-p` argument)
+         - ``extras`` - optional intent arguments, must be represented as an array of arrays, where each subarray item contains two or three string items: value type, key and the value itself
+         - ``flags`` - intent startup-specific flags as a hexadecimal string
+
+        For more information please refer to https://github.com/appium/appium-uiautomator2-driver/blob/master/README.md#mobile-startactivity.
+
+        Example:
+        | Start Activity | com.google.android.deskclock | com.android.deskclock.DeskClock |
+        """
+        
+        arguments = {
+            'user':'user',
+            'wait': 'wait',
+            'stop' : 'stop',
+            'windowingMode': 'windowingMode',
+            'activityType': 'activityType',
+            'action': 'action',
+            'uri': 'uri',
+            'mimeType': 'mimeType',
+            'identifier': 'identifier',
+            'categories': 'categories',
+            'component' : 'component',
+            'package': 'package',
+            'extras': 'extras',
+            'flags':'flags'
+        }
+
+        data = {}
+
+        data['intent'] = f"{appPackage}/{appActivity}"
+
+        invalid_args = [key for key in opts.keys() if key not in arguments]
+        if invalid_args:
+            logger.warn(f"Invalid optional arguments passed: {', '.join(invalid_args)}. These will be ignored. ")
+
+        for key, value in arguments.items():
+            if value in opts:
+                data[key] = opts[value]
+    
+        driver = self._current_application()
+        driver.execute_script('mobile: startActivity', data)
