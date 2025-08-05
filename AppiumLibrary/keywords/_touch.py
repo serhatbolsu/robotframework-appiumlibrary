@@ -197,7 +197,10 @@ class _TouchKeywords(KeywordGroup):
 
 
     def long_press(self, locator, duration=1000):
-        """Long presses the element identified by the ``locator`` with an optional ``duration``.
+        """
+        *DEPRECATED!!*  Use `Tap` instead.
+
+        Long presses the element identified by the ``locator`` with an optional ``duration``.
 
         Args:
         - ``locator`` - locator of the element to be long pressed
@@ -214,30 +217,6 @@ class _TouchKeywords(KeywordGroup):
         center_y = location['y'] + size['height'] // 2
         driver = self._current_application()
         driver.tap([(center_x, center_y)], duration)
-
-    def tap(self, locator, count=1, duration=500):
-        """
-        Taps the element identified by the ``locator``.
-
-        Args:
-        - ``locator`` - locator of the element to be tapped
-        - ``count`` - can be used for multiple times of tap on that element
-        - ``duration`` - duration of time to tap, in ms (default=500ms)
-
-        Examples:
-        | Tap | xpath=//*[@resource-id='login_button'] |
-        | Tap | xpath=//*[@name='picture'] | duration=100 |
-        | Tap | xpath=//*[@name='picture'] | count=2 | duration=100 |
-
-        """
-        driver = self._current_application()
-        for _ in range(count):
-            element = self._element_find(locator, True, True)
-            location = element.location
-            size = element.size
-            center_x = location['x'] + size['width'] // 2
-            center_y = location['y'] + size['height'] // 2
-            driver.tap([(center_x, center_y)], duration)
 
     def tap_with_positions(self, duration=500, *locations):
         """Taps on a particular place with up to five fingers, holding for a
@@ -259,7 +238,8 @@ class _TouchKeywords(KeywordGroup):
         driver.tap(positions=list(locations), duration=duration)
 
     def tap_with_number_of_taps(self, locator, number_of_taps, number_of_touches):
-        """ Sends one or more taps with one or more touch points.\n
+        """ Sends one or more taps with one or more touch points.
+
         *iOS only.*
 
         Args:
@@ -318,3 +298,44 @@ class _TouchKeywords(KeywordGroup):
         """
         driver = self._current_application()
         driver.flick(start_x, start_y, end_x, end_y)
+
+    def tap(self, element: Union[str, list], count:int = 1, duration=timedelta(seconds=1)):
+        """Taps the ``element`` for ``count`` times over the ``duration``. 
+
+        Args:
+        - ``element`` - locator or coordinates of the element to be tapped
+        - ``count`` - number of times the element should be tapped
+        - ``duration`` - duration of time to tap, in ms (default=500ms)
+
+        Examples:
+        | Tap | xpath=//*[@resource-id='login_button'] |
+        | Tap | xpath=//*[@name='picture'] | duration=3s |
+        | Tap | xpath=//*[@name='picture'] | count=2 | duration=1s |
+
+        | VAR @{coordinates} | 100 | 270 |
+        | Tap | ${coordinates} | count=3 |
+        """
+        driver = self._current_application()
+
+        if isinstance(element, list):
+            if len(element) == 2:
+                x = int(element[0])
+                y = int(element[1])
+                for _ in range(count):
+                    driver.tap([(x, y)], duration.total_seconds() * 1000)
+            else:
+                raise ValueError(f"Invalid coordinates format: {element}. Expected a list like [x, y]")
+            
+        elif isinstance(element, str):
+            for _ in range(count):
+                el = self._element_find(element, True, True)
+                location = el.location
+                size = el.size
+                center_x = location['x'] + size['width'] // 2
+                center_y = location['y'] + size['height'] // 2
+                print("center_x:",  center_x)
+                print("center_y:", center_y)
+                driver.tap([(center_x, center_y)], duration.total_seconds() * 1000)
+
+        else:
+            raise ValueError(f"Invalid argument type. Expecter xpath (str) or coordinates (list), but got {type(element)}")
