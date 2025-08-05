@@ -218,14 +218,14 @@ class _TouchKeywords(KeywordGroup):
         driver = self._current_application()
         driver.tap([(center_x, center_y)], duration)
 
-    def tap_with_positions(self, duration=500, *locations):
+    def tap_with_positions(self, duration:Union[int, timedelta] = timedelta(seconds=1), *locations):
         """Taps on a particular place with up to five fingers, holding for a
         certain time.
 
         Args:
         - ``locations`` - an array of tuples representing the x/y coordinates of
                 the fingers to tap. Length can be up to five.
-        - ``duration`` - length of time to tap, in ms (default=500ms)
+        - ``duration`` - length of time to tap (default=1s)
 
         Example:
         |  @{firstFinger}   |  create list  |  ${100}  |  ${500}  |
@@ -234,8 +234,15 @@ class _TouchKeywords(KeywordGroup):
         |  Sleep  |  1  |
         |  Tap with Positions  |  ${1000}  |  @{fingerPositions}  |
         """
+        if isinstance(duration, int):
+            logger.warn(
+                "Keyword 'Tap With Positions' will not support int in ms for 'duration' in the future. "
+                "Use timedelta with units ('ms' or 's') instead."
+            )
+            duration = timedelta(milliseconds=duration)
+        
         driver = self._current_application()
-        driver.tap(positions=list(locations), duration=duration)
+        driver.tap(positions=list(locations), duration=duration.total_seconds() * 1000)
 
     def tap_with_number_of_taps(self, locator, number_of_taps, number_of_touches):
         """ Sends one or more taps with one or more touch points.
