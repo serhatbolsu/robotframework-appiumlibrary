@@ -5,7 +5,9 @@ import time
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
-from selenium.webdriver.common.actions.pointer_input import PointerInput
+from selenium.webdriver.common.actions.mouse_button import MouseButton
+from typing import TYPE_CHECKING, cast
+
 
 from datetime import timedelta
 from AppiumLibrary.locators import ElementFinder
@@ -13,6 +15,10 @@ from .keywordgroup import KeywordGroup
 
 from robot.api import logger
 from typing import Union
+
+if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
+    from appium.webdriver.webdriver import WebDriver
 
 
 class _TouchKeywords(KeywordGroup):
@@ -134,20 +140,22 @@ class _TouchKeywords(KeywordGroup):
         | Swipe Path | duration=200 | $path |
         """
 
-        duration = int(duration)
-
+        duration = float(duration) if 0 < int(duration) <= 1 else float(duration / 1000.0)
+        print(f"DEBUG: Swipe Path duration is {duration}.")
         # Validate path size
         psz = len(path)
         if psz > 1 and psz % 2 == 0:
             driver = self._current_application()
-            actions = ActionChains(driver)
-            actions.w3c_actions = ActionBuilder(driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
-            actions.w3c_actions.pointer_action.move_to_location(path[0], path[1])
-            actions.w3c_actions.pointer_action.pointer_down()
+            # actions = ActionChains(driver)
+            actions = ActionChains(cast('WebDriver', driver))
+            actions.w3c_actions.devices = []
+            new_input = actions.w3c_actions.add_pointer_input('touch', 'finger0')
+            new_input.create_pointer_move(path[0], path[1])
+            new_input.create_pointer_down(button=MouseButton.LEFT)
             for i in range(2, psz, 2):
-                actions.w3c_actions.pointer_action.pause(duration)
-                actions.w3c_actions.pointer_action.move_to_location(path[i], path[i + 1])
-            actions.w3c_actions.pointer_action.release()
+                new_input.create_pause(duration)
+                new_input.create_pointer_move(path[i], path[i + 1])
+            new_input.create_pointer_up(MouseButton.LEFT)
             actions.perform()
         else:
             AssertionError(f"Parameter 'path' is mandatory and must be a list of coordinates, "
