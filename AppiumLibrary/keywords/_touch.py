@@ -340,9 +340,7 @@ class _TouchKeywords(KeywordGroup):
                 size = el.size
                 center_x = location['x'] + size['width'] // 2
                 center_y = location['y'] + size['height'] // 2
-                print("center_x:",  center_x)
-                print("center_y:", center_y)
                 driver.tap([(center_x, center_y)], duration.total_seconds() * 1000)
 
         else:
-            raise ValueError(f"Invalid argument type. Expecter xpath (str) or coordinates (list), but got {type(element)}")
+            raise ValueError(f"Invalid argument type. Expected xpath (str) or coordinates (list), but got {type(element)}")
