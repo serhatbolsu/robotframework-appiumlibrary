@@ -2,7 +2,12 @@
 
 import time
 
-from appium.webdriver.extensions.action_helpers import ActionHelpers
+from selenium.webdriver import ActionChains
+from selenium.webdriver.common.actions import interaction
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
+from selenium.webdriver.common.actions.mouse_button import MouseButton
+from typing import TYPE_CHECKING, cast
+
 
 from datetime import timedelta
 from AppiumLibrary.locators import ElementFinder
@@ -10,6 +15,10 @@ from .keywordgroup import KeywordGroup
 
 from robot.api import logger
 from typing import Union
+
+if TYPE_CHECKING:
+    # noinspection PyUnresolvedReferences
+    from appium.webdriver.webdriver import WebDriver
 
 
 class _TouchKeywords(KeywordGroup):
@@ -115,6 +124,42 @@ class _TouchKeywords(KeywordGroup):
             self.swipe(start_x=x_start, start_y=y_start, end_x=x_end, end_y=y_end, duration=duration)
         else:
             self.swipe(start_x=x_start, start_y=y_start, end_x=x_offset, end_y=y_offset, duration=duration)
+
+    def swipe_path(self, duration: int = 100, *path: list):
+        """
+        Presses down at start of `path` and releases at end of `path` with delay `duration`.
+
+        Args:
+        - duration: in milliseconds, defines the swipe speed as time taken to swipe between each point of `path` list.
+        - path: name of a variable of type list, containing the coordinates sequence. List starts at X0, Y0
+                and ends at Xn, Yn.
+
+        Examples:
+        | @path = | Create List | 100 | 100 | 300 | 100 | 150 | 300 | 100 | 100 !
+        | Swipe Path | $path |
+        | Swipe Path | duration=200 | $path |
+        """
+
+        duration = float(duration) if 0 < int(duration) <= 1 else float(duration / 1000.0)
+        print(f"DEBUG: Swipe Path duration is {duration}.")
+        # Validate path size
+        psz = len(path)
+        if psz > 1 and psz % 2 == 0:
+            driver = self._current_application()
+            # actions = ActionChains(driver)
+            actions = ActionChains(cast('WebDriver', driver))
+            actions.w3c_actions.devices = []
+            new_input = actions.w3c_actions.add_pointer_input('touch', 'finger0')
+            new_input.create_pointer_move(path[0], path[1])
+            new_input.create_pointer_down(button=MouseButton.LEFT)
+            for i in range(2, psz, 2):
+                new_input.create_pause(duration)
+                new_input.create_pointer_move(path[i], path[i + 1])
+            new_input.create_pointer_up(MouseButton.LEFT)
+            actions.perform()
+        else:
+            AssertionError(f"Parameter 'path' is mandatory and must be a list of coordinates, "
+                           f"meaning its size must be an even number. You provided a 'path' with length = {psz}.")
 
     def scroll(self, start_locator, end_locator):
         """
