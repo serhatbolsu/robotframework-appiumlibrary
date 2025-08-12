@@ -9,13 +9,13 @@ class _WaitingKeywords(KeywordGroup):
         self._sleep_between_wait = 0.2
         
     def wait_until_element_is_visible(self, locator, timeout=None, error=None):
-        """Waits until element specified with `locator` is visible.
+        """Waits until the element specified by the ``locator`` is visible.
 
-        Fails if `timeout` expires before the element is visible. See
-        `introduction` for more information about `timeout` and its
+        Fails if the ``timeout`` expires before the element becomes visible. See the
+        `introduction` for more information about the ``timeout`` and its
         default value.
 
-        `error` can be used to override the default error message.
+        ``error`` can be used to override the default error message.
 
         See also `Wait Until Page Contains`, `Wait Until Page Contains 
         Element`, `Wait For Condition` and BuiltIn keyword `Wait Until Keyword
@@ -32,13 +32,13 @@ class _WaitingKeywords(KeywordGroup):
         self._wait_until_no_error(timeout, check_visibility)
 
     def wait_until_page_contains(self, text, timeout=None, error=None):
-        """Waits until `text` appears on current page.
+        """Waits until the ``text`` appears on the current page.
 
-        Fails if `timeout` expires before the text appears. See
-        `introduction` for more information about `timeout` and its
+        Fails if the ``timeout`` expires before the text appears. See the
+        `introduction` for more information about the ``timeout`` and its
         default value.
 
-        `error` can be used to override the default error message.
+        ``error`` can be used to override the default error message.
 
         See also `Wait Until Page Does Not Contain`,
         `Wait Until Page Contains Element`,
@@ -50,13 +50,13 @@ class _WaitingKeywords(KeywordGroup):
         self._wait_until(timeout, error, self._is_text_present, text)
 
     def wait_until_page_does_not_contain(self, text, timeout=None, error=None):
-        """Waits until `text` disappears from current page.
+        """Waits until the ``text`` disappears from the current page.
 
-        Fails if `timeout` expires before the `text` disappears. See
-        `introduction` for more information about `timeout` and its
+        Fails if the ``timeout`` expires before the ``text`` disappears. See the
+        `introduction` for more information about ``timeout`` and its
         default value.
 
-        `error` can be used to override the default error message.
+        ``error`` can be used to override the default error message.
 
         See also `Wait Until Page Contains`,
         `Wait Until Page Contains Element`,
@@ -74,13 +74,13 @@ class _WaitingKeywords(KeywordGroup):
         self._wait_until_no_error(timeout, check_present)
 
     def wait_until_page_contains_element(self, locator, timeout=None, error=None):
-        """Waits until element specified with `locator` appears on current page.
+        """Waits until the element specified by the ``locator`` appears on the current page.
 
-        Fails if `timeout` expires before the element appears. See
-        `introduction` for more information about `timeout` and its
+        Fails if the ``timeout`` expires before the element appears. See the
+        `introduction` for more information about the ``timeout`` and its
         default value.
 
-        `error` can be used to override the default error message.
+        ``error`` can be used to override the default error message.
 
         See also `Wait Until Page Contains`,
         `Wait Until Page Does Not Contain`
@@ -92,13 +92,13 @@ class _WaitingKeywords(KeywordGroup):
         self._wait_until(timeout, error, self._is_element_present, locator)
 
     def wait_until_page_does_not_contain_element(self, locator, timeout=None, error=None):
-        """Waits until element specified with `locator` disappears from current page.
+        """Waits until the element specified by the ``locator`` disappears from the current page.
 
-        Fails if `timeout` expires before the element disappears. See
-        `introduction` for more information about `timeout` and its
+        Fails if the ``timeout`` expires before the element disappears. See the
+        `introduction` for more information about ``timeout`` and its
         default value.
 
-        `error` can be used to override the default error message.
+        ``error`` can be used to override the default error message.
 
         See also `Wait Until Page Contains`,
         `Wait Until Page Does Not Contain`,
@@ -116,7 +116,7 @@ class _WaitingKeywords(KeywordGroup):
         self._wait_until_no_error(timeout, check_present)
 
     def set_sleep_between_wait_loop(self, seconds=0.2):
-        """Sets the sleep in seconds used by wait until loop.
+        """Sets the sleep interval in ``seconds`` used by the `wait until` loop.
         
         If you use the remote appium server, the default value is not recommended because 
         it is another 200ms overhead to the network latency and will slow down your test
@@ -127,7 +127,7 @@ class _WaitingKeywords(KeywordGroup):
         return old_sleep
     
     def get_sleep_between_wait_loop(self):
-        """Gets the sleep between wait loop in seconds that is used by wait until keywords.
+        """Returns the sleep interval in seconds between the wait loops used by the `Wait Until ...` keywords.
         """
         return robot.utils.secs_to_timestr(self._sleep_between_wait)
     
