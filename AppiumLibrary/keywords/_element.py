@@ -95,7 +95,7 @@ class _ElementKeywords(KeywordGroup):
         self._element_input_value_by_locator(locator, text)
 
     def hide_keyboard(self, key_name=None):
-        """Hides the software keyboard on the device.
+        """Hides the software keyboard on the device if it is currently visible.
 
         Args:
          - ``key_name`` (optional, iOS only): the name of the key to press to dismiss the keyboard.
