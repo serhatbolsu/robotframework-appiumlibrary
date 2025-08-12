@@ -1,5 +1,14 @@
 History
 =======
+3.1.0
+----------------
+- Update the keyword documentation
+- Fix `Start Activity`
+- Add support for both locator and coordinates in `Tap` keyword. Check keyword documentation for more information.
+- Deprecate `Long Press` as its functionality can be replaced by the updated `Tap` keyword
+- Add timedelta to `Tap` and `Tap With Positions`
+- Deprecate `Element Value Should Be` and `Element Name Should Be` as they can be replaced by `Element Attribute Should Match`
+
 3.0.0
 ----------------
 - Update the Appium-Python-Client and selenium versions
