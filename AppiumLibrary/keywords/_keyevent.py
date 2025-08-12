@@ -7,7 +7,7 @@ class _KeyeventKeywords(KeywordGroup):
 
     # Public
     def press_keycode(self, keycode, metastate=None):
-        """Sends a press of keycode to the device.
+        """Sends a press of ``keycode`` to the device.
 
         *Android only.*
 
@@ -26,18 +26,19 @@ class _KeyeventKeywords(KeywordGroup):
         | metastate=2 --> Alt is pressed
         | metastate=3 --> Shift+Alt is pressed
 
-         - _keycode- - the keycode to be sent to the device
-         - _metastate- - status of the meta keys
+        Args:
+         - ``keycode`` - the keycode to be sent to the device
+         - ``metastate`` - status of the meta keys
         """
         driver = self._current_application()
         driver.press_keycode(keycode, metastate)
 
     def long_press_keycode(self, keycode, metastate=None):
-        """Sends a long press of keycode to the device.
+        """Sends a long press of ``keycode`` to the device.
 
         *Android only.*
 
-        See `press keycode` for more details.
+        See `Press Keycode` for more details.
         """
         driver = self._current_application()
         driver.long_press_keycode(int(keycode), metastate)
