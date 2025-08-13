@@ -312,7 +312,8 @@ class _TouchKeywords(KeywordGroup):
         Args:
         - ``element`` - locator or coordinates of the element to be tapped
         - ``count`` - number of times the element should be tapped
-        - ``duration`` - duration of time to tap, in ms (default=500ms)
+        - ``duration`` - duration of time to tap (default=1s)
+
 
         Examples:
         | Tap | xpath=//*[@resource-id='login_button'] |
