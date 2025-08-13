@@ -425,7 +425,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """Returns the date and time from the device.
 
         Args:
-         - format: the set of format specifiers. Read https://momentjs.com/docs/
+         - ``format`` - the set of format specifiers. Read https://momentjs.com/docs/
+
                 to get the full list of supported datetime format specifiers.
                 If unset, default return format is `YYYY-MM-DDTHH:mm:ssZ`.
 
