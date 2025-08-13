@@ -319,7 +319,8 @@ class _TouchKeywords(KeywordGroup):
         | Tap | xpath=//*[@name='picture'] | duration=3s |
         | Tap | xpath=//*[@name='picture'] | count=2 | duration=1s |
 
-        | VAR @{coordinates} | 100 | 270 |
+        | VAR | @{coordinates} | 100 | 270 |
+
         | Tap | ${coordinates} | count=3 |
         """
         driver = self._current_application()
