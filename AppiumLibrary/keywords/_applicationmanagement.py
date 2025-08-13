@@ -435,8 +435,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         return self._current_application().get_device_time(format)
 
-    # Private
-
     def get_device_location(self):
         """Gets the device's current GPS location with human-readable address information.
 
@@ -477,6 +475,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         # Step 4: Extract address components
         raw_data = getattr(location, 'raw', None)
         address_components = raw_data['address']
+
         # Step 5: Build and return the location response with fallback options for address fields
         return {
             'country': address_components.get('country', ''),
@@ -485,6 +484,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
             'latitude': latitude,
             'longitude': longitude
         }
+
+    # Private
 
     def _current_application(self):
         if not self._cache.current:

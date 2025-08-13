@@ -44,7 +44,8 @@ setup(name='robotframework-appiumlibrary',
           'selenium >=4.26.0',
           'Appium-Python-Client >= 5.1.1',
           'kitchen >= 1.2.4',
-          'six >= 1.10.0'
+          'six >= 1.10.0',
+          'geopy >= 2.4.1',
       ],
       tests_require=[
           'mock >= 2.0.0',
