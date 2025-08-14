@@ -11,12 +11,9 @@ class _ScreenshotKeywords(KeywordGroup):
     def capture_page_screenshot(self, filename=None):
         """Takes a screenshot of the current page and embeds it into the log.
 
-        `filename` argument specifies the name of the file to write the
-        screenshot into. If no `filename` is given, the screenshot will be
-        embedded as Base64 image to the log.html. In this case no file is created in the filesystem.
-
-        Warning: this behavior is new in 1.7. Previously if no filename was given
-        the screenshots where stored as separate files named `appium-screenshot-<counter>.png`
+        The ``filename`` argument specifies the name of the file to write the
+        screenshot into. If no ``filename`` is given, the screenshot will be
+        embedded as a Base64 image to the log.html. In this case no file is created in the filesystem.
         """
         if filename:
             path, link = self._get_screenshot_paths(filename)
