@@ -27,13 +27,12 @@ maintainers = [
     {name = "Christoph Singer", email = "ch_singer@me.com"},
     {name = "Ed Manlove", email = "emanlove@verizon.net"},
 ]
-license = "Apache License 2.0"
+license = "Apache-2.0"
 license-files = ["LICENSE"]
-keywords = "robotframework testing testautomation mobile appium webdriver app android ios"
+keywords = ["robotframework", "testing", "testautomation", "mobile", "appium", "webdriver", "app", "android", "ios"]
 # platforms = "any"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
-    "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Topic :: Software Development :: Quality Assurance",
