@@ -142,20 +142,20 @@ Fork the project, make a change, and send a pull request!
 Project Contributors
 --------------------
 
-==============    ====================   ==================================
-William Zhang     akupahkala             Arnaud Ruffin
-Serhat Bolsu      soukingang             Junuen Villa
-Xie Lieping       Erik Bartalos          Tanakiat Srisaranyakul
-Joshua Rivera     Minh Nguyen            Thiago Paiva Brito
-js361014          Sadik Kuzu             Jonathan Gayvallet
-matthew-dahm      KumarS                 jennyw1
-JMcn              Xia Clark              ac-simoes
-Ulhas Deshmukh    Leon Guo               Pramod
-smaspe            eXtReMaL               Erol Selitektay
-Filipe Arruda     Felipe Luiz Tortella   Filipe Henrique Benjamim de Arruda
-Gaja              Gabriela Simion        Christoph Singer
-Ed Manlove
-==============    ====================   ==================================
+================    ====================   ==================================
+William Zhang       akupahkala             Arnaud Ruffin
+Serhat Bolsu        soukingang             Junuen Villa
+Xie Lieping         Erik Bartalos          Tanakiat Srisaranyakul
+Joshua Rivera       Minh Nguyen            Thiago Paiva Brito
+js361014            Sadik Kuzu             Jonathan Gayvallet
+matthew-dahm        KumarS                 jennyw1
+JMcn                Xia Clark              ac-simoes
+Ulhas Deshmukh      Leon Guo               Pramod
+smaspe              eXtReMaL               Erol Selitektay
+Filipe Arruda       Felipe Luiz Tortella   Filipe Henrique Benjamim de Arruda
+Gaja                Gabriela Simion        Christoph Singer
+Eslam Elmishtawy    Ed Manlove
+================    ====================   ==================================
 
 
 AppiumLibrary is modeled after (and forked from)  `appiumandroidlibrary <https://github.com/frankbp/robotframework-appiumandroidlibrary>`_,  but re-implemented to use appium 1.X technologies.
