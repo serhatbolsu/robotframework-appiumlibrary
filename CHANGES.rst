@@ -8,6 +8,8 @@ History
 - Deprecate `Long Press` as its functionality can be replaced by the updated `Tap` keyword
 - Add timedelta to `Tap` and `Tap With Positions`
 - Deprecate `Element Value Should Be` and `Element Name Should Be` as they can be replaced by `Element Attribute Should Match`
+- Add `Get Device Location`
+- Updated Python package to use pyproject.toml
 
 3.0.0
 ----------------
