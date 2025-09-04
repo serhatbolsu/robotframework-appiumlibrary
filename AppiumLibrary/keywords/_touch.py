@@ -127,7 +127,7 @@ class _TouchKeywords(KeywordGroup):
         driver = self._current_application()
         driver.scroll(el1, el2)
 
-    def scroll_down(self, locator, timeout=10, retry_interval=1):
+    def scroll_down(self, locator, timeout: Union[int, timedelta] = timedelta(seconds=10), retry_interval: Union[int, timedelta] = timedelta(seconds=1)):
         """Scrolls down until the element is found or until the timeout (Android only) is reached.
             Args:
         - ``locator`` - (mandatory)  Locator of the element to scroll down to.
@@ -136,9 +136,20 @@ class _TouchKeywords(KeywordGroup):
         """
         driver = self._current_application()
         platform = self._get_platform()
+
+        if isinstance(timeout, int):
+            logger.warn("Keyword 'Scroll Down' will not support int in seconds for 'timeout' "
+            "in the future. Use timedeltas with units ('ms' or 's') instead. ")
+            timeout = timedelta(seconds=timeout)
+        
+        if isinstance(retry_interval, int):
+            logger.warn("Keyword 'Scroll Down' will not support int in seconds for 'retry_interval' "
+            "in the future. Use timedeltas with units ('ms' or 's') instead. ")
+            retry_interval = timedelta(seconds=retry_interval)
+        
         if platform == 'android':
             start_time = time.time()
-            while time.time() - start_time < timeout:
+            while time.time() - start_time < timeout.total_seconds():
                 try:
                     element = self._element_find(locator, True, True)
                     return True
@@ -152,7 +163,7 @@ class _TouchKeywords(KeywordGroup):
                     end_y = height * 0.2 # 20% of the screen
 
                     driver.swipe(start_x=int(x), start_y=int(start_y), end_x=int(x), end_y=int(end_y), duration=1000)
-                time.sleep(retry_interval)
+                time.sleep(retry_interval.total_seconds())
         else:
             element = self._element_find(locator, True, True)
             driver.execute_script("mobile: scroll", {"direction": 'down', 'elementid': element.id})
@@ -160,7 +171,7 @@ class _TouchKeywords(KeywordGroup):
 
         raise AssertionError(f"Element '{locator}' not found within {timeout} seconds.")
 
-    def scroll_up(self, locator, timeout=10, retry_interval=1):
+    def scroll_up(self, locator, timeout: Union[int, timedelta] = timedelta(seconds=10), retry_interval: Union[int, timedelta] = timedelta(seconds=1)):
         """Scrolls up until the element is found or the timeout (Android only) is reached.
             Args:
         - ``locator`` - (mandatory)  Locator of the element to scroll down to.
@@ -169,9 +180,20 @@ class _TouchKeywords(KeywordGroup):
         """
         driver = self._current_application()
         platform = self._get_platform()
+
+        if isinstance(timeout, int):
+            logger.warn("Keyword 'Scroll Up' will not support int in seconds for 'timeout' "
+            "in the future. Use timedeltas with units ('ms' or 's') instead. ")
+            timeout = timedelta(seconds=timeout)
+        
+        if isinstance(retry_interval, int):
+            logger.warn("Keyword 'Scroll Up' will not support int in seconds for 'retry_interval' "
+            "in the future. Use timedeltas with units ('ms' or 's') instead. ")
+            retry_interval = timedelta(seconds=retry_interval)
+
         if platform == 'android':
             start_time = time.time()
-            while time.time() - start_time < timeout:
+            while time.time() - start_time < timeout.total_seconds():
                 try:
                     element = self._element_find(locator, True, True)
                     return True
@@ -185,7 +207,7 @@ class _TouchKeywords(KeywordGroup):
                     end_y = height * 0.8
 
                     driver.swipe(start_x=int(x), start_y=int(start_y), end_x=int(x), end_y=int(end_y), duration=1000)
-                time.sleep(retry_interval)
+                time.sleep(retry_interval.total_seconds())
         else:
             element = self._element_find(locator, True, True)
             driver.execute_script("mobile: scroll", {"direction": 'up', 'elementid': element.id})
@@ -194,7 +216,7 @@ class _TouchKeywords(KeywordGroup):
         raise AssertionError(f"Element '{locator}' not found within {timeout} seconds.")
 
 
-    def long_press(self, locator, duration=1000):
+    def long_press(self, locator, duration: Union[int, timedelta] = timedelta(milliseconds=1000)):
         """Long press the element identified by ``locator`` with optional ``duration``.
 
         Args:
@@ -205,15 +227,23 @@ class _TouchKeywords(KeywordGroup):
         | Long Press | xpath=//*[@resource-id='login_button'] |
         | Long Press | xpath=//*[@name='link'] | duration=3000 |
         """
+        
+        if isinstance(duration, int):
+            logger.warn(
+                "Keyword 'Long Press' will not support int in ms for 'duration' in the future. "
+                "Use timedelta with units ('ms') instead."
+            )
+            duration = timedelta(milliseconds=duration)
+        
         element = self._element_find(locator, True, True)
         location = element.location
         size = element.size
         center_x = location['x'] + size['width'] // 2
         center_y = location['y'] + size['height'] // 2
         driver = self._current_application()
-        driver.tap([(center_x, center_y)], duration)
+        driver.tap([(center_x, center_y)], duration.total_seconds() * 1000)
 
-    def tap(self, locator, count=1, duration=500):
+    def tap(self, locator, count=1, duration: Union[int, timedelta] = timedelta(milliseconds=500)):
         """
         Tap element identified by ``locator``.
 
@@ -228,6 +258,13 @@ class _TouchKeywords(KeywordGroup):
         | Tap | xpath=//*[@name='picture'] | count=2 | duration=100
 
         """
+        if isinstance(duration, int):
+            logger.warn(
+                "Keyword 'Tap' will not support int in ms for 'duration' in the future. "
+                "Use timedelta with units ('ms' or 's') instead."
+            )
+            duration = timedelta(milliseconds=duration)
+        
         driver = self._current_application()
         for _ in range(count):
             element = self._element_find(locator, True, True)
@@ -235,9 +272,9 @@ class _TouchKeywords(KeywordGroup):
             size = element.size
             center_x = location['x'] + size['width'] // 2
             center_y = location['y'] + size['height'] // 2
-            driver.tap([(center_x, center_y)], duration)
+            driver.tap([(center_x, center_y)], duration.total_seconds() * 1000)
 
-    def tap_with_positions(self, duration=500, *locations):
+    def tap_with_positions(self, duration:Union[int, timedelta] = timedelta(milliseconds=500), *locations):
         """Taps on a particular place with up to five fingers, holding for a
         certain time
 
@@ -248,13 +285,19 @@ class _TouchKeywords(KeywordGroup):
 
         Example:
         |  @{firstFinger}   |  create list  |  ${100}  |  ${500}  |
-        |  @{secondFinger}  |  create list  |${700}    |  ${500}  |
+        |  @{secondFinger}  |  create list  |  ${700}  |  ${500}  |
         |  @{fingerPositions}  |  create list  |  ${firstFinger}  |  ${secondFinger}  |
         |  Sleep  |  1  |
-        |  Tap with Positions  |  ${1000}  |  @{fingerPositions}  |
+        |  Tap with Positions  |  300ms  |  @{fingerPositions}  |
         """
+        if isinstance(duration, int):
+            logger.warn(
+                "Keyword 'Tap' will not support int in ms for 'duration' in the future. "
+                "Use timedelta with units ('ms' or 's') instead."
+            )
+            duration = timedelta(milliseconds=duration)
         driver = self._current_application()
-        driver.tap(positions=list(locations), duration=duration)
+        driver.tap(positions=list(locations), duration=duration.total_seconds() * 1000)
 
     def tap_with_number_of_taps(self, locator, number_of_taps, number_of_touches):
         """ Sends one or more taps with one or more touch points\n
