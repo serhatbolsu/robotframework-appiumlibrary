@@ -206,34 +206,6 @@ class _ElementKeywords(KeywordGroup):
             raise AssertionError("Element '%s' should be visible "
                                  "but did not" % locator)
 
-    def element_name_should_be(self, locator, expected):
-        """ *DEPRECATED!!* 
-        
-        Use `Element Attribute Should Match` instead.
-        
-        Example:
-        | Element Attribute Should Match | xpath=//*[@label='image'] | name | foobar |
-        """
-        element = self._element_find(locator, True, True)
-        if str(expected) != str(element.get_attribute('name')):
-            raise AssertionError("Element '%s' name should be '%s' "
-                                 "but it is '%s'." % (locator, expected, element.get_attribute('name')))
-        self._info("Element '%s' name is '%s' " % (locator, expected))
-
-    def element_value_should_be(self, locator, expected):
-        """ *DEPRECATED!!* 
-        
-        Use `Element Attribute Should Match` instead.
-        
-        Example:
-        | Element Attribute Should Match | xpath=//*[@label='image'] | value | foobar |
-        """
-        element = self._element_find(locator, True, True)
-        if str(expected) != str(element.get_attribute('value')):
-            raise AssertionError("Element '%s' value should be '%s' "
-                                 "but it is '%s'." % (locator, expected, element.get_attribute('value')))
-        self._info("Element '%s' value is '%s' " % (locator, expected))
-
     def element_attribute_should_match(self, locator, attr_name, match_pattern, regexp=False):
         """Verifies that an attribute of an element matches the expected criteria.
 

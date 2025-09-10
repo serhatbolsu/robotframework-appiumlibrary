@@ -98,14 +98,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
             self._cache.switch(index_or_alias)
         return old_index
 
-    def reset_application(self):
-        """*DEPRECATED!!* in selenium v4, check `Terminate Application` keyword.
-
-        Reset application. Open Application can be reset while Appium session is kept alive.
-        """
-        driver = self._current_application()
-        driver.reset()
-
     def remove_application(self, application_id):
         """Removes the application that is identified by the ``application_id``.
 

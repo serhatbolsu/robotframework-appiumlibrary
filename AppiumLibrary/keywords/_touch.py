@@ -18,13 +18,6 @@ class _TouchKeywords(KeywordGroup):
         self._element_finder = ElementFinder()
 
     # Public, element lookups
-    def zoom(self, locator, percent="200%", steps=1):
-        """*DEPRECATED!!*
-        Zooms in on an element a certain amount.
-        """
-        driver = self._current_application()
-        element = self._element_find(locator, True, True)
-        driver.zoom(element=element, percent=percent, steps=steps)
 
     def swipe(self, *, start_x: Union[int, float], start_y: Union[int, float], end_x: Union[int, float], end_y: Union[int, float], duration: Union[int, timedelta] = timedelta(seconds=1)):
         """
@@ -216,37 +209,6 @@ class _TouchKeywords(KeywordGroup):
             return True
 
         raise AssertionError(f"Element '{locator}' not found within {timeout} seconds.")
-
-
-    def long_press(self, locator, duration: Union[int, timedelta] = timedelta(milliseconds=1000)):
-        """
-        *DEPRECATED!!*  Use `Tap` instead.
-
-        Long presses the element identified by the ``locator`` with an optional ``duration``.
-
-        Args:
-        - ``locator`` - locator of the element to be long pressed
-        - ``duration`` - duration of the time to tap, in ms (default=1000ms)
-
-        Examples:
-        | Long Press | xpath=//*[@resource-id='login_button'] |
-        | Long Press | xpath=//*[@name='link'] | duration=3000 |
-        """
-        
-        if isinstance(duration, int):
-            logger.warn(
-                "Keyword 'Long Press' will not support int in ms for 'duration' in the future. "
-                "Use timedelta with units ('ms') instead."
-            )
-            duration = timedelta(milliseconds=duration)
-        
-        element = self._element_find(locator, True, True)
-        location = element.location
-        size = element.size
-        center_x = location['x'] + size['width'] // 2
-        center_y = location['y'] + size['height'] // 2
-        driver = self._current_application()
-        driver.tap([(center_x, center_y)], duration.total_seconds() * 1000)
 
     def tap(self, locator, count=1, duration: Union[int, timedelta] = timedelta(milliseconds=500)):
         """
