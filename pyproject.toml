@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=73"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "robotframework-appiumlibrary"
+version = "3.1"
+dependencies = [
+    "decorator >= 3.3.2",
+    "robotframework >= 2.6.0",
+    "docutils >= 0.8.1",
+    "selenium >=4.26.0",
+    "Appium-Python-Client >= 5.1.1",
+    "kitchen >= 1.2.4",
+    "six >= 1.10.0",
+    "geopy >= 2.4.1",
+]
+description = "Robot Framework Mobile app testing library for Appium Client Android & iOS & Web"
+readme = "README.rst"
+authors = [
+    {name = "MarketSquare - Robot Framework community"},
+    {name = "William Zhang"},
+    {name = "Serhat Bolsu"},
+]
+maintainers = [
+    {name = "Gabriela Simion", email = "gabriela28simion@gmail.com"},
+    {name = "Christoph Singer", email = "ch_singer@me.com"},
+    {name = "Ed Manlove", email = "emanlove@verizon.net"},
+]
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+keywords = ["robotframework", "testing", "testautomation", "mobile", "appium", "webdriver", "app", "android", "ios"]
+# platforms = "any"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Software Development :: Testing",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Framework :: Robot Framework",
+    "Framework :: Robot Framework :: Library",
+]
+
+[project.urls]
+Homepage = "https://github.com/serhatbolsu/robotframework-appiumlibrary"
+Documentation = "https://github.com/serhatbolsu/robotframework-appiumlibrary?tab=readme-ov-file#appium-library-for-robotframework"
+Changelog = "https://github.com/serhatbolsu/robotframework-appiumlibrary/blob/master/CHANGES.rst"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+exclude = [
+    "demo",
+    "docs",
+    "tests",
+]

@@ -26,7 +26,7 @@ class _ElementKeywords(KeywordGroup):
 
     # Public, element lookups
     def clear_text(self, locator):
-        """Clears the text field identified by `locator`.
+        """Clears the text field identified by ``locator``.
 
         See `introduction` for details about locating elements.
         """
@@ -34,7 +34,7 @@ class _ElementKeywords(KeywordGroup):
         self._element_clear_text_by_locator(locator)
 
     def click_element(self, locator):
-        """Click element identified by `locator`.
+        """Clicks the element identified by ``locator``.
 
         Key attributes for arbitrary elements are `index` and `name`. See
         `introduction` for details about locating elements.
@@ -43,19 +43,19 @@ class _ElementKeywords(KeywordGroup):
         self._element_find(locator, True, True).click()
 
     def click_text(self, text, exact_match=False):
-        """Click text identified by ``text``.
+        """Clicks the text identified by ``text``.
 
-        By default tries to click first text involves given ``text``, if you would
-        like to click exactly matching text, then set ``exact_match`` to `True`.
+        By default, it attempts to click the first occurrence that contains the given ``text``.
+        If you want to click the exact matching text, set ``exact_match`` to `True`.
 
-        If there are multiple use  of ``text`` and you do not want first one,
+        If there are multiple instances of ``text`` and you do not want the first one, then
         use `locator` with `Get Web Elements` instead.
 
         """
         self._element_find_by_text(text,exact_match).click()
 
     def input_text_into_current_element(self, text):
-        """Types the given `text` into currently selected text field.\n
+        """Types the given ``text`` into the currently selected text field.\n
 
         *Android only.*
         """
@@ -65,7 +65,7 @@ class _ElementKeywords(KeywordGroup):
         driver.press_keycode(50, 0x1000 | 0x2000)
 
     def input_text(self, locator, text):
-        """Types the given `text` into text field identified by `locator`.
+        """Types the given ``text`` into the text field identified by ``locator``.
 
         See `introduction` for details about locating elements.
         """
@@ -73,17 +73,19 @@ class _ElementKeywords(KeywordGroup):
         self._element_input_text_by_locator(locator, text)
 
     def input_password(self, locator, text):
-        """Types the given password into text field identified by `locator`.
+        """Types the given password into the text field identified by ``locator``.
 
-        Difference between this keyword and `Input Text` is that this keyword
-        does not log the given password. See `introduction` for details about
-        locating elements.
+        The difference between this keyword and `Input Text` is that this keyword
+        does not log the given password. 
+        
+        See `introduction` for details about locating elements.
         """
         self._info("Typing password into text field '%s'" % locator)
         self._element_input_text_by_locator(locator, text)
 
     def input_value(self, locator, text):
-        """Sets the given value into text field identified by `locator`. Input Value makes use of set_value
+        """Sets the given value into the text field identified by ``locator``.
+        Input Value makes use of set_value.
 
         *iOS only.*
 
@@ -93,23 +95,30 @@ class _ElementKeywords(KeywordGroup):
         self._element_input_value_by_locator(locator, text)
 
     def hide_keyboard(self, key_name=None):
-        """Hides the software keyboard on the device. (optional) In iOS, use `key_name` to press
-        a particular key, ex. `Done`. In Android, no parameters are used.
+        """Hides the software keyboard on the device if it is currently visible.
+
+        Args:
+         - ``key_name`` (optional, iOS only): the name of the key to press to dismiss the keyboard.
+        On Android, this argument is ignored.
+
+        Examples:
+        | Hide Keyboard | Return |
+        | Hide Keyboard | Done |
         """
         driver = self._current_application()
         driver.hide_keyboard(key_name)
 
     def is_keyboard_shown(self):
-        """RETURN true or false if keyboard is displayed."""
+        """Returns true or false if the device keyboard is displayed."""
         driver = self._current_application()
         return driver.is_keyboard_shown()
 
     def page_should_contain_text(self, text, loglevel='INFO'):
-        """Verifies that current page contains `text`.
+        """Verifies that the current page contains ``text``.
 
-        If this keyword fails, it automatically logs the page source
-        using the log level specified with the optional `loglevel` argument.
-        Giving `NONE` as level disables logging.
+        Args:
+         - ``text``: the text that the page should contain
+         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
         """
         if not self._is_text_present(text):
             self.log_source(loglevel)
@@ -118,11 +127,11 @@ class _ElementKeywords(KeywordGroup):
         self._info("Current page contains text '%s'." % text)
 
     def page_should_not_contain_text(self, text, loglevel='INFO'):
-        """Verifies that current page not contains `text`.
+        """Verifies that the current page does not contain ``text``.
 
-        If this keyword fails, it automatically logs the page source
-        using the log level specified with the optional `loglevel` argument.
-        Giving `NONE` as level disables logging.
+        Args:
+         - ``text``: the text that the page should not contain
+         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
         """
         if self._is_text_present(text):
             self.log_source(loglevel)
@@ -130,11 +139,11 @@ class _ElementKeywords(KeywordGroup):
         self._info("Current page does not contains text '%s'." % text)
 
     def page_should_contain_element(self, locator, loglevel='INFO'):
-        """Verifies that current page contains `locator` element.
+        """Verifies that the current page contains the element with the ``locator``.
 
-        If this keyword fails, it automatically logs the page source
-        using the log level specified with the optional `loglevel` argument.
-        Giving `NONE` as level disables logging.
+       Args:
+         - ``locator``: locator of the element that the page should contain
+         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
         """
         if not self._is_element_present(locator):
             self.log_source(loglevel)
@@ -143,19 +152,23 @@ class _ElementKeywords(KeywordGroup):
         self._info("Current page contains element '%s'." % locator)
 
     def page_should_not_contain_element(self, locator, loglevel='INFO'):
-        """Verifies that current page not contains `locator` element.
+        """Verifies that the current page does not contain the element with the ``locator``.
 
-        If this keyword fails, it automatically logs the page source
-        using the log level specified with the optional `loglevel` argument.
-        Giving `NONE` as level disables logging.
+        Args:
+         - ``locator``: locator of the element that the page should not contain
+         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
         """
         if self._is_element_present(locator):
             self.log_source(loglevel)
             raise AssertionError("Page should not have contained element '%s'" % locator)
-        self._info("Current page not contains element '%s'." % locator)
+        self._info("Current page does not contain element '%s'." % locator)
 
     def element_should_be_disabled(self, locator, loglevel='INFO'):
-        """Verifies that element identified with locator is disabled.
+        """Verifies that element identified by ``locator`` is disabled.
+
+        Args:
+         - ``locator``: locator of the element that should be disabled
+         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
 
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
@@ -167,7 +180,11 @@ class _ElementKeywords(KeywordGroup):
         self._info("Element '%s' is disabled ." % locator)
 
     def element_should_be_enabled(self, locator, loglevel='INFO'):
-        """Verifies that element identified with locator is enabled.
+        """Verifies that the element identified by ``locator`` is enabled.
+
+        Args:
+         - ``locator``: locator of the element that should be enabled
+         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
 
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
@@ -179,7 +196,7 @@ class _ElementKeywords(KeywordGroup):
         self._info("Element '%s' is enabled ." % locator)
 
     def element_should_be_visible(self, locator, loglevel='INFO'):
-        """Verifies that element identified with locator is visible.
+        """Verifies that the element identified by ``locator`` is visible.
 
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
@@ -190,6 +207,13 @@ class _ElementKeywords(KeywordGroup):
                                  "but did not" % locator)
 
     def element_name_should_be(self, locator, expected):
+        """ *DEPRECATED!!* 
+        
+        Use `Element Attribute Should Match` instead.
+        
+        Example:
+        | Element Attribute Should Match | xpath=//*[@label='image'] | name | foobar |
+        """
         element = self._element_find(locator, True, True)
         if str(expected) != str(element.get_attribute('name')):
             raise AssertionError("Element '%s' name should be '%s' "
@@ -197,6 +221,13 @@ class _ElementKeywords(KeywordGroup):
         self._info("Element '%s' name is '%s' " % (locator, expected))
 
     def element_value_should_be(self, locator, expected):
+        """ *DEPRECATED!!* 
+        
+        Use `Element Attribute Should Match` instead.
+        
+        Example:
+        | Element Attribute Should Match | xpath=//*[@label='image'] | value | foobar |
+        """
         element = self._element_find(locator, True, True)
         if str(expected) != str(element.get_attribute('value')):
             raise AssertionError("Element '%s' value should be '%s' "
@@ -204,14 +235,14 @@ class _ElementKeywords(KeywordGroup):
         self._info("Element '%s' value is '%s' " % (locator, expected))
 
     def element_attribute_should_match(self, locator, attr_name, match_pattern, regexp=False):
-        """Verify that an attribute of an element matches the expected criteria.
+        """Verifies that an attribute of an element matches the expected criteria.
 
-        The element is identified by _locator_. See `introduction` for details
+        The element is identified by ``locator``. See `introduction` for details
         about locating elements. If more than one element matches, the first element is selected.
 
-        The _attr_name_ is the name of the attribute within the selected element.
+        The ``attr_name`` is the name of the attribute within the selected element.
 
-        The _match_pattern_ is used for the matching, if the match_pattern is
+        The ``match_pattern`` is used for the matching, if the match_pattern is
         - boolean or 'True'/'true'/'False'/'false' String then a boolean match is applied
         - any other string is cause a string match
 
@@ -281,7 +312,7 @@ class _ElementKeywords(KeywordGroup):
         self._info("Element '%s' attribute '%s' is '%s' " % (locator, attr_name, match_pattern))
 
     def element_should_contain_text(self, locator, expected, message=''):
-        """Verifies element identified by ``locator`` contains text ``expected``.
+        """Verifies the element identified by ``locator`` contains the text ``expected``.
 
         If you wish to assert an exact (not a substring) match on the text
         of the element, use `Element Text Should Be`.
@@ -298,7 +329,7 @@ class _ElementKeywords(KeywordGroup):
             raise AssertionError(message)
 
     def element_should_not_contain_text(self, locator, expected, message=''):
-        """Verifies element identified by ``locator`` does not contain text ``expected``.
+        """Verifies element identified by ``locator`` does not contain the text ``expected``.
 
         ``message`` can be used to override the default error message.
         See `Element Should Contain Text` for more details.
@@ -313,7 +344,7 @@ class _ElementKeywords(KeywordGroup):
             raise AssertionError(message)
 
     def element_text_should_be(self, locator, expected, message=''):
-        """Verifies element identified by ``locator`` exactly contains text ``expected``.
+        """Verifies that the element identified by ``locator`` contains the exact text ``expected``.
 
         In contrast to `Element Should Contain Text`, this keyword does not try
         a substring match but an exact match on the element identified by ``locator``.
@@ -342,12 +373,15 @@ class _ElementKeywords(KeywordGroup):
         return self._element_find(locator, True, True)
 
     def scroll_element_into_view(self, locator):
-        """Scrolls an element from given ``locator`` into view.
-        Arguments:
-        - ``locator``: The locator to find requested element. Key attributes for
-                       arbitrary elements are ``id`` and ``name``. See `introduction` for
-                       details about locating elements.
-        Examples:
+        """Scrolls the element with the given ``locator`` into view.
+
+        Args:
+        - ``locator``: the locator used to find the requested element. 
+        
+        Key attributes for arbitrary elements are `id` and `name`. See `introduction` for
+        details about locating elements.
+
+        Example:
         | Scroll Element Into View | css=div.class |
         """
         if isinstance(locator, WebElement):
@@ -363,10 +397,10 @@ class _ElementKeywords(KeywordGroup):
     def get_webelement_in_webelement(self, element, locator):
         """
         Returns a single [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement]
-        objects matching ``locator`` that is a child of argument element.
+        object matching ``locator`` that is a child of the argument ``element``.
 
         This is useful when your HTML doesn't properly have id or name elements on all elements.
-        So the user can find an element with a tag and then search that elmements children.
+        This way the user can find an element with a tag and then search that element's children.
         """
         elements = None
         if isstr(locator):
@@ -381,24 +415,19 @@ class _ElementKeywords(KeywordGroup):
             return locator
 
     def get_webelements(self, locator):
-        """Returns list of [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement] objects matching ``locator``.
+        """Returns a list of [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement] objects matching ``locator``.
 
         Example:
         | @{elements}    | Get Webelements | id=my_element |
         | Click Element  | @{elements}[2]  |               |
 
-        This keyword was changed in AppiumLibrary 1.4 in following ways:
-        - Name is changed from `Get Elements` to current one.
-        - Deprecated argument ``fail_on_error``, use `Run Keyword and Ignore Error` if necessary.
-
         """
         return self._element_find(locator, False, True)
 
     def get_element_attribute(self, locator, attribute):
-        """Get element attribute using given attribute: name, value,...
+        """Returns the element attribute using the given ``attribute``, e.g. name, value, etc.
 
         Examples:
-
         | Get Element Attribute | locator | name |
         | Get Element Attribute | locator | value |
         """
@@ -417,7 +446,7 @@ class _ElementKeywords(KeywordGroup):
             raise AssertionError("Attribute '%s' is not valid for element '%s'" % (attribute, locator))
 
     def get_element_location(self, locator):
-        """Get element location
+        """Returns the location of the element with the ``locator``.
 
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
@@ -428,7 +457,7 @@ class _ElementKeywords(KeywordGroup):
         return element_location
 
     def get_element_size(self, locator):
-        """Get element size
+        """Returns the size of the element with the ``locator``.
 
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
@@ -439,7 +468,7 @@ class _ElementKeywords(KeywordGroup):
         return element_size
 
     def get_element_rect(self, locator):
-        """Gets dimensions and coordinates of an element
+        """Returns the dimensions and coordinates of the element with the ``locator``.
 
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
@@ -450,9 +479,11 @@ class _ElementKeywords(KeywordGroup):
         return element_rect
 
     def get_text(self, locator, first_only: bool = True):
-        """Get element text (for hybrid and mobile browser use `xpath` locator, others might cause problem)
-
-        first_only parameter allow to get the text from the 1st match (Default) or a list of text from all match.
+        """Returns the text of the element with the ``locator``.
+        
+        Args:
+         - ``locator``: locator of the element. For hybrid and mobile browser use `xpath` locator, as others might cause problems.
+         - ``first_only``: allows to get the text from the 1st match (default) or a list containing all matches.
 
         Examples:
         | ${text} | Get Text | //*[contains(@text,'foo')] |          |
@@ -464,7 +495,7 @@ class _ElementKeywords(KeywordGroup):
         return text
 
     def get_matching_xpath_count(self, xpath):
-        """Returns number of elements matching ``xpath``
+        """Returns the number of elements matching the ``xpath``
 
         One should not use the `xpath=` prefix for 'xpath'. XPath is assumed.
 
@@ -481,8 +512,11 @@ class _ElementKeywords(KeywordGroup):
         return str(count)
 
     def text_should_be_visible(self, text, exact_match=False, loglevel='INFO'):
-        """Verifies that element identified with text is visible.
+        """Verifies that the element identified by ``text`` is visible.
 
+        Args:
+         - ``text``: the text that should be visible
+         - ``exact_match`` (optional): if the exact match should be found, set this argument to `True`.
         """
         if not self._element_find_by_text(text, exact_match).is_displayed():
             self.log_source(loglevel)
@@ -490,7 +524,7 @@ class _ElementKeywords(KeywordGroup):
                                  "but did not" % text)
 
     def xpath_should_match_x_times(self, xpath, count, error=None, loglevel='INFO'):
-        """Verifies that the page contains the given number of elements located by the given ``xpath``.
+        """Verifies that the page contains the given number of elements (``count``) located by ``xpath``.
 
         One should not use the `xpath=` prefix for 'xpath'. XPath is assumed.
 
