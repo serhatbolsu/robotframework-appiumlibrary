@@ -7,6 +7,8 @@ from robot.libraries.BuiltIn import BuiltIn
 import ast
 from unicodedata import normalize
 from selenium.webdriver.remote.webelement import WebElement
+import time
+from datetime import timedelta
 
 try:
     basestring  # attempt to evaluate basestring
@@ -519,6 +521,42 @@ class _ElementKeywords(KeywordGroup):
             raise AssertionError(error)
         self._info("Current page contains %s elements matching '%s'."
                    % (actual_xpath_count, xpath))
+        
+    def expect_element(self, locator, to_be=None, timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1)):
+        def assert_func():
+            element = self._element_find(locator, True, True)
+
+            if element is None:
+                assert AssertionError(f"Element {locator} not found")
+            
+            if to_be == 'visible':
+                assert element.is_displayed(), f"Expected '{locator}' to be visible"
+            elif to_be == 'enabled':
+                assert element.is_enabled(), f"Expected '{locator}' to be enabled"
+            elif to_be == 'disabled':
+                assert not element.is_enabled(), f"Expected '{locator}' to be disabled"
+            elif to_be == "not visible":
+                assert not element.is_displayed(), f"Expected '{locator}' to not be visible"
+            else:
+                raise AssertionError(f"Invalid state: '{to_be}'. Use 'visible', 'not visible', 'enabled' or 'disabled' instead")
+        
+        self._retry_assertion(assert_func=assert_func, timeout=timeout, retry_interval=retry_interval)
+
+    def expect_text(self, text, to_be=None, exact_match=False, timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1)):
+        def assert_func():
+            text_element = self._element_find_by_text(text, exact_match)
+
+            if text_element is None:
+                assert AssertionError(f"Text {text} not found")
+            
+            if to_be == 'visible':
+                assert text_element.is_displayed(), f"Expected '{text}' to be visible"
+            elif to_be == "not visible":
+                assert not text_element.is_displayed(), f"Expected '{text}' to not be visible"
+            else:
+                raise AssertionError(f"Invalid state: '{to_be}'. Use 'visible' or 'not visible' instead")
+        
+        self._retry_assertion(assert_func=assert_func, timeout=timeout, retry_interval=retry_interval)
 
     # Private
 
@@ -674,3 +712,17 @@ class _ElementKeywords(KeywordGroup):
         if element is not None:
             return element.is_displayed()
         return None
+
+    def _retry_assertion(self, assert_func, timeout=timedelta(seconds=5.0), retry_interval=timedelta(seconds=1), failure_message=None):
+        last_exception = None
+        start_time = time.time()
+        while time.time() - start_time < timeout.total_seconds():
+            try:
+                assert_func()
+                return
+            except  (AssertionError, Exception)  as e:
+                last_exception = e
+                
+            time.sleep(retry_interval.total_seconds())
+            
+        raise last_exception
