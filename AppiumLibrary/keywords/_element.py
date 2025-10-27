@@ -522,7 +522,7 @@ class _ElementKeywords(KeywordGroup):
         self._info("Current page contains %s elements matching '%s'."
                    % (actual_xpath_count, xpath))
         
-    def expect_element(self, locator, to_be=None, timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1)):
+    def expect_element(self, locator:str, to_be:str|None=None, timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1), message:str | None=None):
         def assert_func():
             element = self._element_find(locator, True, True)
 
@@ -530,19 +530,23 @@ class _ElementKeywords(KeywordGroup):
                 assert AssertionError(f"Element {locator} not found")
             
             if to_be == 'visible':
-                assert element.is_displayed(), f"Expected '{locator}' to be visible"
+                msg = message if message else f"Expected '{locator}' to be visible"
+                assert element.is_displayed(), msg
             elif to_be == 'enabled':
-                assert element.is_enabled(), f"Expected '{locator}' to be enabled"
+                msg = message if message else f"Expected '{locator}' to be enabled"
+                assert element.is_enabled(), msg
             elif to_be == 'disabled':
-                assert not element.is_enabled(), f"Expected '{locator}' to be disabled"
+                msg = message if message else f"Expected '{locator}' to be disabled"
+                assert not element.is_enabled(), msg
             elif to_be == "not visible":
-                assert not element.is_displayed(), f"Expected '{locator}' to not be visible"
+                msg = message if message else f"Expected '{locator}' to not be visible"
+                assert not element.is_displayed(), msg
             else:
                 raise AssertionError(f"Invalid state: '{to_be}'. Use 'visible', 'not visible', 'enabled' or 'disabled' instead")
         
         self._retry_assertion(assert_func=assert_func, timeout=timeout, retry_interval=retry_interval)
 
-    def expect_text(self, text, to_be=None, exact_match=False, timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1)):
+    def expect_text(self, text:str, to_be:str|None=None, exact_match=False, timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1), message:str | None=None):
         def assert_func():
             text_element = self._element_find_by_text(text, exact_match)
 
@@ -550,9 +554,11 @@ class _ElementKeywords(KeywordGroup):
                 assert AssertionError(f"Text {text} not found")
             
             if to_be == 'visible':
-                assert text_element.is_displayed(), f"Expected '{text}' to be visible"
+                msg = message if message else f"Expected '{text}' to be visible"
+                assert text_element.is_displayed(), msg
             elif to_be == "not visible":
-                assert not text_element.is_displayed(), f"Expected '{text}' to not be visible"
+                msg = message if message else f"Expected '{text}' to not be visible"
+                assert not text_element.is_displayed(), msg
             else:
                 raise AssertionError(f"Invalid state: '{to_be}'. Use 'visible' or 'not visible' instead")
         
