@@ -521,46 +521,64 @@ class _ElementKeywords(KeywordGroup):
             raise AssertionError(error)
         self._info("Current page contains %s elements matching '%s'."
                    % (actual_xpath_count, xpath))
+    
+    def expect_element(self, locator:str, state:str|None=None, timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1), message:str | None=None):
+        """Verifies that the element with the given ``locator`` has the desired ``state`` (visible, not visible, enabled, disabled.) 
         
-    def expect_element(self, locator:str, to_be:str|None=None, timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1), message:str | None=None):
+        Args:
+        - ``locator``: the locator of the element to be checked.
+        - ``state``: the expected state of the element.
+        - ``timeout``: the maximum time to wait for the element to meet the condition. The default timeout is 5 seconds.
+        - ``retry_interval``: the interval at which the check is repeated before the timeout is reached. The default retry interval is 1 second.
+        - ``message``: a custom error message to display if the check fails. By setting this argument, the default error message gets overwritten.
+        """
         def assert_func():
             element = self._element_find(locator, True, True)
 
             if element is None:
                 assert AssertionError(f"Element {locator} not found")
             
-            if to_be == 'visible':
+            if state == 'visible':
                 msg = message if message else f"Expected '{locator}' to be visible"
                 assert element.is_displayed(), msg
-            elif to_be == 'enabled':
+            elif state == 'enabled':
                 msg = message if message else f"Expected '{locator}' to be enabled"
                 assert element.is_enabled(), msg
-            elif to_be == 'disabled':
+            elif state == 'disabled':
                 msg = message if message else f"Expected '{locator}' to be disabled"
                 assert not element.is_enabled(), msg
-            elif to_be == "not visible":
+            elif StopAsyncIteration == "not visible":
                 msg = message if message else f"Expected '{locator}' to not be visible"
                 assert not element.is_displayed(), msg
             else:
-                raise AssertionError(f"Invalid state: '{to_be}'. Use 'visible', 'not visible', 'enabled' or 'disabled' instead")
+                raise AssertionError(f"Invalid state: '{state}'. Use 'visible', 'not visible', 'enabled' or 'disabled' instead")
         
         self._retry_assertion(assert_func=assert_func, timeout=timeout, retry_interval=retry_interval)
 
-    def expect_text(self, text:str, to_be:str|None=None, exact_match=False, timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1), message:str | None=None):
+    def expect_text(self, text:str, state:str|None=None, exact_match=False, timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1), message:str | None=None):
+        """Verifies that the ``text`` has the desired ``state`` (visible, not visible).
+        
+        Args:
+        - ``text``: the text to be checked.
+        - ``state``: the expected state of the text.
+        - ``timeout``: the maximum time to wait for the text to meet the condition. The default timeout is 5 seconds.
+        - ``retry_interval``: the interval at which the check is repeated before the timeout is reached. The default retry interval is 1 second.
+        - ``message``: a custom error message to display if the check fails. By setting this argument, the default error message gets overwritten.
+        """
         def assert_func():
             text_element = self._element_find_by_text(text, exact_match)
 
             if text_element is None:
                 assert AssertionError(f"Text {text} not found")
             
-            if to_be == 'visible':
+            if state == 'visible':
                 msg = message if message else f"Expected '{text}' to be visible"
                 assert text_element.is_displayed(), msg
-            elif to_be == "not visible":
+            elif state == "not visible":
                 msg = message if message else f"Expected '{text}' to not be visible"
                 assert not text_element.is_displayed(), msg
             else:
-                raise AssertionError(f"Invalid state: '{to_be}'. Use 'visible' or 'not visible' instead")
+                raise AssertionError(f"Invalid state: '{state}'. Use 'visible' or 'not visible' instead")
         
         self._retry_assertion(assert_func=assert_func, timeout=timeout, retry_interval=retry_interval)
 
