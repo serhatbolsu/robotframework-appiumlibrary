@@ -210,37 +210,6 @@ class _TouchKeywords(KeywordGroup):
 
         raise AssertionError(f"Element '{locator}' not found within {timeout} seconds.")
 
-    def tap(self, locator, count=1, duration: Union[int, timedelta] = timedelta(milliseconds=500)):
-        """
-        Tap element identified by ``locator``.
-
-        Args:
-        - ``locator`` - (mandatory)
-        - ``count`` - can be used for multiple times of tap on that element
-        - ``duration`` - duration of time to tap, in ms. Default: 500ms
-
-        Examples:
-        | Tap | xpath=//*[@resource-id='login_button'] |
-        | Tap | xpath=//*[@name='picture'] | duration=100
-        | Tap | xpath=//*[@name='picture'] | count=2 | duration=100
-
-        """
-        if isinstance(duration, int):
-            logger.warn(
-                "Keyword 'Tap' will not support int in ms for 'duration' in the future. "
-                "Use timedelta with units ('ms' or 's') instead."
-            )
-            duration = timedelta(milliseconds=duration)
-        
-        driver = self._current_application()
-        for _ in range(count):
-            element = self._element_find(locator, True, True)
-            location = element.location
-            size = element.size
-            center_x = location['x'] + size['width'] // 2
-            center_y = location['y'] + size['height'] // 2
-            driver.tap([(center_x, center_y)], duration.total_seconds() * 1000)
-
     def tap_with_positions(self, duration:Union[int, timedelta] = timedelta(milliseconds=500), *locations):
         """Taps on a particular place with up to five fingers, holding for a
         certain time.
