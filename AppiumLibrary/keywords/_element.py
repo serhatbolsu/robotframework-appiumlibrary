@@ -167,7 +167,9 @@ class _ElementKeywords(KeywordGroup):
         self._info("Current page does not contain element '%s'." % locator)
 
     def element_should_be_disabled(self, locator, loglevel='INFO'):
-        """Verifies that element identified by ``locator`` is disabled.
+        """*DEPRECATED!!* Use `Expect Element` instead
+
+        Verifies that element identified by ``locator`` is disabled.
 
         Args:
          - ``locator``: locator of the element that should be disabled
@@ -183,7 +185,8 @@ class _ElementKeywords(KeywordGroup):
         self._info("Element '%s' is disabled ." % locator)
 
     def element_should_be_enabled(self, locator, loglevel='INFO'):
-        """Verifies that the element identified by ``locator`` is enabled.
+        """*DEPRECATED!!* Use `Expect Element` instead
+        Verifies that the element identified by ``locator`` is enabled.
 
         Args:
          - ``locator``: locator of the element that should be enabled
@@ -199,7 +202,8 @@ class _ElementKeywords(KeywordGroup):
         self._info("Element '%s' is enabled ." % locator)
 
     def element_should_be_visible(self, locator, loglevel='INFO'):
-        """Verifies that the element identified by ``locator`` is visible.
+        """*DEPRECATED!!* Use `Expect Element` instead
+        Verifies that the element identified by ``locator`` is visible.
 
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
@@ -487,7 +491,8 @@ class _ElementKeywords(KeywordGroup):
         return str(count)
 
     def text_should_be_visible(self, text, exact_match=False, loglevel='INFO'):
-        """Verifies that the element identified by ``text`` is visible.
+        """*DEPRECATED!!* Use `Expect Text` instead
+        Verifies that the element identified by ``text`` is visible.
 
         Args:
          - ``text``: the text that should be visible
