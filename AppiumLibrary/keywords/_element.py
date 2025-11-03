@@ -528,7 +528,7 @@ class _ElementKeywords(KeywordGroup):
         self._info("Current page contains %s elements matching '%s'."
                    % (actual_xpath_count, xpath))
 
-    def expect_element(self, locator: str, state: Optional[str] = None, timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1), message: Optional[str] = None):
+    def expect_element(self, locator: str, state: Optional[str] = None, timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1), message: Optional[str] = None, loglevel: Optional[str] = 'INFO'):
         """Verifies that the element with the given ``locator`` has the desired ``state`` (visible, not visible, enabled, disabled.)
 
         Args:
@@ -537,6 +537,8 @@ class _ElementKeywords(KeywordGroup):
         - ``timeout``: the maximum time to wait for the element to meet the condition. The default timeout is 5 seconds.
         - ``retry_interval``: the interval at which the check is repeated before the timeout is reached. The default retry interval is 1 second.
         - ``message``: a custom error message to display if the check fails. By setting this argument, the default error message gets overwritten.
+         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
+
         """
         def assert_func():
             element = self._element_find(locator, True, True)
@@ -546,22 +548,30 @@ class _ElementKeywords(KeywordGroup):
 
             if state == 'visible':
                 msg = message if message else f"Expected '{locator}' to be visible"
-                assert element.is_displayed(), msg
+                if not element.is_displayed():
+                    self.log_source(loglevel)
+                    raise AssertionError(msg)
             elif state == 'enabled':
                 msg = message if message else f"Expected '{locator}' to be enabled"
-                assert element.is_enabled(), msg
+                if not element.is_enabled():
+                    self.log_source(loglevel)
+                    raise AssertionError(msg)
             elif state == 'disabled':
                 msg = message if message else f"Expected '{locator}' to be disabled"
-                assert not element.is_enabled(), msg
+                if element.is_enabled():
+                    self.log_source(loglevel)
+                    raise AssertionError(msg)
             elif state == "not visible":
                 msg = message if message else f"Expected '{locator}' to not be visible"
-                assert not element.is_displayed(), msg
+                if element.is_displayed():
+                    self.log_source(loglevel)
+                    raise AssertionError(msg)
             else:
                 raise AssertionError(f"Invalid state: '{state}'. Use 'visible', 'not visible', 'enabled' or 'disabled' instead")
 
         self._retry_assertion(assert_func=assert_func, timeout=timeout, retry_interval=retry_interval)
 
-    def expect_text(self, text: str, state: Optional[str] = None, exact_match=False, timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1), message: Optional[str] = None):
+    def expect_text(self, text: str, state: Optional[str] = None, exact_match=False, timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1), message: Optional[str] = None, loglevel: Optional[str]='INFO'):
         """Verifies that the ``text`` has the desired ``state`` (visible, not visible).
 
         Args:
@@ -570,19 +580,25 @@ class _ElementKeywords(KeywordGroup):
         - ``timeout``: the maximum time to wait for the text to meet the condition. The default timeout is 5 seconds.
         - ``retry_interval``: the interval at which the check is repeated before the timeout is reached. The default retry interval is 1 second.
         - ``message``: a custom error message to display if the check fails. By setting this argument, the default error message gets overwritten.
+        - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
         """
         def assert_func():
             text_element = self._element_find_by_text(text, exact_match)
 
             if text_element is None:
+                self.log_source(loglevel)
                 raise AssertionError(f"Text {text} not found")
 
             if state == 'visible':
                 msg = message if message else f"Expected '{text}' to be visible"
-                assert text_element.is_displayed(), msg
+                if not text_element.is_displayed():
+                    self.log_source(loglevel)
+                    raise AssertionError(msg)
             elif state == "not visible":
                 msg = message if message else f"Expected '{text}' to not be visible"
-                assert not text_element.is_displayed(), msg
+                if text_element.is_displayed():
+                    self.log_source(loglevel)
+                    raise AssertionError(msg)
             else:
                 raise AssertionError(f"Invalid state: '{state}'. Use 'visible' or 'not visible' instead")
 
