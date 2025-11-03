@@ -24,11 +24,11 @@ class _TouchKeywords(KeywordGroup):
         Swipes from one point to another point, for an optional ``duration``.
 
         Args:
-        - ``start_x`` - x-coordinate at which to start
-        - ``start_y`` - y-coordinate at which to start
-        - ``end_x`` - x-coordinate at which to stop
-        - ``end_y`` - y-coordinate at which to stop
-        - ``duration`` - defines the swipe speed as time taken to swipe from point a to point b.
+        - ``start_x``: x-coordinate at which to start
+        - ``start_y``: y-coordinate at which to start
+        - ``end_x``: x-coordinate at which to stop
+        - ``end_y``: y-coordinate at which to stop
+        - ``duration``: defines the swipe speed as time taken to swipe from point a to point b.
 
 
         Examples:
@@ -63,11 +63,11 @@ class _TouchKeywords(KeywordGroup):
         Normal swipe fails to scale for different screen resolutions, this can be avoided by using this keyword.
 
         Args:
-         - ``start_x`` - x-percent at which to start
-         - ``start_y`` - y-percent at which to start
-         - ``end_x`` - x-percent distance from start_x at which to stop
-         - ``end_y`` - y-percent distance from start_y at which to stop
-         - ``duration`` - (optional) time to take the swipe
+         - ``start_x``: x-percent at which to start
+         - ``start_y``: y-percent at which to start
+         - ``end_x``: x-percent distance from start_x at which to stop
+         - ``end_y``: y-percent distance from start_y at which to stop
+         - ``duration``: time to take the swipe
 
         Examples:
         | Swipe By Percent | 90 | 50 | 10 | 50 | # Swipes screen from right to left. |
@@ -124,9 +124,9 @@ class _TouchKeywords(KeywordGroup):
         """Scrolls down until the element identified by ``locator`` is found or until the ``timeout`` (Android only) is reached.
         
         Args:
-        - ``locator`` - (mandatory) locator of the element to scroll down to
-        - ``timeout`` - (optional, Android only) timeout in seconds (default=10s)
-        - ``retry_interval`` - (optional) interval between scroll attempts in seconds (default=1s)
+        - ``locator``: locator of the element to scroll down to
+        - ``timeout``: (Android only) timeout in seconds (default=10s)
+        - ``retry_interval``: interval between scroll attempts in seconds (default=1s)
         """
         driver = self._current_application()
         platform = self._get_platform()
@@ -169,9 +169,9 @@ class _TouchKeywords(KeywordGroup):
         """Scrolls up until the element identified by the ``locator`` is found or the ``timeout`` (Android only) is reached.
         
         Args:
-        - ``locator`` - (mandatory)  locator of the element to scroll up to
-        - ``timeout`` - (optional, Android only) timeout in seconds (default=10s)
-        - ``retry_interval`` - (optional) interval between scroll attempts in seconds (default=1s)
+        - ``locator``: locator of the element to scroll up to
+        - ``timeout``: (Android only) timeout in seconds (default=10s)
+        - ``retry_interval``: interval between scroll attempts in seconds (default=1s)
         """
         driver = self._current_application()
         platform = self._get_platform()
@@ -215,9 +215,9 @@ class _TouchKeywords(KeywordGroup):
         certain time.
 
         Args:
-        - ``locations`` - an array of tuples representing the x/y coordinates of
+        - ``locations``: an array of tuples representing the x/y coordinates of
                 the fingers to tap. Length can be up to five.
-        - ``duration`` - length of time to tap (default=1s)
+        - ``duration``: length of time to tap (default=1s)
 
         Example:
         |  @{firstFinger}   |  create list  |  ${100}  |  ${500}  |
@@ -241,8 +241,8 @@ class _TouchKeywords(KeywordGroup):
         *iOS only.*
 
         Args:
-        - ``number_of_taps`` - the number of taps
-        - ``number_of_touches`` - the number of touch points
+        - ``number_of_taps``: the number of taps
+        - ``number_of_touches``: the number of touch points
         """
         driver = self._current_application()
         element = self._element_find(locator, True, True)
@@ -254,7 +254,7 @@ class _TouchKeywords(KeywordGroup):
         *iOS only.*
 
         Args:
-        - ``button_name`` - the text on the iOS alert button
+        - ``button_name``: the text on the iOS alert button
 
         Example:
         |  Click Alert Button  |  Allow  |
@@ -271,8 +271,8 @@ class _TouchKeywords(KeywordGroup):
         `Locating elements` section for details about the locator syntax.
 
         Args:
-        - ``locator`` - the element to drag
-        - ``target`` - the element to drag to
+        - ``locator``: the element to drag
+        - ``target``: the element to drag to
 
         Example:
         | `Drag And Drop` | id=div#element | id=div.target |
@@ -286,10 +286,10 @@ class _TouchKeywords(KeywordGroup):
         """Flicks from one point to another point.
 
         Args:
-        - ``start_x`` - x-coordinate at which to start
-        - ``start_y`` - y-coordinate at which to start
-        - ``end_x``   - x-coordinate at which to stop
-        - ``end_y``   - y-coordinate at which to stop
+        - ``start_x``: x-coordinate at which to start
+        - ``start_y``: y-coordinate at which to start
+        - ``end_x``: x-coordinate at which to stop
+        - ``end_y``: y-coordinate at which to stop
 
         Example:
         | Flick | 100 | 100 | 100 | 400 | # Flicks the screen up. |
@@ -301,10 +301,9 @@ class _TouchKeywords(KeywordGroup):
         """Taps the ``element`` for ``count`` times over the ``duration``. 
 
         Args:
-        - ``element`` - locator or coordinates of the element to be tapped
-        - ``count`` - number of times the element should be tapped
-        - ``duration`` - duration of time to tap (default=1s)
-
+        - ``element`: locator or coordinates of the element to be tapped
+        - ``count``: number of times the element should be tapped
+        - ``duration``: duration of time to tap (default=1s) 
 
         Examples:
         | Tap | xpath=//*[@resource-id='login_button'] |

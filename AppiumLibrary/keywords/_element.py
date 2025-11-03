@@ -101,7 +101,7 @@ class _ElementKeywords(KeywordGroup):
         """Hides the software keyboard on the device if it is currently visible.
 
         Args:
-         - ``key_name`` (optional, iOS only): the name of the key to press to dismiss the keyboard.
+         - ``key_name`` (iOS only): the name of the key to press to dismiss the keyboard.
         On Android, this argument is ignored.
 
         Examples:
@@ -121,7 +121,7 @@ class _ElementKeywords(KeywordGroup):
 
         Args:
          - ``text``: the text that the page should contain
-         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
+         - ``loglevel``: if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
         """
         if not self._is_text_present(text):
             self.log_source(loglevel)
@@ -134,7 +134,7 @@ class _ElementKeywords(KeywordGroup):
 
         Args:
          - ``text``: the text that the page should not contain
-         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
+         - ``loglevel``: if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
         """
         if self._is_text_present(text):
             self.log_source(loglevel)
@@ -146,7 +146,7 @@ class _ElementKeywords(KeywordGroup):
 
        Args:
          - ``locator``: locator of the element that the page should contain
-         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
+         - ``loglevel``: if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
         """
         if not self._is_element_present(locator):
             self.log_source(loglevel)
@@ -159,7 +159,7 @@ class _ElementKeywords(KeywordGroup):
 
         Args:
          - ``locator``: locator of the element that the page should not contain
-         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
+         - ``loglevel``: if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
         """
         if self._is_element_present(locator):
             self.log_source(loglevel)
@@ -173,7 +173,7 @@ class _ElementKeywords(KeywordGroup):
 
         Args:
          - ``locator``: locator of the element that should be disabled
-         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
+         - ``loglevel``: if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
 
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
@@ -190,7 +190,7 @@ class _ElementKeywords(KeywordGroup):
 
         Args:
          - ``locator``: locator of the element that should be enabled
-         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
+         - ``loglevel``: if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
 
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
@@ -496,7 +496,7 @@ class _ElementKeywords(KeywordGroup):
 
         Args:
          - ``text``: the text that should be visible
-         - ``exact_match`` (optional): if the exact match should be found, set this argument to `True`.
+         - ``exact_match``: if the exact match should be found, set this argument to `True`.
         """
         if not self._element_find_by_text(text, exact_match).is_displayed():
             self.log_source(loglevel)
@@ -537,7 +537,7 @@ class _ElementKeywords(KeywordGroup):
         - ``timeout``: the maximum time to wait for the element to meet the condition. The default timeout is 5 seconds.
         - ``retry_interval``: the interval at which the check is repeated before the timeout is reached. The default retry interval is 1 second.
         - ``message``: a custom error message to display if the check fails. By setting this argument, the default error message gets overwritten.
-         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
+        - ``loglevel``: if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
 
         """
         def assert_func():
@@ -580,7 +580,7 @@ class _ElementKeywords(KeywordGroup):
         - ``timeout``: the maximum time to wait for the text to meet the condition. The default timeout is 5 seconds.
         - ``retry_interval``: the interval at which the check is repeated before the timeout is reached. The default retry interval is 1 second.
         - ``message``: a custom error message to display if the check fails. By setting this argument, the default error message gets overwritten.
-        - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
+        - ``loglevel``: if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
         """
         def assert_func():
             text_element = self._element_find_by_text(text, exact_match)
