@@ -759,7 +759,7 @@ class _ElementKeywords(KeywordGroup):
             return element.is_displayed()
         return None
 
-    def _retry_assertion(self, assert_func, timeout=timedelta(seconds=5.0), retry_interval=timedelta(seconds=1), failure_message=None):
+    def _retry_assertion(self, assert_func, timeout=timedelta(seconds=5.0), retry_interval=timedelta(seconds=1)):
         last_exception = None
         start_time = time.time()
         while time.time() - start_time < timeout.total_seconds():
