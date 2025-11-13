@@ -9,7 +9,8 @@ from unicodedata import normalize
 from selenium.webdriver.remote.webelement import WebElement
 import time
 from datetime import timedelta
-from typing import Optional, Union
+from typing import Optional
+
 
 try:
     basestring  # attempt to evaluate basestring
