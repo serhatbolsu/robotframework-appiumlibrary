@@ -9,7 +9,7 @@ from unicodedata import normalize
 from selenium.webdriver.remote.webelement import WebElement
 import time
 from datetime import timedelta
-from typing import Optional
+from typing import Optional, Literal
 
 
 try:
@@ -529,7 +529,7 @@ class _ElementKeywords(KeywordGroup):
         self._info("Current page contains %s elements matching '%s'."
                    % (actual_xpath_count, xpath))
 
-    def expect_element(self, locator: str, state: Optional[str] = None, timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1), message: Optional[str] = None, loglevel: Optional[str] = 'INFO'):
+    def expect_element(self, locator: str, state: Literal["visible", "not visible", "enabled", "disabled"], timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1), message: Optional[str] = None, loglevel: Optional[str] = 'INFO'):
         """Verifies that the element with the given ``locator`` has the desired ``state`` (visible, not visible, enabled, disabled.)
 
         Args:
@@ -572,7 +572,7 @@ class _ElementKeywords(KeywordGroup):
 
         self._retry_assertion(assert_func=assert_func, timeout=timeout, retry_interval=retry_interval)
 
-    def expect_text(self, text: str, state: Optional[str] = None, exact_match=False, timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1), message: Optional[str] = None, loglevel: Optional[str]='INFO'):
+    def expect_text(self, text: str, state: Literal["visible", "not visible", "enabled", "disabled"], exact_match=False, timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1), message: Optional[str] = None, loglevel: Optional[str]='INFO'):
         """Verifies that the ``text`` has the desired ``state`` (visible, not visible).
 
         Args:
