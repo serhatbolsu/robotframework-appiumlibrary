@@ -8,7 +8,7 @@ Short version of the release procedures ..
 
 #. Commit documentation::
 
-     git commit -m "Generated docs for version $VERSION" docs/SeleniumLibrary.html
+     git commit -m "Generated docs for version $VERSION" docs/AppiumLibrary.html
      git push
 
 #. Build release files `python -m build`. verify `ls dist`
