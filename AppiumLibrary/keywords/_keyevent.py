@@ -27,8 +27,8 @@ class _KeyeventKeywords(KeywordGroup):
         | metastate=3 --> Shift+Alt is pressed
 
         Args:
-         - ``keycode`` - the keycode to be sent to the device
-         - ``metastate`` - status of the meta keys
+         - ``keycode``: the keycode to be sent to the device
+         - ``metastate``: status of the meta keys
         """
         driver = self._current_application()
         driver.press_keycode(keycode, metastate)

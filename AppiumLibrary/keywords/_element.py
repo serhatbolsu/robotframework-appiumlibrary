@@ -7,6 +7,10 @@ from robot.libraries.BuiltIn import BuiltIn
 import ast
 from unicodedata import normalize
 from selenium.webdriver.remote.webelement import WebElement
+import time
+from datetime import timedelta
+from typing import Optional, Literal
+
 
 try:
     basestring  # attempt to evaluate basestring
@@ -76,8 +80,8 @@ class _ElementKeywords(KeywordGroup):
         """Types the given password into the text field identified by ``locator``.
 
         The difference between this keyword and `Input Text` is that this keyword
-        does not log the given password. 
-        
+        does not log the given password.
+
         See `introduction` for details about locating elements.
         """
         self._info("Typing password into text field '%s'" % locator)
@@ -98,7 +102,7 @@ class _ElementKeywords(KeywordGroup):
         """Hides the software keyboard on the device if it is currently visible.
 
         Args:
-         - ``key_name`` (optional, iOS only): the name of the key to press to dismiss the keyboard.
+         - ``key_name`` (iOS only): the name of the key to press to dismiss the keyboard.
         On Android, this argument is ignored.
 
         Examples:
@@ -118,7 +122,7 @@ class _ElementKeywords(KeywordGroup):
 
         Args:
          - ``text``: the text that the page should contain
-         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
+         - ``loglevel``: if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
         """
         if not self._is_text_present(text):
             self.log_source(loglevel)
@@ -131,7 +135,7 @@ class _ElementKeywords(KeywordGroup):
 
         Args:
          - ``text``: the text that the page should not contain
-         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
+         - ``loglevel``: if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
         """
         if self._is_text_present(text):
             self.log_source(loglevel)
@@ -143,7 +147,7 @@ class _ElementKeywords(KeywordGroup):
 
        Args:
          - ``locator``: locator of the element that the page should contain
-         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
+         - ``loglevel``: if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
         """
         if not self._is_element_present(locator):
             self.log_source(loglevel)
@@ -156,7 +160,7 @@ class _ElementKeywords(KeywordGroup):
 
         Args:
          - ``locator``: locator of the element that the page should not contain
-         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
+         - ``loglevel``: if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
         """
         if self._is_element_present(locator):
             self.log_source(loglevel)
@@ -164,11 +168,13 @@ class _ElementKeywords(KeywordGroup):
         self._info("Current page does not contain element '%s'." % locator)
 
     def element_should_be_disabled(self, locator, loglevel='INFO'):
-        """Verifies that element identified by ``locator`` is disabled.
+        """*DEPRECATED!!* Use `Expect Element` instead
+
+        Verifies that element identified by ``locator`` is disabled.
 
         Args:
          - ``locator``: locator of the element that should be disabled
-         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
+         - ``loglevel``: if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
 
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
@@ -180,11 +186,12 @@ class _ElementKeywords(KeywordGroup):
         self._info("Element '%s' is disabled ." % locator)
 
     def element_should_be_enabled(self, locator, loglevel='INFO'):
-        """Verifies that the element identified by ``locator`` is enabled.
+        """*DEPRECATED!!* Use `Expect Element` instead
+        Verifies that the element identified by ``locator`` is enabled.
 
         Args:
          - ``locator``: locator of the element that should be enabled
-         - ``loglevel`` (optional): if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
+         - ``loglevel``: if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
 
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
@@ -196,7 +203,8 @@ class _ElementKeywords(KeywordGroup):
         self._info("Element '%s' is enabled ." % locator)
 
     def element_should_be_visible(self, locator, loglevel='INFO'):
-        """Verifies that the element identified by ``locator`` is visible.
+        """*DEPRECATED!!* Use `Expect Element` instead
+        Verifies that the element identified by ``locator`` is visible.
 
         Key attributes for arbitrary elements are `id` and `name`. See
         `introduction` for details about locating elements.
@@ -348,8 +356,8 @@ class _ElementKeywords(KeywordGroup):
         """Scrolls the element with the given ``locator`` into view.
 
         Args:
-        - ``locator``: the locator used to find the requested element. 
-        
+        - ``locator``: the locator used to find the requested element.
+
         Key attributes for arbitrary elements are `id` and `name`. See `introduction` for
         details about locating elements.
 
@@ -452,7 +460,7 @@ class _ElementKeywords(KeywordGroup):
 
     def get_text(self, locator, first_only: bool = True):
         """Returns the text of the element with the ``locator``.
-        
+
         Args:
          - ``locator``: locator of the element. For hybrid and mobile browser use `xpath` locator, as others might cause problems.
          - ``first_only``: allows to get the text from the 1st match (default) or a list containing all matches.
@@ -484,11 +492,12 @@ class _ElementKeywords(KeywordGroup):
         return str(count)
 
     def text_should_be_visible(self, text, exact_match=False, loglevel='INFO'):
-        """Verifies that the element identified by ``text`` is visible.
+        """*DEPRECATED!!* Use `Expect Text` instead
+        Verifies that the element identified by ``text`` is visible.
 
         Args:
          - ``text``: the text that should be visible
-         - ``exact_match`` (optional): if the exact match should be found, set this argument to `True`.
+         - ``exact_match``: if the exact match should be found, set this argument to `True`.
         """
         if not self._element_find_by_text(text, exact_match).is_displayed():
             self.log_source(loglevel)
@@ -519,6 +528,82 @@ class _ElementKeywords(KeywordGroup):
             raise AssertionError(error)
         self._info("Current page contains %s elements matching '%s'."
                    % (actual_xpath_count, xpath))
+
+    def expect_element(self, locator: str, state: Literal["visible", "not visible", "enabled", "disabled"], timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1), message: Optional[str] = None, loglevel: Optional[str] = 'INFO'):
+        """Verifies that the element with the given ``locator`` has the desired ``state`` (visible, not visible, enabled, disabled.)
+
+        Args:
+        - ``locator``: the locator of the element to be checked.
+        - ``state``: the expected state of the element.
+        - ``timeout``: the maximum time to wait for the element to meet the condition. The default timeout is 5 seconds.
+        - ``retry_interval``: the interval at which the check is repeated before the timeout is reached. The default retry interval is 1 second.
+        - ``message``: a custom error message to display if the check fails. By setting this argument, the default error message gets overwritten.
+        - ``loglevel``: if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
+
+        """
+        def assert_func():
+            element = self._element_find(locator, True, True)
+
+            if element is None:
+                raise AssertionError(f"Element {locator} not found")
+
+            if state == 'visible':
+                msg = message if message else f"Expected '{locator}' to be visible"
+                if not element.is_displayed():
+                    self.log_source(loglevel)
+                    raise AssertionError(msg)
+            elif state == 'enabled':
+                msg = message if message else f"Expected '{locator}' to be enabled"
+                if not element.is_enabled():
+                    self.log_source(loglevel)
+                    raise AssertionError(msg)
+            elif state == 'disabled':
+                msg = message if message else f"Expected '{locator}' to be disabled"
+                if element.is_enabled():
+                    self.log_source(loglevel)
+                    raise AssertionError(msg)
+            elif state == "not visible":
+                msg = message if message else f"Expected '{locator}' to not be visible"
+                if element.is_displayed():
+                    self.log_source(loglevel)
+                    raise AssertionError(msg)
+            else:
+                raise AssertionError(f"Invalid state: '{state}'. Use 'visible', 'not visible', 'enabled' or 'disabled' instead")
+
+        self._retry_assertion(assert_func=assert_func, timeout=timeout, retry_interval=retry_interval)
+
+    def expect_text(self, text: str, state: Literal["visible", "not visible", "enabled", "disabled"], exact_match=False, timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1), message: Optional[str] = None, loglevel: Optional[str]='INFO'):
+        """Verifies that the ``text`` has the desired ``state`` (visible, not visible).
+
+        Args:
+        - ``text``: the text to be checked.
+        - ``state``: the expected state of the text.
+        - ``timeout``: the maximum time to wait for the text to meet the condition. The default timeout is 5 seconds.
+        - ``retry_interval``: the interval at which the check is repeated before the timeout is reached. The default retry interval is 1 second.
+        - ``message``: a custom error message to display if the check fails. By setting this argument, the default error message gets overwritten.
+        - ``loglevel``: if this keyword fails, it automatically logs the page source using the the given loglevel. Set this argument to `NONE` to disable logging.
+        """
+        def assert_func():
+            text_element = self._element_find_by_text(text, exact_match)
+
+            if text_element is None:
+                self.log_source(loglevel)
+                raise AssertionError(f"Text {text} not found")
+
+            if state == 'visible':
+                msg = message if message else f"Expected '{text}' to be visible"
+                if not text_element.is_displayed():
+                    self.log_source(loglevel)
+                    raise AssertionError(msg)
+            elif state == "not visible":
+                msg = message if message else f"Expected '{text}' to not be visible"
+                if text_element.is_displayed():
+                    self.log_source(loglevel)
+                    raise AssertionError(msg)
+            else:
+                raise AssertionError(f"Invalid state: '{state}'. Use 'visible' or 'not visible' instead")
+
+        self._retry_assertion(assert_func=assert_func, timeout=timeout, retry_interval=retry_interval)
 
     # Private
 
@@ -674,3 +759,17 @@ class _ElementKeywords(KeywordGroup):
         if element is not None:
             return element.is_displayed()
         return None
+
+    def _retry_assertion(self, assert_func, timeout=timedelta(seconds=5.0), retry_interval=timedelta(seconds=1)):
+        last_exception = None
+        start_time = time.time()
+        while time.time() - start_time < timeout.total_seconds():
+            try:
+                assert_func()
+                return
+            except  (AssertionError, Exception)  as e:
+                last_exception = e
+
+            time.sleep(retry_interval.total_seconds())
+
+        raise last_exception
