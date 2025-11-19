@@ -133,6 +133,14 @@ class _AndroidUtilsKeywords(KeywordGroup):
         driver = self._current_application()
         return driver.current_activity
 
+    def get_current_package(self):
+        """Retrieves the current package on the device.\n
+        
+        *Android only.*
+        """
+        driver = self._current_application()
+        return driver.current_package
+
     def wait_activity(self, activity, timeout, interval=1):
         """Waits for an activity: blocks until target activity presents or until the timeout is reached.\n
 
