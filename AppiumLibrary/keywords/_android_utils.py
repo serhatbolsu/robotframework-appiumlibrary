@@ -55,8 +55,8 @@ class _AndroidUtilsKeywords(KeywordGroup):
         *Android only.*
 
         Args:
-         - ``path`` - the path to the file on the device
-         - ``decode`` - should be set to True/False to decode the data (base64) before returning it (default=False)
+         - ``path``: the path to the file on the device
+         - ``decode``: should be set to True/False to decode the data (base64) before returning it (default=False)
 
         Example:
         | ${file_content} | Pull File | /sdcard/downloads/file.extension |
@@ -73,8 +73,8 @@ class _AndroidUtilsKeywords(KeywordGroup):
         *Android only.*
 
         Args:
-         - ``path`` - the path to the folder on the device
-         - ``decode`` - True/False decode the data (base64) before returning it (default=False)
+         - ``path``: the path to the folder on the device
+         - ``decode``: True/False decode the data (base64) before returning it (default=False)
         
         Example:
         | ${folder_content} | Pull Folder | /sdcard/downloads/files |
@@ -91,9 +91,9 @@ class _AndroidUtilsKeywords(KeywordGroup):
         *Android only.*
     
         Args:
-         - ``path`` - the path on the device
-         - ``data`` - data to be written to the file
-         - ``encode`` - should be set to True/False to encode the data as base64 before writing it to the file (default=False)
+         - ``path``: the path on the device
+         - ``data``: data to be written to the file
+         - ``encode``: should be set to True/False to encode the data as base64 before writing it to the file (default=False)
         
         Example:
         | Push File | /sdcard/downloads/file.extension | ${data} |
@@ -110,9 +110,9 @@ class _AndroidUtilsKeywords(KeywordGroup):
         *Android only.*
 
         Args:
-         - ``path`` - the path on the device
-         - ``timeout`` - delete command timeout
-         - ``includeStderr`` - whether exception will be thrown if the command's
+         - ``path``: the path on the device
+         - ``timeout``: delete command timeout
+         - ``includeStderr``: whether exception will be thrown if the command's
                             return code is not zero
         Example:
         | Delete File | /sdcard/downloads/file.extension |
@@ -139,9 +139,9 @@ class _AndroidUtilsKeywords(KeywordGroup):
         *Android only.*
 
         Args:
-         - ``activity`` - target activity
-         - ``timeout`` - max wait time, in seconds
-         - ``interval`` - sleep interval between retries, in seconds
+         - ``activity``: target activity
+         - ``timeout``: max wait time, in seconds
+         - ``interval``: sleep interval between retries, in seconds
         """
         driver = self._current_application()
         if not driver.wait_activity(activity=activity, timeout=float(timeout), interval=float(interval)):
@@ -153,8 +153,8 @@ class _AndroidUtilsKeywords(KeywordGroup):
         *Android only.*
     
         Args:
-        - ``app_path`` - path to app
-        - ``app_package`` - package of install app to verify
+        - ``app_path``: path to app
+        - ``app_package``: package of install app to verify
         """
         driver = self._current_application()
         driver.install_app(app_path)
@@ -168,7 +168,7 @@ class _AndroidUtilsKeywords(KeywordGroup):
         Args:
         - ``latitute``
         - ``longitude``
-        - ``altitude`` = 10 [optional]
+        - ``altitude`` = 10
         """
         driver = self._current_application()
         driver.set_location(latitude,longitude,altitude)
@@ -181,22 +181,22 @@ class _AndroidUtilsKeywords(KeywordGroup):
         *Android only.*
 
         Args:
-         - ``appPackage`` - package of install app to verify
-         - ``appActivity`` - activity that should be launched
-         - ``user`` - the user ID for which the service is started (the current user is used by default)
-         - ``wait`` - set to true if you want to block the method call until the Activity Manager's process returns the control to the system
-         - ``stop`` - set to true to force stop the target app before starting the activity
-         - ``windowingMode`` - the windowing mode to launch the activity into
-         - ``activityType`` - the activity type to launch the activity as
-         - ``action`` - action name (actual value for the Activity Manager's `-a` argument)
-         - ``uri`` - unified resource identifier (actual value for the Activity Manager's `-d` argument)
-         - ``mimeType`` - the actual value for the Activity Manager's `-t` argument
-         - ``identifier`` - optional identifier (actual value for the Activity Manager's `-i` argument)
-         - ``categories`` - one or more category names (actual value for the Activity Manager's `-c` argument)
-         - ``component`` - component name (actual value for the Activity Manager's `-n` argument)
-         - ``package`` - package name (actual value for the Activity Manager's `-p` argument)
-         - ``extras`` - optional intent arguments, must be represented as an array of arrays, where each subarray item contains two or three string items: value type, key and the value itself
-         - ``flags`` - intent startup-specific flags as a hexadecimal string
+         - ``appPackage``: package of install app to verify
+         - ``appActivity``: activity that should be launched
+         - ``user``: the user ID for which the service is started (the current user is used by default)
+         - ``wait``: set to true if you want to block the method call until the Activity Manager's process returns the control to the system
+         - ``stop``: set to true to force stop the target app before starting the activity
+         - ``windowingMode``: the windowing mode to launch the activity into
+         - ``activityType``: the activity type to launch the activity as
+         - ``action``: action name (actual value for the Activity Manager's `-a` argument)
+         - ``uri``: unified resource identifier (actual value for the Activity Manager's `-d` argument)
+         - ``mimeType``: the actual value for the Activity Manager's `-t` argument
+         - ``identifier``: optional identifier (actual value for the Activity Manager's `-i` argument)
+         - ``categories``: one or more category names (actual value for the Activity Manager's `-c` argument)
+         - ``component``: component name (actual value for the Activity Manager's `-n` argument)
+         - ``package``: package name (actual value for the Activity Manager's `-p` argument)
+         - ``extras``: optional intent arguments, must be represented as an array of arrays, where each subarray item contains two or three string items: value type, key and the value itself
+         - ``flags``: intent startup-specific flags as a hexadecimal string
 
         For more information please refer to https://github.com/appium/appium-uiautomator2-driver/blob/master/README.md#mobile-startactivity.
 

@@ -98,14 +98,6 @@ class _ApplicationManagementKeywords(KeywordGroup):
             self._cache.switch(index_or_alias)
         return old_index
 
-    def reset_application(self):
-        """*DEPRECATED!!* in selenium v4, check `Terminate Application` keyword.
-
-        Reset application. Open Application can be reset while Appium session is kept alive.
-        """
-        driver = self._current_application()
-        driver.reset()
-
     def remove_application(self, application_id):
         """Removes the application that is identified by the ``application_id``.
 
@@ -211,8 +203,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
         *Android only.*
         
         Args:
-        - ``command`` - the adb shell command
-        - ``args`` - arguments to send to the command
+        - ``command``: the adb shell command
+        - ``args``: arguments to send to the command
 
         Returns the exit code of the ADB shell.
 
@@ -230,9 +222,9 @@ class _ApplicationManagementKeywords(KeywordGroup):
         *Android only.*
 
         Args:
-        - ``command`` - the adb shell command
-        - ``timeout`` - timeout to be applied to the command
-        - ``args`` - arguments to send to the command
+        - ``command``: the adb shell command
+        - ``timeout``: timeout to be applied to the command
+        - ``args``: arguments to send to the command
 
         Returns the exit code of the ADB shell.
 
@@ -267,7 +259,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         Activates the application if it is not running or is running in the background.
         
         Args:
-         - ``app_id`` - bundleId for iOS, package name for Android.
+         - ``app_id``: bundleId for iOS, package name for Android.
 
         """
         self._current_application().activate_app(app_id)
@@ -277,7 +269,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         Terminates the given app on the device.
 
         Args:
-         - ``app_id`` - bundleId for iOS, package name for Android.
+         - ``app_id``: bundleId for iOS, package name for Android.
 
         """
         return self._current_application().terminate_app(app_id)
@@ -425,7 +417,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """Returns the date and time from the device.
 
         Args:
-         - ``format`` - the set of format specifiers. Read https://momentjs.com/docs/
+         - ``format``: the set of format specifiers. Read https://momentjs.com/docs/
 
                 to get the full list of supported datetime format specifiers.
                 If unset, default return format is `YYYY-MM-DDTHH:mm:ssZ`.
