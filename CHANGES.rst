@@ -1,6 +1,7 @@
 History
 =======
-
+3.2.0
+----------------
 - Remove the following deprecated keywords `Reset Application`, `Element Name Should Be`, `Element Value Should Be`, `Zoom`, `Long Press`
 - Implement new assertion keywords `Expect Element`, `Expect Text` that replace the following keywords: `Element Should Be Enabled`, `Element Should Be Disabled`, `Element Should Be Visible`, `Text Should Be Visible`
 - Deprecate the following keywords `Element Should Be Enabled`, `Element Should Be Disabled`, `Element Should Be Visible`, `Text Should Be Visible`
