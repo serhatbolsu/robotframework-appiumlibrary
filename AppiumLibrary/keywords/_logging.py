@@ -15,7 +15,7 @@ class _LoggingKeywords(KeywordGroup):
     @property
     def _log_level(self):
         try:
-            level = BuiltIn().get_variable_value("${APPIUM_LOG_LEVEL}", default='DEBUG')
+            level = BuiltIn().get_variable_value(name="${APPIUM_LOG_LEVEL}", default='DEBUG')
         except RobotNotRunningError:
             level = 'DEBUG'
         return level
