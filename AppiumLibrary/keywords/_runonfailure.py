@@ -59,7 +59,7 @@ class _RunOnFailureKeywords(KeywordGroup):
             return
         self._running_on_failure_routine = True
         try:
-            BUILTIN.run_keyword(name=self._run_on_failure_keyword)
+            BUILTIN.run_keyword(self._run_on_failure_keyword)
         except Exception as err:
             self._run_on_failure_error(err)
         finally:
