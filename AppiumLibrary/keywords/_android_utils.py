@@ -3,7 +3,6 @@ import base64
 
 from .keywordgroup import KeywordGroup
 from selenium.common.exceptions import TimeoutException
-from kitchen.text.converters import to_bytes
 from robot.api import logger
 
 
@@ -99,7 +98,7 @@ class _AndroidUtilsKeywords(KeywordGroup):
         | Push File | /sdcard/downloads/file.extension | ${data} |
         """
         driver = self._current_application()
-        data = to_bytes(data)
+        data = bytes(data, encoding='utf-8')
         if encode:
             data = base64.b64encode(data).decode('utf-8')
         driver.push_file(path, data)
