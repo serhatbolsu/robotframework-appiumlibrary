@@ -1,5 +1,9 @@
 History
 =======
+3.2.1
+----------------
+- Fixed botched v3.2 release leaving out the fix for Robot Framework 7.4
+
 3.2.0
 ----------------
 - Remove the following deprecated keywords `Reset Application`, `Element Name Should Be`, `Element Value Should Be`, `Zoom`, `Long Press`
