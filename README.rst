@@ -154,7 +154,9 @@ Ulhas Deshmukh      Leon Guo               Pramod
 smaspe              eXtReMaL               Erol Selitektay
 Filipe Arruda       Felipe Luiz Tortella   Filipe Henrique Benjamim de Arruda
 Gaja                Gabriela Simion        Christoph Singer
-Eslam Elmishtawy    Ed Manlove
+Eslam Elmishtawy    Oliver Boehmer         Roman Haladej
+Mikko Korpela       Hélio Guilherme        Mark Moberts
+Ed Manlove
 ================    ====================   ==================================
 
 
