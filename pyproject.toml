@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "robotframework-appiumlibrary"
-version = "3.2"
+version = "3.2.1"
 dependencies = [
     "decorator >= 3.3.2",
     "robotframework >= 2.6.0",
