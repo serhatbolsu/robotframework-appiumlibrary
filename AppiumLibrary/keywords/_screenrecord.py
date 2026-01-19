@@ -74,6 +74,9 @@ class _ScreenrecordKeywords(KeywordGroup):
 
         === Optional Args ===
 
+         - ``embedVideo`` Set it to false to skip embedding the recorded video into log.html.
+            Applies to Android when no remotePath is provided. Defaults to true.
+
          - ``remotePath`` The path to the remote location, where the resulting video should be  \
             uploaded. The following protocols are supported _http/https_, ftp. Null or empty  \
                 string value (the default setting) means the content of resulting file should   \
@@ -93,19 +96,20 @@ class _ScreenrecordKeywords(KeywordGroup):
             | `Stop Screen Recording`   | filename=output   | # saves the recorded session      |
         """
         if self._recording is not None:
+            embed_video = options.pop('embedVideo', True)
             self._recording = self._current_application().stop_recording_screen(**options)
-            return self._save_recording(filename, options)
+            return self._save_recording(filename, options, embed_video)
         else:
             raise RuntimeError("There is no Active Screen Record Session.")
 
-    def _save_recording(self, filename, options):
+    def _save_recording(self, filename, options, embed_video=True):
         path, link = self._get_screenrecord_paths(options, filename)
         decoded = base64.b64decode(self._recording)
         with open(path, 'wb') as screenrecording:
             screenrecording.write(decoded)
         # Embed the Screen Recording to the log file
         # if the current platform is Android and no remotePath is set.
-        if self._is_android() and not self._is_remotepath_set(options):
+        if embed_video and self._is_android() and not self._is_remotepath_set(options):
             self._html('</td></tr><tr><td colspan="3"><a href="{vid}">'
                        '<video width="800px" controls>'
                        '<source src="{vid}" type="video/mp4">'
