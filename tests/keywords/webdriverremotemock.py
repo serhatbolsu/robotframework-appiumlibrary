@@ -12,15 +12,20 @@ logger.addHandler(stream_handler)
 
 class WebdriverRemoteMock(mock.Mock, unittest.TestCase):
     #def __init__(self, *args, **kwargs):
-    def __init__(self, command_executor='http://127.0.0.1:4444/wd/hub', desired_capabilities=None, browser_profile=None, proxy=None, keep_alive=False):
+    def __init__(self, command_executor='http://127.0.0.1:4444/wd/hub', options=None, client_config=None, **kwargs):
         super(WebdriverRemoteMock, self).__init__()
         self._appiumUrl = command_executor
-        self._desCapa = desired_capabilities
+        self._options = options
+        self._client_config = client_config
         self._dead = False
         self._myData = ''
-        #logger.debug(desired_capabilities)
-        for key in desired_capabilities:
-            self.assertNotEqual(desired_capabilities[key], None, 'Null value in desired capabilities')
+        # Extract capabilities from options for backward compatibility with tests
+        self._desCapa = {}
+        if options is not None:
+            caps = options.to_capabilities() if hasattr(options, 'to_capabilities') else {}
+            self._desCapa = caps
+            for key, value in caps.items():
+                self.assertNotEqual(value, None, 'Null value in capabilities')
       
     def _get_child_mock(self, **kwargs):
         return mock.Mock(**kwargs)
