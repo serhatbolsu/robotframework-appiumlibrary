@@ -1,0 +1,40 @@
+name: Mock Unit Tests
+
+on:
+  push:
+    branches: [ "master"]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.10", "3.11" ]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        
+        # 1. Install the library itself (so the tests can import 'AppiumLibrary')
+        pip install .
+        
+        # 2. Install specific test dependencies if they exist
+        if [ -f utest/requirements.txt ]; then pip install -r utest/requirements.txt; fi
+        
+        # 3. Install 'mock' if it's not included in requirements (common for older unit tests)
+        pip install mock
+
+    - name: Run Mock Tests
+      # This discovers and runs all Python unit tests in the 'utest' folder
+      run: python -m unittest discover utest
