@@ -25,7 +25,8 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pytest mock
+        # Added 'pytest-cov' to fix the error
+        pip install pytest mock pytest-cov
         
         # Install the library itself
         pip install .
