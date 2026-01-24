@@ -36,4 +36,4 @@ jobs:
     - name: Run Mock Tests
       run: |
         # -v gives verbose output so you can see exactly which tests pass/fail
-        pytest -v utest/
+        pytest -v tests/
