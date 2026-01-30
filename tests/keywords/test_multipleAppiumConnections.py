@@ -15,12 +15,7 @@ stream_handler = logging.StreamHandler(sys.stderr)
 logger.addHandler(stream_handler)
    
 class MultipleAppiumConnectionTests(unittest.TestCase):
-    import six
-    if six.PY2:
-        assertRegex = unittest.TestCase.assertRegexpMatches
-        assertRaisesRegex = unittest.TestCase.assertRaisesRegexp
-
-    am=None
+    am = None
 
     def setUp(self):
         #appium.webdriver.Remote = mock.Mock()

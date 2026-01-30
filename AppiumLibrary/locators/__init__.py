@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from .elementfinder import ElementFinder
 
 __all__ = [

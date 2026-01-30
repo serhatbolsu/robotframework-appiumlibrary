@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from robot.libraries import BuiltIn
 from .keywordgroup import KeywordGroup
 
@@ -36,8 +34,8 @@ class _RunOnFailureKeywords(KeywordGroup):
         | ${previous kw}= | Register Keyword To Run On Failure  | Nothing    | # Disables run-on-failure functionality and stores the previous kw name in a variable. |
         | Register Keyword To Run On Failure  | ${previous kw} | # Restore to the previous keyword. |
 
-        This run-on-failure functionality only works when running tests on Python/Jython 2.4
-        or newer and it does not work on IronPython at all.
+        This run-on-failure functionality only works when running tests on Python 3.9
+        or newer.
         """
         old_keyword = self._run_on_failure_keyword
         old_keyword_text = old_keyword if old_keyword is not None else "Nothing"
