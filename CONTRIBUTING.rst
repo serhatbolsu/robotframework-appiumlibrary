@@ -5,6 +5,8 @@
 ======================== 
   
 
+Our Philosoph
+-----------------
 AppiumLibrary is a community-driven project. We believe in open collaboration, 
 
 quality over quantity, and maintaining a library that is easy to use for both 
@@ -12,16 +14,6 @@ quality over quantity, and maintaining a library that is easy to use for both
 beginners and experts. Our goal is to provide reliable, well-documented keywords 
 
 that work seamlessly across iOS and Android platforms. 
-
-  
-
-Thank you for your interest in contributing to the AppiumLibrary! We welcome 
-
-contributions of all kinds, whether it's submitting bug reports, suggesting 
-
-new features, helping us improve the documentation, or even answering questions 
-
-in our Slack channel ``#appiumlibrary`` or in the `Robot Framework Forum`_. 
 
   
 
@@ -283,125 +275,6 @@ Example bug report::
 Contributing Code 
 ================= 
 
-  
-
-**Development Setup**
-~~~~~~~~~~~~~~~~~
-
-  
-
-1. **Fork the repository** on GitHub 
-
-  
-
-2. **Clone your fork**:: 
-
-  
-
-       git clone https://github.com/YOUR_USERNAME/robotframework-appiumlibrary.git 
-
-       cd robotframework-appiumlibrary 
-
-  
-
-3. **Create a virtual environment and activate it**:: 
-
-  
-
-       python -m venv venv 
-
-       source venv/bin/activate  # On Windows: venv\Scripts\activate 
-
-  
-
-4. **Install development dependencies**:: 
-
-  
-
-       pip install -r test_require.txt 
-
-       pip install -r dev_requirements.txt 
-
-       pip install -e . 
-
-  
-
-Running Tests 
-~~~~~~~~~~~~~~~~~
-
-  
-
-Run the unit tests using pytest:: 
-
-  
-
-    pytest tests/ 
-
-  
-
-Run tests with coverage report:: 
-
-  
-
-    pytest --cov AppiumLibrary --cov-report=html tests/ 
-
-  
-
-Code Guidelines 
-~~~~~~~~~~~~~~~~~
-
-  
-
-- Follow `PEP 8`_ style guidelines for Python code 
-
-- Write meaningful commit messages (see `Commit Messages`_ below) 
-
-- Add tests for new features or bug fixes 
-
-- Update documentation when adding new keywords 
-
-- Ensure all tests pass before submitting a pull request 
-
-  
-
-Commit Messages 
-~~~~~~~~~~~~~~~~~
-
-  
-
-Good commit messages help maintain a readable project history: 
-
-  
-
-- Use the present tense ("Add feature" not "Added feature") 
-
-- Use the imperative mood ("Move cursor to..." not "Moves cursor to...") 
-
-- First line should be 50 characters or less 
-
-- Reference issues and pull requests where appropriate (#123) 
-
-  
-
-Example:: 
-
-  
-
-    Add support for biometric authentication 
-
-  
-
-    This adds two new keywords for handling biometric authentication: 
-
-    - Perform Touch ID 
-
-    - Perform Face ID 
-
-  
-
-    Fixes #123 
-
-  
 
 Keyword Documentation 
 ~~~~~~~~~~~~~~~~~~~~~ 
