@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import os
 from AppiumLibrary.keywords import *
 from AppiumLibrary.version import VERSION

@@ -18,11 +18,6 @@ logger.addHandler(stream_handler)
 
 
 class AndroidUtilsTests(unittest.TestCase):
-    import six
-    if six.PY2:
-        assertRegex = unittest.TestCase.assertRegexpMatches
-        assertRaisesRegex = unittest.TestCase.assertRaisesRegexp
-
     am = None
     au = None
 

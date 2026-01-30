@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import os
 from robot.libraries.BuiltIn import BuiltIn
 from robot.libraries.BuiltIn import RobotNotRunningError
