@@ -5,7 +5,7 @@
 ======================== 
   
 
-Our Philosoph
+Our Philosophy
 -----------------
 AppiumLibrary is a community-driven project. We believe in open collaboration, 
 
