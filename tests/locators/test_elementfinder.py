@@ -1,6 +1,7 @@
 import unittest
 
 import mock
+from appium.webdriver.common.appiumby import AppiumBy
 
 from AppiumLibrary.locators import ElementFinder
 
@@ -21,9 +22,9 @@ class ElementFinderTests(unittest.TestCase):
     def test_should_use_android_finder(self):
         """android strategy should use android finder."""
         self.finder.find(self.browser, 'android=UI Automator', tag=None)
-        self.browser.find_elements_by_android_uiautomator.assert_called_with("UI Automator")
+        self.browser.find_elements.assert_called_with(by=AppiumBy.ANDROID_UIAUTOMATOR, value="UI Automator")
 
-    def test_should_use_ios_finder(self):
-        """ios strategy should use ios finder."""
-        self.finder.find(self.browser, 'ios=UI Automation', tag=None)
-        self.browser.find_elements_by_ios_uiautomation.assert_called_with("UI Automation")
+    def test_should_use_ios_predicate_finder(self):
+        """predicate strategy should use ios predicate finder."""
+        self.finder.find(self.browser, 'predicate=type == "XCUIElementTypeButton"', tag=None)
+        self.browser.find_elements.assert_called_with(by=AppiumBy.IOS_PREDICATE, value='type == "XCUIElementTypeButton"')
