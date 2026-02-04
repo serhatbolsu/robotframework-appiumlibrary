@@ -20,7 +20,7 @@ class MultipleAppiumConnectionTests(unittest.TestCase):
         assertRegex = unittest.TestCase.assertRegexpMatches
         assertRaisesRegex = unittest.TestCase.assertRaisesRegexp
 
-    am=None
+    am: _ApplicationManagementKeywords
 
     def setUp(self):
         #appium.webdriver.Remote = mock.Mock()
