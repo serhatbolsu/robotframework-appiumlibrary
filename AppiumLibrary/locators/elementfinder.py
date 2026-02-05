@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from AppiumLibrary import utils
 from appium.webdriver.common.appiumby import AppiumBy
 from robot.api import logger

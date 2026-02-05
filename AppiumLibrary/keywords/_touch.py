@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import time
 
 from appium.webdriver.extensions.action_helpers import ActionHelpers
