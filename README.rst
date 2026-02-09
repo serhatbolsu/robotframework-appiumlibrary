@@ -139,7 +139,7 @@ Contributing
 -------------
 Thank you for your interest in contributing to AppiumLibrary!
 We welcome contributions of all kinds - whether you're submitting bug reports, suggesting new features, 
-improving the documentation, or helping others by answering questions in our Slack channel #appiumlibrary
+improving the documentation, or helping others by answering questions in our Slack channel #appiumlibrary,
 or the Robot Framework Forum. For more details, please see our `contributing guidelines`_.
 
 
@@ -227,4 +227,4 @@ AppiumLibrary is modeled after (and forked from)  `appiumandroidlibrary <https:/
 .. _Appium Quickstart Intro: https://appium.io/docs/en/latest/quickstart/
 .. _sample project: https://github.com/serhatbolsu/robotframework-appium-sample
 .. _RoboCon 2024 workshop notes: https://github.com/eficode-academy/rf-mobile-testing-appium?tab=readme-ov-file#robocon-2024
-.. _contributing_guidelines: https://github.com/serhatbolsu/robotframework-appiumlibrary/blob/master/CONTRIBUTING.rst
+.. _contributing guidelines: https://github.com/serhatbolsu/robotframework-appiumlibrary/blob/master/CONTRIBUTING.rst
