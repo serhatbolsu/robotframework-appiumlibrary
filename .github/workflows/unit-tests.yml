@@ -1,0 +1,39 @@
+name: Mock Unit Tests
+
+on:
+  push:
+    branches: [ "master", "main"]
+  pull_request:
+    branches: [ "master", "main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.10", "3.11" ]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        # Added 'pytest-cov' to fix the error
+        pip install pytest mock pytest-cov
+        
+        # Install the library itself
+        pip install .
+        
+        if [ -f utest/requirements.txt ]; then pip install -r utest/requirements.txt; fi
+
+    - name: Run Mock Tests
+      run: |
+        # -v gives verbose output so you can see exactly which tests pass/fail
+        pytest -v tests/

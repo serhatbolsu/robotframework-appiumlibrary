@@ -143,6 +143,58 @@ improving the documentation, or helping others by answering questions in our Sla
 or the Robot Framework Forum. For more details, please see our `contributing guidelines`_.
 
 
+**Development Setup**
+
+1. Clone your fork of the repository::
+
+    git clone https://github.com/YOUR_USERNAME/robotframework-appiumlibrary.git
+    cd robotframework-appiumlibrary
+
+2. Create a virtual environment and activate it::
+
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+3. Install development dependencies::
+
+    pip install -r test_require.txt
+    pip install -r dev_requirements.txt
+    pip install -e .
+
+**Running Tests**
+
+Run the unit tests using pytest::
+
+    pytest tests/
+
+Run tests with coverage report::
+
+    pytest --cov AppiumLibrary --cov-report=html tests/
+
+**Code Guidelines**
+
+- Follow PEP 8 style guidelines for Python code
+- Write meaningful commit messages
+- Add tests for new features or bug fixes
+- Update documentation when adding new keywords
+- Ensure all tests pass before submitting a pull request
+
+**Generating Documentation**
+
+To regenerate the keyword documentation::
+
+    python -m robot.libdoc ./AppiumLibrary/ ./docs/AppiumLibrary.html
+
+**Submitting Changes**
+
+1. Create a new branch for your feature or bugfix
+2. Make your changes and commit them with clear messages
+3. Push your branch to your fork
+4. Open a pull request against the main repository
+5. Ensure CI checks pass and address any review feedback
+
+For questions or discussions, feel free to open an issue on GitHub.
+
 Project Contributors
 --------------------
 
