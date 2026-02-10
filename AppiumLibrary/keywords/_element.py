@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from AppiumLibrary.locators import ElementFinder
 from appium.webdriver.common.appiumby import AppiumBy
 from .keywordgroup import KeywordGroup
