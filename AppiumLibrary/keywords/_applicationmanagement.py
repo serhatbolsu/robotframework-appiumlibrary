@@ -431,6 +431,26 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         return self._current_application().get_device_time(format)
 
+    def get_clipboard_text(self):
+        """Returns the current text content from the system clipboard.
+
+        Supports Android and iOS (XCUITest).
+        Note: On iOS 13+ real devices, WebDriverAgentRunner must be in the foreground to get clipboard content,
+        otherwise an empty string may be returned.
+        """
+        return self._current_application().get_clipboard_text()
+
+    def set_clipboard_text(self, text):
+        """Sets the given text into the system clipboard.
+
+        Supports Android and iOS (XCUITest).
+        Note: On iOS 15+ real devices, WebDriverAgentRunner must be in the foreground to set clipboard content.
+
+        Args:
+         - ``text`` - text to place on the clipboard
+        """
+        self._current_application().set_clipboard_text(text)
+
     def get_device_location(self):
         """Gets the device's current GPS location with human-readable address information.
 
