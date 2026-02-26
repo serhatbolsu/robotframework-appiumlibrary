@@ -431,6 +431,36 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         return self._current_application().get_device_time(format)
 
+    def get_performance_data_types(self):
+        """Returns the available performance data types.\n
+        
+        *Android only.* Supported values typically include: ``cpuinfo``, ``batteryinfo``, ``networkinfo``, ``memoryinfo``.
+
+        Return:
+            list[str]: Available performance data types
+        """
+        driver = self._current_application()
+        return driver.get_performance_data_types()
+
+    def get_performance_data(self, package_name, data_type, data_read_timeout=None):
+        """Returns performance data for the given ``package_name`` and ``data_type``.\n
+
+        *Android only.* See `Get Performance Data Types` for supported types.
+
+        Args:
+         - ``package_name`` (str): The application package name
+         - ``data_type`` (str): One of the supported performance data types
+         - ``data_read_timeout`` (int, optional): Number of attempts to read
+
+        Return:
+            Any: Performance data as returned by Appium (structure depends on driver)
+        """
+        driver = self._current_application()
+        if data_read_timeout is None or data_read_timeout == "":
+            return driver.get_performance_data(package_name, data_type)
+        return driver.get_performance_data(package_name, data_type, int(data_read_timeout))
+
+
     def get_device_location(self):
         """Gets the device's current GPS location with human-readable address information.
 
