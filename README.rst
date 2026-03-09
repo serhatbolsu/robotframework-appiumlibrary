@@ -137,7 +137,63 @@ Robot Framework and AppiumLibrary. Check the sample project that you can find ex
 
 Contributing
 -------------
-Fork the project, make a change, and send a pull request!
+Thank you for your interest in contributing to AppiumLibrary!
+We welcome contributions of all kinds - whether you're submitting bug reports, suggesting new features, 
+improving the documentation, or helping others by answering questions in our `Slack`_ channel #appiumlibrary,
+or the `Robot Framework Forum`_. For more details, please see our `contributing guidelines`_.
+
+
+**Development Setup**
+
+1. Clone your fork of the repository::
+
+    git clone https://github.com/YOUR_USERNAME/robotframework-appiumlibrary.git
+    cd robotframework-appiumlibrary
+
+2. Create a virtual environment and activate it::
+
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+3. Install development dependencies::
+
+    pip install -r test_require.txt
+    pip install -r dev_requirements.txt
+    pip install -e .
+
+**Running Tests**
+
+Run the unit tests using pytest::
+
+    pytest tests/
+
+Run tests with coverage report::
+
+    pytest --cov AppiumLibrary --cov-report=html tests/
+
+**Code Guidelines**
+
+- Follow PEP 8 style guidelines for Python code
+- Write meaningful commit messages
+- Add tests for new features or bug fixes
+- Update documentation when adding new keywords
+- Ensure all tests pass before submitting a pull request
+
+**Generating Documentation**
+
+To regenerate the keyword documentation::
+
+    python -m robot.libdoc ./AppiumLibrary/ ./docs/AppiumLibrary.html
+
+**Submitting Changes**
+
+1. Create a new branch for your feature or bugfix
+2. Make your changes and commit them with clear messages
+3. Push your branch to your fork
+4. Open a pull request against the main repository
+5. Ensure CI checks pass and address any review feedback
+
+For questions or discussions, feel free to open an issue on GitHub.
 
 Project Contributors
 --------------------
@@ -171,3 +227,6 @@ AppiumLibrary is modeled after (and forked from)  `appiumandroidlibrary <https:/
 .. _Appium Quickstart Intro: https://appium.io/docs/en/latest/quickstart/
 .. _sample project: https://github.com/serhatbolsu/robotframework-appium-sample
 .. _RoboCon 2024 workshop notes: https://github.com/eficode-academy/rf-mobile-testing-appium?tab=readme-ov-file#robocon-2024
+.. _contributing guidelines: https://github.com/serhatbolsu/robotframework-appiumlibrary/blob/master/CONTRIBUTING.rst
+.. _Slack: https://robotframework.slack.com/
+.. _Robot Framework Forum: https://forum.robotframework.org/c/libraries/appium/37
