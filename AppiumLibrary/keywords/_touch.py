@@ -326,12 +326,12 @@ class _TouchKeywords(KeywordGroup):
                 raise ValueError(f"Invalid coordinates format: {element}. Expected a list like [x, y]")
             
         elif isinstance(element, str):
+            el = self._element_find(element, True, True)
+            location = el.location
+            size = el.size
+            center_x = location['x'] + size['width'] // 2
+            center_y = location['y'] + size['height'] // 2
             for _ in range(count):
-                el = self._element_find(element, True, True)
-                location = el.location
-                size = el.size
-                center_x = location['x'] + size['width'] // 2
-                center_y = location['y'] + size['height'] // 2
                 driver.tap([(center_x, center_y)], duration.total_seconds() * 1000)
 
         else:
