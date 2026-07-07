@@ -16,6 +16,7 @@ dependencies = [
 ]
 description = "Robot Framework Mobile app testing library for Appium Client Android & iOS & Web"
 readme = "README.rst"
+requires-python = ">=3.9"
 authors = [
     {name = "MarketSquare - Robot Framework community"},
     {name = "William Zhang"},
@@ -42,6 +43,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Framework :: Robot Framework",
     "Framework :: Robot Framework :: Library",
 ]

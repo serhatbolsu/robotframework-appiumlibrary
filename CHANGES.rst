@@ -1,5 +1,11 @@
 History
 =======
+Unreleased
+----------------
+- Declare Python 3.14 support: added the ``3.14`` trove classifier, marked the
+  README accordingly and set ``requires-python = ">=3.9"`` so the supported
+  range is stated consistently in one machine-readable place (#476)
+
 3.2.1
 ----------------
 - Fixed botched v3.2 release leaving out the fix for Robot Framework 7.4

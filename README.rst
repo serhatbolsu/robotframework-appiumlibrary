@@ -9,7 +9,7 @@ AppiumLibrary_ is an appium testing library for `Robot Framework`_. Library can 
 It uses `Appium <http://appium.io/>`_ to communicate with Android and iOS application
 similar to how *Selenium WebDriver* talks to web browser.
 
-It is supporting Python 3.9+ and Appium Python Client 5.1.1+
+It is supporting Python 3.9+ (tested up to Python 3.14) and Appium Python Client 5.1.1+
 
 .. image:: https://img.shields.io/pypi/v/robotframework-appiumlibrary.svg
     :target: https://pypi.python.org/pypi/robotframework-appiumlibrary/
