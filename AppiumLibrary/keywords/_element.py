@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from AppiumLibrary import utils
 from AppiumLibrary.locators import ElementFinder
 from appium.webdriver.common.appiumby import AppiumBy
 from .keywordgroup import KeywordGroup
@@ -724,16 +725,18 @@ class _ElementKeywords(KeywordGroup):
             if element:
                 return element
             else:
+                _text = utils.escape_xpath_value(text)
                 if exact_match:
-                    _xpath = u'//*[@value="{}" or @label="{}"]'.format(text, text)
+                    _xpath = u'//*[@value={text} or @label={text}]'.format(text=_text)
                 else:
-                    _xpath = u'//*[contains(@label,"{}") or contains(@value, "{}")]'.format(text, text)
+                    _xpath = u'//*[contains(@label,{text}) or contains(@value, {text})]'.format(text=_text)
                 return self._element_find(_xpath, True, True)
         elif self._get_platform() == 'android':
+            _text = utils.escape_xpath_value(text)
             if exact_match:
-                _xpath = u'//*[@{}="{}"]'.format('text', text)
+                _xpath = u'//*[@{attr}={text}]'.format(attr='text', text=_text)
             else:
-                _xpath = u'//*[contains(@{},"{}")]'.format('text', text)
+                _xpath = u'//*[contains(@{attr},{text})]'.format(attr='text', text=_text)
             return self._element_find(_xpath, True, True)
 
     def _get_text(self, locator, first_only: bool = True):
