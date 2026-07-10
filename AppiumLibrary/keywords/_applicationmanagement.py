@@ -380,15 +380,43 @@ class _ApplicationManagementKeywords(KeywordGroup):
         """
         self._current_application().switch_to.window(window_name)
 
-    def go_to_url(self, url):
+    def go_to_url(self, url, timeout=None):
         """
         Opens the ``url`` in the default web browser.
 
-        Example:
+        The optional ``timeout`` argument specifies the maximum time to wait
+        for the page to load. If not specified, the default page load timeout
+        is used. The timeout can be given as a number (seconds) or as a time
+        string (e.g., '1 minute', '2 min 3 s', '4.5').
+
+        Examples:
         | Open Application  | http://localhost:4755/wd/hub | platformName=iOS | platformVersion=7.0 | deviceName='iPhone Simulator' | browserName=Safari |
-        | Go To URL         | http://m.webapp.com          |
+        | Go To URL         | http://m.webapp.com          |                  |
+        | Go To URL         | http://m.webapp.com          | timeout=30       |
+        | Go To URL         | http://m.webapp.com          | timeout=1 minute |
         """
-        self._current_application().get(url)
+        driver = self._current_application()
+        
+        if timeout is not None:
+            # Convert timeout to seconds
+            timeout_secs = robot.utils.timestr_to_secs(timeout)
+            # Get current timeout to restore it later
+            current_timeouts = driver.timeouts
+            original_page_load = None
+            
+            if current_timeouts is not None and hasattr(current_timeouts, 'page_load'):
+                original_page_load = current_timeouts.page_load
+            
+            try:
+                # Set the page load timeout
+                driver.set_page_load_timeout(timeout_secs)
+                driver.get(url)
+            finally:
+                # Restore the original page load timeout if it was set and is a valid positive value
+                if original_page_load is not None and original_page_load > 0:
+                    driver.set_page_load_timeout(original_page_load / 1000)  # Convert from ms to seconds
+        else:
+            driver.get(url)
 
     def get_capability(self, capability_name):
         """
