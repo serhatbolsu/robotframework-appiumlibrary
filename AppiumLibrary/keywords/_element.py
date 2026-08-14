@@ -529,11 +529,11 @@ class _ElementKeywords(KeywordGroup):
         self._info("Current page contains %s elements matching '%s'."
                    % (actual_xpath_count, xpath))
 
-    def expect_element(self, locator: str, state: Literal["visible", "not visible", "enabled", "disabled"], timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1), message: Optional[str] = None, loglevel: Optional[str] = 'INFO'):
+    def expect_element(self, locator, state: Literal["visible", "not visible", "enabled", "disabled"], timeout=timedelta(seconds=5), retry_interval=timedelta(seconds=1), message: Optional[str] = None, loglevel: Optional[str] = 'INFO'):
         """Verifies that the element with the given ``locator`` has the desired ``state`` (visible, not visible, enabled, disabled.)
 
         Args:
-        - ``locator``: the locator of the element to be checked.
+        - ``locator``: the locator of the element to be checked. Can be a locator string or a WebElement (e.g. from `Get Webelements`).
         - ``state``: the expected state of the element.
         - ``timeout``: the maximum time to wait for the element to meet the condition. The default timeout is 5 seconds.
         - ``retry_interval``: the interval at which the check is repeated before the timeout is reached. The default retry interval is 1 second.
